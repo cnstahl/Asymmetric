@@ -1,0 +1,16 @@
+*~
+\#*
+.DS_Store
+*.blg
+*.aux
+*.log
+*.synctex.gz
+*.cpt
+*.bbl
+*.out
+*.xml
+*.toc
+Papers/*
+LaTeX/majorana.pdf
+python/__pycache__/
+.ipynb_checkpoints/
