@@ -11,6 +11,7 @@
 *.xml
 *.toc
 Papers/*
+figures/*
 LaTeX/majorana.pdf
 python/__pycache__/
 .ipynb_checkpoints/
