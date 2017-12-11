@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+
+\usepackage[hyperfootnotes=false]{hyperref}
+\usepackage[margin=1in]{geometry}                                              
+\usepackage{amsmath,amsthm,amssymb}      
+\usepackage{titlesec}                                                         
+\usepackage{bm}        
+\usepackage{cprotect}                                
+\usepackage{savetrees} 
+\usepackage{bbold}
+\usepackage{abstract}
+                                          
+\usepackage{graphicx}                                      
+\graphicspath{{../figures/}}
+
+\usepackage{biblatex}
+\bibliography{bib.bib}
+
+\titleformat{\subsection}[runin]
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\renewcommand{\bf}{\mathbf}
+\renewcommand{\cal}{\mathcal}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdn}[3]{\frac{\partial^{#3} #1}{\partial #2^{#3}}}
+\newcommand{\pdop}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\nd}[2]{\frac{d #1}{d #2}}
+\newcommand{\ndn}[3]{\frac{d^{#3} #1}{d #2^{#3}}}
+\newcommand{\ndop}[1]{\frac{d}{d #1}}
+\newcommand{\dt}{\frac{d}{dt}}
+\newcommand{\grad}{\bm\nabla}
+\newcommand{\cross}{\times}
+\newcommand{\curl}{\grad\cross}
+\newcommand{\imp}{\Longrightarrow\quad}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\third}{\frac{1}{3}}
+\renewcommand{\th}[1]{\frac{1}{#1}}
+\renewcommand{\k}{4\pi\epsilon_0}
+\newcommand{\eps}{\epsilon_0}
+\newcommand{\intt}{\int_{t_1}^{t_2}}
+\newcommand{\inti}{\int_{-\infty}^{+\infty}}
+\newcommand{\ex}[1]{\left\langle #1 \right\rangle}
+\newcommand{\oom}[1]{\times 10^{#1}}
+\renewcommand{\d}{\delta}
+\newcommand{\e}{\text{e}}
+\renewcommand{\l}{\ell}
+\newcommand{\om}{\omega}
+\newcommand{\h}{\hbar}
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\braket}[2]{\left\langle#1\middle|#2\right\rangle}
+\newcommand{\brakett}[3]{\left\langle#1\middle|#2\middle|#3\right\rangle}
+\newcommand{\nn}{\nonumber\\}
+
+\renewcommand{\thesection}{\arabic{section}:}
+\renewcommand{\thesubsection}{(\alph{subsection})}
+
+\begin{document}
+
+\title{Entanglement Dynamics in Random Unitary Circuits}
+\author{Charles Stahl}
+
+\maketitle
+
+\section{Ergodicity and Stability} \label{sec:erg}
+
+A Markov process is one in which the future state depends only on the current state, not the past. Label the states $s_i$ and define $p_{i,t}$ as the probability that the system is in state $s_i$ at time $t$. For Markov processes it is possible to define the transition matrix... Since the product of the transition matrix and a probability vector gives the probabilities at the next time step, the transition matrix for $T$ time steps is just $P^T$. Under certain conditions\footnote{Figure these out.} the multi-step transition matrix approaches a constant matrix with all columns equal to the same vector $v^*$,
+\begin{align}
+\lim\limits_{T\to \infty}P^T = P^* = \begin{bmatrix}
+\vdots & \vdots &  & \vdots\\
+v^* & v^* & \cdots & v^*\\
+\vdots & \vdots &  & \vdots\\
+\end{bmatrix}.
+\end{align}
+Then the probability after a long time is the vector $v^*$ for any initial state.
+
+For the 1-stair circuit, the transition matrix is the matrix product of single-site transition matrices $P_{N} = \prod_NP_{1}\otimes$, where the single-state transition matrix is
+\begin{align}
+P_1 = \begin{bmatrix}
+1-\frac{1+m}{2}\Gamma & \frac{1+m}{2}\Gamma & 0 & 0\\
+0 & 1-\Gamma & \Gamma & 0\\
+\frac{1-m}{2}\Gamma & 0 & 1-\Gamma & \frac{1+m}{2}\Gamma\\
+0 & \frac{1-m}{2}\Gamma & 0 & 1 - \frac{1-m}{2}\Gamma
+\end{bmatrix}.
+\end{align}
+The equilibrium state is
+\begin{align}
+v^* = \begin{pmatrix}
+content...
+\end{pmatrix}
+\end{align}
+
+\end{document}
