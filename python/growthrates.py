@@ -52,3 +52,15 @@ def random_update_S(S):
     S[-1] = S[0] + diff
     return(S)
 
+def stair_update_S(S, n):
+    N = len(S)
+    diff = S[-1] - S[0]
+    i = random.randint(0,N-2)
+#     print(i)
+    for idx in range(n):
+        i = i+1
+        if i == N-1: i = 0
+#         print(i)
+        S[i] = site_update_S(S, i)
+        S[-1] = S[0] + diff
+    return(S)
