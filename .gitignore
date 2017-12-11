@@ -12,6 +12,6 @@
 *.toc
 Papers/*
 figures/*
-LaTeX/majorana.pdf
+LaTeX/entanglement.pdf
 python/__pycache__/
 .ipynb_checkpoints/
