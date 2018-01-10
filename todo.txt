@@ -1,5 +1,4 @@
 TODO
 
 
-Read DifEq thing
-   http://reference.wolfram.com/language/tutorial/DSolveNonlinearFirstOrderPDEs.html
+Is linear ~ uncorrelated
