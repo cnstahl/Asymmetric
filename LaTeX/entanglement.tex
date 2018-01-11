@@ -72,6 +72,14 @@
 
 \section{Circuit Architectures} \label{sec:arch}
 
+Sondhi Paper
+Nandkishore paper
+Surface growth picture
+Steps
+Possible to never have S[i]=S[i+1]
+->Diamonds instead of blocks
+Clarify where gates act, where entropy and steps are defined
+
 \section{Ergodicity and Stability} \label{sec:erg}
 
 A Markov process is one in which the future state depends only on the current state, not the past. Label the states $s_i$ and define $p_{i,t}$ as the probability that the system is in state $s_i$ at time $t$. For Markov processes it is possible to define the transition matrix... Since the product of the transition matrix and a probability vector gives the probabilities at the next time step, the transition matrix for $T$ time steps is just $P^T$. Under certain conditions\footnote{Figure these out.} the multi-step transition matrix approaches a constant matrix with all columns equal to the same vector $v^*$,
@@ -156,19 +164,51 @@ Note that with increasing stair length the growth rate asymptotes to the functio
 
 The maximal growth rate occurs when the slope is near-maximal, with only a single down step. This corresponds to a slope of $\frac{N-2}{N}$. Then with only a single local minimum in the entropy function, the local minimum moves one site to the right with each gate. Every gate that acts raises the entropy, resulting in an entropy gain of 2 per gate. Of course for a slope of 1, there is still no entropy generation.
 
-If there are 2 down steps, for a slope of $\frac{N-4}{N}$, the entropy generation is almost the same. One local minimum still moves to the right with the leading edge of the staircase. However, once per staircase (once every $N$ gates), one down step is next to the other down step. This results in no entropy growth for that step, for an average entropy gain of $2\frac{N-1}{N}$. Further discussion of the dynamics with near-maximal slope appear in section~\ref{sec:nearmax}.
+If there are 2 down steps, for a slope of $\frac{N-4}{N}$, the entropy generation is almost the same. One local minimum still moves to the right with the leading edge of the staircase. However, once per staircase (once every $N$ gates), one down step is next to the other down step. This results in no entropy growth for that step, for an average entropy gain of $2\frac{N-1}{N}$. Further discussion of the dynamics with near-maximal slope appear in section~\ref{sub:nearmax}.
 
 This pattern continues as the slope decreases. With $\l$ down steps, the slope is $\frac{N-2\l}{N}$ and the average growth rate is $2\frac{N-\l}{N} = m+1$. At $m = -1$ there is no growth, as expected. At $m=0$, the growth rate is 1, the same as in the brickwork model. With no slope, the steps alternate between up and down, so that half of the gates in any stair are effective, explaining the connection to the brickwork model.
 
+\subsection{Near-Maximal Slopes} \emph{} \label{sub:nearmax}
+
+When the slope is near its largest possible value, so that the entropy increases at nearly every site, it is possible to isolate the behavior of the few down steps. Since gates can only act between a down step and an up step, these ``particles" follow a deterministic behavior and control the entropy growth in the circuit.
+
+Consider a stair with its first gate acting between sites $i$ and $i+1$ and its last gate between $j$ and $j+1$. If there are no down steps in this region, the gate has no effect. 
+
 \section{Numerical Simulation} \label{sec:num}
 
-To simulate the entropy growth in infinite spin chains with non-zero slope, we used finite chains with periodic boundary conditions, where one end of the chain is attached to the other with an offset. For 1-stairs (the random architecture), the measured growth rate is slightly larger than predicted, seen in figure~\ref{fig:1stair}.
+To simulate the entropy growth in infinite spin chains with non-zero slope, we use finite chains with periodic boundary conditions, where one end of the chain is attached to the other with an offset. The spin chains are initialized with an uncorrelated entropy function with the given slope. Since larger gates will generate correlation, growth rates are calculated for only the latter part of the simulation, ensuring that the entropy is in its equilibrium state.
+
+\subsection{Measuring Growth Rates} \emph{} \label{sub:growthrates}
+
+Growth rates for stairs of various lengths are shown in figure~\ref{fig:compareRates}. As length increases, the growth rate follows the same pattern as predicted, increasing with the maximum moving right. 
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{compareRates.pdf}
+	\caption{\textbf{Growth rates for different length stairs.} All growth rates were calculated using a 100-site spin chain with offset periodic boundary conditions. Rates were calculated from the application of 100,000 gates, averaged over the last 80\% of the gates in order to build up correlations.}
+	\label{fig:compareRates}
+\end{figure}
+
+For 1-stairs (the random architecture), the measured growth rate is slightly larger than predicted, seen in figure~\ref{fig:1stairRates}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{1stairRates.pdf}
 	\caption{\textbf{Measured and analytic growth rates} for the 1-stair architecture. Note that the measured rate is slightly higher. Since the assumption of un-correlation is exact for 1-stairs, this difference is assumed to be due to second order derivatives in the slope and finite length effects.}
+	\label{fig:1stairRates}
 \end{figure}
-There are two main differences between the analytic and measured setups. For the analytic result, the chain is infinite and the entropy function is assumed to be linear and uncorrelated. 
+There are two main differences between the analytic and measured setups. For the analytic result, the chain is infinite and the entropy function is assumed to be linear and uncorrelated. Since the assumption of un-correlation is exact for 1-stairs, this difference is assumed to be due to second order derivatives in the slope and finite length effects.
+
+Stairs of length greater than 1 do however generate correlations. Figure~\ref{6stairRates} shows the growth rates for 6-stairs. 
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{6stairRates.pdf}
+	\caption{\textbf{Measured and predicted growth rates} for the 6-stair architecture. The measured rate is now lower than predicted, implying that the correlations built up by the stairs act to lower their entropy production.}
+	\label{6stairRates}
+\end{figure}
+The notable difference in growth rate here is probably due to correlations created by the 6-stairs. 
+
+\subsection{Measuring Correlations} \emph{} \label{sub:correlations}
+
+
 
 
 

@@ -1,4 +1,16 @@
 TODO
 
+Questions
+Is linear ~ uncorrelated?
+Uncorrelated actually means perfectly ferromagnetic for m=0?
 
-Is linear ~ uncorrelated
+
+
+Before draft
+Clarify: Gates act between sites.
+         Entropy *values* are defined between sites (at cuts)
+         Up or down steps are defined on sites (between cuts)
+
+After draft
+S[i] is a cut BETWEEN site i and site i+1!!! If there are N sites there N cuts, but offset?
+For entropy functions, when we specify N=100, there should actually be 100 sites, meaning the array should be 101 long
