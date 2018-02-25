@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.linalg as  la
+import scipy.special
 
 I = np.array([[ 1,  0],[ 0,  1]])
 X = np.array([[ 0,  1],[ 1,  0]])
@@ -47,6 +48,7 @@ def chop(a):
 
 def norm(A):
     norm = np.trace(np.matmul(A, A.T.conj()))/(len(A))
+#    print("here")
     assert np.isclose(np.imag(norm),0)
     return np.real(norm)
 
@@ -81,3 +83,32 @@ def par_tr(x,i):
     indices = indices & mask
     return (x[:,np.unique(indices)][np.unique(indices)] + 
             x[:,np.unique(indices + bit)][np.unique(indices + bit)])/2
+def permutations(L):
+    alph2Sz = np.zeros(2**L, dtype=int)
+    for i in range(2**L):
+        alph2Sz[i] = bin(i).count('1')
+    alph2Sz = alph2Sz.argsort()
+    Sz2alph = np.zeros(2**L, dtype=int)
+    for idx, val in enumerate(alph2Sz):
+        Sz2alph[val] = idx
+    return alph2Sz, Sz2alph
+
+def mat2list(matrix):
+    L = (int) (np.log2(len(matrix)))
+    alph2Sz, Sz2alph = permutations(L)
+    diag = matrix[alph2Sz]
+    diag = diag[:,alph2Sz]
+    A = []
+    j = 0
+    for i in range(L+1):
+        k = j + (int) (scipy.special.comb(L,i))
+        A.append(diag[j:k, j:k])
+        j = k
+    return A
+
+def list2mat(A):
+    L = len(A) - 1
+    alph2Sz, Sz2alph = permutations(L)
+    diag = la.block_diag(*A)
+    mat = diag[Sz2alph]
+    return mat[:,Sz2alph]

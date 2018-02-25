@@ -2,17 +2,16 @@ import numpy as np
 import scipy.linalg as  la
 import hamiltonian as hm
 
-L = 9
+L = 11
 
 H = hm.sparse_H(L)
 vals, vecs = la.eigh(H)
-eners = np.diag(vals)
 vecsd = vecs.T.conj()
 
 # Total time elapsed
-end = 3
+end = 1
 # Time steps per second
-n = 20
+n = 1
 N = n*end
 A = hm.Z
 for i in range(L-1):
@@ -27,11 +26,14 @@ weightback9 = np.empty((L, N))
 for i in np.arange(N):
     t = i/n
     unitt = np.matmul(np.matmul(vecs,  np.diag(np.exp(-1j*vals*t))), vecsd)
-    uninv = np.matmul(np.matmul(vecs,  np.diag(np.exp( 1j*vals*t))), vecsd)
-    At    = np.matmul(np.matmul(uninv, A),             unitt)
-    Bt    = np.matmul(np.matmul(uninv, B),             unitt)
+    uninv = np.matmul(np.matmul(vecsd,  np.diag(np.exp(1j*vals*t))), vecs)
+#    unitt = la.expm(-1j*H*t)
+#    At    = np.dot(np.dot(np.linalg.inv(unitt), A),             unitt)
+#    Bt    = np.dot(np.dot(np.linalg.inv(unitt), B),             unitt)
 #    At    = np.matmul(np.matmul(np.linalg.inv(unitt), A),             unitt)
 #    Bt    = np.matmul(np.matmul(np.linalg.inv(unitt), B),             unitt)
+    At    = np.matmul(np.matmul(uninv, A),             unitt)
+    Bt    = np.matmul(np.matmul(uninv, B),             unitt)
 #     print(chop(unit3t),"\n")
     front = hm.norm(At)
     back  = hm.norm(Bt)
@@ -45,5 +47,3 @@ for i in np.arange(N):
         weightback9[j, i]     = back  - backhere
         front = fronthere
         back  = backhere
-
-np.save('9site.weights', [weightfore9,weightback9])
