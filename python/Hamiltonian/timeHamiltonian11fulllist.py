@@ -43,8 +43,8 @@ for i in np.arange(N):
     At = hm.list2mat(Atlist)
     Bt = hm.list2mat(Btlist)
     
-    front = hm.norm(At)
-    back  = hm.norm(Bt)
+    front = 1
+    back  = 1
     
     for j in range(L):
         At = hm.end_trace(At,1)
