@@ -2,16 +2,16 @@ import numpy as np
 import scipy.linalg as  la
 import hamiltonian as hm
 
-L = 9
+L = 11
 
 H = hm.sparse_H(L)
 vals, vecs = la.eigh(H)
 vecsd = vecs.T.conj()
 
 # Total time elapsed
-end = 3
+end = 1
 # Time steps per second
-n = 20
+n = 1
 N = n*end
 A = np.array([hm.Z[0,0], hm.Z[1,1]])
 for i in range(L-1):
@@ -55,5 +55,3 @@ for i in np.arange(N):
         weightback9[j, i]     = back  - backhere
         front = fronthere
         back  = backhere
-
-np.save('9site.weights', [weightfore9,weightback9])

@@ -94,6 +94,7 @@ def permutations(L):
     return alph2Sz, Sz2alph
 
 def mat2list(matrix):
+    assert (len(np.shape(matrix)) == 2)
     L = (int) (np.log2(len(matrix)))
     alph2Sz, Sz2alph = permutations(L)
     diag = matrix[alph2Sz]
@@ -112,3 +113,23 @@ def list2mat(A):
     diag = la.block_diag(*A)
     mat = diag[Sz2alph]
     return mat[:,Sz2alph]
+
+def arr2list(array):
+    assert (len(np.shape(array)) == 1)
+    L = (int) (np.log2(len(array)))
+    alph2Sz, Sz2alph = permutations(L)
+    perm = array[alph2Sz]
+    A = []
+    j = 0
+    for i in range(L+1):
+        k = j + (int) (scipy.special.comb(L,i))
+        A.append(perm[j:k])
+        j = k
+    return A
+
+# def list2arr(A):
+#     L = len(A) - 1
+#     alph2Sz, Sz2alph = permutations(L)
+#     diag = la.block_diag(*A)
+#     mat = diag[Sz2alph]
+#    return mat[:,Sz2alph]
