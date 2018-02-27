@@ -57,4 +57,4 @@ for i in np.arange(N):
         front = fronthere
         back  = backhere
 
-np.save("data/" + argv[0].replace(".py", ""), [weightfore,weightback])
+np.save("data/" + argv[0].replace(".py", ""), [weightfore, weightback])
