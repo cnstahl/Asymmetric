@@ -46,10 +46,10 @@ for i in np.arange(N):
 
     for j in range(L):
         Aj = hm.par_tr(At,j)
-        Bj = hm.par_tr(Bt,L-j-1)
+        Bj = hm.par_tr(Bt,j)
         fronthere = hm.norm(Aj)
         backhere  = hm.norm(Bj)
-        weightfore[L-1-j, i] = 1 - fronthere
+        weightfore[j, i] = 1 - fronthere
         weightback[j, i]     = 1 - backhere
 
 np.save("data/" + argv[0].replace(".py", ""), [weightfore, weightback])

@@ -7,7 +7,7 @@ name = argv[1]
 weights = np.load(name)
 n = 20
 k = 0
-names = ["Front edge of forward wave", "Front edge of backward wave"]
+names = ["Weight here of forward wave", "Weight here of backward wave"]
 filenames = ["front", "back"]
 
 for weightlist in weights:
