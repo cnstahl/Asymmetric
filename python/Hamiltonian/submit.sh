@@ -15,4 +15,5 @@
 module purge 
 module load anaconda3
 
-python L13end2n10.py
+python L11end1n60_init.py
+python L11end1n60.py

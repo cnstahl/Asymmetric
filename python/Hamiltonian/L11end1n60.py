@@ -10,9 +10,9 @@ vals, vecs = la.eigh(H)
 vecsd = vecs.T.conj()
 
 # Total time elapsed
-end = 3
+end = 1
 # Time steps per second
-n = 20
+n = 60
 N = n*end
 A = np.array([hm.Z[0,0], hm.Z[1,1]])
 for i in range(L-1):
@@ -43,13 +43,18 @@ for i in np.arange(N):
         Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
     At = hm.list2mat(Atlist)
     Bt = hm.list2mat(Btlist)
-
+    
+    front = 1
+    back  = 1
+    
     for j in range(L):
-        Aj = hm.par_tr(At,j)
-        Bj = hm.par_tr(Bt,L-j-1)
-        fronthere = hm.norm(Aj)
-        backhere  = hm.norm(Bj)
-        weightfore[L-1-j, i] = 1 - fronthere
-        weightback[j, i]     = 1 - backhere
+        At = hm.end_trace(At,1)
+        Bt = hm.front_trace(Bt,1)
+        fronthere = hm.norm(At)
+        backhere  = hm.norm(Bt)
+        weightfore[L-1-j, i] = front - fronthere
+        weightback[j, i]     = back  - backhere
+        front = fronthere
+        back  = backhere
 
 np.save("data/" + argv[0].replace(".py", ""), [weightfore, weightback])

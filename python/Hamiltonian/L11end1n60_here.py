@@ -10,9 +10,9 @@ vals, vecs = la.eigh(H)
 vecsd = vecs.T.conj()
 
 # Total time elapsed
-end = 3
+end = 1
 # Time steps per second
-n = 20
+n = 60
 N = n*end
 A = np.array([hm.Z[0,0], hm.Z[1,1]])
 for i in range(L-1):

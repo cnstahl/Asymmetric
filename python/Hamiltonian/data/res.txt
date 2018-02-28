@@ -1,2 +1,1 @@
-/var/spool/slurmd/job128313/slurm_script: line 18: 180594 Killed                  python L13end2n10.py
-slurmstepd: error: Exceeded step memory limit at some point.
+python: can't open file 'L11end1n60_init.py': [Errno 2] No such file or directory
