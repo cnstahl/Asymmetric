@@ -133,3 +133,56 @@ def arr2list(array):
 #     diag = la.block_diag(*A)
 #     mat = diag[Sz2alph]
 #    return mat[:,Sz2alph]
+
+# Get weights at only some sites at a given time
+# Pass (vals, vecs) for faster performance
+def get_weights(L, t, sites, here=True, H=None, vals=None, vecs=None):
+    # make sure we have vals, vecs
+    if (vals is None or vecs is None):
+        assert not (H is None)
+        vals, vecs = la.eigh(H)
+    vecsd = vecs.T.conj()
+    
+    if (here == False): assert False, 'Only implemented for here'
+    
+    # Get preliminary stuff
+    A = np.array([Z[0,0], Z[1,1]])
+    for i in range(L-1):
+        A = np.kron(A,np.array([1,1]))
+    Alist = arr2list(A)
+    B = np.array([Z[0,0], Z[1,1]])
+    for i in range(L-1):
+        B = np.kron(np.array([1,1]),B)
+    Blist = arr2list(B)
+
+
+    weightfore = np.empty(len(sites))
+    weightback = np.empty(len(sites))
+    
+    unitt = np.matmul(vecs * np.exp(-1j*vals*t), vecsd)
+    uninv = np.matmul(vecs * np.exp( 1j*vals*t), vecsd)
+    
+    ulist = mat2list(unitt)
+    uinvlist = mat2list(uninv)
+    
+    Atlist = []
+    for idx, val in enumerate(Alist):
+        Atlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
+    Btlist = []
+    for idx, val in enumerate(Blist):
+        Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
+    At = list2mat(Atlist)
+    Bt = list2mat(Btlist)
+    
+    front = 1
+    back  = 1
+    
+    for j, site in enumerate(sites):
+        Aj = par_tr(At,site)
+        Bj = par_tr(Bt,site)
+        fronthere = norm(Aj)
+        backhere  = norm(Bj)
+        weightfore[j] = 1 - fronthere
+        weightback[j]     = 1 - backhere
+    
+    return np.array([weightfore, weightback])
