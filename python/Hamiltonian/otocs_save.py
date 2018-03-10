@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 import os.path
 
 L     = 11
-vs    = np.asarray([8, 10, 12, 14, 16, 18, 20, 22, 24])
+vs    = np.asarray([5, 6, 7, 9, 11])
 sites = np.arange(L)
 
-mask = np.zeros(len(vs))
+mask = np.zeros(len(vs), dtype=bool)
 for idx, v in enumerate(vs):
     fname = "data/otocforeL" + str(L) + "v" + str(v) + ".npy"
-    mask[idx] = !(os.path.isfile(fname))
+    mask[idx] = not (os.path.isfile(fname))
 vs = vs[mask]
 
 times = []
