@@ -15,4 +15,4 @@
 module purge 
 module load anaconda3
 
-python otocs.py
+python otocs_save.py
