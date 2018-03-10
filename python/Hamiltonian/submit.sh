@@ -15,4 +15,4 @@
 module purge 
 module load anaconda3
 
-python L13end1n1.py
+python otocs.py

@@ -3,8 +3,8 @@ import scipy.linalg as la
 import hamiltonian as hm
 import matplotlib.pyplot as plt
 
-L     = 7
-vs    = np.asarray([1,2,3,4,5])
+L     = 11
+vs    = np.asarray([5,10,15,20,25])
 sites = np.arange(L)
 
 times = []
@@ -43,15 +43,15 @@ for idx, t in enumerate(times):
     
 otocsfore = np.zeros((len(vs), L))
 otocsback = np.zeros((len(vs), L))
-for v in vs:
+for idx, v in enumerate(vs):
     for site in range(L):
         t_need = site/v
         for i, t in enumerate(times):
             if np.isclose(t,t_need): break
         j = (sites_at_ts_fore[i]).index(site)
 #         print(v, site, sites_at_ts_fore[i][j], t_need, times[i])
-        otocsfore[v-1, site] = weightsfore[i][j]
-for v in vs:
+        otocsfore[idx, site] = weightsfore[i][j]
+for idx, v in enumerate(vs):
     for dist in range(L):
         site = L-dist-1
         t_need = dist/v
@@ -59,7 +59,7 @@ for v in vs:
             if np.isclose(t,t_need): break
         j = (sites_at_ts_back[i]).index(site)
 #         print(v, site, sites_at_ts_back[i][j], t_need, times[i])
-        otocsback[v-1, site] = weightsback[i][j]
+        otocsback[idx, site] = weightsback[i][j]
         
 ax = plt.subplot(111)
 for idx, otocfore in enumerate(otocsfore):
@@ -68,7 +68,7 @@ box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.9, box.height])
 ax.legend(bbox_to_anchor=(1.05, 1), loc=2)
 plt.ylim(0,1)
-plt.savefig('data/otocsforeL_' + str(L))
+plt.savefig('data/broadotocsfore_L_' + str(L))
 plt.close()
     
 ax = plt.subplot(111)
@@ -78,4 +78,4 @@ box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.9, box.height])
 ax.legend(bbox_to_anchor=(1.05, 1), loc=2)
 plt.ylim(0,1)
-plt.savefig('data/otocsbackL_' + str(L))
+plt.savefig('data/broadotocsback_L_' + str(L))
