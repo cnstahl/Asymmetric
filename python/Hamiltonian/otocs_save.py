@@ -2,10 +2,17 @@ import numpy as np
 import scipy.linalg as la
 import hamiltonian as hm
 import matplotlib.pyplot as plt
+import os.path
 
 L     = 11
 vs    = np.asarray([8, 10, 12, 14, 16, 18, 20, 22, 24])
 sites = np.arange(L)
+
+mask = np.zeros(len(vs))
+for idx, v in enumerate(vs):
+    fname = "data/otocforeL" + str(L) + "v" + str(v) + ".npy"
+    mask[idx] = !(os.path.isfile(fname))
+vs = vs[mask]
 
 times = []
 for v in vs: times.extend(sites/v)
