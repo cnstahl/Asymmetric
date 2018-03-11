@@ -5,12 +5,22 @@ import matplotlib.pyplot as plt
 import os.path
 
 L     = 11
-vs    = np.asarray([5, 6, 7, 9, 11])
+dense = False
+#vs = np.asarray([5,6])
+vs    = np.asarray([5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 sites = np.arange(L)
+
+if (dense): 
+    H = hm.dense_H(L)
+    prefix = 'data/otoc_dense'
+else: 
+    H = hm.sparse_H(L)
+    prefix = 'data/otoc_sparse'
+vals, vecs = la.eigh(H)
 
 mask = np.zeros(len(vs), dtype=bool)
 for idx, v in enumerate(vs):
-    fname = "data/otocforeL" + str(L) + "v" + str(v) + ".npy"
+    fname = prefix + "foreL" + str(L) + "v" + str(v) + ".npy"
     mask[idx] = not (os.path.isfile(fname))
 vs = vs[mask]
 
@@ -36,9 +46,6 @@ for time in times:
     sites_at_ts_fore.append(sites_at_t_fore)
     sites_at_ts_back.append(sites_at_t_back)
     
-H = hm.dense_H(L)
-vals, vecs = la.eigh(H)
-
 weightsfore = []
 weightsback = []
 
@@ -69,8 +76,8 @@ for idx, v in enumerate(vs):
         otocsback[idx, site] = weightsback[i][j]
 
 for idx, v in enumerate(vs):
-    np.save("data/otocforeL" + str(L) + "v" + str(v), otocsfore[idx])
-    np.save("data/otocbackL" + str(L) + "v" + str(v), otocsback[idx])
+    np.save(prefix + "foreL" + str(L) + "v" + str(v), otocsfore[idx])
+    np.save(prefix + "backL" + str(L) + "v" + str(v), otocsback[idx])
         
 #ax = plt.subplot(111)
 #for idx, otocfore in enumerate(otocsfore):
