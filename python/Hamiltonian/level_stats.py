@@ -2,7 +2,7 @@ import numpy as np
 import scipy.linalg as la
 import hamiltonian as hm
 
-L = 7
+L = 13
 H = hm.sparse_H(L)
 
 Z = np.zeros((2**L,2**L))
