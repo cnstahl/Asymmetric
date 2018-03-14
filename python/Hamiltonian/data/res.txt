@@ -1,0 +1,2 @@
+/var/spool/slurmd/job131717/slurm_script: line 18: 27939 Bus error               python level_stats.py
+slurmstepd: error: Exceeded step memory limit at some point.
