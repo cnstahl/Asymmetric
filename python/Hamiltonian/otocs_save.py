@@ -16,7 +16,15 @@ if (dense):
 else: 
     H = hm.sparse_H(L)
     prefix = 'data/otoc_sparse'
-vals, vecs = la.eigh(H)
+Hlist = hm.mat2list(H)
+vals_list = []
+vecs_list = []
+vecsd_list = []
+for idx, H in enumerate(Hlist):
+    vals, vecs = la.eigh(H)
+    vals_list.append(vals)
+    vecs_list.append(vecs)
+    vecsd_list.append(vecs.T.conj())
 
 mask = np.zeros(len(vs), dtype=bool)
 for idx, v in enumerate(vs):
@@ -50,8 +58,8 @@ weightsfore = []
 weightsback = []
 
 for idx, t in enumerate(times):
-    (fore, _) = hm.get_weights(L, t, sites_at_ts_fore[idx], vecs=vecs, vals=vals)
-    (_, back) = hm.get_weights(L, t, sites_at_ts_back[idx], vecs=vecs, vals=vals)
+    (fore, _) = hm.get_weights_from_time_sites(L, t, sites_at_ts_fore[idx], vals_list, vecs_list, vecsd_list)
+    (_, back) = hm.get_weights_from_time_sites(L, t, sites_at_ts_back[idx], vals_list, vecs_list, vecsd_list)
     weightsfore.append(fore)
     weightsback.append(back)
     
