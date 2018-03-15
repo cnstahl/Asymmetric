@@ -5,10 +5,17 @@ from sys import argv
 
 L = 11
 # Total time elapsed
-end = 3
+end = 2
 # Time steps per second
-n = 20
+n = 2
+here = False
+dense = False
 
-weightfore, weightback = hm.get_all_weights(L, end, n, here=False, dense = False)
+weightfore, weightback = hm.get_all_weights(L, end, n, here=here, dense=dense)
 
-np.save("data/" + argv[0].replace(".py", ""), [weightfore, weightback])
+fname = 'data/L' + str(L) + 'end' + str(end) + 'n' + str(n)
+if (dense):
+    fname = 'dense' + fname
+if (here):
+    fname = fname + '_here'
+np.save(fname, [weightfore, weightback])
