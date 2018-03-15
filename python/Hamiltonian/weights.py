@@ -3,11 +3,11 @@ import scipy.linalg as  la
 import hamiltonian as hm
 from sys import argv
 
-L = 11
+L = 13
 # Total time elapsed
-end = 3
+end = 1
 # Time steps per second
-n = 20
+n = 1
 here = False
 dense = False
 

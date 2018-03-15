@@ -157,7 +157,7 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
     for idx, vecs in enumerate(vecs_list):
         ulist.append(   np.matmul(vecs * np.exp(-1j*vals_list[idx]*t), vecsd_list[idx]))
         uinvlist.append(np.matmul(vecs * np.exp( 1j*vals_list[idx]*t), vecsd_list[idx]))
-    
+    print("Calculated ulist, etc.", flush=True)
     Atlist = []
     for idx, val in enumerate(Alist):
         Atlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
@@ -166,7 +166,7 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
         Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
     At = list2mat(Atlist)
     Bt = list2mat(Btlist)
-    
+    print("Calculated Alist, Blist", flush=True)
     front = 1
     back  = 1
     
@@ -194,8 +194,10 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
 
 # Get (L x N) matrix containing all weights
 def get_all_weights(L, end, n, here=True, dense = False):
+    print("Started", flush=True)
     if (dense): H = dense_H(L)
     else: H = sparse_H(L)
+    print("Made Hamiltonian", flush=True)
     Hlist = mat2list(H)
     vals_list = []
     vecs_list = []
@@ -207,14 +209,17 @@ def get_all_weights(L, end, n, here=True, dense = False):
         vecsd_list.append(vecs.T.conj())
     
     N = n*end
+    print("About to make A", flush=True)
     A = np.array([Z[0,0], Z[1,1]])
     for i in range(L-1):
         A = np.kron(A,np.array([1,1]))
     Alist = arr2list(A)
+    print("About to make B", flush=True)
     B = np.array([Z[0,0], Z[1,1]])
     for i in range(L-1):
         B = np.kron(np.array([1,1]),B)
     Blist = arr2list(B)
+    print("Made B", flush=True)
     
     
     weightfore = np.empty((L, N))
@@ -222,6 +227,7 @@ def get_all_weights(L, end, n, here=True, dense = False):
     
     for i in np.arange(N):
         t = i/n
+        print("About to get weights at time " + str(i), flush=True)
         weightfore[:,i], weightback[:,i] = \
                           get_weights_from_time_sites(L, t, range(L), vals_list, vecs_list, vecsd_list, here=here)
                                                         
