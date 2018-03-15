@@ -5,9 +5,9 @@ from sys import argv
 
 L = 11
 # Total time elapsed
-end = 2
+end = 3
 # Time steps per second
-n = 2
+n = 20
 here = False
 dense = False
 
