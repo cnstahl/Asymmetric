@@ -5,8 +5,15 @@ import hamiltonian as hm
 L = 9
 
 H = hm.sparse_H(L)
-vals, vecs = la.eigh(H)
-vecsd = vecs.T.conj()
+Hlist = hm.mat2list(H)
+vals_list = []
+vecs_list = []
+vecsd_list = []
+for idx, H in enumerate(Hlist):
+    vals, vecs = la.eigh(H)
+    vals_list.append(vals)
+    vecs_list.append(vecs)
+    vecsd_list.append(vecs.T.conj())
 
 # Total time elapsed
 end = 3
@@ -28,11 +35,11 @@ weightback9 = np.empty((L, N))
 
 for i in np.arange(N):
     t = i/n
-    unitt = np.matmul(vecs * np.exp(-1j*vals*t), vecsd)
-    uninv = np.matmul(vecs * np.exp( 1j*vals*t), vecsd)
-    
-    ulist = hm.mat2list(unitt)
-    uinvlist = hm.mat2list(uninv)
+    ulist = []
+    uinvlist = []
+    for idx, vecs in enumerate(vecs_list):
+        ulist.append(   np.matmul(vecs * np.exp(-1j*vals_list[idx]*t), vecsd_list[idx]))
+        uinvlist.append(np.matmul(vecs * np.exp( 1j*vals_list[idx]*t), vecsd_list[idx]))
     
     Atlist = []
     for idx, val in enumerate(Alist):
