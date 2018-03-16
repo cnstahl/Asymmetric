@@ -1,13 +1,13 @@
 import numpy as np
 import scipy.linalg as  la
-import hamiltonian as hm
+import sparsehamiltonian as hm
 from sys import argv
 
 L = 13
 # Total time elapsed
-end = 1
+end = 3
 # Time steps per second
-n = 1
+n = 20
 here = False
 dense = False
 

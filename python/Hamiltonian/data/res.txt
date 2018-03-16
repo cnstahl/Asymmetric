@@ -1,9 +1,6 @@
-Started
-Made Hamiltonian
-About to make A
-About to make B
-Made B
-About to get weights at time 0
-Calculated ulist, etc.
-/var/spool/slurmd/job132670/slurm_script: line 19: 157387 Killed                  python weights.py
+Made H
+Made Alist
+Made Alist, Blist
+Made ulist, et 
+/var/spool/slurmd/job132827/slurm_script: line 19: 163943 Killed                  python weights.py
 slurmstepd: error: Exceeded step memory limit at some point.
