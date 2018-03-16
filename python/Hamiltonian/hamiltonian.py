@@ -134,6 +134,24 @@ def arr2list(array):
 #     mat = diag[Sz2alph]
 #    return mat[:,Sz2alph]
 
+def init_pert(L, pert_strength):
+    pert = np.array([[ 0,  0,  0,  0],
+                 [ 0, -1,  1,  0],
+                 [ 0,  1, -1,  0],
+                 [ 0,  0,  0,  0]])
+    for i in range(L-2):
+        pert = np.kron(pert, np.eye(2))
+    return pert*pert_strength
+
+def finl_pert(L, pert_strength):
+    pert = np.array([[ 0,  0,  0,  0],
+                 [ 0, -1,  1,  0],
+                 [ 0,  1, -1,  0],
+                 [ 0,  0,  0,  0]])
+    for i in range(L-2):
+        pert = np.kron(np.eye(2), pert)
+    return pert*pert_strength
+
 # Get weights at only some sites at a given time
 # Pass (vals, vecs) for faster performance
 def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, here=True):
@@ -193,9 +211,10 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
     return np.array([weightfore, weightback])
 
 # Get (L x N) matrix containing all weights
-def get_all_weights(L, end, n, here=True, dense = False):
+def get_all_weights(L, end, n, here=True, dense = False, pert_strength=0):
     if (dense): H = dense_H(L)
     else: H = sparse_H(L)
+    if (not pert_strength==0): H = H + init_pert(L, pert_strength)
     Hlist = mat2list(H)
     vals_list = []
     vecs_list = []
@@ -207,15 +226,6 @@ def get_all_weights(L, end, n, here=True, dense = False):
         vecsd_list.append(vecs.T.conj())
     
     N = n*end
-    A = np.array([Z[0,0], Z[1,1]])
-    for i in range(L-1):
-        A = np.kron(A,np.array([1,1]))
-    Alist = arr2list(A)
-    B = np.array([Z[0,0], Z[1,1]])
-    for i in range(L-1):
-        B = np.kron(np.array([1,1]),B)
-    Blist = arr2list(B)
-    
     
     weightfore = np.empty((L, N))
     weightback = np.empty((L, N))

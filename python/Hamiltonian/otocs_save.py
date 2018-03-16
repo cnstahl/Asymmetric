@@ -4,11 +4,12 @@ import hamiltonian as hm
 import matplotlib.pyplot as plt
 import os.path
 
-L     = 11
-dense = False
+L     = 9
+dense = True
 #vs = np.asarray([5,6])
 vs    = np.asarray([5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 sites = np.arange(L)
+pert_strength = 4
 
 if (dense): 
     H = hm.dense_H(L)
@@ -16,6 +17,10 @@ if (dense):
 else: 
     H = hm.sparse_H(L)
     prefix = 'data/otoc_sparse'
+if (not pert_strength == 0): 
+    prefix = prefix + "_pert_"
+H = H + hm.init_pert(L, pert_strength)
+H = H + hm.finl_pert(L, pert_strength)
 Hlist = hm.mat2list(H)
 vals_list = []
 vecs_list = []
