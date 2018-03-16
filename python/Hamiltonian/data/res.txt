@@ -1,6 +1,0 @@
-Made H
-Made Alist
-Made Alist, Blist
-Made ulist, et 
-/var/spool/slurmd/job132827/slurm_script: line 19: 163943 Killed                  python weights.py
-slurmstepd: error: Exceeded step memory limit at some point.
