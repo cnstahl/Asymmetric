@@ -39,6 +39,12 @@ def dense_H(l):
     H = dense_Hmult(l)
     return H * (2j * np.pi)/(3 * np.sqrt(3))
 
+def ising_mult(l):
+    if (l==1): return np.zeros((2,2))
+    if (l==2): return np.matmul(np.kron(Z,I), np.kron(I, Z))
+    return (np.kron(ising_mult(l-1), np.eye(2)) + 
+            np.kron(np.eye(2**(l-2)), np.matmul(np.kron(Z,I), np.kron(I, Z))))
+
 def chop(a):
     if not np.all(np.isclose(np.imag(a),0)): 
         print("\nchop() removed the imaginary part\n ")
@@ -211,10 +217,14 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
     return np.array([weightfore, weightback])
 
 # Get (L x N) matrix containing all weights
-def get_all_weights(L, end, n, here=True, dense = False, pert_strength=0):
+def get_all_weights(L, end, n, here=True, dense = False, pert_strength=0, finl_pert_strength=None, ising_strength=None):
     if (dense): H = dense_H(L)
     else: H = sparse_H(L)
-    if (not pert_strength==0): H = H + init_pert(L, pert_strength)
+    if (finl_pert_strength == None): finl_pert_strength = pert_strength
+    if (not pert_strength==0): 
+        H = H + init_pert(L, pert_strength)
+        H = H + finl_pert(L, finl_pert_strength)
+    if (not ising_strength==None): H = H + ising_strength * ising_mult(L)
     Hlist = mat2list(H)
     vals_list = []
     vecs_list = []
