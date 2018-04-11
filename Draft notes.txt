@@ -1,0 +1,17 @@
+Try to count zero energy states
+Also try to break this symmetry
+  Maybe longitudinal field?
+
+
+Need sources for 
+  Time Indep OTOC
+  Unitarity and information loss
+
+
+How to do references
+How to capitalize
+Numerals vs spell out 10/ten
+How much should I describe the Keyserlingk paper?
+  How often should I cite it?
+Nahum source on asymmetric systems?
+Should I call the entanglement entropy the entanglement? bitartite entanglement? EE? $S$?
