@@ -1,7 +1,6 @@
 \documentclass[11pt]{article}
 
-\usepackage[hyperfootnotes=false]{hyperref}
-\usepackage[margin=1in]{geometry}                                              
+\usepackage[hyperfootnotes=false]{hyperref}                                    
 \usepackage{amsmath,amsthm,amssymb}      
 \usepackage{titlesec}                                                         
 \usepackage{bm}        
@@ -20,9 +19,13 @@
 \bibliography{bib.bib}
 
 % Formatting
-\titleformat{\subsection}[runin]
+\usepackage{indentfirst}
+\usepackage{geometry}  
+\geometry{margin=1in}       
+%\geometry{lmargin=1.5in} 
+\titleformat{\subsection}
 {\normalfont\large\bfseries}{\thesubsection}{1em}{}
-%\renewcommand{\baselinestretch}{1.2 }
+\renewcommand{\baselinestretch}{1.1}
 
 \renewcommand{\bf}{\mathbf}
 \renewcommand{\cal}{\mathcal}

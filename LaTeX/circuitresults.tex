@@ -1,6 +1,6 @@
 \section{Dynamics in Asymmetric Circuits} \label{sec:stairs}
 
-\subsection{Staircase Models}\emph{} \label{sub:stairs}
+\subsection{Staircase Models} \label{sub:stairs}
 
 An interesting generalization of the random architecture is to consider ``staircases," which each consist of a series of gates, acting at cuts $x$, $x+1$, $x+2$, in sequential order. This would be a staircase moving to the right, but they can also move to the left. If there are $n$ gates in a staircase it is called an $n$-stair. They are called staircases because compared to figure~\ref{fig:tetris} they look like steps, as in figure~\ref{fig:stairs}. 
 \begin{figure}
@@ -17,17 +17,13 @@ However, in the picture in which all sites are either up or down slopes, $n$-sta
 	\label{fig:diagstairs}
 \end{figure}
 
-\subsection{Behavior Ignoring Correlations} \emph{}\label{sub:anal}
+\subsection{Behavior Ignoring Correlations} \label{sub:anal}
 
 Under certain approximations the entanglement entropy behaves analytically. One important approximation (described in section \ref{subsub:determ}) is that the Hilbert space at each site is large enough that almost all gates will in general maximally entangle the two sites on which they act. Other simplifying assumptions include ignoring correlations in ups and downs and ignoring second- and higher-order derivatives in $S(x,t)$. Combining these two assumptions, we arrive at uncorrelated entropy environments, which may be described only by their slope, $m$.
 
-\subsubsection{Small Stairs} \label{subsub:smallstairs} \emph{}
+\subsubsection{Small Stairs} \label{subsub:smallstairs} 
 
-The smallest stairs are 1-stairs, which are just individual gates. For an entropy surface with constant slope $m$ and no correlations, each step from one site to the next has probability $\frac{1+m}{2}$ of being up and $\frac{1-m}{2}$ of being down. The assumption that there are no correlations is exact in the 1-stair case. Consider a gate operating on site $n$ at time $t$. For the gate to increase the entropy $S(n)$, it must be the case that $S(n)<S(n-1), S(n+1)$. The probability of this is $\frac{1+m}{2} \frac{1-m}{2} = \frac{1-m^2}{4}$. In this case we have $S(n,t+1)=S(n,t)+2$, because the gate increases the entropy to be great than that of its neighbors. Then if the gates arrive with a rate $\Gamma$, we have
-\begin{align}
-\pd{S}{t} = \Gamma\frac{1-m^2}{2}.
-\end{align}
-Useful checks of this formula are that the entropy does not increase at maximal or minimal slope $m=1,-1$, and that at $m=0$, $\pd{S}{t}=\Gamma/2$, half the brickwork value. The latter rate makes sense because in the case of the brickwork circuit all gates are guaranteed to raise the entropy, while here only half\footnote{Fix this} will have an effect.
+The smallest stairs are 1-stairs, which are just individual gates. \emph{same as random circuit architecture, matches behavior there}
 
 2-stairs consist of one gate acting at site $n$ and one at site $n+1$. The entropy production of these gates is affected by the slope between them and the two slopes on either side. There are 8 possible configurations of those three slopes, but only 4 result in entropy growth, as shown in table~\ref{tab:2stair}. Although there will be correlation built up by the 2-stair architecture, we can still make the assumption that there are no correlations. The average growth rate is then approximately 
 \begin{align}
@@ -49,7 +45,7 @@ where $\Gamma$ is the rate of gates, so the rate of 2-stairs is $2\Gamma$.
 	\label{tab:2stair}
 \end{table}
 
-\subsubsection{Larger Stairs} \emph{} \label{subsub:largestairs}
+\subsubsection{Larger Stairs}  \label{subsub:largestairs}
 
 We can determine the growth rate for arbitrary length stairs through a recursive relationship. Consider a staircase made of $n$ gates. Its growth rate will be proportional to the gate rate normalized by the number of gates per stair, so we can write
 \begin{align}
@@ -76,13 +72,7 @@ If there are 2 down steps, for a slope of $\frac{N-4}{N}$, the entropy generatio
 
 This pattern continues as the slope decreases. With $\l$ down steps, the slope is $\frac{N-2\l}{N}$ and the average growth rate is $2\frac{N-\l}{N} = m+1$. At $m = -1$ there is no growth, as expected. At $m=0$, the growth rate is 1, the same as in the brickwork model. With no slope, the steps alternate between up and down, so that half of the gates in any stair are effective, explaining the connection to the brickwork model.
 
-\subsubsection{Near-Maximal Slopes} \emph{} \label{subsub:nearmax}
-
-When the slope is near its largest possible value, so that the entropy increases at nearly every site, it is possible to isolate the behavior of the few down steps. Since gates can only act between a down step and an up step, these ``particles" follow a deterministic behavior and control the entropy growth in the circuit.
-
-Consider a stair with its first gate acting between sites $i$ and $i+1$ and its last gate between $j$ and $j+1$. If there are no down steps in this region, the gate has no effect. 
-
-\subsection{Ergodicity and Stability}\footnote{The following section describes an attempt to calculate steady state correlations. I haven't been successful in doing this yet, but I wanted to write it up in case it proves useful.} \label{sub:erg}\emph{}
+\subsection{Ergodicity and Stability}\footnote{The following section describes an attempt to calculate steady state correlations. I haven't been successful in doing this yet, but I wanted to write it up in case it proves useful.} \label{sub:erg}
 
 A Markov process is one in which the future state depends only on the current state, not the past. Label the states $s_i$ and define $p_{i,t}$ as the probability that the system is in state $s_i$ at time $t$. When there is a constant probability $S_{ij}$ of transitioning from state $j$ to state $i$\footnote{Is this true of all Markov processes?} it is possible to write the transition matrix $S$ such that $p_{i,t+1}= S_{ij}p_{j,t}$. Since the product of the transition matrix and a probability vector gives the probabilities at the next time step, the transition matrix for $t$ time steps is just $S^t$. Under certain conditions\footnote{Figure these out.} the multi-step transition matrix approaches a constant matrix with all columns equal to the same vector $v^*$,
 \begin{align}
@@ -96,7 +86,7 @@ Then the probability after a long time is the vector $p^*$ for any initial state
 
 The transition matrix can also be written as $S = 1+T$. The columns of $T$ must sum to 0 to preserve probabilities. From $S^*p^* = p^*,$ it must be true that $Tp^*=0$. This definition provides an easier route to finding $p^*$.
 
-\subsubsection{Stable State in Random Architecture} \emph{} \label{subsub:randstate}
+\subsubsection{Stable State in Random Architecture}  \label{subsub:randstate}
 
 This analysis can be used to find the correlations present in the steady states of staircase architectures. Consider the 1-stair circuit, and enumerate 2-site (3-cut) states by the slope at the 2 sites: $s_1 = d\,d,\; s_2 = d\,u$, etc. Since at every time step there is an equal probability of a gate falling at any site, the transition matrix is the matrix product of single-cut transition matrices $P_{N} = \prod_NP_{1}\otimes$, where the single-cut transition matrix is 
 \begin{align}
@@ -123,15 +113,15 @@ v^* = \begin{pmatrix}
 \end{align}
 which is uncorrelated, showing that the assumption of lack of correlation (used in equation~\ref{eqn:1sitetrans}) is consistent. Markov's theorem states that if all states are reachable from all other states\footnote{Probably introduce this earlier.} then the system is ergodic. An ergodic system contains only one equilibrium state, so the uncorrelated state is the unique equilibrium state.
 
-\subsubsection{Stable States in Larger Staircases} \emph{} \label{subsub:stairstate}
+\subsubsection{Stable States in Larger Staircases}  \label{subsub:stairstate}
 
 Finding the stable state in the staircase models is more difficult. Since there are in fact correlations, a transition matrix built using the same method as in equation~\ref{eqn:1sitetrans} would be inexact. One possibility is to assume that the preceding and succeeding slopes are uncorrelated but to consider larger and larger subsystems (instead of the 2 slopes used previously).\footnote{I've made progress on this but haven't finished it.}
 
-\subsection{Numerical Simulation} \emph{}\label{sub:num}
+\subsection{Numerical Simulation} \label{sub:num}
 
 To simulate the entropy growth in infinite spin chains with non-zero slope, we use finite chains with periodic boundary conditions, where one end of the chain is attached to the other with an offset. The spin chains are initialized with a highly correlated\footnote{A next step is to fix the initialization so that the states start uncorrelated.} entropy function with the given slope. Since larger gates will generate different correlation, growth rates are calculated for only the latter part of the simulation, ensuring that the entropy is in its equilibrium state.
 
-\subsubsection{Measuring Growth Rates} \emph{} \label{subsub:growthrates}
+\subsubsection{Measuring Growth Rates}  \label{subsub:growthrates}
 
 Growth rates for stairs of various lengths are shown in figure~\ref{fig:compareRates}. As length increases, the growth rate follows the same pattern as predicted, increasing with the maximum moving right. 
 \begin{figure}
@@ -159,7 +149,7 @@ Stairs of length greater than 1 do however generate correlations. Figure~\ref{fi
 \end{figure}
 The notable difference in growth rate here is probably due to correlations created by the 6-stairs. Hopefully reasoning similar to that in section~\ref{sub:erg} will be able to predict the correlation so that its effect, at least to first order, can be calculated. This would allow a much closer approximation than that in figure~\ref{fig:6stairRates}
 
-\subsubsection{Measuring Correlations} \emph{} \label{subsub:correlations}
+\subsubsection{Measuring Correlations}  \label{subsub:correlations}
 
 The first step in understanding the difference between predicted and measured behavior is understanding the correlations introduced by the gates. Figure~\ref{fig:stairCorrel} shows the initial and final correlations for the 1- and 3-stair circuits. Both curves were created by averaging over the correlation in the second half of a 10,000 step run, averaged over 10 runs.
 \begin{figure}

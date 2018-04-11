@@ -1,6 +1,6 @@
 \section{Dynamics in an Asymmetric Hamiltonian} \label{sec:asymham}
 
-\subsection{3-Site Hamiltonian} \emph{} \label{sub:hamiltonian}
+\subsection{3-Site Hamiltonian}  \label{sub:hamiltonian}
 
 Instead of a Floquet or quantum circuit system, we can consider one with a time-independent Hamiltonian, for a finite number of dimensions at each site. We can choose a Hamiltonian based on how uneven its dynamics are. For example, the three-site swap $S_{123}$ is a unitary operator such that 
 \begin{align}
@@ -89,9 +89,11 @@ If the system starts in a computational basis state, for example $\ket{100}$, th
 	\label{fig:timeevol}
 \end{figure}
 
-\subsection{Multi-Site Hamiltonian} \emph{}\label{sub:multistate}
+\subsection{Multi-Site Hamiltonian} \label{sub:multistate}
 
-\subsubsection{Construction} \label{subsub:construction} \emph{}
+The 3-site system is integrable, and furthermore is not large enough to effectively study operator spreading.
+
+\subsubsection{Construction} \label{subsub:construction} 
 
 There are multiple ways to extend this hamiltonian to a chain of $L= 2n+1$ spins. Like building $S_{123}$ out of two-site swaps we can treat the larger system as a Floquet system, successively applying $H_3$ to each triplet of spins. We can define a similar hamiltonian by putting the 3-site hamiltonian simultaneously on sites 1-3, sites 3-5, etc. For $n=2$, this is
 \begin{align}
@@ -121,7 +123,7 @@ which is shown in figure~\ref{fig:onecoef}. Although it appears to be quasi-peri
 
 %The coefficient for $\ket{00100}$ does not fit the pattern. It does not reach maximum at the right time and it does have a periodic structure. Furthermore, when the starting state is $\ket{00010}$ the problematic state is still $\ket{00100}$, probably because of the chaining mechanism. When the starting state is $\ket{00100}$ the coefficients for $\ket{10000}$ and $\ket{00001}$ always vanish. The next chaining method to try will be to have $2n$ spins, and to have the first spin complete the last trio.
 
-\subsubsection{Pauli String Weight} \label{subsub:operator_dynamics} \emph{} 
+\subsubsection{Pauli String Weight} \label{subsub:operator_dynamics}  
 
 We can study the operator dynamics of this system by extending to large $L$ and evolving operators that are identities on all sites except one end. Since the hamiltonian is SO(3) symmetric, it does not matter if the perturbation is $X$, $Y$, or $Z$. For convenience, we will use $Z$. We can then study the weight of strings that end at each site $i$, $W(t; i)$.
 
