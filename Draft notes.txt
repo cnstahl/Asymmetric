@@ -8,10 +8,8 @@ Need sources for
   Unitarity and information loss
 
 
-How to do references
-How to capitalize
 Numerals vs spell out 10/ten
 How much should I describe the Keyserlingk paper?
   How often should I cite it?
-Nahum source on asymmetric systems?
 Should I call the entanglement entropy the entanglement? bitartite entanglement? EE? $S$?
+Quote from Jonay before 2.2
