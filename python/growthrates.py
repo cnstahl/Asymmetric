@@ -10,7 +10,7 @@ import random
 #  Always update S[-1] at the end
 
 
-
+import random
 
 def reset_S(N, m):
     if m> 1: raise ValueError("Slope too big")
@@ -21,7 +21,7 @@ def reset_S(N, m):
 #         print(S[i-1])
 #         print(m*i/N)
 #         print("\n")
-        if S[i-1] > (m*i): S[i] = S[i-1] - 1
+        if (random.random() > (m/2)+.5) : S[i] = S[i-1] - 1
         else: S[i] = S[i-1] + 1
     return S
 

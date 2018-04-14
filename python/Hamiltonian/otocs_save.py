@@ -4,11 +4,12 @@ import hamiltonian as hm
 import matplotlib.pyplot as plt
 import os.path
 
-L     = 11
-dense = False
+L     = 9
+dense = True
 #vs = np.asarray([5,6])
 vs    = np.asarray([5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 sites = np.arange(L)
+pert_strength = 4
 
 if (dense): 
     H = hm.dense_H(L)
@@ -16,7 +17,19 @@ if (dense):
 else: 
     H = hm.sparse_H(L)
     prefix = 'data/otoc_sparse'
-vals, vecs = la.eigh(H)
+if (not pert_strength == 0): 
+    prefix = prefix + "_pert_"
+H = H + hm.init_pert(L, pert_strength)
+H = H + hm.finl_pert(L, pert_strength)
+Hlist = hm.mat2list(H)
+vals_list = []
+vecs_list = []
+vecsd_list = []
+for idx, H in enumerate(Hlist):
+    vals, vecs = la.eigh(H)
+    vals_list.append(vals)
+    vecs_list.append(vecs)
+    vecsd_list.append(vecs.T.conj())
 
 mask = np.zeros(len(vs), dtype=bool)
 for idx, v in enumerate(vs):
@@ -50,8 +63,8 @@ weightsfore = []
 weightsback = []
 
 for idx, t in enumerate(times):
-    (fore, _) = hm.get_weights(L, t, sites_at_ts_fore[idx], vecs=vecs, vals=vals)
-    (_, back) = hm.get_weights(L, t, sites_at_ts_back[idx], vecs=vecs, vals=vals)
+    (fore, _) = hm.get_weights_from_time_sites(L, t, sites_at_ts_fore[idx], vals_list, vecs_list, vecsd_list)
+    (_, back) = hm.get_weights_from_time_sites(L, t, sites_at_ts_back[idx], vals_list, vecs_list, vecsd_list)
     weightsfore.append(fore)
     weightsback.append(back)
     

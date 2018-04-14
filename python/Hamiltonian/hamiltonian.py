@@ -39,6 +39,12 @@ def dense_H(l):
     H = dense_Hmult(l)
     return H * (2j * np.pi)/(3 * np.sqrt(3))
 
+def ising_mult(l):
+    if (l==1): return np.zeros((2,2))
+    if (l==2): return np.matmul(np.kron(Z,I), np.kron(I, Z))
+    return (np.kron(ising_mult(l-1), np.eye(2)) + 
+            np.kron(np.eye(2**(l-2)), np.matmul(np.kron(Z,I), np.kron(I, Z))))
+
 def chop(a):
     if not np.all(np.isclose(np.imag(a),0)): 
         print("\nchop() removed the imaginary part\n ")
@@ -134,17 +140,28 @@ def arr2list(array):
 #     mat = diag[Sz2alph]
 #    return mat[:,Sz2alph]
 
+def init_pert(L, pert_strength):
+    pert = np.array([[ 0,  0,  0,  0],
+                 [ 0, -1,  1,  0],
+                 [ 0,  1, -1,  0],
+                 [ 0,  0,  0,  0]])
+    for i in range(L-2):
+        pert = np.kron(pert, np.eye(2))
+    return pert*pert_strength
+
+def finl_pert(L, pert_strength):
+    pert = np.array([[ 0,  0,  0,  0],
+                 [ 0, -1,  1,  0],
+                 [ 0,  1, -1,  0],
+                 [ 0,  0,  0,  0]])
+    for i in range(L-2):
+        pert = np.kron(np.eye(2), pert)
+    return pert*pert_strength
+
 # Get weights at only some sites at a given time
 # Pass (vals, vecs) for faster performance
-def get_weights(L, t, sites, here=True, H=None, vals=None, vecs=None):
-    # make sure we have vals, vecs
-    if (vals is None or vecs is None):
-        assert not (H is None)
-        vals, vecs = la.eigh(H)
-    vecsd = vecs.T.conj()
-    
-    if (here == False): assert False, 'Only implemented for here'
-    
+def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, here=True):
+
     # Get preliminary stuff
     A = np.array([Z[0,0], Z[1,1]])
     for i in range(L-1):
@@ -159,11 +176,11 @@ def get_weights(L, t, sites, here=True, H=None, vals=None, vecs=None):
     weightfore = np.empty(len(sites))
     weightback = np.empty(len(sites))
     
-    unitt = np.matmul(vecs * np.exp(-1j*vals*t), vecsd)
-    uninv = np.matmul(vecs * np.exp( 1j*vals*t), vecsd)
-    
-    ulist = mat2list(unitt)
-    uinvlist = mat2list(uninv)
+    ulist = []
+    uinvlist = []
+    for idx, vecs in enumerate(vecs_list):
+        ulist.append(   np.matmul(vecs * np.exp(-1j*vals_list[idx]*t), vecsd_list[idx]))
+        uinvlist.append(np.matmul(vecs * np.exp( 1j*vals_list[idx]*t), vecsd_list[idx]))
     
     Atlist = []
     for idx, val in enumerate(Alist):
@@ -177,12 +194,55 @@ def get_weights(L, t, sites, here=True, H=None, vals=None, vecs=None):
     front = 1
     back  = 1
     
-    for j, site in enumerate(sites):
-        Aj = par_tr(At,site)
-        Bj = par_tr(Bt,site)
-        fronthere = norm(Aj)
-        backhere  = norm(Bj)
-        weightfore[j] = 1 - fronthere
-        weightback[j]     = 1 - backhere
+    if (here):
+        for j, site in enumerate(sites):
+            Aj = par_tr(At,site)
+            Bj = par_tr(Bt,site)
+            fronthere = norm(Aj)
+            backhere  = norm(Bj)
+            weightfore[j] = 1 - fronthere
+            weightback[j] = 1 - backhere
+    elif (not here):
+        for j in range(L):
+            At = end_trace(At,1)
+            Bt = front_trace(Bt,1)
+            fronthere = norm(At)
+            backhere  = norm(Bt)
+            weightfore[L-1-j] = front - fronthere
+            weightback[j]     = back  - backhere
+            front = fronthere
+            back  = backhere
+    else: assert False, "Should never get here"
     
     return np.array([weightfore, weightback])
+
+# Get (L x N) matrix containing all weights
+def get_all_weights(L, end, n, here=True, dense = False, pert_strength=0, finl_pert_strength=None, ising_strength=None):
+    if (dense): H = dense_H(L)
+    else: H = sparse_H(L)
+    if (finl_pert_strength == None): finl_pert_strength = pert_strength
+    if (not pert_strength==0): 
+        H = H + init_pert(L, pert_strength)
+        H = H + finl_pert(L, finl_pert_strength)
+    if (not ising_strength==None): H = H + ising_strength * ising_mult(L)
+    Hlist = mat2list(H)
+    vals_list = []
+    vecs_list = []
+    vecsd_list = []
+    for idx, H in enumerate(Hlist):
+        vals, vecs = la.eigh(H)
+        vals_list.append(vals)
+        vecs_list.append(vecs)
+        vecsd_list.append(vecs.T.conj())
+    
+    N = n*end
+    
+    weightfore = np.empty((L, N))
+    weightback = np.empty((L, N))
+    
+    for i in np.arange(N):
+        t = i/n
+        weightfore[:,i], weightback[:,i] = \
+                          get_weights_from_time_sites(L, t, range(L), vals_list, vecs_list, vecsd_list, here=here)
+                                                        
+    return weightfore, weightback
