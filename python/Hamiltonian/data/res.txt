@@ -1,5 +1,5 @@
-ModuleCmd_Load.c(213):ERROR:105: Unable to locate a modulefile for 'anaconda3'
-  File "level_stats.py", line 31
-    S2 = X@X + Y@Y + Z@Z
-          ^
-SyntaxError: invalid syntax
+slurmstepd: error: Job 328352 exceeded memory limit (2050240 > 2048000), being killed
+slurmstepd: error: *** JOB 328352 ON node111 CANCELLED AT 2018-03-12T15:02:07 ***
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded job memory limit at some point.
+slurmstepd: error: Exceeded job memory limit
