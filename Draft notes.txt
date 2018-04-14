@@ -8,8 +8,8 @@ Need sources for
   Unitarity and information loss
 
 
-Numerals vs spell out 10/ten
 How much should I describe the Keyserlingk paper?
   How often should I cite it?
 Should I call the entanglement entropy the entanglement? bitartite entanglement? EE? $S$?
 Quote from Jonay before 2.2
+Is there an easy way to recover the von Neuman entropy?

@@ -155,33 +155,23 @@ where $N$ is the dimension of the larger of the two Hilbert spaces. $\Tr\rho_{AB
 \begin{align}
 \rho_A = \sum_i^N\th{N}\ket{\psi_{A,i}}\bra{\psi_{B,i}},
 \end{align}
-with $\Tr\rho_A^2 = \sum_i\th{N^2}=\th{N}$, with similar results for $B$.
+with $\Tr\rho_A^2 = \sum_i\th{N^2}=\th{N}$, with similar results for $B$. This provides the limit $\th{N}\le\Tr\rho^2\le 1$. 
 
-Bipartite entanglement entropy provides one way to quantify the entanglement and is defined as follows. For a system $AB$ divisible into subsystems $A$ and $B$,   
-
-
-
-If the full system is in a pure state, the $n$th Renyi entropy of density matrix $\rho$ is 
+Bipartite entanglement entropy provides another\footnote{Is it better?} way to quantify the entanglement and is defined as the quantum entropy of one of the reduced density matrices. As long as the full state is pure, this is equivalent for either subsystem. There are multiple quantum entropies. The $n$th Renyi entropy of density matrix $\rho$ is 
 \begin{align}
 S_n = \th{1-n}\log\left(\Tr\rho^n\right). \label{eqn:renyi}
 \end{align}
-In the limit $n\to1$ this becomes the von Neumann entropy
+In the limit $n\to1$ this becomes the von Neumann entropy\footnote{Is there an easy way to do this?}
 \begin{align}
 S_{vN} = -\Tr\rho\log\rho,
 \end{align}
-the analogue of the classical Shannon entropy. These entropies are maximized by maximally mixed states, with entropy $N\log q$ for $N$-site systems with $q$-dimensional Hilbert spaces at each site.
+the analogue of the classical Shannon entropy. These entropies are maximized by maximally mixed states, with entropy $N\log q$ for $N$-site systems with $q$-dimensional Hilbert spaces at each site. They are also minimized by pure states, which have entropy 0.
 
-Introduce entropy bounds here.
+For the spin chain, we can define many different subsystems, each with a corresponding entanglement entropy. The following description is largely taken from~\cite{Nahum2017}. Consider a spin chain of N sites with dimension $q$. Sites are labeled by $i=1,\dots N$, while the bonds between sites are labeled by $x = 1,\dots N-1$. After cutting the system at bond $x$, define the entropy across this cut as the bipartite entanglement entropy of all sites to the right of $x$. If the whole chain is in a pure state, this is equal to the bipartite entanglement entropy of all sites to the left of $x$.
 
-References~\cite{Keyserlingk, Jonay} discuss the speed of entanglement in brickwork models using related concepts called out of time order commutator (OTOC) and operator density. Reference~\cite{Zhou2017} quantifies the scrambling using the operator entanglement entropy opEE of the time evolution operator.
+We can define a function $S(x) = -\Tr\rho_x\log\rho_x$ where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out. This is the von Neumann entanglement entropy of the two subsystems divided by the bond at $x$. For convenience logarithms are taken base $q$. $S(x)$ will observe constraints not already made clear due to the fact that subsystems defined by adjacent $x$ have heavy overlap.
 
-The following description is largely taken from~\cite{Nahum2017}. Consider a spin chain of N sites with dimension $q$. $q=2$ corresponds to spin-$\half$ particles, $q=3$ corresponds to spin-1 particles, etc. Sites are labeled by $i=1,\dots N$, while the bonds between sites are labeled by $x = 1,\dots N-1$. After cutting the system at bond $x$, define the entropy across this cut as the bipartite entanglement entropy of all sites to the right of $x$. If the whole chain is in a pure state, this is equal to the bipartite entanglement entropy of all sites to the left of $x$.
-
-The von Neumann entropy at cut $x$ is
-\begin{align}
-S(x) = \-\Tr\rho_x\log\rho_x, \label{eqn:vonneu}
-\end{align}
-where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out, and for convenience logarithms are taken base $q$. Classically, for an arbitrary system decomposable into subsystems $A$ and $B$, the entropies satisfy $\max(S(A), S(B)) \leq S(AB)\leq S(A) + S(B)$. In quantum mechanics, this is replaced by the subadditivity of the von Neumann entropy 
+Classically, for an arbitrary system decomposable into subsystems $A$ and $B$, the entropies satisfy $\max(S(A), S(B)) \leq S(AB)\leq S(A) + S(B)$. In quantum mechanics, this is replaced by the subadditivity of the von Neumann entropy 
 \begin{align}
 \left|S(A)-S(B)\right| \leq S(AB)\leq S(A) + S(B). \label{eqn:subadd}
 \end{align}
@@ -193,3 +183,20 @@ where $S_1$ denotes the entropy of the single site between cuts $x$ and $x+1$. A
 \begin{align}
 \left|S(x+1) - S(x)\right| \leq 1. \label{eqn:offbyone}
 \end{align}
+
+Entanglement speed
+
+A finite system has $S(x)$ pinned at its endpoint, because the entanglement entropy of a single state is bounded by 1. Then the maximally entangled state has $S(x) = \min\{x,L-x\}$. As the entanglement approaches this value it takes forms as in figure~\ref{fig:Tower}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\linewidth]{Tower}
+	\caption{\textbf{Bitartite entanglement entropy at different times,} ($t = 340$, 690, 1024, 1365, 1707, 2048 and 4096). This data comes from a circuit model, but the behavior is believed to be general. Figure from~\cite{Nahum2017}.}
+	\label{fig:Tower}
+\end{figure}
+The flat section has a constant growth rate $\pd{S(x,t)}{t}$ so the cusp position $y$ moves at a constant speed defined by the growth rate and the slope. Since the maximal slope is $\pd{S(x,t)}{x}=1$, this velocity is
+\begin{align}
+\pd{y}{t} = \pd{S}{t}\left(\pd{S}{x}\right)^{-1} = \pd{S}{x} = v_E.
+\end{align}
+This entanglement speed is equivalent to \_\_\_\_\_\_\_\_\_\_
+
+References~\cite{Keyserlingk, Jonay, Nahum2017} discuss the speed of entanglement in brickwork models using related concepts called out of time order commutator (OTOC) and operator density. Reference~\cite{Zhou2017} quantifies the scrambling using the operator entanglement entropy opEE of the time evolution operator.
