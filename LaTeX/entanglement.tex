@@ -1,23 +1,31 @@
 \documentclass[11pt]{article}
 
-\usepackage[hyperfootnotes=false]{hyperref}
-\usepackage[margin=1in]{geometry}                                              
+\usepackage[hyperfootnotes=false]{hyperref}                                    
 \usepackage{amsmath,amsthm,amssymb}      
 \usepackage{titlesec}                                                         
 \usepackage{bm}        
 \usepackage{cprotect}                                
-\usepackage{savetrees} 
+%\usepackage{savetrees} 
 \usepackage{bbold}
 \usepackage{abstract}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
                                           
 \usepackage{graphicx}                                      
-\graphicspath{{../figures/}, {../figures/growthrates/}, {../figures/correlations/}}
+\graphicspath{{../figures/}, {../figures/growthrates/}, {../figures/correlations/}, {../python/Hamiltonian/figures/}}
 
 \usepackage{biblatex}
 \bibliography{bib.bib}
 
-\titleformat{\subsection}[runin]
+% Formatting
+\usepackage{indentfirst}
+\usepackage{geometry}  
+\geometry{margin=1in}       
+\geometry{lmargin=1.5in} 
+\titleformat{\subsection}
 {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\baselinestretch}{1.1}
 
 \renewcommand{\bf}{\mathbf}
 \renewcommand{\cal}{\mathcal}
@@ -54,271 +62,19 @@
 \newcommand{\nn}{\nonumber\\}
 
 \DeclareMathOperator{\Tr}{Tr}
+\let\Re\relax
+\DeclareMathOperator{\Re}{Re}
 
 \begin{document}
-
-\title{Entanglement Dynamics in Random Unitary Circuits}
-\author{Charles Stahl\footnote{I pledge my honor that this paper represents my own work in accordance with University regulations.}\\
-	Advised by Prof. David Huse}
-
-\maketitle
-
-\begin{abstract}
-	Quantum circuits provide simple toy systems to analyze entanglement growth and operator spreading in many-body systems. We study the behavior of these systems under various architectures. When the dimensionality of each site is large, deterministic behavior emerges. This behavior can be used to calculate entropy growth rates and correlation in steady states, which are tested using numerical simulations.
-\end{abstract}
-
-\tableofcontents
-
-\newpage
-
-\section{Introduction} \label{sec:intro}
-
-Quantum entanglement describes aspects of branches of physics from high energy and quantum information theory to experimental studies of cold atomic gases. Although entanglement is so widely studied, its dynamics are less well understood. The dynamics of the entropy are closely related to the speed at which information travels or spreads. One way to study this topic is to consider entanglement dynamics of spin chains. 
-
-Instead of evolving the spin chains with Hamiltonians, this paper focuses on quantum circuits, which consist of a series of unitary gates. Simple gates act on two sites at once. References~\cite{Keyserlingk} and~\cite{Nahum2017} both discuss circuits of this type. If the sites are $q$ dimensional, the space of unitary matrices is $q\times q$ dimensional. To find representative behavior, each circuit is made by drawing gates from the Haar distribution. The circuits can then be averaged over these choices. 
-
-Another source of randomness is the placement of the gates. The ``brickwork" model~\cite{Keyserlingk} uses a deterministic architecture, in which at odd times there is a gate to the right of every odd site, while for even times there is a gate to the right of every even site. The ``random" architecture~\cite{Nahum2017} chooses a random site for a single gate at each time step. This placement is then averaged over.
-
-Entanglement entropy provides one way to quantify the spreading of entropy and is defined as follows. For a system $AB$ divisible into subsystems $A$ and $B$, the reduced density matrices $\rho_A$ and $\rho_B$ are the full density matrix $\rho_{AB}$ traced over subsystem $B$ and $A$, respectively. The $n$th Renyi entropy of density matrix $\rho$ is 
-\begin{align}
-S_n = \th{1-n}\log\left(\Tr\rho^n\right). \label{eqn:renyi}
-\end{align}
-In the limit $n\to1$ this becomes the von Neumann entropy
-\begin{align}
-S_{vN} = -\Tr\rho\log\rho,
-\end{align}
-the analogue of the classical Shannon entropy. The von Neumann entropy is maximized by maximally mixed states, with entropy $q$, the dimension of the system.
-
-References~\cite{Keyserlingk},~\cite{Jonay} discuss the speed of entanglement in brickwork models using related concepts called out of time order commutator (OTOC) and operator density. Reference~\cite{Zhou2017} quantifies the scrambling using the operator entanglement entropy opEE of the time evolution operator.
-
-\section{Circuit Architectures} \label{sec:arch}
-
-\subsection{Entropy Constraints} \emph{ }\label{sub:constraints}
-
-The following description is largely taken from~\cite{Nahum2017}. Consider a spin chain of N sites with dimension $q$. $q=2$ corresponds to spin-$\half$ particles, $q=3$ corresponds to spin-1 particles, etc. Sites are labeled by $i=1,\dots N$, while the bonds between sites are labeled by $x = 1,\dots N-1$. Define the entropy at site $x$ as the bipartite entanglement entropy of all sites to the right of $x$. If the whole chain is in a pure state, this is equal to the bipartite entanglement entropy of all sites to the left of $x$.
-
-The von Neumann entropy at cut $x$ is
-\begin{align}
-S(x) = \-\Tr\rho_x\log\rho_x, \label{eqn:vonneu}
-\end{align}
-where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out, and logarithms are taken base $q$. Subadditivity of the von Neumann entropy for an arbitrary system decomposable into subsystems $A$ and $B$ states\footnote{Should I cite this?}
-\begin{align}
-\left|S(A)-S(B)\right| \leq S(AB)\leq S(A) + S(B). \label{eqn:subadd}
-\end{align}
-If we take $A$ to be the site between $x$ and $x+1$, $B$ to be all sites right of $x+1$, this becomes
-\begin{align}
-\left|S_1 - S(x+1)\right| \leq S(x) \leq S_1 + S(x+1),
-\end{align}
-where $S_1$ denotes the entropy of the single site. After some rearranging this can be written $\left|S(x+1) - S(x)\right| \leq S_1$. However, since the single site is $q$ dimensional, $S_1 \leq \log q = 1$, explaining the use of $q$ for the base. The preceding arguments taken together give the constraint
-\begin{align}
-\left|S(x+1) - S(x)\right| \leq 1. \label{eqn:offbyone}
-\end{align}
-
-\subsection{Deterministic Limit} \emph{} \label{sub:determ}
-
-An interesting limit occurs when the dimensionality of each site is taken to be large. With large $q$, after a gate acts on sites $i$ and $i+1$ each site will individually saturate entropy bound in equation~\ref{eqn:offbyone}. This means that after a gate acts on bond $x$ the updated entropy will be 
-\begin{align}
-S(x) = \min\left\lbrace S(x-1), S(x+1)\right\rbrace + 1.\label{eqn:update}
-\end{align}
-This equation comes from and is proved in~\cite{Nahum2017}.
-
-One interesting effect of the deterministic behavior is that both the butterfly velocity and the entanglement velocity approach the light cone velocity, as defined in~\cite{Keyserlingk}, which uses a brickwork circuit. The butterfly velocity is $v_B = \frac{q^2-1}{q^2+1} \to 1$ as $q\to \infty$ while the entanglement velocity is 
-\begin{align}
-v_E = \frac{\log\frac{q+q^{-1}}{2}}{\log q},
-\end{align}
-which also goes to 1 for high $q$. In this architecture all information moves at the light speed because at every time step any information is maximally transported one step to the right or left. For this reason this thesis focuses on the random architecture.
-
-\subsection{Surface Growth Picture} \emph{} \label{sub:surfgrowth}
-
-A model for the entropy growth described above is the Tetris-like surface growth picture. Here, the entropy is represented by a piecewise-constant function with the height given by the entropy across each cut, as in figure~\ref{fig:tetris}, taken from \cite{Nahum2017}. 
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{tetris.pdf}
-	\caption{\textbf{Tetris-like model for large-$q$ chain.} The gate at cut $x$ adds enough entropy so that $S(x)$ is one greater than either of its neighbors. Figure from~\cite{Nahum2017}.}
-	\label{fig:tetris}
-\end{figure}
-In general, it is possible for the entropy across two adjacent cuts to be equal. However, figure~\ref{fig:applyingUnitary}, also from~\cite{Nahum2017}, shows that flat sections can be destroyed but not created. 
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{applyingUnitary.pdf}
-	\caption{\textbf{Several possibilities for local changes} in the large $q$ model. If three adjacent cuts all have equal entropy, the two flat sections annihilate each other. There is no way to generate flat sections.}
-	\label{fig:applyingUnitary}
-\end{figure}
-
-It makes sense then to only consider states that have no flat sections, so that $S(x) = S(x-1)\pm1$ for all $x$. In this case, instead of a picture like figure~\ref{fig:tetris} it is possible to represent the entropy at each bond as a point, with a diagonal slope connecting bonds. The slope will always be $\pm1$. Instead of $2\times1$ or $1\times1$ rectangles, the gates are then squares coming down point-first. If the gate falls on a local minimum, it lifts the entropy at that bond. If the gate falls on a local maximum or a straight section it has no effect.\footnote{I will include an image of this.}
-
-\subsection{Staircases}\emph{} \label{sub:stairs}
-
-An interesting generalization of the random architecture is to consider ``staircases," which each consist of a series of gates, acting at cuts $x$, $x+1$, $x+2$, etc. This would be a staircase moving to the right, but they can also move to the left. If there are $n$ gates in a staircase it is called an $n$-stair. They are called staircases because in figure~\ref{fig:tetris} they would look like steps. However, in the picture in which all sites are either up or down slopes, $n$-stair look like $n\times 1$ rectangles tilted $45^\circ$.
-
-\section{Behavior Ignoring Correlations} \label{sec:anal}
-
-Under certain approximations the entanglement entropy behaves analytically. One important approximation (described in section \ref{sub:determ}) is that the Hilbert space at each site is large enough that any gate will in general maximally entangle the two sites on which it acts. Other simplifying assumptions include ignoring correlations in ups and downs and ignoring second- and higher-order derivatives in $S(x,t)$. Combining these two assumptions, we arrive at uncorrelated entropy environments, which may be described only by their slope, $m$.
-
-\subsection{Small Stairs} \label{sub:smallstairs} \emph{}
-
-The smallest stairs are 1-stairs, which are just individual gates. For an entropy surface with constant slope $m$ and no correlations, each step from one site to the next has probability $\frac{1+m}{2}$ of being up and $\frac{1-m}{2}$ of being down. Consider a gate operating on site $n$ at time $t$. For the gate to increase the entropy $S(n)$, it must be the case that $S(n)<S(n-1), S(n+1)$. The probability of this is $\frac{1+m}{2} \frac{1-m}{2} = \frac{1-m^2}{4}$. In this case we have $S(n,t+1)=S(n,t)+2$, because the gate increases the entropy to be great than that of its neighbors. Then if the gates arrive with a rate $\Gamma$, we have
-\begin{align}
-\pd{S}{t} = \Gamma\frac{1-m^2}{2}.
-\end{align}
-Useful checks of this formula are that the entropy does not increase at maximal or minimal slope $m=1,-1$, and that at $m=0$, $\pd{S}{t}=\Gamma/2$, half the brickwork value. The latter rate makes sense because in the case of the brickwork circuit all gates are guaranteed to raise the entropy, while here only half will have an effect.
-
-2-stairs consist of one gate acting at site $n$ and one at site $n+1$. The entropy production of these gates is affected by the slope between them and the two slopes on either side. There are 8 possible configurations of those three slopes, but only 4 result in entropy growth, as shown in table~\ref{tab:2stair}. Together, they result in an average growth
-\begin{align}
-\pd{S}{t} = \Gamma\frac{1-m^2}{2}\frac{5+m}{4},
-\end{align}
-where $\Gamma$ is the rate of gates, so the rate of 2-stairs is $2\Gamma$.
-
-\begin{table}
-	\centering
-	\begin{tabular}{ccc}
-		Configuration & Probability                    & Productivity\\
-		$d\,u\,d$     & $\frac{1-m^2}{4}\frac{1-m}{2}$ & 2\\
-		$d\,u\,u$     & $\frac{1-m^2}{4}\frac{1+m}{2}$ & 4\\
-		$d\,d\,u$     & $\frac{1-m^2}{4}\frac{1-m}{2}$ & 2\\
-		$u\,d\,u$     & $\frac{1-m^2}{4}\frac{1+m}{2}$ & 2
-	\end{tabular}
-	\caption{The four configurations that result in entropy growth for 2-stairs, their relative proportions assuming an uncorrelated entropy distribution, and the growth in entropy generated by a 2-stair falling on that configuration.}
-	\label{tab:2stair}
-\end{table}
-
-\subsection{Larger Stairs} \emph{} \label{sub:largestairs}
-
-We can determine the growth rate for arbitrary length stairs through a recursive relationship. Consider a staircase made of $n$ gates. Its growth rate will be proportional to the gate rate normalized by the number of gates per stair, so we can write
-\begin{align}
-\pd{S}{t} = \frac{\Gamma}{n}R_n(m), \label{eqn:growthrate}
-\end{align}
-where $R_n(m)$ is the average entropy production of an $n$-stair. To find an equation for $R_n(m)$, note that the first $n-1$ gates have the same entropy production as the $(n-1)$-stair. Then the $n$th gate will produce another 2 units of entropy if the last step is up, but not if all $n+1$ steps are up. This is captured by the recursive formula
-\begin{align}
-R_n(m) = R_{n-1}(m)+2\frac{1+m}{2} - 2\left(\frac{1+m}{2}\right)^{n+1}. \label{eqn:raterecur}
-\end{align}
-Figure~\ref{fig:growthrates} contains a graph of some growth rates $\th{n}R_n(m)$ as a function of $m$.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{analrates.png}
-	\caption{Growth rates for 1-, 4-, 17-, and 100-stairs as a function of slope $m$. As stair length increases, the growth rate asymptotes to the function $\pd{S}{t} = m+1$.}
-	\label{fig:growthrates}
-\end{figure}
-
-Note that with increasing stair length the growth rate asymptotes to the function $\pd{S}{t} = m+1$. There are two ways to reach this behavior. The first, which matches the order of the current reasoning, is to start with infinite spatial support and take the stair length $n\to\infty$. Alternatively, start with a finite spin chain with length $N$ and periodic boundary conditions, and set the stair length to $N$. Now a single gate acts on site $1,2,3\dots N$, before wrapping around to act at site 1 again. 
-
-The maximal growth rate occurs when the slope is near-maximal, with only a single down step. This corresponds to a slope of $\frac{N-2}{N}$. Then with only a single local minimum in the entropy function, the local minimum moves one site to the right with each gate. Every gate that acts raises the entropy, resulting in an entropy gain of 2 per gate. Of course for a slope of 1, there is still no entropy generation.
-
-If there are 2 down steps, for a slope of $\frac{N-4}{N}$, the entropy generation is almost the same. One local minimum still moves to the right with the leading edge of the staircase. However, once per staircase (once every $N$ gates), one down step is next to the other down step. This results in no entropy growth for that step, for an average entropy gain of $2\frac{N-1}{N}$. Further discussion of the dynamics with near-maximal slope appear in section~\ref{sub:nearmax}.
-
-This pattern continues as the slope decreases. With $\l$ down steps, the slope is $\frac{N-2\l}{N}$ and the average growth rate is $2\frac{N-\l}{N} = m+1$. At $m = -1$ there is no growth, as expected. At $m=0$, the growth rate is 1, the same as in the brickwork model. With no slope, the steps alternate between up and down, so that half of the gates in any stair are effective, explaining the connection to the brickwork model.
-
-\subsection{Near-Maximal Slopes} \emph{} \label{sub:nearmax}
-
-When the slope is near its largest possible value, so that the entropy increases at nearly every site, it is possible to isolate the behavior of the few down steps. Since gates can only act between a down step and an up step, these ``particles" follow a deterministic behavior and control the entropy growth in the circuit.
-
-Consider a stair with its first gate acting between sites $i$ and $i+1$ and its last gate between $j$ and $j+1$. If there are no down steps in this region, the gate has no effect. 
-
-\section{Ergodicity and Stability}\footnote{The following section describes an attempt to calculate steady state correlations. I haven't been successful in doing this yet, but I wanted to write it up in case it proves useful.} \label{sec:erg}
-
-A Markov process is one in which the future state depends only on the current state, not the past. Label the states $s_i$ and define $p_{i,t}$ as the probability that the system is in state $s_i$ at time $t$. When there is a constant probability $S_{ij}$ of transitioning from state $j$ to state $i$\footnote{Is this true of all Markov processes?} it is possible to write the transition matrix $S$ such that $p_{i,t+1}= S_{ij}p_{j,t}$. Since the product of the transition matrix and a probability vector gives the probabilities at the next time step, the transition matrix for $t$ time steps is just $S^t$. Under certain conditions\footnote{Figure these out.} the multi-step transition matrix approaches a constant matrix with all columns equal to the same vector $v^*$,
-\begin{align}
-\lim\limits_{t\to \infty}S^t = S^* = \begin{bmatrix}
-\vdots & \vdots &  & \vdots\\
-p^* & p^* & \cdots & p^*\\
-\vdots & \vdots &  & \vdots\\
-\end{bmatrix}.
-\end{align}
-Then the probability after a long time is the vector $p^*$ for any initial state.
-
-The transition matrix can also be written as $S = 1+T$. The columns of $T$ must sum to 0 to preserve probabilities. From $S^*p^* = p^*,$ it must be true that $Tp^*=0$. This definition provides an easier route to finding $p^*$.
-
-\subsection{Stable State in Random Architecture} \emph{} \label{sub:randstate}
-
-This analysis can be used to find the correlations present in the steady states of staircase architectures. Consider the 1-stair circuit, and enumerate 2-site (3-cut) states by the slope at the 2 sites: $s_1 = d\,d,\; s_2 = d\,u$, etc. Since at every time step there is an equal probability of a gate falling at any site, the transition matrix is the matrix product of single-cut transition matrices $P_{N} = \prod_NP_{1}\otimes$, where the single-cut transition matrix is 
-\begin{align}
-P_1 = \begin{bmatrix}
-1-\frac{1+m}{2}\Gamma & 0      & \frac{1-m}{2}\Gamma & 0\\
-\frac{1+m}{2}\Gamma & 1-\Gamma & 0                   & \frac{1-m}{2}\Gamma\\
-0                   & \Gamma   & 1-\Gamma            & 0\\
-0                   & 0        & \frac{1+m}{2}\Gamma & 1 - \frac{1-m}{2}\Gamma
-\end{bmatrix}. \label{eqn:1sitetrans}
-\end{align}
-The $m$ dependence comes from the possibility of a gate acting on the left or right cut, which depends on the probability of the next slope being up or down.
-The equilibrium state is
-\begin{align}
-v^* = \begin{pmatrix}
-\frac{(1-m)^2}{4} \\ 
-\frac{1+m}{2}\frac{1-m}{2} \\
-\frac{1-m}{2}\frac{1+m}{2} \\
-\frac{(1+m)^2}{4}
-\end{pmatrix} = \begin{pmatrix}
-\frac{1-m}{2} \\ \frac{1+m}{2}
-\end{pmatrix} \otimes \begin{pmatrix}
-\frac{1-m}{2} \\ \frac{1+m}{2}
-\end{pmatrix},
-\end{align}
-which is uncorrelated, showing that the assumption of lack of correlation (used in equation~\ref{eqn:1sitetrans}) is consistent. Markov's theorem states that if all states are reachable from all other states\footnote{Probably introduce this earlier.} then the system is ergodic. An ergodic system contains only one equilibrium state, so the uncorrelated state is the unique equilibrium state.
-
-\subsection{Stable States in Larger Staircases} \emph{} \label{sub:stairstate}
-
-Finding the stable state in the staircase models is more difficult. Since there are in fact correlations, a transition matrix built using the same method as in equation~\ref{eqn:1sitetrans} would be inexact. One possibility is to assume that the preceding and succeeding slopes are uncorrelated but to consider larger and larger subsystems (instead of the 2 slopes used previously).\footnote{I've made progress on this but haven't finished it.}
-
-\section{Numerical Simulation} \label{sec:num}
-
-To simulate the entropy growth in infinite spin chains with non-zero slope, we use finite chains with periodic boundary conditions, where one end of the chain is attached to the other with an offset. The spin chains are initialized with a highly correlated\footnote{A next step is to fix the initialization so that the states start uncorrelated.} entropy function with the given slope. Since larger gates will generate different correlation, growth rates are calculated for only the latter part of the simulation, ensuring that the entropy is in its equilibrium state.
-
-\subsection{Measuring Growth Rates} \emph{} \label{sub:growthrates}
-
-Growth rates for stairs of various lengths are shown in figure~\ref{fig:compareRates}. As length increases, the growth rate follows the same pattern as predicted, increasing with the maximum moving right. 
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{compareRates.pdf}
-	\caption{\textbf{Growth rates for different length stairs.} All growth rates were calculated using a 100-site spin chain with offset periodic boundary conditions. Rates were calculated from the application of 100,000 gates, averaged over the last 80\% of the gates in order to build up correlations.}
-	\label{fig:compareRates}
-\end{figure}
-
-For 1-stairs (the random architecture), the measured growth rate is slightly larger than predicted, seen in figure~\ref{fig:1stairRates}.
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{1stairRates.pdf}
-	\caption{\textbf{Measured and analytic growth rates} for the 1-stair architecture. Note that the measured rate is slightly higher. Since the assumption of un-correlation is exact for 1-stairs, this difference is assumed to be due to second order derivatives in the slope and finite length effects.}
-	\label{fig:1stairRates}
-\end{figure}
-There are two main differences between the analytic and measured setups. For the analytic result, the chain is infinite and the entropy function is assumed to be linear and uncorrelated. Since the assumption of un-correlation is exact for 1-stairs, this difference is assumed to be due to second order derivatives in the slope and finite length effects.
-
-Stairs of length greater than 1 do however generate correlations. Figure~\ref{fig:6stairRates} shows the growth rates for 6-stairs. 
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{6stairRates.pdf}
-	\caption{\textbf{Measured and predicted growth rates} for the 6-stair architecture. The measured rate is now lower than predicted, implying that the correlations built up by the stairs act to lower their entropy production.}
-	\label{fig:6stairRates}
-\end{figure}
-The notable difference in growth rate here is probably due to correlations created by the 6-stairs. Hopefully reasoning similar to that in section~\ref{sec:erg} will be able to predict the correlation so that its effect, at least to first order, can be calculated. This would allow a much closer approximation than that in figure~\ref{fig:6stairRates}
-
-\subsection{Measuring Correlations} \emph{} \label{sub:correlations}
-
-The first step in understanding the difference between predicted and measured behavior is understanding the correlations introduced by the gates. Figure~\ref{fig:stairCorrel} shows the initial and final correlations for the 1- and 3-stair circuits. Both curves were created by averaging over the correlation in the second half of a 10,000 step run, averaged over 10 runs.
-\begin{figure}
-	\centering
-	\includegraphics[width=.495\textwidth]{1stairCorrel}
-	\includegraphics[width=.495\textwidth]{3stairCorrel}
-	\caption{\textbf{Correlations created by 1- and 3-stair circuits.} The initial correlation curve shows that because of the initialization procedure the slope-0 state is perfectly anti-correlated. However, the correlation quickly equilibrates (see figure~\ref{fig:corrgrowth}). The 3-stair circuit reaches a more highly-correlated state than the 1-stair circuit.}
-	\label{fig:stairCorrel}
-\end{figure}
-The 3-stair circuit indeed generates more correlation than the 1-stair circuit. 
-
-Although the initial state is highly anticorrelated, the evolution of the circuit quickly removes this correlation, as shown in figure~\ref{fig:corrgrowth}.
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{corrgrowth.pdf}
-	\caption{\textbf{Correlation Growth for 0 slope.} Although the state starts out artificially anticorrelated, the correlation equilibrates after 400-600 time steps.}
-	\label{fig:corrgrowth}
-\end{figure}
-The correlation saturates after 400-600 time steps, meaning the correlation of the initial state is not as important as the overall slope. For 1-stairs the correlation should asymptote to 0, as it appears to do. An interesting next step would be a way to analytically predict the correlation built by each circuit.
-
-
-
-
-
-
-
+	
+\pagenumbering{Roman}
+\input{frontmatter}
+\pagenumbering{arabic}
+\input{introduction}
+\input{tihamiltonian}
+\input{hamiltonianresults}
+\input{circuits}
+\input{circuitresults}
 \printbibliography
 
 \end{document}

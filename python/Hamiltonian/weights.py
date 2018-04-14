@@ -3,7 +3,7 @@ import scipy.linalg as  la
 import sparsehamiltonian as hm
 from sys import argv
 
-L = 13
+L = 9
 # Total time elapsed
 end = 3
 # Time steps per second

@@ -106,15 +106,15 @@ def mat2list(matrix):
     j = 0
     for i in range(L+1):
         k = j + (int) (scipy.special.comb(L,i))
-        A.append(diag[j:k, j:k])
+        A.append(diag[j:k, j:k].todense())
         j = k
     return A
 
 def list2mat(A):
     L = len(A) - 1
     alph2Sz, Sz2alph = permutations(L)
-#    diag = sp.block_diag((*A), format='csc')
-    diag = npla.block_diag(*A)
+    diag = sp.block_diag((*A), format='csc')
+#    diag = npla.block_diag(*A)
     mat = diag[Sz2alph]
     return mat[:,Sz2alph]
 
@@ -147,12 +147,11 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
     for i in range(L-1):
         A = np.kron(A,np.array([1,1]))
     Alist = arr2list(A)
-    print("Made Alist", flush=True)
     B = np.array([Z[0,0], Z[1,1]])
     for i in range(L-1):
         B = np.kron(np.array([1,1]),B)
     Blist = arr2list(B)
-    print("Made Alist, Blist", flush=True)
+
 
     weightfore = np.empty(len(sites))
     weightback = np.empty(len(sites))
@@ -162,7 +161,7 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
     for idx, vecs in enumerate(vecs_list):
         ulist.append(   np.matmul(vecs * np.exp(-1j*vals_list[idx]*t), vecsd_list[idx]))
         uinvlist.append(np.matmul(vecs * np.exp( 1j*vals_list[idx]*t), vecsd_list[idx]))
-    print("Made ulist, et ", flush=True)
+    
     Atlist = []
     for idx, val in enumerate(Alist):
         Atlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
@@ -171,7 +170,6 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
         Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
     At = list2mat(Atlist)
     Bt = list2mat(Btlist)
-    print("Evolved At, Bt", flush=True)
     
     front = 1
     back  = 1
@@ -195,30 +193,27 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list, h
             front = fronthere
             back  = backhere
     else: assert False, "Should never get here"
-    print("Finished weights", flush=True)
+    
     return np.array([weightfore, weightback])
 
 # Get (L x N) matrix containing all weights
 def get_all_weights(L, end, n, here=True, dense = False):
     if (dense): H = dense_H(L)
     else: H = sparse_H(L)
-    print("Made H")
     Hlist = mat2list(H)
+    del H
     vals_list = []
     vecs_list = []
     vecsd_list = []
     for idx, H in enumerate(Hlist):
-        if (H.shape[0] == 1):
-            vals = H.todense()
-            vecs = np.array([[1]])
-        else:
-            vals, vecs = la.eigsh(H, k=H.shape[0]-2)
-#        vals, vecs = npla.eigh(H.todense())
+        vals, vecs = npla.eigh(H)
         vals_list.append(vals)
         vecs_list.append(vecs)
         vecsd_list.append(vecs.T.conj())
+    del Hlist
     
     N = n*end
+    
     weightfore = np.empty((L, N))
     weightback = np.empty((L, N))
     
