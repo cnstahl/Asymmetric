@@ -4,7 +4,7 @@ import hamiltonian as hm
 import matplotlib.pyplot as plt
 import os.path
 
-L     = 9
+L     = 11
 dense = True
 #vs = np.asarray([5,6])
 vs    = np.asarray([5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
