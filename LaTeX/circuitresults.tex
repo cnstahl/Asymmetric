@@ -17,6 +17,11 @@ However, in the picture in which all sites are either up or down slopes, $n$-sta
 	\label{fig:diagstairs}
 \end{figure}
 
+In this picture, we can describe an entropy curve as a series of up and down steps, with each step defined at a site (between two cuts), For example, the initial state in figure~\ref{fig:diagstairs} would be $uuudduuduudddd$ and the final state would be $uuuduudududddd$. To make this look like a classical spin system (as in the Ising model), we can a state $s$, where $s_i$ is the local slope at site $i$, with $u\to1$ and $d\to-1$. For reference we quote results from systems like this
+\begin{align}
+uu
+\end{align}
+
 \subsection{Behavior Ignoring Correlations} \label{sub:anal}
 
 Under certain approximations the entanglement entropy behaves analytically. One important approximation (described in section \ref{subsub:determ}) is that the Hilbert space at each site is large enough that almost all gates will in general maximally entangle the two sites on which they act. Other simplifying assumptions include ignoring correlations in ups and downs and ignoring second- and higher-order derivatives in $S(x,t)$. Combining these two assumptions, we arrive at uncorrelated entropy environments, which may be described only by their slope, $m$.
@@ -25,9 +30,9 @@ Under certain approximations the entanglement entropy behaves analytically. One 
 
 The smallest stairs are 1-stairs, which are just individual gates. \emph{same as random circuit architecture, matches behavior there}
 
-2-stairs consist of one gate acting at site $n$ and one at site $n+1$. The entropy production of these gates is affected by the slope between them and the two slopes on either side. There are 8 possible configurations of those three slopes, but only 4 result in entropy growth, as shown in table~\ref{tab:2stair}. Although there will be correlation built up by the 2-stair architecture, we can still make the assumption that there are no correlations. The average growth rate is then approximately 
+2-stairs consist of one gate acting at site $n$ and one at site $n+1$. The entropy production of these gates is affected by the slope between them and the two slopes on either side. There are 8 possible configurations of those three slopes, but only 4 result in entropy growth, as shown in table~\ref{tab:2stair}. Although there will be correlation built up by the 2-stair architecture, we can still make the assumption that there are no correlations. The average growth rate is then approximately
 \begin{align}
-\pd{S}{t} = \Gamma\frac{1-m^2}{2}\frac{5+m}{4},
+\pd{S}{t} = \Gamma\frac{1-m^2}{2}\frac{5+m}{4}, \label{eqn:2rate}
 \end{align}
 where $\Gamma$ is the rate of gates, so the rate of 2-stairs is $2\Gamma$.
 
@@ -151,21 +156,29 @@ The notable difference in growth rate here is probably due to correlations creat
 
 \subsubsection{Measuring Correlations}  \label{subsub:correlations}
 
-The first step in understanding the difference between predicted and measured behavior is understanding the correlations introduced by the gates. Figure~\ref{fig:stairCorrel} shows the initial and final correlations for the 1- and 3-stair circuits. Both curves were created by averaging over the correlation in the second half of a 10,000 step run, averaged over 10 runs.
+The first step in understanding the difference between predicted and measured behavior is understanding the correlations introduced by the gates, and how this correlation depends on stair length and slope. We can do this numerically, by initializing a state with 0 correlation, evolving it, and measuring the correlation at later times. This procedure with 1-, 2-, 3-, and 10-stairs for slope $m=0$ gives figure~\ref{fig:corrgrowth}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{corrgrowth.pdf}
+	\caption{\textbf{Correlation Growth for 0 slope.} Each curve corresponds to an initially 0 entanglement curve evolved with the given circuit architecture. Time in this plot is normalized so that one time step corresponds to one N-stair. This way, all curves reach steady-state entanglement by about 400 steps.
+	}
+	\label{fig:corrgrowth}
+\end{figure}
+As expected, the random circuit produces no significant correlation. Larger stairs do, and this should be taken into account when calculating growth rates. 
+
+The correlation also depends on the slope of the entanglement curve. Figure~\ref{fig:steadystate} shows this dependence. All curves were created by first evolving by 400 time steps to remove the initial conditions, and then sampling \_\_\_\_ points, separated by \_\_\_\_ steps.
 \begin{figure}
 	\centering
 	\includegraphics[width=.495\textwidth]{1stairCorrel}
 	\includegraphics[width=.495\textwidth]{3stairCorrel}
 	\caption{\textbf{Correlations created by 1- and 3-stair circuits.} The initial correlation curve shows that because of the initialization procedure the slope-0 state is perfectly anti-correlated. However, the correlation quickly equilibrates (see figure~\ref{fig:corrgrowth}). The 3-stair circuit reaches a more highly-correlated state than the 1-stair circuit.}
-	\label{fig:stairCorrel}
+	\label{fig:steadystate}
 \end{figure}
 The 3-stair circuit indeed generates more correlation than the 1-stair circuit. 
 
-Although the initial state is highly anticorrelated, the evolution of the circuit quickly removes this correlation, as shown in figure~\ref{fig:corrgrowth}.
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{corrgrowth.pdf}
-	\caption{\textbf{Correlation Growth for 0 slope.} Although the state starts out artificially anticorrelated, the correlation equilibrates after 400-600 time steps.}
-	\label{fig:corrgrowth}
-\end{figure}
-The correlation saturates after 400-600 time steps, meaning the correlation of the initial state is not as important as the overall slope. For 1-stairs the correlation should asymptote to 0, as it appears to do. An interesting next step would be a way to analytically predict the correlation built by each circuit.
+The correlation affects the growth rate through the probabilities of different configurations, as used in~\ref{eqn:2rate}. Ignoring finite-size effects, we have
+\begin{align}
+C_{1} &= \ex{s_is_{i+1}}-\ex{s_i}\ex{s_{i+1}} = \ex{s_is_{i+1}} - m^2,\nn
+\ex{s_is_{i+1}} &= p(uu) + p(dd) - p(ud) - p(du),\nn
+m &= p(uu) - p(dd)\nn
+\end{align}
