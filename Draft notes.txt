@@ -3,13 +3,17 @@ Also try to break this symmetry
   Maybe longitudinal field?
 
 
-Need sources for 
-  Time Indep OTOC
-  Unitarity and information loss
 
 
-How much should I describe the Keyserlingk paper?
-  How often should I cite it?
-Should I call the entanglement entropy the entanglement? bitartite entanglement? EE? $S$?
-Quote from Jonay before 2.2
-Is there an easy way to recover the von Neuman entropy?
+
+Are two site Hamiltonians always symmetric?
+  Operator spreading
+  Preservation of information
+Notation for three site swap
+  Try \ket{\alpha\beta\gamma}
+Formatting
+Entanglement velocity graphs
+  Convexity
+Include calculation of the triple product?
+  Yes
+  But not the 4-site transition matrix

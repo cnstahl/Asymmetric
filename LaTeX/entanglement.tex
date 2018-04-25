@@ -25,7 +25,7 @@
 \geometry{lmargin=1.5in} 
 \titleformat{\subsection}
 {\normalfont\large\bfseries}{\thesubsection}{1em}{}
-\renewcommand{\baselinestretch}{1.1}
+\renewcommand{\baselinestretch}{1.5}
 
 \renewcommand{\bf}{\mathbf}
 \renewcommand{\cal}{\mathcal}
@@ -68,13 +68,15 @@
 \begin{document}
 	
 \pagenumbering{Roman}
-%\input{frontmatter}
+\input{frontmatter}
+\newpage
 \pagenumbering{arabic}
 \input{introduction}
 \input{tihamiltonian}
-%\input{hamiltonianresults}
-%\input{circuits}
-%\input{circuitresults}
-%\printbibliography
+\input{hamiltonianresults}
+\input{circuits}
+\input{circuitresults}
+\input{conclusion}
+\printbibliography
 
 \end{document}

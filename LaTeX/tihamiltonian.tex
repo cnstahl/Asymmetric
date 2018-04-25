@@ -4,20 +4,6 @@
 
 \subsection{Motivation: Thermalization} \label{sub:therm}
 
-There are two robust, long-term behaviors that isolated quantum systems can demonstrate, thermalization and localization~\cite{Nandkishore2015}. In a localized system, initially local perturbations can be robust to the dynamics of the system and not diffuse~\cite{Anderson58}. Thermalizing systems, on the other hand, equilibrate to a thermal state, which can be described by a small number of parameters (energy, entropy, pressure, etc.). This equilibration occurs in the thermodynamic limit (large size and long time). 
-
-A seeming contradiction is that quantum systems evolve unitarily, so initial information can not be lost (in a closed system). This also means the long-term behavior can not be described by the previously mentioned small number of parameters, so the system will not thermalize. Connecting the system to a bath seems to solve this problem, but really we have only extended the problem to the larger Hilbert space that contains the system and bath. 
-
-The resolution is that the initial information in a subsystem spreads out throughout the system. Construction of the initial conditions is possible given the state of the entire system at later times, but the number of degrees of freedom associated with the system is too large, and they may be too far apart, to make this knowledge reasonable. 
-
-For this mechanism to work on systems in any state, it must work on eigenstates of the many-body Hamiltonian. Since eigenstates don't evolve in time, subsystems must look thermal when the whole system is in an eigenstate, even before the long-time limit. This argument is referred to as the Eigenstate Thermalization Hypothesis (ETH)~\cite{Deutsch91, Srednicki1994, Rigol2008, Nandkishore2015}. Of course, localized systems do not obey the ETH because they do not thermalize. This thesis will study thermalizing systems.
-
-Since information initially localized in a subsystem spreads to other degrees of freedom, the system acts as a bath for its subsystems. These degrees of freedom become entangled with the subsystem so that the state of the subsystem cannot be described without knowledge of the whole, making it look thermal. Ref.~\cite{Nandkishore2015} suggests the fundamental characteristic of a bath is its ability to entangle its degrees of freedom with those of the subsystem.
-
-After realizing that thermalization leads to information spreading (and locally information loss), the next point of study becomes its dynamics. Scrambling in black holes can be described using holography~\cite{Sekino2008, Shenker2014}, and scrambling has been studied in conformal field theories~\cite{Calabrese2005} and spin chains with integrable and non-integrable Hamiltonian evolution~\cite{Fagotti2008, Luchli2008, Kim2013, Baradson2012}. Random unitary dynamics, discussed in Sec.~\ref{sec:circuits} provide another setting to study spreading. This thesis will focus on entanglement dynamics in spin chains, with both time-independent Hamiltonian and random unitary dynamics. 
-
-\hrule
-
 Discuss information movement in Time-Independent Hamiltonian systems
   Find a source for this
   What is the relationship between entropy and OTOC?
@@ -38,7 +24,7 @@ Under a time-independent Hamiltonian $H$, states of the system evolve in the Sch
 \end{align}
 This evolution can be generalized to a time-dependent Hamiltonian by evolving with the time-ordered unitary operator
 \begin{align}
-U(t,t_0) = \text{T}\e^{-i\int_{t_0}^td\tau H(\tau)}.\nonumber
+U(t,t_0) = \text{T}\e^{-i\int_{t_0}^td\tau H(\tau)}.
 \end{align}
 As we will consider time-independent Hamiltonians, we only need time evolution operators of the form of equation~\ref{eqn:shro}. 
 
@@ -55,7 +41,7 @@ while it does not evolve in the Heisenberg picture. This is the opposite of obse
 
 \subsection{Pauli Strings and Pauli Weight} \label{sub:pauli}
 
-This subsection is based on~\cite{Keyserlingk}. When discussing operator spreading it is convenient to decompose operators that may act on very high dimensional Hilbert spaces into the Pauli basis. The basis operators are tensor products of Pauli matrices. Eventually we will decompose operators that are initially local, but any operator can be decomposed in this manner.
+This subsection is based on~\cite{Keyserlingk}. Since it is possible to add Hermitian operators and multiply them by constants, they live in a vector space that can be described using some basis. When discussing operator spreading it is convenient to decompose operators that may act on very high dimensional Hilbert spaces into the Pauli basis. The basis operators are tensor products of Pauli matrices. Eventually we will decompose operators that are initially local, but any operator can be decomposed in this manner.
 
 For single sites with Hilbert spaces of complex dimension $q$, the space of Hermitian operators is $q^2$-dimensional. For $q=2$ the basis operators are $X, Y, Z, I$. In general, there will be two Hermitian operators $X$ and $Z$ that obey $ZX = \exp(2\pi i/q)XZ$ and $Z^q=X^q=I$. Then an arbitrary basis operator will be of the form 
 \begin{align}
@@ -82,26 +68,34 @@ and obey
 \end{align}
 due to unitarity.
 
-With $c_\nu(t)$ in hand, we can define the Pauli weight $W(i,t)$ as how much of the weight of the operator is on Pauli strings that end on site $i$:
+With $c_\nu(t)$ in hand, we can define the Pauli weight $W(i,t)$ as how many of the Pauli strings in the decomposition end on site $i$, weighted by their coefficients in Eq.~\ref{eqn:decomp},
 \begin{align}
 W(i,t) = \sum_\nu\abs{c_\nu(t)}^2\,\delta(\text{end}(\nu)=i).
 	\label{eqn:endweight}
 \end{align}
-The delta function constrains the sum to be only over $\nu$ such that $\sigma^\nu$ has a non-identity at site $i$ and identities at all sites right of $i$. Reference~\cite{Keyserlingk} refers to this quantity as $\rho$ to emphasize its conservation and hydrodynamic evolution. It is possible to define an analogous quantity with the sum over strings that begin on site $i$ and have identities on all sites left of $i$. In that case the quantity in equation~\ref{eqn:endweight} can be called $W_R(i,t)$ while the weight of sites that start on $i$ is $W_L(i,t)$.
+The delta function constrains the sum to be only over $\nu$ such that $\sigma^\nu$ has a non-identity at site $i$ and identities at all sites right of $i$. This gives a measure of how far the operator has spread. Reference~\cite{Keyserlingk} refers to this quantity as $\rho$ to emphasize its conservation and hydrodynamic evolution. It is possible to define an analogous quantity with the sum over strings that begin on site $i$ and have identities on all sites left of $i$. In that case the quantity in equation~\ref{eqn:endweight} can be called $W_R(i,t)$ while the weight of sites that start on $i$ is $W_L(i,t)$.
 
 As an example, write
 \begin{align}
-A = X_0\otimes Y_1\otimes Y_2\otimes I_3 + I_0\otimes I_1\otimes Z_2\otimes Z_3,
+A = \th{\sqrt{2}} X_0\otimes Y_1\otimes Y_2\otimes I_3 + \th{\sqrt{2}} I_0\otimes I_1\otimes Z_2\otimes Z_3,
 	\nonumber
 \end{align}
 where the subscript designates the site on which each operator acts. This can be shortened to
 \begin{align}
-A = XYYI + IIZZ\label{eqn:inioper}.
+A = \th{\sqrt{2}} XYYI + \th{\sqrt{2}} IIZZ\label{eqn:inioper}.
 \end{align}
+Then the right (ending) Pauli weights are $W_R(0,0) = W_R(1,0) = 0$, $W_R(2,0)= W_R(3,0) =\half$, while the left (starting) weights are $W_L(0, 0) = W(2,0) =\half$, $W_L(1,0) = W_L(3,0)=0$.
 
-This decomposition is particularly useful when the initial operator is local. This means that all strings in the Pauli decomposition contain non-identiy operators at a single site. Then the end weights describe how far the operator has spread throughout the system due to the unitary dynamics. \emph{Mention thermalization} \emph{figure from Jonay}
+This decomposition is particularly useful when the initial operator is local. This means that all strings in the Pauli decomposition contain non-identiy operators at a single site. Then the end weights describe how far the operator has spread throughout the system due to the unitary dynamics, which is what allows the systems to localize. Figure~\ref{fig:hamspreading} shows the Pauli end weight evolution for an initially local operator in an Ising spin chain with longitudinal field in a strongly chaotic phase~\cite{Jonay17}. The weight eventually reaches the last site after moving across all sites.
 
-The Pauli decomposition is related to the Out-of-Time-Ordered Correlator (OTOC). Consider an initial operator, say, $A_0=Z_0=ZII\dots$, where the subscript now indicates that the operators on other sites are identities. This will commute with operators that are local at other sites, $B_i$. However, in general the time-evolved $A_0(t)$ will include Pauli strings that have non-identity operators at sire $i$. This can be seen through the Baker-Campbell-Hausdorff expansion~\cite{Roberts2016} of the time evolution
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\linewidth]{hamspreading}
+	\caption{\textbf{Operator spreading as shown by the Pauli weight} in an Ising model with transverse field, from~\cite{Jonay17}. The end weight starts on site 1 and moves sequentially across the system to site 6. Note that the weights at any time sum to 1.}
+	\label{fig:hamspreading}
+\end{figure}
+
+The Pauli decomposition is related to the Out-of-Time-Ordered Commutator (OTOC). Consider an initial operator, say, $A_0=Z_0=ZII\dots$, where the subscript now indicates that the operators on other sites are identities. This will commute with probe operators that are local at other sites, $B_i$. However, in general the time-evolved $A_0(t)$ will include Pauli strings that have non-identity operators at sire $i$. This can be seen through the Baker-Campbell-Hausdorff expansion~\cite{Roberts2016} of the time evolution
 \begin{align}
 A_0(t) &= \e^{iHt}A_0\e^{-iHt} \nn
 &= \sum_k\frac{(it)^k}{k!}[H,[H,\dots[H,A_0]\dots]],\label{eqn:BCH}
@@ -113,101 +107,49 @@ The extent to which these two fail to commute can be measured by the OTOC,\footn
 \begin{align}
 C(i,t) = \half\Tr \rho \abs{[A_0(t),B_i]}^2.\nonumber
 \end{align}
-For a pure state this is equivalent to~\cite{Keyserlingk, Jonay}
+For a pure state this is equivalent to~\cite{Keyserlingk, Jonay18}
 \begin{align}
 C(i,t) &= \half\langle\psi|\abs{[A_0(t),B_i]}^2|\psi\rangle\nn
-&= 1-\Re\langle\psi|A_0(t)B_iA_0^\dag(t)B_i^\dag|\psi\rangle. \nonumber
+&= 1-\Re\langle\psi|A_0(t)B_iA_0^\dag(t)B_i^\dag|\psi\rangle. \label{eqn:comm}
 \end{align}
-Some sources define the OTOC using $[A,B]^2$ instead of $|[A,B]|^2$~\cite{Jonay, Roberts2016, Nahum2017}. Others use the acronym to denote the out-of-time-order correlator, $F(i,t) = \ex{A_0(t)B_iA_0^\dag(t)B^\dag_i}$~\cite{Who}, which is related to $C(i,t)$ through the above equation. If $\rho$ is taken to be a thermal state at infinite temperature, the density matrix is proportional to the identity and the OTOC becomes
+Some sources define the OTOC using $[A,B]^2$ instead of $|[A,B]|^2$~\cite{Jonay, Roberts2016, Nahum2017}. Others use the acronym to denote the out-of-time-order correlator, $F(i,t) = \ex{A_0(t)B_iA_0^\dag(t)B^\dag_i}$~\cite{Who}, which is related to $C(i,t)$ through Eq.~\ref{eqn:comm}. If $\rho$ is taken to be a thermal state at infinite temperature, the density matrix is proportional to the identity and the OTOC becomes
 \begin{align}
 C(i,t) = \half\Tr \abs{[A_0(t),B_i]}^2.
 \end{align}
-This definition can be thought of as independent of the state of the system.
+This definition can be thought of as independent of the state of the system. We will adopt this as our convention for the OTOC.
 
-To see the relation between this quantity and $W(i,t)$, first consider the case of $q=2$. Then, if $B_i$ is one of the Pauli matrices, then there will be two classes of Pauli strings that commute with $B_i$: those with an identity at site $i$ and those with the operator $B$ at site $i$. Then $C(i,t)$ will be the sum of the squares of the $c_\mu(t)$ for which the operator at site $i$ is a Pauli matrix other than $B$. If we average over choice of $B$, we arrive at 
+To see the relation between this quantity and $W(i,t)$, first consider the case of $q=2$. If the probe is $X_i$ there will be two classes of Pauli strings that commute with it: those with an identity at site $i$ and those with the operator $X$ at site $i$. Then $C(i,t)$ will be the sum of the squares of the $c_\mu(t)$ for which the operator at site $i$ is $Y$ or $Z$. If we average over choice of probe ($X$, $Y$, or $Z$), we arrive at 
 \begin{align}
 C(i,t) = \frac{2}{3}\sum_\nu|c_\nu(t)|^2\,\delta(\text{condition on $\nu$}),
 	\label{eqn:otoc}
 \end{align}
-where the condition is that the operator at site $i$ is not the identity. For arbitrary $q$ the initial fraction is $\frac{q^2-2}{q^2-1}$. 
+where the condition is that the operator at site $i$ is not the identity. For arbitrary $q$ the prefactor is $\frac{q^2-2}{q^2-1}$. 
 
-If the operator $A_0(t)$ is sufficiently random, all $q^{2L}$ Pauli strings have the same coefficient, with $|c_\nu|^2 = q^{-2L}$. There will be $q^{2L}\frac{q^2-1}{q^2}$ operators that meet the condition, so for these random operators
+If the operator $A_0(t)$ is sufficiently random, all $q^{2L}$ coefficients will have expectation values of the same order, with $|c_\nu|^2 \approx q^{-2L}$. There will be $q^{2L}\frac{q^2-1}{q^2}$ operators that meet the condition, so for these random operators
 \begin{align}
 C(i,t) &= \frac{q^2-2}{q^2-1}q^{2L}\frac{q^2-1}{q^2}\th{q^{2L}}\nn
 &= \frac{q^2-2}{q^2}\nonumber.
 \end{align}
 
-For $q=2$ there is a particularly easy way to calculate the value in expression~\ref{eqn:otoc}. Since $\Tr(X) = \Tr(Y)=\Tr(Z) = 0$ and $\Tr(I) = 2$, in order to find the non-identity weight at site $i$ start by tracing over the degrees of freedom at that site. Then only the identity weight is preserved. 
+For $q=2$ there is a particularly easy way to calculate the value in expression~\ref{eqn:otoc}. Since $\Tr(X) = \Tr(Y)=\Tr(Z) = 0$ and $\Tr(I) = 2$, in order to find the non-identity weight at site $i$ start by tracing over the degrees of freedom at that site to obtain $\tilde{A}_0(t) = \half\Tr_iA_0(t)$. Only the strings with the identity at $i$ survive this operation so
+\begin{align}
+\sum_\nu \abs{c_\nu(t)}^2\delta(\text{condition}) = \frac{3}{2}C(i,t) =  \Tr 
+	\tilde{A}_0(t)\dag\tilde{A}_0(t).
+\end{align}
+
+\subsection{Information Velocities} \label{sub:vels}
 
 Lieb-Robinson bounds
 
-Butterfly velocity
-
-\subsection{Entanglement Entropy} \label{sub:intro}
-
-Quantum entanglement describes aspects of branches of physics from high energy and quantum information theory to experimental studies of cold atomic gases. Although entanglement is so widely studied, its dynamics are less well understood. The dynamics of the entanglement are closely related to the speed at which information travels or spreads. 
-
-Let us briefly review entanglement in composite systems. First assume the full system $AB$ can be decomposed into subsystems $A$ and $B$, and $AB$ is in the pure state $\ket{\Psi}_{{AB}}$. In the spin chains considered here, the chain is often divided such that $A$ is all spins on one side of a cut and $B$ is all spins on the other side. Another common decomposition is having $A$ be all spins between two cuts, and $B$ being all other spins. If the states of $A$ and $B$ are entangled it is impossible to write $\ket{\Psi}_{AB} = \ket{\psi_A}_A \ket{\psi_B}_B$. If this is possible the larger state is called a product state. Subscripts on kets represent the space that the ket lives in, but this is clear from the name of the state (uppercase for the full state, subscripts otherwise) so we will drop the outside subscripts.
-
-We can asses the amount of entanglement by looking at the density matrix $\rho_{AB} = \ket{\Psi}\bra{\Psi}$. All density matrices satisfy $\Tr \rho = 1$. Pure state density matrices further satisfy 
+The butterfly velocity is the fastest velocity at which perturbations can propagate without decaying. In systems large enough so that the site index $i$ can be replaced with a continuous position $x$, the OTOC behaves as~\cite{Khemani2018}
 \begin{align}
-\Tr \rho^2 = \Tr\ket{\psi}\bra{\psi}\ket{\psi}\bra{\psi} = \Tr\ket{\psi}\bra{\psi} = 1.
+C(x,t)\sim \e^{\lambda(v)t}\quad\text{for}\;\;x=vt.\label{eqn:butterfly}
 \end{align}
-We can further construct the reduced density matrices $\rho_A$ and $\rho_B$ as the full density matrix $\rho_{AB}$ traced over subsystem $B$ and $A$, respectively. If $\ket{\Psi}$ is a product state, the reduced density matrices are $\rho_A = \ket{\psi_A}\bra{\psi_A}$, etc. However, if the states are entangled the reduced density matrices do not have such a nice form. They will still have trace 1, but $\Tr\rho^2<1$ for a mixed state.
-
-A maximally entangled state will be of the form
-\begin{align}
-\ket{\Psi} = \sum_i^N\th{N}\ket{\psi_{A,i}}\ket{\psi_{B,i}},
-\end{align}
-where $N$ is the dimension of the larger of the two Hilbert spaces. $\Tr\rho_{AB}^2=1$ because the full state is pure. The reduced density matrices are
-\begin{align}
-\rho_A = \sum_i^N\th{N}\ket{\psi_{A,i}}\bra{\psi_{B,i}},
-\end{align}
-with $\Tr\rho_A^2 = \sum_i\th{N^2}=\th{N}$, with similar results for $B$. This provides the constraints $\th{N}\le\Tr\rho^2\le 1$. 
-
-Bipartite entanglement entropy provides another\footnote{Is it better?} way to quantify the entanglement and is defined as the quantum entropy of one of the reduced density matrices. As long as the full state is pure, this is equivalent for either subsystem. There are multiple quantum entropies. The $n$th Renyi entropy of density matrix $\rho$ is 
-\begin{align}
-S_n = \th{1-n}\log\left(\Tr\rho^n\right). \label{eqn:renyi}
-\end{align}
-In the limit $n\to1$ this becomes the von Neumann entropy 
-\begin{align}
-S_{vN} &= \th{1-(1+\epsilon)}\log\left(\Tr\rho^{1+\epsilon}\right) \nn
-&= -\frac{1}{\epsilon}\log \Tr \rho \rho^{\epsilon}\nn
-&= -\th{\epsilon}\log\Tr\rho\left(1+\epsilon\rho\right) \nn
-&= -\Tr\rho\log\rho,
-\end{align}
-the analogue of the classical Shannon entropy. The calculation uses the small $x$ expansions of $a^x$ and $\log(1+x)$. These entropies are maximized by maximally mixed states, with entropy $N\log q$ for $N$-site systems with $q$-dimensional Hilbert spaces at each site. They are also minimized by pure states, which have entropy 0.
-
-For the spin chain, we can define many different subsystems, each with a corresponding entanglement entropy. The following description is largely taken from~\cite{Nahum2017}. Consider a spin chain of N sites with dimension $q$. Sites are labeled by $i=1,\dots N$, while the bonds between sites are labeled by $x = 1,\dots N-1$. After cutting the system at bond $x$, define the entropy across this cut as the bipartite entanglement entropy of all sites to the right of $x$. If the whole chain is in a pure state, this is equal to the bipartite entanglement entropy of all sites to the left of $x$.
-
-We can define a function $S(x) = -\Tr\rho_x\log\rho_x$ where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out. This is the von Neumann entanglement entropy of the two subsystems divided by the bond at $x$. For convenience logarithms are taken base $q$. $S(x)$ will observe constraints not already made clear due to the fact that subsystems defined by adjacent $x$ have heavy overlap.
-
-Classically, for an arbitrary system decomposable into subsystems $A$ and $B$, the entropies satisfy $\max(S(A), S(B)) \leq S(AB)\leq S(A) + S(B)$. In quantum mechanics, this is replaced by the subadditivity of the von Neumann entropy 
-\begin{align}
-\left|S(A)-S(B)\right| \leq S(AB)\leq S(A) + S(B). \label{eqn:subadd}
-\end{align}
-If we take subsystem $A$ to be the single site between cuts $x$ and $x+1$ and subsystem $B$ to be all sites right of $x+1$, this becomes
-\begin{align}
-\left|S_1 - S(x+1)\right| \leq S(x) \leq S_1 + S(x+1),
-\end{align}
-where $S_1$ denotes the entropy of the single site between cuts $x$ and $x+1$. After some rearranging this can be written $\left|S(x+1) - S(x)\right| \leq S_1$. However, since the single site is $q$ dimensional, $S_1 \leq \log q = 1$, explaining the use of $q$ for the base. The preceding arguments taken together give the constraint
-\begin{align}
-\left|S(x+1) - S(x)\right| \leq 1. \label{eqn:offbyone}
-\end{align}
-
-Entanglement speed
-
-A finite system has $S(x)$ pinned at its endpoint, because the entanglement entropy of a single state is bounded by 1. Then the maximally entangled state has $S(x) = \min\{x,L-x\}$. As the entanglement approaches this value it takes forms as in figure~\ref{fig:Tower}.
+This tracks the OTOC along rays of constant velocity, as in Fig.~\ref{fig:khemani_lambda}.
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\linewidth]{Tower}
-	\caption{\textbf{Bitartite entanglement entropy at different times,} ($t = 340$, 690, 1024, 1365, 1707, 2048 and 4096). This data comes from a circuit model, but the behavior is believed to be general. Figure from~\cite{Nahum2017}.}
-	\label{fig:Tower}
+	\includegraphics[width=.5\linewidth]{khemani_lambda}
+	\caption{\textbf{Velocity dependent Lyapunov exponents} along rays of constant velocity, from~\cite{Khemani2018}. For $v<v_B$, inside the light cone, $\lambda>0$ or is not defined. Outside the light cone $\lambda<0$ and perturbations decay exponentially. The speed $v_B$ is where $\lambda=0$ and perturbations remain of order 1.}
+	\label{fig:khemani_lambda}
 \end{figure}
-The flat section has a constant growth rate $\pd{S(x,t)}{t}$ so the cusp position $y$ moves at a constant speed defined by the growth rate and the slope. Since the maximal slope is $\pd{S(x,t)}{x}=1$, this velocity is
-\begin{align}
-\pd{y}{t} = \pd{S}{t}\left(\pd{S}{x}\right)^{-1} = \pd{S}{x} = v_E.
-\end{align}
-This entanglement speed is equivalent to \_\_\_\_\_\_\_\_\_\_
-
-References~\cite{Keyserlingk, Jonay, Nahum2017} discuss the speed of entanglement in brickwork models using related concepts called out of time order commutator (OTOC) and operator density. Reference~\cite{Zhou2017} quantifies the scrambling using the operator entanglement entropy opEE of the time evolution operator.
+The fact that there is a single $v_B$ (or rather one in each direction) is due to the fact that $\lambda(v)$ must be convex, and can only cross 0 once.

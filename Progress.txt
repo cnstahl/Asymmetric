@@ -10,18 +10,18 @@ April 11        32     24 (+1)
 April 12        34     24.5
 April 13        36     25.5
 April 14        39     25.5
-April 15        42
-April 16        44
-April 17        46
-April 18        48
-April 19        50
-April 20        52
-April 21        55
-April 22        58
-April 23        60
-April 24
-April 25
-April 26
-April 27
-April 28
-April 29
+April 15        42     29 (+1)
+April 16        44     31 (+1)
+April 17        46     33
+April 18        48     35.5
+April 19        50     37
+April 20        52     39
+April 21        44     39
+April 22        46     45
+April 23        48     48
+April 24        50
+April 25        52
+April 26        54
+April 27        56
+April 28        58
+April 29        60
