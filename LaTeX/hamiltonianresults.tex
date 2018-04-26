@@ -12,21 +12,21 @@ We want a multi-site in which sites interact only through local interactions. We
 H_{\text{tot}} = \sum_{i=1}^{L-n}H_n(\psi_i,\psi_{i+1},\dots\psi_{i+n})
  \label{eqn:chain}
 \end{align}
-A common choice is $n=2$ but this will not suffice, because 2-site Hamiltonians are always symmetric.\footnote{Is this true?} There do exists asymmetric Hamiltonians for three sites, though. 
+A common choice is $n=2$ but this will not suffice, because 2-site Hamiltonians are always symmetric. Unitarity preserves information so for any weight the Hamiltonian moves from site $i$ to $i+1$ it must move an equal amount from site $i+1$ to $i$. There do exists asymmetric Hamiltonians for three sites, though. 
 
 The feature we are looking for in this Hamiltonian is asymmetry in its dynamics. To that end, instead of looking directly for an asymmetric Hamiltonian, we can find a unitary operator $U(t)$ with the dynamics we want. From that operator we can construct a Hamiltonian that gives $U(t)=e^{-iHt}$. There are multiple ways to construct $H$ from $U(T)$. One way is to just take the matrix log, for example by using Mathematica. Since this method is not very physical, we can instead look at eigenstates. $U(t)$ and $H$ will have the same eigenstates, with the eigenvalues of $H$ given by $\lambda_H = i\log(U(1))$. The Hamiltonian is completely specified by its eigenstates and eigenvalues. Since scalar logs are easier, this method is much more intuitive.
 
-One asymmetric unitary operator is the 3-site swap $S_{123}$. $S_{123}$ is a unitary operator such that\footnote{Notation}
+One asymmetric unitary operator is the 3-site swap $S_{123}$. $S_{123}$ is a unitary operator such that
 \begin{align}
-S_{123}\ket{\psi_1\psi_2\psi_3} =\ket{\psi_3\psi_1\psi_2}, \label{eqn:condition}
+S_{123}\ket{\alpha\beta\gamma} =\ket{\gamma\alpha\beta}, \label{eqn:condition}
 \end{align}
-where the position of the wavefunction denotes the site on which it sits. The idea of using this operator is that it can transport a state from the left side to the right side in 1 step, but takes two applications to move a state from the right to the left.
+where the position of the state denotes the site on which it sits. The idea of using this operator is that it can transport a state from the left side to the right side in 1 step, but takes two applications to move a state from the right to the left.
 
 One way to build the three site swap gate is in a Floquet system or quantum circuit, out of 2-site swap gates $S_{123} = S_{12}S_{23}$. Each 2-site swap interchanges two states, so the action is 
 \begin{align}
-S_{12}S_{23}\ket{\psi_1\psi_2\psi_3} &= S_{23}\ket{\psi_1\psi_3\psi_2} = 
-	\ket{\psi_3\psi_1\psi_2}\nn
-&= S_{123}\ket{\psi_1\psi_2\psi_3}.
+S_{12}S_{23}\ket{\alpha\beta\gamma} &= S_{23}\ket{\alpha\gamma\beta} = 
+	\ket{\gamma\alpha\beta}\nn
+&= S_{123}\ket{\alpha\beta\gamma}.
 \end{align}
 It is also possible to build $S_{123}$t out of a time-independent Hamiltonian, so that $U(1) = e^{-iH_3} = S_{123}$. We will construct the Hamiltonian using the eigendecomposition, but it is also possible to take the matrix log.
 
@@ -99,13 +99,23 @@ There are a few checks we can perform on this Hamiltonian, First,it should be sy
 
 The representation of the Hamiltonian as a triple product provides another reason for the spectrum of the Hamiltonian. As previously mentioned the Hilbert space of the 3 spins decomposes into one spin-$\frac{3}{2}$ space and two spin-$\half$ spaces. The state $\ket{111}$ is part of the spin-$\frac{3}{2}$ space. Since the three spins point in the same direction, their triple product vanished. Furthermore, since the other three states in the spin-$\frac{3}{2}$ subspace are related to $\ket{111}$ by rotation and the Hamiltonian is symmetric in this respect they also must have energy 0. Of the two spin-$\half$ pairs, one pair has positive energy and one has negative energy.
 
-%This triple product is
-%\begin{align}
-%H &= \bm{\sigma}_1\cdot\left(\bm{\sigma}_2 \times\bm{\sigma}_3\right) \nn
-% &= \sigma_{1,1}\otimes\sigma_{2,2}\otimes{\sigma}_{3,3} - {\sigma}_{1,1}
-%	\otimes\sigma_{2,3}\otimes\sigma_{3,2} + \sigma_{1,2}\otimes{\sigma}_{2,3} \otimes {\sigma}_{3,1}-\cdots
-%\end{align}
-%which is indeed equivalent to Eq.~\ref{eqn:3ham}.
+Writing the $j$th component of spin on site $i$ as $\sigma_{i,j}$, this triple product is
+\begin{align}
+H &= \bm{\sigma}_1\cdot\left(\bm{\sigma}_2 \times\bm{\sigma}_3\right) \nn
+&= \sigma_{1,1}\otimes\sigma_{2,2}\otimes{\sigma}_{3,3} - {\sigma}_{1,1}
+	\otimes\sigma_{2,3}\otimes\sigma_{3,2} + \sigma_{1,2}\otimes{\sigma}_{2,3} \otimes {\sigma}_{3,1}-\cdots\nn
+&= \begin{bmatrix}
+	0 & 0 & 0 & 0 & 0 & 0 &-i & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & i \\
+	0 & 0 & 0 & 0 &-i & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & i & 0 & 0 \\
+	0 & 0 &-i & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & i & 0 & 0 & 0 & 0 \\
+	-i& 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & i & 0 & 0 & 0 & 0 & 0 & 0
+	\end{bmatrix} + \dots
+\end{align}
+which is indeed equivalent to Eq.~\ref{eqn:3ham}.
 
 Exponentiating the Hamiltonian should act as another check. This gives the time evolution operator for one time step
 \begin{align}
@@ -127,7 +137,7 @@ The state will become $\ket{010}$ at time 1. Fig.~\ref{fig:timeevol} shows this 
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{timeevol}
-	\caption{Evolution of coefficients if the system starts in state $\ket{100}$.}
+	\caption{\textbf{Evolution of coefficients in 3-site system} if the system starts in state $\ket{100}$. Note that the coefficient for $\ket{001}$ peaks before the coefficient for $\ket{010}$ even though the system moves to state $\ket{010}$ first.}
 	\label{fig:timeevol}
 \end{figure}
 
@@ -166,42 +176,62 @@ which is shown in figure~\ref{fig:onecoef}. Although it appears to be quasi-peri
 	\centering
 	\includegraphics[width=.6\textwidth]{timeevol5dense}
 	\caption{\textbf{Evolution of the 5 site system} when the system starts in state $\ket{00001}$. Periodicity is ruined by the third triplet.}
-	\label{fig:timeevol5}
+	\label{fig:timeevol5dense}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{onecoefd}
-	\caption{\textbf{Simplified view of Fig.~\ref{fig:timeevol5}}, showing only the coefficient for $\ket{00001}$ when that is the starting state. Even with the longer range of time, the coefficient never returns to 1.}
+	\caption{\textbf{Simplified view of Fig.~\ref{fig:timeevol5dense}}, showing only the coefficient for $\ket{00001}$ when that is the starting state. Even with the longer range of time, the coefficient never returns to 1.}
 	\label{fig:onecoef}
 \end{figure}
 
 %The coefficient for $\ket{00100}$ does not fit the pattern. It does not reach maximum at the right time and it does have a periodic structure. Furthermore, when the starting state is $\ket{00010}$ the problematic state is still $\ket{00100}$, probably because of the chaining mechanism. When the starting state is $\ket{00100}$ the coefficients for $\ket{10000}$ and $\ket{00001}$ always vanish. The next chaining method to try will be to have $2n$ spins, and to have the first spin complete the last trio.
 
-Instead of putting $H_3$ on every triplet, we can only chain together the odd triplets. We will call these sparse systems, and they are only possible for odd $L$. For example the sparse Hamiltonian for $L=5$ is
+Instead of putting $H_3$ on every triplet, we can only chain together the odd triplets. \emph{Figure} We will call these sparse systems, and they are only possible for odd $L$. For example the sparse Hamiltonian for $L=5$ is
 \begin{align}
 H'_5 = H_3\otimes\mathbb{I}_2 + \mathbb{I}_2\otimes H_3.
 \end{align}
-Like the dense $L=5$ Hamiltonian, this system is not periodic. A plot of the coefficients over time the the starting state $\ket{00001}$ is shown in Fig.~\ref{fig:timeevol5s}. An interesting detail is that the coefficient on state $\ket{00100}$ is actually periodic. 
+Like the dense $L=5$ Hamiltonian, this system is not periodic. A plot of the coefficients over time the the starting state $\ket{00001}$ is shown in Fig.~\ref{fig:timeevol5}. An interesting detail is that the coefficient on state $\ket{00100}$ is actually periodic. 
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\linewidth]{timeevol5}
 	\caption{\textbf{Evolution of the sparse 5-site system}. Although the coefficients for most states are not periodic, the coefficient for $\ket{00100}$ is.}
+	\label{fig:timeevol5}
 \end{figure} 
 This is the last vestige of periodicity left over from the small systems, and provides a small argument for using the dense systems, since the aperiodic systems spread more fully.
 
 Note that the previous analysis has focused only on individual states, not operator spreading. Furthermore, for larger systems, looking at all coefficients becomes unwieldy. We can solve these problems simultaneously by using the tools developed in the previous section for quantifying operator spreading.
 
+Before doing this, though, we will show that this Hamiltonian is quantum chaotic through an analysis of its spectrum. One method of diagnosing quantum chaos that is robust to finite size effects is the two-gap level statistics~\cite{Oganesyan2007}. From the energy eigenvalues $E_n$ define the gaps $\delta_n= E_{n+1}-E_n>0$. The level statistics are
+\begin{align}
+0\le r_n=\frac{\min\{\delta_n,\delta_{n-1}\}}{\max\{\delta_n,\delta_{n-1}\}}
+	\le1.\label{eqn:levelstats}
+\end{align}
+In a random matrix the eigenvalues repel each other, so $r_n$ are not close to 0.
+
+To calculate out level statistics we find $r_n$ and keep all but those for highest and lowest $n$. We also include a small term  
+\begin{align}
+H'\propto\sum_i S_i\cdot S_{i+1}
+\end{align}
+to break the rotational symmetry of the system. This small term does not noticeably affect any results in this section. The distribution of $r_n$ is shown in Fig.~\ref{fig:level_stats_denseL11}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{level_stats_denseL11}
+	\caption{\textbf{Level statistics for dense Hamiltonian.}}
+	\label{fig:level_stats_denseL11}
+\end{figure}
+The distribution does appear to be suppressed at small $r$, so we conclude that this Hamiltonian is quantum chaotic.
+
 \subsubsection{Pauli String Weight} \label{subsub:pauli}  
 
-We can study the operator dynamics of this system by extending to large $L$ and evolving operators that are identities on all sites except one end. Since the Hamiltonian is SO(3) symmetric, it does not matter if the perturbation is $X$, $Y$, or $Z$. For convenience, we will use $Z$. We start by discussing the Pauli weight, and delay discussing the OTOC and butterfly velocity to Sec.~\ref{subsub:otoc}.
+We can study the operator dynamics of this system by extending to large $L$ and evolving operators that are identities on all sites except one end. The operators in this section are interpreted as observables, so they will evolve in the Heisenberg picture and cycle in the opposite direction than the states. Since the Hamiltonian is SO(3) symmetric, it does not matter if the perturbation is $X$, $Y$, or $Z$. For convenience, we will use $Z$. We start by discussing the Pauli weight, and delay discussing the OTOC and butterfly velocity to Sec.~\ref{subsub:otoc}.
 
-The first Hamiltonian we will discuss is the $L=11$ sparse Hamiltonian.
-For the forward-propagating wave, with $A(t=0) = Z_0 = Z\otimes \mathbb{I} \otimes \mathbb{I} \cdots$, the weight all starts on site 0. As it evolves, it reaches peaks for even sites, but does not rise above $1/10$ for the odd sites. The successive peaks fall off in size but dominate the Pauli strings until the last site takes over. This evolution can be seen in Fig.~\ref{fig:L11end3n20front}). 
+The first Hamiltonian we will discuss is the $L=11$ sparse Hamiltonian. Although we will eventually use the dense one to study $v_B$, we can extract interesting behavior from the sparse one.
+For the right-propagating wave, with $A(t=0) = Z_0 = Z\otimes \mathbb{I} \otimes \mathbb{I} \cdots$, the weight all starts on site 0. As it evolves, it reaches peaks for even sites, but does not rise above $1/10$ for the odd sites. The successive peaks fall off in size but dominate the Pauli strings until the last site takes over. This evolution can be seen in Fig.~\ref{fig:L11end3n20front}). 
 
-To understand this behavior, realize that 
-
-For the backward-propagating waves $(A(t=0)=Z_{L-1})$, the initial decaying signal is more difficult to make out but still present. It is dominated by a large weight of sites that start on site 9 around $t=1$. By $t = 3$ the first site has started to dominate the Pauli weights.
+To understand this behavior, realize that $W(i,t)$ only measures the weight of operators that end on site $i$, not those that reach past it. So, if all components of the operator that are non-identity on site $i$ are also non-identity on site $i+1$, $W(i,t)$ will be very small. Since our Hamiltonian connects site 0 with site 1 only through terms that also connect site 0 to site 2, this even-site hopping behavior makes sense. 
+%Furthermore, although the Hamiltonian was designed to 
 
 \begin{figure}
 	\centering
@@ -209,6 +239,11 @@ For the backward-propagating waves $(A(t=0)=Z_{L-1})$, the initial decaying sign
 	\caption{Weight of operators that end on site $i$.}
 	\label{fig:L11end3n20front}
 \end{figure}
+
+For the left-propagating waves, with $A(t=0)=Z_{L-1}$, the initial decaying signal is more difficult to make out but still present. Like in the right wave, it touches only even sites. The signal travels faster and decays faster. It is dominated by a large weight of sites that start on site 9 around $t=1$. By $t = 3$ the first site has started to dominate the Pauli weights. These weights appear in Fig.~\ref{fig:L11end3n20back}.
+
+Both the faster speed of the signal and the early dominance of the weight on site 9, which would be analogous to weight on site 1 in the right-moving case, can be understood through the asymmetric 3-site Hamiltonian and Fig.~\ref{fig:timeevol}. First recall that evolution of operators proceeds in the opposite direction as evolution of states. Then, starting on site 0, a small amount of weight would initially move to site 1 before the entire weight moves to site 2. The fact that the entire weight moves to site 2 allows the evolution in Fig.~\ref{fig:L11end1n60fore} to be so smooth. However, if the weight starts on site 10, a small amount moves to site 8 before the entire weight moves to site 9. This explains both main differences between the left and right propagating signals.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end3n20back}
@@ -216,24 +251,111 @@ For the backward-propagating waves $(A(t=0)=Z_{L-1})$, the initial decaying sign
 	\label{fig:L11end3n20back}
 \end{figure}
 
-The initial behavior also matches the $L=9$ case. For forward propagation the initial behavior is $W(t;i) = ae^{bt}$ with $a,b$ given by\dots Figure~\ref{fig:L11end1n60fore} shows this behavior, while figure~\ref{fig:L11end1n60back} shows the analogous behavior for the backward propagating wave. 
+Although the long-time behavior is interesting, it is strongly affected by finite size effects and is not useful in extracting operator dynamics. For this we use the early-time behavior, in the range in which Pauli weights are still growing polynomially. For right propagation the initial behavior is $W(t;i) = \exp(a+b\log(t))=e^ab^t$ with $a,b$ given by
+\begin{align*}
+\begin{tabular}{rll}
+$i$ & $b$ & $a$\\
+0 &-0.22806104 &-0.64537868\\
+1 & 3.506984  &-0.7706456\\
+2 & 1.81723584  &1.24814523\\
+3 & 5.61941276 &-0.85107562\\
+4 & 3.84629108  &1.71062193\\
+5 & 7.69020229 &-1.63644758\\
+6 & 5.8674097   &1.33960991\\
+7 & 9.7051822  &-2.99655938\\
+8 & 7.8830393   &0.37761653\\
+9 & 11.6271597   &-4.90046795\\
+10 & 9.88377179 &-1.04727877
+\end{tabular}
+\end{align*}
+The interesting data here is that the exponents are close to even integers. Even sites start with $b=0$ at site 0 and increase by 2 for each site, while odd sites start with $b=4$ at site 3. 
+Figure~\ref{fig:L11end1n60fore} shows this behavior, while figure~\ref{fig:L11end1n60back} shows the analogous behavior for the left propagating wave. The exponents there follow a similar pattern.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end1n60fore}
-	\caption{Early-time leading edge weights for forward propagating wave.}
+	\caption{Early-time leading edge weights for right propagating wave.}
 	\label{fig:L11end1n60fore}
 \end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end1n60back}
-	\caption{Early-time leading edge weights for backward propagating wave.}
+	\caption{Early-time leading edge weights for left propagating wave.}
 	\label{fig:L11end1n60back}
 \end{figure}
 
-Here the relevant numbers are\dots
-Again, the exponents for even and odd sites increase by one within each group. Pairs of sites separated by 3 are also divergent in the forward case while convergent in the backward case.
+To understand these exponents, treat $t$ in the time evolution operator as a perturbation,
+\begin{align}
+U(t) &= e^{iHt}\nn
+&= 1-iHt-\half H^2t^2+\frac{i}{3!}H^3+\th{4!}H^4t^4+\dots\label{eqn:expansion}
+\end{align}
+The term linear in $t$ contains a single $H$, which has matrix elements that connect site 0 to sites 1 and 2. The term quadratic in $t$ contains a second $H$, which connects site 0 to sites 3 and 4 through site 2. The Pauli weight is quadratic in $A(t)$, which explains why the exponents for the OTOC are even.
+
+Although this explains why the exponents for even sites are $0,2,4\dots$, it suggests that the exponents for odd sites should be $2,4,6\dots$. The reason they are not is the same reason that the weight on these sites is suppressed in the full evolution: they are hidden to first available order by the sites in front of them. To see the $t^2$ dependence on site $1$, for example, we need the weight of all operators that are non-zero at that site, not just the ones that end there. We can find this information in $C(i,t)$, the normalized OTOC.
 
 \subsubsection{OTOC and Butterfly Velocity} \label{subsub:otoc}
 
-After discussing the behavior of the Pauli weights in the sparse and dense Hamiltonians, we will discuss the OTOC, which encodes the amount of operator weight on a site, and from this explore the butterfly velocity. We do not find an explicit $v_B$ but do show that it is different in the two directions.
+After discussing the behavior of the Pauli weights in the sparse and dense Hamiltonians, we will discuss the OTOC, which encodes the amount of operator weight on a site, and from this explore the butterfly velocity. We do not find an explicit $v_B$ but do show that it is different in the two directions. 
+
+First we show the full time evolution of the OTOC for the sparse and dense Hamiltonians, for left and right propagating waves. These can be found in Figs.~\ref{fig:L11end3n20_herefront} through~\ref{fig:denseL11end3n20_hereback}. The most most obvious difference from the Pauli weight is that these weights asymptote to a non-zero value for all sites. As discussed in Eq.~\ref{eqn:otoc} the OTOC measures the weight of non-identity operators on a site, and asymptotes to $1/2$ in random matrices, or $3/4$ in our normalization. The operators in this Hamiltonian do not reach $3/4$ because of their conservation laws~\cite{Jonay17, Jonay18}.
+
+Other interesting features include the persistence of the fast-moving signal in the left-moving wave of the sparse Hamiltonian and the clear asymmetry in early behavior between left- and right-moving OTOCs. The OTOCs for perturbations starting on site 0 consistently rise faster than the signals propagating from site 10. The dense Hamiltonian also transports weight faster than the sparse Hamiltonian.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{L11end3n20_herefront}
+	\caption{\textbf{OTOC for sparse Hamiltonian,} right moving perturbation.}
+	\label{fig:L11end3n20_herefront}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{L11end3n20_hereback}
+	\caption{\textbf{OTOC for sparse Hamiltonian,} left moving perturbation.}
+	\label{fig:L11end3n20_hereback}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{denseL11end3n20_herefront}
+	\caption{\textbf{OTOC for dense Hamiltonian,} right moving perturbation.}
+	\label{fig:denseL11end3n20_herefront}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{denseL11end3n20_hereback}
+	\caption{\textbf{OTOC for dense Hamiltonian,} left moving perturbation.}
+	\label{fig:denseL11end3n20_hereback}
+\end{figure}
+
+Like for the Pauli weights we can study the early behavior. We will only show the plot for for the forward wave for the sparse Hamiltonian, \emph{Why?}
+
+To find the butterfly velocity, we have to first find the velocity-dependent Lyapunov exponents $\lambda(v)$. To do this we plot $C(vt,t)$, where $vt=i$, for different values of $v$. For a sufficiently large system there should be a $v=v_B$ such that $C(vt,t)$ does not decay with $t$. Our system suffers from finite size effect that prevent us from finding $v_B$ exactly, but we can still explore the $v$ dependence of $C(vt,t)$.
+
+We will focus on the dense Hamiltonian, as it has more asymmetry. Unsurprisingly, $C(vt,t)$ suffers from the same odd/even effects we've been seeing all along. Fig.~\ref{fig:otocs_denseforeallL11} shows the evolution of the weights. The problem is that weight too quickly reaches the even sites and does not reach the odd sites fast enough.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.495\textwidth]{otocs_denseforeallL11}
+	\includegraphics[width=.495\textwidth]{otocs_densebackallL11}
+	\caption{\textbf{Velocity-dependent OTOC decay} in dense Hamiltonian. The jaggedness comes from odd/even effects. Each line corresponds to a velocity, given in the legend. The overall behavior is exponential decay as expected.}
+	\label{fig:otocs_denseforeallL11}
+\end{figure}
+
+We can boost the odd sites by connecting site 0 to site 1 with a term that does not connect it to site 2. The simplest rotationally symmetric term with that property is $H'=\bm{S}_i\cdot\bm{S}_j$. If we add this term to spins 0 and 1 and spins 10 and 11, the OTOC decay becomes much more linear, although still not perfectly so, as shows in Fig.~\ref{fig:otocs_pert}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.495\textwidth]{otocs_dense_pert_foreallL11}
+	\includegraphics[width=.495\textwidth]{otocs_dense_pert_backallL11}
+	\caption{\textbf{Velocity-dependent OTOC decay} in dense Hamiltonian with initial and final dot product perturbations. Although there is still jaggedness on the edges, the linear behavior in the bulk allows us to extract $\lambda(v)$.}
+	\label{fig:otocs_pert}
+\end{figure}
+
+Fig.~\ref{fig:balanced_butterfly_dense_pert_L11} shows the $v$ dependence of $\lambda(v)$. In a large enough system, $\lambda(v)$ should approach 0 for finite $v$. However, due to the small size of our system we were not able to effectively probe these slow speeds. However, it is clear that $\lambda_+>\lambda_-$ for all $v$. Therefore, unless the larger systems introduce some strange new behavior, $v_{B+}>v_{B-}$.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{balanced_butterfly_dense_pert_L11}
+	\caption{\textbf{Velocity dependent Lyapunov exponents} for the dense Hamiltonian with end perturbations. The butterfly velocity should be where these curves cross the origin, such $\lambda(v_B) = 0$. This doesn't happen, due to finite size effects, but we can see that $\lambda_+>\lambda_-$ for all $v$, which implies that $v_{B+}>v_{B-}$.}
+	\label{fig:balanced_butterfly_dense_pert_L11}
+\end{figure}

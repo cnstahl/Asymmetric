@@ -6,7 +6,7 @@ The architecture considered in this section will be a limiting case of correlate
 \begin{figure}
 	\centering
 	\input{stairs}
-	\caption{\textbf{Staircase circuit architecture,} in which the gate at site $x$ is always followed by ones at sites $x+1, x+2$, making this a 3-stair. Note that not all gates are productive, only the ones that fall on sites that are local minima when they fall.}
+	\caption{\textbf{Staircase circuit architecture,} in which the gate at site $x$ is always followed by ones at sites $x+1, x+2$, and $x+3$ making this a 4-stair. Note that not all gates are productive, only the ones that fall on sites that are local minima when they fall.}
 	\label{fig:stairs}
 \end{figure}
 In the picture in which the entropy has slope up or down at each site, as in Fig.~\ref{fig:diaggate}, $n$-stair look like $n\times 1$ rectangles tilted $45^\circ$, as in Fig.~\ref{fig:diagstairs}.
@@ -16,7 +16,7 @@ In the picture in which the entropy has slope up or down at each site, as in Fig
 	\caption{\textbf{Another picture of the staircase architecture.} Note that this picture results in the same final state.}
 	\label{fig:diagstairs}
 \end{figure}
-Since each staircase consists of multiple gates, there is an ambiguity in whether the rate $\gamma$ defines the number of gates per time step or the number of staircases. We will use the convention that it is the number of staircases.
+Since each staircase consists of multiple gates, there is an ambiguity in whether the rate $\gamma$ defines the number of gates per time step or the number of staircases. We will use the convention that it is the number of gates, so that $\gamma/n$ is the rate of staircases.
 
 Ref.~\cite{Nahum2018} uses configurations like this, but in equal proportion with left staircases. The combination of left and right staircases allows for arbitrarily small values of $v_E/v_B$. In this section we show that including only right (or left) staircases leads to two distinct butterfly velocities. One can be made arbitrarily large compared to $v_E$, while the other approaches $v_E$.
 
@@ -40,7 +40,7 @@ where the subscript represents the size of the staircases.
 &= \frac{\gamma}{2}\frac{1-m^2}{2}\left(1+m + \frac{3-m}{2}\right)\nn
 &= \gamma\frac{1-m^2}{2}\frac{5+m}{4}, \label{eqn:2rate}
 \end{align}
-where $\gamma$ is the rate of gates, so the rate of 2-stairs is $\frac{\gamma}{2}$. Although there will be some correlation created by the 2-stair architecture, it will be small so we can ignore it for now. 
+where $\gamma$ is the rate of gates, so the rate of 2-stairs is $\frac{\gamma}{2}$. Although there will be some correlation created by the 2-stair architecture, it will be small so we ignore it for now. 
 
 \begin{table}
 	\centering
@@ -89,10 +89,14 @@ Figure~\ref{fig:growthrates} contains a graph of some normalized growth rates $\
 	\label{fig:growthrates}
 \end{figure}
 
-Note that with increasing stair length the last term takes over and the growth rate asymptotes to the function $\Gamma_1\infty = \gamma(m+1)$. There are two ways to reason about this behavior. The first, which matches the order of limits of the current reasoning, is to start with infinite spatial support (which we have been assuming) and take the stair length $n\to\infty$. 
-Alternatively, start with a finite spin chain with length $N$ and periodic boundary conditions, and set the stair length to $N$. Now a single gate acts on site $1,2,3\dots N$, before wrapping around to act at site 1 again. 
+\subsubsection{Infinite Stairs}
 
-In both cases the rates $\Gamma_\infty(0)=\gamma$ and $\Gamma_\infty(1) = 2\gamma$ can be understood easily. In the $m=0$ case, after a gate falls between sites $i$ and $i+1$, $s_{i+1}$ will be a down slope regardless of whether the gate generated entanglement. Then the next gate falls across $i+1$ and $i+2$, and $s_{i+2}=u$ with probability $\half$, so on average $\half$ of the gates produce 2 units of entanglement. At near-maximal slope nearly all slopes are $u$, except at the site to the right of the most recent gate. Then the next gate falls at a local minimum with probability 1, and all gates produce 2 units of entanglement.
+Note that with increasing stair length the last term takes over and the growth rate asymptotes to the function $\Gamma_1\infty = \gamma(m+1)$. This is the most asymmetric behavior, with the ratio $v_{B+}/v_{B-}$ increasing without limit. Furthermore $v_{B-}/v_E$ approaches 1 from above, and $v_{B+}/v_E$ increases without bound.
+
+There are two ways to reason about this behavior. The first, which matches the order of limits of the current reasoning, is to start with infinite spatial support, which we have been assuming, and take the stair length $n\to\infty$. 
+Alternatively, start with a finite spin chain with length $N$ and periodic boundary conditions, and set the stair length to $\infty$. Now a single gate acts on site $1,2,3\dots N$, before wrapping around to act at site 1 again. 
+
+In both cases the rates $\Gamma_\infty(0)=\gamma$ and $\Gamma_\infty(1) = 2\gamma$ can be understood easily. In the $m=0$ case, after a gate falls between sites $i$ and $i+1$, $s_{i+1}$ will be a down slope regardless of whether the gate generated entanglement. Then the next gate falls across sites $i+1$ and $i+2$. At site $i+2$ $s_{i+2}=u$ with probability $\half$, so on average $\half$ of the gates produce 2 units of entanglement. At near-maximal slope nearly all slopes are $u$, except at the site to the right of the most recent gate. Then the next gate falls at a local minimum with probability 1, and all gates produce 2 units of entanglement.
 
 \subsubsection{Entanglement and Butterfly Velocities} \label{susub:vels}
 
@@ -102,13 +106,14 @@ v_B=\Gamma_n(0)=\frac{\gamma}{n}\left(n+\th{2^n}-1\right),
 \end{align}
 which starts at .5 at $m=0$ and asymptotes to 1, as it should. Since there is no way to define asymmetric entanglement velocities this is as far as we will take the analysis of $v_E$.
 
-%The maximal growth rate occurs when the slope is near-maximal, with only a single down step. This corresponds to a slope of $\frac{N-2}{N}$. Then with only a single local minimum in the entropy function, the local minimum moves one site to the right with each gate. Every gate that acts raises the entropy, resulting in an entropy gain of 2 per gate. Of course for a slope of 1, there is still no entropy generation.
-%
-%If there are 2 down steps, for a slope of $\frac{N-4}{N}$, the entropy generation is almost the same. One local minimum still moves to the right with the leading edge of the staircase. However, once per staircase (once every $N$ gates), one down step is next to the other down step. This results in no entropy growth for that step, for an average entropy gain of $2\frac{N-1}{N}$. Further discussion of the dynamics with near-maximal slope appear in section~\ref{sub:nearmax}.
-%
-%This pattern continues as the slope decreases. With $\l$ down steps, the slope is $\frac{N-2\l}{N}$ and the average growth rate is $2\frac{N-\l}{N} = m+1$. At $m = -1$ there is no growth, as expected. At $m=0$, the growth rate is 1, the same as in the brickwork model. With no slope, the steps alternate between up and down, so that half of the gates in any stair are effective, explaining the connection to the brickwork model.
+In these models we can extract asymmetric butterfly velocities, by looking at the slopes of $\Gamma_n(m)$ at $m=\pm 1$. The left-moving butterfly velocity, $v_{B-}$ stays constant with respect to $n$, while the right moving $v_{B+}$ increases without bound. The interpretation of these behaviors comes from Sec.~\ref{sub:coarse}, using the speed of operator edges. If a long stair falls across an operator's left edge, it can only move the edge one site, since by the time it moves the edge the next gate already acts farther right. However whenever a staircase hits a right edge it moves the edge to the end of the staircase, which in the large $n$ limit is arbitrarily far.
 
-In these models we can extract asymmetric butterfly velocities, by looking at the slopes of $\Gamma_n(m)$ at $m=\pm 1$. The left-moving butterfly velocity, $v_{B-}$ stays constant with respect to $n$, while the right moving $v_{B+}$ increases without bound. The interpretation of these behaviors comes from Sec.~\ref{sub:coarse}, using the speed of operator edges. If a long star falls across an operator's left edge, it can only move the edge one site, since by the time it moves the edge the next gate already acts farther right. However whenever a staircase hits a right edge it moves the edge to the end of the staircase, which in the large $n$ limit is arbitrarily far.
+Since the operator edge dynamics are equivalent to down step ``particle" dynamics, we can discuss the latter, which is more directly related to $\Gamma(m)$.
+For $n\to\infty$, in a system of length $L$, the maximal growth rate occurs when the slope is near-maximal, with only a single down step. This corresponds to a slope of $\frac{L-2}{L}$. Then with only a single local minimum in the entropy function, the local minimum moves one site to the right with each gate. Every gate that acts raises the entropy, resulting in an entropy gain of 2 per gate. Of course for a slope of 1, there is still no entropy generation.
+
+If there are 2 down steps, for a slope of $\frac{L-4}{L}$, the entropy generation is almost the same. One local minimum still moves to the right with the leading edge of the staircase. However, once per staircase (once every $L$ gates), one down step is next to the other down step. This results in no entropy growth for that step, for an average entropy gain of $2\frac{L-1}{L}$.
+
+This pattern continues as the slope decreases. With $\l$ down steps, the slope is $\frac{L-2\l}{L}$ and the average growth rate is $2\frac{L-\l}{L} = m+1$. At $m = -1$ there is no growth, as expected. At $m=0$, the growth rate is 1. This matches the discussion in Sec.~\ref{subsub:largestairs}.
 
 \subsection{Steady States with Correlation} \label{sub:steadystate}
 
@@ -238,30 +243,30 @@ T_{2,3}^{(1)} =
 \end{align}
 The other 2 components of the transition matrix will be this matrix, with states permuted by 1 or two spaces. This permutation can be achieved using the cyclic swap matrix $S_3$ from section~\ref{sec:asymham}, so that $T_{2,3}^{(2)}=S_3\,T_{2,3}^{(1)}\,S_3^{-1}$, etc.
 
-The usefulness of this decomposition comes when looking at the analogous matrix for 4 sites,\footnote{Should I including this? If I do, it's just  a waste of space. if I don't, I'm referring to matrix the reader hasn't seen.}
-\begin{align}
-T_{2,4}^{(1)} =
-\left[
-\begin{array}{cccccccccccccccc}
-1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-\end{array}
-\right]
-\end{align}
+The usefulness of this decomposition comes when looking at the analogous matrix for 4 sites,
+%\begin{align}
+%T_{2,4}^{(1)} =
+%\left[
+%\begin{array}{cccccccccccccccc}
+%1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+%0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+%\end{array}
+%\right]
+%\end{align}
 The second key is that this is just $T_{2,3}^{(1)}\otimes I_2$. This is because gates on the cuts 1 and 2 only affect the first 3 slopes. Since the computational basis is arranged such that $ddud$ is immediately followed by $dduu$, each $2\times 2$ block of a larger matrix is the identity times the corresponding element of the smaller matrix.
 
 We can now build the full $T_{2,4}$ from $T_{2,4}^{(1)}$ and its permutations. From subspaces of constant slope we can find the steady states, for example the $m=0$ steady state
@@ -305,7 +310,7 @@ The relevant information here is that both correlations are smaller than at $m=0
 
 To simulate the entropy growth in infinite spin chains with non-zero slope, we use finite chains with periodic boundary conditions, where one end of the chain is attached to the other with an offset. The spin chains are initialized with an uncorrelated entanglement function with each slope chosen to be up or down with $p(u)=(1+m)/2$. This results in a sample slope that is near the given slope. Then, for each time step, a random gate location is chosen. The entanglement across that cut, and the next $n-1$, is calculated using the update rule from Eq.~\ref{eqn:update}.
 
-Since larger gates will generate non-zero correlation, the initial $S(x)$ lacks is not a valid steady state. However the dynamics should bring the system into a stead state, so growth rates are calculated for only the latter part of the simulation. Fig.~\ref{fig:corrgrowth} shows that there is a time after which the correlations reach this steady state.
+Since larger gates will generate non-zero correlation, the initial $S(x)$ is not a valid steady state. However the dynamics should bring the system into a steady state, so growth rates are calculated for only the latter part of the simulation. Fig.~\ref{fig:corrgrowth} shows that there is a time after which the correlations reach this steady state.
 
 \subsubsection{Measuring Growth Rates}  \label{subsub:growthrates}
 
@@ -313,18 +318,18 @@ To calculate the growth rates we start in the initial uncorrelated state and evo
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{compareRates.pdf}
-	\caption{\textbf{Growth rates for different length stairs.} All growth rates were calculated using a 100-site spin chain with offset periodic boundary conditions. Rates were calculated from the application of 2,000 gates, averaged over the last 80\% of the gates in order to build up correlations, then averaged over 100 trials.}
+	\caption{\textbf{Growth rates for different length stairs.} All growth rates were calculated using a 100-site spin chain with offset periodic boundary conditions. Rates were calculated from the application of 2,000 gates total, or 20 per site, averaged over the last 80\% of the gates in order to build up correlations, then averaged over 100 trials.}
 	\label{fig:compareRates}
 \end{figure}
 
-For 1-stairs (the random architecture), the measured growth rate is slightly larger than predicted, seen in Fig.~\ref{fig:1stairRates}.
+For 1-stairs (the random architecture), the measured growth rate is not significantly different than predicted, seen in Fig.~\ref{fig:1stairRates}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{1stairRates.pdf}
-	\caption{\textbf{Measured and analytic growth rates} for the 1-stair architecture. Note that the measured rate is slightly higher than predicted. Since the assumption of un-correlation is exact for 1-stairs, this difference is assumed to be due to second order derivatives in the slope and finite length effects.}
+	\caption{\textbf{Measured and analytic growth rates} for the 1-stair architecture. Note that the measured rate is not different than predicted.}
 	\label{fig:1stairRates}
 \end{figure}
-There are two main differences between the analytic and measured setups. For the analytic result, the chain is infinite and the entropy function is assumed to be linear and uncorrelated. Since the assumption of un-correlation is exact for 1-stairs, this difference is assumed to be due to second order derivatives in the slope and finite length effects.
+This implies that the lack of correlation is exact, and that the finite size effects are small enough at $L=100$ to not significantly affect $\Gamma_1(m)$.
 
 Stairs of length greater than 1 do however generate correlations. Figure~\ref{fig:6stairRates} shows the growth rates for 6-stairs. 
 \begin{figure}

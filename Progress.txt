@@ -19,8 +19,8 @@ April 20        52     39
 April 21        44     39
 April 22        46     45
 April 23        48     48
-April 24        50
-April 25        52
+April 24        50     51
+April 25        52     54.5
 April 26        54
 April 27        56
 April 28        58

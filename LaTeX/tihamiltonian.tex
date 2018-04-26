@@ -1,6 +1,6 @@
 \section{Operator Spreading in Time-Independent Hamiltonian Systems} \label{sec:opsp}
 
-%Just do all intro here, and then decide later what to put into the circuit section
+This section includes a short review of unitary time evolution of states and operators. It defines measures of how far an operator has spread, and from these defines a speed called the butterfly speed $v_B$ the measures how fast these operators spread.
 
 \subsection{Motivation: Thermalization} \label{sub:therm}
 
@@ -16,19 +16,13 @@ Although most sources consider symmetric dynamics [CITE] this is not a requireme
 
 \subsection{Background: Evolution in Time} \label{sub:evoltime}
 
-All systems considered in this thesis will exist on spin chains, one-dimensional collection of quantum degrees of freedom. Initially we consider systems with $q=2$ degrees of freedom at each site, such as a chain of spin-$\half$ particles. Later, we will consider sites with more degrees of freedom. 
+All systems considered in this thesis will exist on spin chains, one-dimensional collections of  local quantum degrees of freedom. Initially we consider systems with $q=2$ degrees of freedom at each site, such as a chain of spin-$\half$ particles. Later, we will consider sites with more degrees of freedom. 
 
 Under a time-independent Hamiltonian $H$, states of the system evolve in the Schr\"odinger picture as 
 \begin{align}
 \ket{\psi(t)} = U(t)\ket{\psi(0)},\quad U(t) = \e^{-iHt}. \label{eqn:shro}
 \end{align}
-This evolution can be generalized to a time-dependent Hamiltonian by evolving with the time-ordered unitary operator
-\begin{align}
-U(t,t_0) = \text{T}\e^{-i\int_{t_0}^td\tau H(\tau)}.
-\end{align}
-As we will consider time-independent Hamiltonians, we only need time evolution operators of the form of equation~\ref{eqn:shro}. 
-
-Instead of evolving states, it is possible to evolve operators under the Heisenberg picture. In order to preserve the time dependence of expectation values, the operators must evolve as 
+Instead of evolving states, it is possible to evolve operators in the Heisenberg picture. In order to preserve the time dependence of expectation values, the operators must evolve as 
 \begin{align}
 A(t) = U^\dag(t)\,A(0)\,U(t) = \e^{iHt}A(0)\,\e^{-iHt}.\label{eqn:heis}
 \end{align}
@@ -86,7 +80,7 @@ A = \th{\sqrt{2}} XYYI + \th{\sqrt{2}} IIZZ\label{eqn:inioper}.
 \end{align}
 Then the right (ending) Pauli weights are $W_R(0,0) = W_R(1,0) = 0$, $W_R(2,0)= W_R(3,0) =\half$, while the left (starting) weights are $W_L(0, 0) = W(2,0) =\half$, $W_L(1,0) = W_L(3,0)=0$.
 
-This decomposition is particularly useful when the initial operator is local. This means that all strings in the Pauli decomposition contain non-identiy operators at a single site. Then the end weights describe how far the operator has spread throughout the system due to the unitary dynamics, which is what allows the systems to localize. Figure~\ref{fig:hamspreading} shows the Pauli end weight evolution for an initially local operator in an Ising spin chain with longitudinal field in a strongly chaotic phase~\cite{Jonay17}. The weight eventually reaches the last site after moving across all sites.
+This decomposition is particularly useful when the initial operator is local. This means that initially all strings in the Pauli decomposition contain non-identity operators only at a single site. Then the end weights describe how far the operator has spread throughout the system due to the unitary dynamics, which is an essential feature that allows the systems to thermalize. Figure~\ref{fig:hamspreading} shows the Pauli end weight evolution for an initially local operator in an Ising spin chain with longitudinal field in a strongly chaotic phase~\cite{Jonay17}. The weight eventually reaches the last site after moving across all sites.
 
 \begin{figure}
 	\centering
@@ -95,7 +89,7 @@ This decomposition is particularly useful when the initial operator is local. Th
 	\label{fig:hamspreading}
 \end{figure}
 
-The Pauli decomposition is related to the Out-of-Time-Ordered Commutator (OTOC). Consider an initial operator, say, $A_0=Z_0=ZII\dots$, where the subscript now indicates that the operators on other sites are identities. This will commute with probe operators that are local at other sites, $B_i$. However, in general the time-evolved $A_0(t)$ will include Pauli strings that have non-identity operators at sire $i$. This can be seen through the Baker-Campbell-Hausdorff expansion~\cite{Roberts2016} of the time evolution
+The Pauli decomposition is related to the Out-of-Time-Ordered Commutator (OTOC). Consider an initial operator, say, $A_0=Z_0=ZII\dots$, where the subscript now indicates the initial location of the operator. This will commute with probe operators that are local at other sites, $B_i$. However, in general the time-evolved $A_0(t)$ will include Pauli strings that have non-identity operators at site $i$. This can be seen through the Baker-Campbell-Hausdorff expansion~\cite{Roberts2016} of the time evolution
 \begin{align}
 A_0(t) &= \e^{iHt}A_0\e^{-iHt} \nn
 &= \sum_k\frac{(it)^k}{k!}[H,[H,\dots[H,A_0]\dots]],\label{eqn:BCH}
@@ -103,7 +97,7 @@ A_0(t) &= \e^{iHt}A_0\e^{-iHt} \nn
 where the dots represent that there are $k$ total commutators taken with $H$.
 In general $H$ will contain matrix elements that connect the initially local operator to the non-local strings. Then, $A_0(t)$ can fail to commute with $B_i$, which is still local at $i$ and hasn't been evolved in time.
 
-The extent to which these two fail to commute can be measured by the OTOC,\footnote{Should it be $1/q$ instead of $1/2$?}
+The extent to which these two fail to commute can be measured by the OTOC on operators $A_0$ and $B_i$ normalized to $A_0^2=B_i^2=1$,
 \begin{align}
 C(i,t) = \half\Tr \rho \abs{[A_0(t),B_i]}^2.\nonumber
 \end{align}
@@ -120,14 +114,14 @@ This definition can be thought of as independent of the state of the system. We 
 
 To see the relation between this quantity and $W(i,t)$, first consider the case of $q=2$. If the probe is $X_i$ there will be two classes of Pauli strings that commute with it: those with an identity at site $i$ and those with the operator $X$ at site $i$. Then $C(i,t)$ will be the sum of the squares of the $c_\mu(t)$ for which the operator at site $i$ is $Y$ or $Z$. If we average over choice of probe ($X$, $Y$, or $Z$), we arrive at 
 \begin{align}
-C(i,t) = \frac{2}{3}\sum_\nu|c_\nu(t)|^2\,\delta(\text{condition on $\nu$}),
-	\label{eqn:otoc}
+\bar{C}(i,t) = \frac{2}{3}\sum_\nu|c_\nu(t)|^2\,\delta(\text{condition 
+	on $\nu$}),\label{eqn:otoc}
 \end{align}
 where the condition is that the operator at site $i$ is not the identity. For arbitrary $q$ the prefactor is $\frac{q^2-2}{q^2-1}$. 
 
-If the operator $A_0(t)$ is sufficiently random, all $q^{2L}$ coefficients will have expectation values of the same order, with $|c_\nu|^2 \approx q^{-2L}$. There will be $q^{2L}\frac{q^2-1}{q^2}$ operators that meet the condition, so for these random operators
+If the operator $A_0(t)$ is sufficiently random, all $q^{2L}$ coefficients will have expectation values of the same order, with $|c_\nu|^2 \approx q^{-2L}$. There will be $q^{2L}\frac{q^2-1}{q^2}$ operators that meet the condition, so for these random operators in the large $L$ limit
 \begin{align}
-C(i,t) &= \frac{q^2-2}{q^2-1}q^{2L}\frac{q^2-1}{q^2}\th{q^{2L}}\nn
+\bar{C}(i,t) &= \frac{q^2-2}{q^2-1}q^{2L}\frac{q^2-1}{q^2}\th{q^{2L}}\nn
 &= \frac{q^2-2}{q^2}\nonumber.
 \end{align}
 
@@ -141,7 +135,7 @@ For $q=2$ there is a particularly easy way to calculate the value in expression~
 
 Lieb-Robinson bounds
 
-The butterfly velocity is the fastest velocity at which perturbations can propagate without decaying. In systems large enough so that the site index $i$ can be replaced with a continuous position $x$, the OTOC behaves as~\cite{Khemani2018}
+The butterfly velocity is the fastest velocity at which perturbations can propagate without decaying exponentially in time. In systems large enough so that the site index $i$ can be replaced with a continuous position $x$, the OTOC behaves as~\cite{Khemani2018}
 \begin{align}
 C(x,t)\sim \e^{\lambda(v)t}\quad\text{for}\;\;x=vt.\label{eqn:butterfly}
 \end{align}
@@ -152,4 +146,4 @@ This tracks the OTOC along rays of constant velocity, as in Fig.~\ref{fig:kheman
 	\caption{\textbf{Velocity dependent Lyapunov exponents} along rays of constant velocity, from~\cite{Khemani2018}. For $v<v_B$, inside the light cone, $\lambda>0$ or is not defined. Outside the light cone $\lambda<0$ and perturbations decay exponentially. The speed $v_B$ is where $\lambda=0$ and perturbations remain of order 1.}
 	\label{fig:khemani_lambda}
 \end{figure}
-The fact that there is a single $v_B$ (or rather one in each direction) is due to the fact that $\lambda(v)$ must be convex, and can only cross 0 once.
+The fact that there is a single $v_B$, or rather one in each direction, is due to the fact that $\lambda(v)$ must be convex, and can only cross 0 once in each direction.

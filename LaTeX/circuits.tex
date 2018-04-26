@@ -1,6 +1,10 @@
 \section{Entanglement and Operator Spreading in Quantum Circuits} \label{sec:circuits}
 
-Why are we doing entanglement now?
+One drawback to studying systems with time-independent Hamiltonians is that their dynamics are constrained by their conservation laws~\cite{Jonay18}. Systems with no conservation laws would not have these constraints. Quantum circuits have no explicit Hamiltonian, but rather evolve unitarily at discrete time steps. 
+
+The circuits provide solvable systems in certain limits, after averaging over circuit architecture. In this limit, which will be discussed later in this section, it is easier to discuss information dynamics in terms of entanglement entropy rather than operator spreading. This is not to say that operator spreading does not apply in circuits, or that entanglement dynamics do not apply to Hamiltonian systems. Rather, this is an easier tool to use for these systems.
+
+In this section we first introduce bitartite entanglement entropy and the constraints it must satisfy. We then discuss the construction of quantum circuits, and the behavior of the entanglement entropy in these circuits. We show that it is possible to calculate $v_B$ entirely from the entanglement entropy, and that this velocity is the same as $v_B$ calculated from operator spreading.
 
 \subsection{Entanglement Entropy} \label{sub:intro}
 
@@ -8,7 +12,7 @@ Quantum entanglement has applications to branches of physics from high energy an
 
 Let us briefly review entanglement in composite systems. First assume the full system $AB$ can be decomposed into subsystems $A$ and $B$, and $AB$ is in the pure state $\ket{\Psi}_{{AB}}$. In the spin chains considered here, the chain is often divided such that $A$ is all spins on one side of a cut and $B$ is all spins on the other side. Another common decomposition is having $A$ be all spins between two cuts, and $B$ being all other spins. If the states of $A$ and $B$ are entangled it is impossible to write $\ket{\Psi}_{AB} = \ket{\psi_A}_A \ket{\psi_B}_B$. If this is possible then $\ket{\Psi_{{AB}}}$ is called a product state. Subscripts on kets represent the space that the ket lives in, but this is clear from the name of the state (uppercase for the full state, subscripts otherwise) so we will drop the outside subscripts.
 
-We can asses the amount of entanglement by looking at the density matrix $\rho_{AB} = \ket{\Psi}\bra{\Psi}$. All density matrices satisfy $\Tr \rho = 1$. Generic pure state density matrices further satisfy 
+We can assess the amount of entanglement by looking at the density matrix $\rho_{AB} = \ket{\Psi}\bra{\Psi}$. All density matrices satisfy $\Tr \rho = 1$. Generic pure state density matrices further satisfy 
 \begin{align}
 \Tr \rho^2 = \Tr\ket{\psi}\bra{\psi}\ket{\psi}\bra{\psi} = \Tr\ket{\psi}\bra{\psi} = 1.
 \end{align}
@@ -16,11 +20,11 @@ We can further construct the reduced density matrices $\rho_A$ and $\rho_B$ as t
 
 A maximally entangled state will be of the form
 \begin{align}
-\ket{\Psi} = \sum_i^N\th{N}\ket{\psi_{A,i}}\ket{\psi_{B,i}},
+\ket{\Psi} = \sum_i^N\th{\sqrt{N}}\ket{\psi_{A,i}}\ket{\psi_{B,i}},
 \end{align}
 where $N$ is the dimension of the larger of the two Hilbert spaces and $i$ labels orthogonal states. $\Tr\rho_{AB}^2=1$ because the full state is pure. The reduced density matrices are
 \begin{align}
-\rho_A = \sum_i^N\th{N}\ket{\psi_{A,i}}\bra{\psi_{B,i}},
+\rho_A = \sum_i^N\th{N}\ket{\psi_{A,i}}\bra{\psi_{A,i}},
 \end{align}
 with $\Tr\rho_A^2 = \sum_i\th{N^2}=\th{N}$, with similar results for $B$. This provides the constraints $\th{N}\le\Tr\rho^2\le 1$. 
 
@@ -39,7 +43,7 @@ the analogue of the classical Shannon entropy. The calculation uses the small $x
 
 For the spin chain, we can define many different subsystems, each with a corresponding entanglement entropy. The following description is largely taken from~\cite{Nahum2017}. Consider a spin chain of N sites with dimension $q$. Sites are labeled by $i=1,\dots N$, while the bonds between sites are labeled by $x = 1,\dots N-1$. After cutting the system at bond $x$, define the entropy across this cut as the bipartite entanglement entropy of all sites to the right of $x$. If the whole chain is in a pure state, this is equal to the bipartite entanglement entropy of all sites to the left of $x$.
 
-We can define a function $S(x) = -\Tr\rho_x\log\rho_x$ where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out. This is the von Neumann entanglement entropy of the two subsystems divided by the bond at $x$. For convenience logarithms are taken base $q$. $S(x)$ will observe constraints not already made clear due to the fact that subsystems defined by adjacent $x$ have heavy overlap.
+We can define a function $S(x) = -\Tr\rho_x\log\rho_x$ where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out. As long as the full system is in a pure state, this is the von Neumann entanglement entropy of the two subsystems divided by the bond at $x$. For convenience logarithms are taken base $q$. $S(x)$ will observe constraints not already made clear due to the fact that subsystems defined by adjacent $x$ have heavy overlap.
 
 Classically, for an arbitrary system decomposable into subsystems $A$ and $B$, the entropies satisfy $\max(S(A), S(B)) \leq S(AB)\leq S(A) + S(B)$. In quantum mechanics, this is replaced by the subadditivity of the von Neumann entropy 
 \begin{align}
@@ -54,16 +58,14 @@ where $S_1$ denotes the entropy of the single site between cuts $x$ and $x+1$. A
 \left|S(x+1) - S(x)\right| \leq 1. \label{eqn:offbyone}
 \end{align}
 
-Entanglement speed
-
-A finite system has $S(x)$ pinned at its endpoint, because the entanglement entropy of a single state is bounded by 1. Then the maximally entangled state has $S(x) = \min\{x,L-x\}$. As the entanglement approaches this value it takes forms as in Fig.~\ref{fig:Tower}.
+A finite system has $S(x)$ pinned at its endpoint, because the entanglement entropy of a single site is bounded by 1. Then the maximally entangled state has $S(x) = \min\{x,L-x\}$. As the entanglement approaches this value it takes forms as in Fig.~\ref{fig:Tower}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\linewidth]{Tower}
 	\caption{\textbf{Bitartite entanglement entropy at different times,} ($t = 340$, 690, 1024, 1365, 1707, 2048 and 4096). This data comes from a circuit model, but the behavior is believed to be general. Figure from~\cite{Nahum2017}.}
 	\label{fig:Tower}
 \end{figure}
-The flat section has a constant growth rate $\pd{S(x,t)}{t}$ so the cusp position $y$ moves at a constant speed defined by the growth rate and the slope. Since the maximal slope is $\pd{S(x,t)}{x}=1$, this velocity is
+The flat section has a constant growth rate $\pd{S(x,t)}{t}$ so the border position $y$ moves at a constant speed defined by the growth rate and the slope. Since the maximal slope is $\pd{S(x,t)}{x}=1$, this velocity is
 \begin{align}
 \pd{y}{t} = \pd{S}{t}\left(\pd{S}{x}\right)^{-1} = \pd{S}{t} = v_E. 
 \label{eqn:vE}
@@ -74,17 +76,15 @@ Refs.~\cite{Keyserlingk, Jonay17, Jonay18, Nahum2017} discuss the speed of entan
 
 \subsection{Circuit Architectures} \label{sub:arch}
 
-Instead of evolving the spin chains with Hamiltonians, we can focus on quantum circuits. Like the earlier systems, circuits consist of chains of Hilbert spaces. Instead of evolving under a time-independent hamiltonian, they evolve with unitary operators, called gates, at discrete times. Simple circuits only contain 2-site gates which act on the product of Hilbert spaces at adjacent sites. 
+Like the earlier systems, quantum circuits consist of chains of Hilbert spaces. Instead of evolving under a time-independent Hamiltonian, they evolve with unitary operators, called gates, at discrete times. If a gate acts on a site at time $t$ it is said to `fall' on that site. Simple circuits only contain 2-site gates which act on the product of Hilbert spaces at adjacent sites. There is a possibility of confusion regarding the term ``operator": the ``unitary operator," ``unitary gate," or just ``gate" will be the time evolution operator of the circuit, while ``operator" without qualification will refer to the observable that is evolving in time.
 
-We could study the dynamics of a single circuit, in analogy with the single hamiltonian studied in the previous section. However, it is also instructive to look at ensembles of circuits, with some type of randomness. This section presents two sources of randomness, the choice of gates and their locations in the circuit.
+We could study the dynamics of a single circuit, in analogy with the single Hamiltonian studied in the previous section. However, it is also instructive to look at ensembles of circuits, with some type of randomness. This section presents two sources of randomness, the choice of gates and their locations in the circuit.
 
 %References~\cite{Keyserlingk} and~\cite{Nahum2017} both discuss circuits of this type. Both discuss random circuits, although with different sources of randomness. 
 One source is the unitary operator chosen at each site at each time. Different gates result in different architectures. 
 If the Hilbert space at each site is $q$ dimensional, the space of 2-site unitary matrices is $q^2\times q^2$ dimensional. To find representative behavior, each circuit is made by drawing gates from some distribution. The circuits can then be averaged over these choices. A common choice is the Haar distribution, which is invariant to rotations in the space of 2-site operators. Since these act on a $q^2$-dimensional Hilbert space, there are $q^4$ independent operators, including one trivial operator (the identity). 
 
 Another source of randomness is the placement of the gates. The ``brickwork" model~\cite{Keyserlingk} uses a deterministic architecture, in which at odd times there is a gate to the right of every odd site, while for even times there is a gate to the right of every even site. Figure~\ref{fig:brickcircuit} shows an example. The ``random" architecture~\cite{Nahum2017} chooses a random site for a single gate at each time step $t = n/\gamma$, where $\gamma$ is the gate rate and $n$ is an integer. The placement is then averaged over. 
-
-Terminology: "Fall"
 
 \begin{figure}
 	\centering
@@ -93,17 +93,13 @@ Terminology: "Fall"
 	\label{fig:brickcircuit}
 \end{figure}
 
-The random architecture is equivalent to placing gates at each site in continuous time with Poisson-distributed time steps, as the gate rate $\gamma$ and the length $L$ are taken to infinity with the gate rate density $\gamma/L$ held constant.~\cite{Nahum2017}. This thesis focuses on a generalization of this model, described in Sec.~\ref{sub:stairs}.
+The random architecture is equivalent to placing gates at each site in continuous time with Poisson-distributed time steps, as the gate rate $\gamma$ and the length $L$ are taken to infinity with the gate rate density $\gamma/L$ held constant.~\cite{Nahum2017}. This thesis focuses on a generalization of this model, described in Sec.~\ref{sec:stairs}.
 
-At least say that large $q$ moves operator ends to the right with probability 1: this will be useful in discussing $v_B$.
+%At least say that large $q$ moves operator ends to the right with probability 1: this will be useful in discussing $v_B$.
 
-We want to know how the Pauli end-weight $W(t,i)$ evolves in time in these circuits. Recall that, given an observable $\cal{O}(t)$ evolving in time, this measure how far $\cal{O}$ has spread. Consider the components of the operator that are identities after site $i$, which will have weight $W(t, i)$ by definition. Of the $q^2$ operators that can act on sites $i$ and $i+1$, $q^2$ will be trivial on the second site. Since these will not advance the Pauli end-weight, they do not contribute to operator spreading. 
+We want to know how the Pauli end-weight $W(t,i)$ evolves in time in these circuits. Recall that, given an observable $\cal{O}(t)$ evolving in time, this measure how far $\cal{O}$ has spread. Consider a unitary gate falling on sites $i$ and $i+1$. Some components of the operator $\cal{O}(t)$ will be non-identity at site $i$ but identities after $i$, and will have weight $W(t, i)$ by definition. There are $q^2-1$ operators like this. A randomly chosen unitary gate will evolve the operator on sites $i$ and $i+1$ to a random operator that is not the identity on both sites. There are $q^4-1$ of these, $q^2-1$ of which are identities on the second site.
 
-\emph{Show an explicit example of this for $q=2$}
-
-If some component of the observable ends on site $i+1$, the unitary can move the end back, if it evolves the observable at $i+1$ to the identity. Again, $q^2$ of the 2-site operators contain this specific unitary acting on the second site, so that the probability of moving weight from site $i+1$ to $i$ is the same as not moving the weight from $i$ to $i+1$.
-
-Since the identity will never contribute to operator spreading, we can exclude it from our set of gates. Then, $q^4-q^2$ operators move the Pauli weight. The probability that a random gate advances $W(t,i)$ is $p = \frac{q^2}{q^2+1}$, so that $1-p = \frac{1}{q^2+1}$. After averaging over the possible circuits, this leads to the dynamics of $W(t,i)$, from~\cite{Keyserlingk}
+If some component of the observable ends on site $i+1$, the unitary can move the end back, if it evolves the observable at $i+1$ to the identity. Again, $q^2-1$ of the random final operators are identities on the second site, so that the probability of moving weight from site $i+1$ to $i$ is the same as not moving the weight from $i$ to $i+1$. The probability that a random gate advances $W(t,i)$ is $p = \frac{q^2}{q^2+1}$, so that $1-p = \frac{1}{q^2+1}$. After averaging over the possible circuits, this leads to the dynamics of $W(t,i)$, from~\cite{Keyserlingk}
 \begin{align}
 W(t+1, i) = (1-p)\left(W(t, i) + W(t, i+1)\right)\nn
 W(t+1, i+1), = p\left(W(t, i) + W(t, i+1)\right). \label{eqn:opsp}
@@ -139,7 +135,7 @@ S(x) \le \min\left\lbrace S(x-1), S(x+1)\right\rbrace + 1, \nonumber
 \end{align}
 while the gate does not affect $S(x-1)$ or $S(x+1)$. It would be helpful to find a solvable limit of quantum circuits under which this inequality is saturated because it would completely specify the evolution of the entanglement. 
 
-Such a limit is found by taking $q\to\infty$. Ref.~\cite{Nahum2017} includes a detailed proof, but the key is that all unitary gates that do not saturate the bound obey some polynomial equation, so these operators define a measure zero subset on the Haar distribution.\footnote{Why?} We know then that, with probability 1, the random two-site gate will maximize bipartite entanglement entropy.
+Such a limit is found by taking $q\to\infty$. Ref.~\cite{Nahum2017} includes a detailed proof, but the key is that all unitary gates that do not saturate the bound obey some polynomial equation, so these operators define a measure zero subset on the Haar distribution. We know then that, with probability 1, the random two-site gate will maximize bipartite entanglement entropy.
 
 Taken together, these facts mean that after a gate across cut $x$, the new entanglement entropy is
 \begin{align}
@@ -180,11 +176,13 @@ In this picture, we can describe an entropy curve as a series of up and down ste
 uu
 \end{align}
 
+Explain how correlation constrains probabilities of all 2-site configurations.
+
 \subsubsection{Minimal Cut Picture} \label{subsub:mincut}
 
 Using the fact that a productive gate raises the entropy at a cut by 2, we can use another picture of the dynamics based on Fig.~\ref{fig:brickcircuit}. Assume the initial state is a product state so the entropy at each cut is initially 0 and evolve with a brickwork circuit. Then after one of the first gates (for example between $i=3$ and $i=4$) the entropy at that cut will become 1. After any of the subsequent gates the entropy at the affected cut increases by 2.
 
-The minimal cut picture~\cite{Nahum2017}\footnote{This might not be the original source} reproduces this behavior by considering cuts through the circuit, as in Fig.~\ref{fig:mincut}.
+The minimal cut picture~\cite{Nahum2017} reproduces this behavior by considering cuts through the circuit, as in Fig.~\ref{fig:mincut}.
 \begin{figure}
 	\centering
 	\input{mincut}
@@ -224,6 +222,8 @@ For an entropy surface with constant slope $m\equiv\pd{S}{x}$ and no correlation
 \end{align}
 Useful checks of this formula are that the entropy does not increase at maximal or minimal slope $m=1,-1$, and that at $m=0$, $\pd{S}{t}=\gamma/2$, 1/4 the brickwork value. The latter rate makes sense because in the case of the brickwork circuit all gates are guaranteed to raise the entropy, while here only 1/4 will have an effect.
 
+\subsubsection{Entanglement Velocity} \label{subsub:v_E }
+
 $\Gamma(m)$ contains encodes a significant amount of information about the entanglement growth of the system~\cite{Jonay18}, and is useful in calculating both the entanglement velocity and the butterfly velocity. We will discuss this function in more detail and show how these speeds can be extracted.
 
 Consider a linear section of the entanglement curve $S(x,t)$, and its evolution through time $\tau$. We know that $S(y,t+\tau) = \min_x\{S_U(y,x,\tau) + S(x,t)\}$. If we assume the gate architecture is translationally invariant (which is true in the large-scale limit) then $S_U(y,x,\tau)$ depends only on the slope $v = \frac{y-x}{\tau}$, multiplied by the length of the cut from $x$ to $y$. Graphically, this corresponds to Fig.~\ref{fig:legendre}.
@@ -255,6 +255,8 @@ The velocity between arbitrary slopes is $v = - \frac{\Gamma(m_2)-\Gamma(m_1)}{m
 	\label{fig:growthchord}
 \end{figure}
 
+\subsubsection{Butterfly Velocity} \label{subsub:v_B}
+
 The same calculation does not work if the kink is a local minimum, as these feature diffuse. This is because a perturbation to the kink will travel up faster than either side of the kink, filling in the kink with a smooth curve. There is a well defined point where this curve hits the linear section with slope $m$ at a tangent. It is possible to calculate the speed at which this point moves (see Fig.~\ref{fig:buttvel}).
 \begin{figure}
 	\centering
@@ -273,12 +275,14 @@ When the slope is near its largest possible value, so that the entropy increases
 	\caption{\textbf{Near-maximal slope}. The single down step acts like a particle in the system. The 4 consecutive gates have the effect of moving the particle 3 sites to the right.}
 	\label{fig:particle}
 \end{figure}
-Since gates can only act between a down step and an up step, these ``particles"\footnote{Define the particle as existing at site or cut?} follow a deterministic behavior for a given architecture and control the entropy growth in the circuit. 
+Since gates can only act between a down step and an up step, these ``particles" follow a deterministic behavior for a given architecture and control the entropy growth in the circuit. 
 
-Consider a series of consecutive gates with its first gate acting between sites $i$ and $i+1$ and its last gate between $j$ and $j+1$. Series of gates like this (called staircases) are discussed in Sec.~\ref{sec:stairs}. If there are no down steps in this region, the gate has no effect. If there is a single down step between sites $i$ and $j$, inclusive, that step gets moved to site $j+1$. More down steps will interact with each other but at the present we are only considering configurations with isolated down steps. 
+Consider a series of consecutive gates with its first gate acting between sites $i$ and $i+1$ and its last gate between $j$ and $j+1$. Series of gates like this (called staircases) are discussed in Sec.~\ref{sec:stairs}. If there are no down steps in this region, the gate has no effect. If there is a single down step somewhere between sites $i$ and $j$, inclusive, that step gets moved to site $j+1$. More down steps will interact with each other but at the present we are only considering configurations with isolated down steps. 
 
 Now consider an operator with the last non-identity contribution at a site between $i$ and $j$, inclusive. With probability 1, the series of gates in the last paragraph move the end of the operator to site $j+1$. This should demonstrate that operator ends and down step ``particles" have the same dynamics. 
 
 The speed of the end of the operator is $v_B$. It is not immediately clear how the speed of the particle, call it $v_p$, should be related. If, in time $t$ the particle moves $v_pt$ sites, it has increased the \dots
 
-\emph{Finish this description. Does it really belong here though? If so, make sure to show that particles don't approach each other, but do repel each other if they're too close.}
+\emph{Butterfly velocity of the two dynamics, operator and entanglement, is the same.}
+
+\emph{Particles to not approach each other, so they remain uncorrelated.}
