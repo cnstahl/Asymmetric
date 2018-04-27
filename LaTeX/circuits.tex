@@ -230,24 +230,30 @@ Consider a linear section of the entanglement curve $S(x,t)$, and its evolution 
 \begin{figure}
 	\centering
 	\input{legendre}
-	\caption{\textbf{Graphical interpretation of the Legendre transform.} Since the architecture is spacially homogeneous, $S_U$ depends only on the length and slope of the cut and is $S_U(y,x,\tau) \equiv G(v)\tau$, where $v=(x-y)/\tau$}.
+	\caption{\textbf{Graphical interpretation of the Legendre transform.} Since the architecture is spacially homogeneous, $S_U$ depends only on the length and slope of the cut and is $S_U(y,x,\tau) \equiv G(v)\tau$, where $v=(x-y)/\tau$.}
 	\label{fig:legendre}
 \end{figure}
-Since we assumed the initial state was linear, we can write it as $S(x,t) = mx = mv\tau+my$. From the linearity of $S_U$, and the fact that its only other dependence is on $v$, we can define $S_U(y,x,\tau) \equiv G(v)\tau$. The final entanglement $S(y,t+\tau) = \min_x\{G(v)\tau + mv\tau\}$ can be differentiated with respect to $\tau$ to obtain.
+Since we assumed the initial state was linear, we can write it as $S(x,t) = mx = mv\tau+my$. From the linearity of $S_U$, and the fact that its only other dependence is on $v$, we can define $S_U(y,x,\tau) \equiv G(v)\tau$. 
+
+The final entanglement $S(y,t+\tau) = \min_x\{G(v)\tau + mv\tau\}$ can be differentiated with respect to $\tau$ to obtain.
 \begin{align}
 \Gamma(m) = \min_v\{G(v) + mv\}.
 \end{align}
 Ref.~\cite{Jonay18} contains this equation with an extra factor of $m_\text{eq}$, the equilibrium slope. In the large-$q$ random circuits we are considering, this slope is 1 due to the saturation of Eq.~\ref{eqn:offbyone}.
 
-This formalism reproduces the calculation of the entanglement velocity in Eq.~\ref{eqn:vE}. The entanglement velocity is the speed at which the kinks between the flat section $m=0$ and the sloped sections $m=\pm1$ move in the coarse grained version of Fig.~\ref{fig:Tower}. The sloped section does not move up, while the flat section moves up at $\Gamma(0)$. To preserve the continuity of $S(x)$, the kinks have to move at $v_E=\Gamma(0)$. Fig.~\ref{fig:entanglevel} shows this calculation of $v_E$, and shows a similar calculation for the velocity of a kink between arbitrary slopes, as long as the kink is a local maximum.
+One useful fact about $\Gamma(m)$ is that it is convex. If it were not, then there would be some $m^*$ such that $\Gamma(m^*+\eps), \Gamma(m^*-\eps)<\Gamma(m^*)$. However, if this is the case, we can always draw a jagged path from $x$ to $y$ alternating between slopes $m^*+\eps$ and $m^*-\eps$. This path with have average slope $m$ but have a higher growth rate than $\Gamma(m)$. Therefore we have reached a contradiction and $\Gamma(m)$ is convex.
+
+We can use the coarse-grained dynamics to reproduce the calculation of the entanglement velocity in Eq.~\ref{eqn:vE}. The entanglement velocity is the speed at which the kinks between the flat section $m=0$ and the sloped sections $m=\pm1$ move in the coarse grained version of Fig.~\ref{fig:Tower}. The sloped section does not move up, while the flat section moves up at $\Gamma(0)$. To preserve the continuity of $S(x)$, the kinks have to move at $v_E=\Gamma(0)$. Fig.~\ref{fig:entanglevel} shows this calculation of $v_E$.
 \begin{figure}
 	\centering
 	\input{entanglevel}
-	\caption{\textbf{Entanglement velocity in the surface growth picture.} The left figure shows a flat slope rising at $\Gamma(0)$. The right end is held down by the entanglement bounds. The dashed line shows the corrected $S(x)$. On the right both sections grow at the growth rates defined by their slopes. To maintain continuity the kink moves at $v=-\frac{\Gamma(m_2)-\Gamma(m_1)}{m_2-m_1}$.}
+	\caption{\textbf{Entanglement velocity in the surface growth picture.} The left figure shows a flat slope rising at $\Gamma(0)$. The $m=-1$ section does not grow. The flat slope would rise to the shown line, but the right end is held down by the entanglement bounds. The dashed line shows the corrected $S(x)$. On the right both sections grow at the growth rates defined by their slopes. To maintain continuity the kink moves at $v=-\frac{\Gamma(m_2)-\Gamma(m_1)}{m_2-m_1}$.}
 	\label{fig:entanglevel}
 \end{figure}
 
-The velocity between arbitrary slopes is $v = - \frac{\Gamma(m_2)-\Gamma(m_1)}{m_2-m_1}$, which has a nice interpretation in terms of the growth rate $\Gamma(m)$. This is the slope a chord drawn on the growth rate function between points corresponding to the two slopes, as in Fig.~\ref{fig:growthchord}.
+The same figure can be used to calculate the velocity of a kink between arbitrary slopes, as long as the kink is a local maximum. In this case the vertical distance between the two solid line endpoints is $(\Gamma(m_1)-\Gamma(m_2))t$. This must be equal to the total vertical rise along the two slopes, $(m_1-m_2)\left(\frac{-v}{t}\right)$, where $\frac{-v}{t}$ is the horizontal distance between the initial and final positions of the feature. Altogether, $v=-\frac{\Gamma(m_2)-\Gamma(m_1)}{m_2-m_1}$. For $m_1=0, m_2=-1$ this reduces to $v_E=\Gamma(0)$.
+
+This expression has a nice interpretation in terms of the growth rate $\Gamma(m)$. It is the slope a chord drawn on the growth rate function between points corresponding to the two slopes, as in Fig.~\ref{fig:growthchord}.
 \begin{figure}
 	\centering
 	\input{growthchord}
@@ -257,14 +263,14 @@ The velocity between arbitrary slopes is $v = - \frac{\Gamma(m_2)-\Gamma(m_1)}{m
 
 \subsubsection{Butterfly Velocity} \label{subsub:v_B}
 
-The same calculation does not work if the kink is a local minimum, as these feature diffuse. This is because a perturbation to the kink will travel up faster than either side of the kink, filling in the kink with a smooth curve. There is a well defined point where this curve hits the linear section with slope $m$ at a tangent. It is possible to calculate the speed at which this point moves (see Fig.~\ref{fig:buttvel}).
+The same calculation does not work if the kink is a local minimum, as these features do not remain sharp. This is because a perturbation to the kink will travel up faster than either side of the kink, filling in the kink with a smooth curve. There is a well defined point where this curve hits the linear section with slope $m$ at a tangent. It is possible to calculate the speed at which this point moves (see Fig.~\ref{fig:buttvel}).
 \begin{figure}
 	\centering
 	\input{buttvel}
-	\caption{\textbf{Velocity of tangent points.} On the left, the left and right points move at $v=-\Gamma'(m_1)$ and $v=-\Gamma'(m_2)$ respectively. On the right these two speeds are the butterfly speeds, $-\Gamma'(\pm1) = \mp v_B$.}
+	\caption{\textbf{Velocity of tangent points.} On the left, the left and right points move at $v=-\Gamma'(m_1)$ and $v=-\Gamma'(m_2)$ respectively. On the right these two speeds are the butterfly speeds, $-\Gamma'(\pm1) = \mp v_B$. Since both slopes are extremal, the linear sections do not grow.}
 	\label{fig:buttvel}
 \end{figure}
-Since this tangent point is the limiting case of a cusp where the two slopes $m_1$ and $m_2$ approach each other. This turns the calculation of the chord slope into a calculation of the tangent to the entanglement growth curve at $m$, $\Gamma'(m)$.
+Since this tangent point is the limiting case of a cusp where the two slopes $m_1$ and $m_2$ approach each other. This turns the calculation of the chord slope into a calculation of the tangent to the entanglement growth curve at $m$, $\Gamma'(m)$. Since $\Gamma(m)$ is convex, this is the largest slope attainable by a chord or tangent line, so $v_B$ is the fastest possible speed for a feature on the entanglement function.
 
 Although it is not obvious, the butterfly is given by the speed of tangent points on maximal slope sections, $v_B = -\Gamma'(m_{\text{max}})$. This connection holds in general, but is clearer in the random circuits considered here.
 
