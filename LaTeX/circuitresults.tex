@@ -2,7 +2,7 @@
 
 We can use the tools from the previous section to analyze the asymmetry of information speeds in various quantum circuits. First, though, we need to build an asymmetric circuit. There are a few possibilities. The circuits could have 3-site unitary operators, with the gates chosen so that their dynamics are asymmetric. An example gate would be the 3-site swap discussed earlier. Alternatively, we could change the probabilities of gates falling on sites so that if a gate falls across bond $x$, the next gate is more likely to fall across bond $x+r$ for small $r$. This would lead to correlations in gate locations.
 
-The architecture considered in this section will be a limiting case of correlated gates. Each $n$ gates will fall consecutively across bonds $x, x+1\dots x+n-1$. The first site of each staircase is chosen randomly. These sets of gates are called staircases, and when the bond location is increasing it is called a right staircase. If there are $n$ gates in a staircase it is called an $n$-stair. They are called staircases because using the surface growth picture in Fig.~\ref{fig:tetris} they look like steps, as in Fig.~\ref{fig:stairs}. 
+The architecture considered in this section will be a limiting case of correlated gates. We will again use the solvable large-$q$ limit. Gates will fall in sets of $n$. Each $n$ gates will fall consecutively across bonds $x, x+1\dots x+n-1$. The first site of each staircase is chosen randomly. These sets of gates are called staircases, and when the bond location is increasing it is called a right staircase. If there are $n$ gates in a staircase it is called an $n$-stair. They are called staircases because using the surface growth picture in Fig.~\ref{fig:tetris} they look like steps, as in Fig.~\ref{fig:stairs}. 
 \begin{figure}
 	\centering
 	\input{stairs}
@@ -16,7 +16,7 @@ In the picture in which the entropy has slope up or down at each site, as in Fig
 	\caption{\textbf{Another picture of the staircase architecture.} Note that this picture results in the same final state.}
 	\label{fig:diagstairs}
 \end{figure}
-Since each staircase consists of multiple gates, there is an ambiguity in whether the rate $\gamma$ defines the number of gates per time step or the number of staircases. We will use the convention that it is the number of gates, so that $\gamma/n$ is the rate of staircases.
+Since each staircase consists of multiple gates, there is an ambiguity in whether the rate $\gamma$ defines the number of gates per bond per time step or the number of staircases. We will use the convention that it is the number of gates per bond per unit time, so that $\gamma/n$ is the rate of staircases.
 
 Ref.~\cite{Nahum2018} uses configurations like this, but in equal proportion with left staircases. The combination of left and right staircases allows for arbitrarily small values of $v_E/v_B$. In this section we show that including only right (or left) staircases leads to two distinct butterfly velocities. One can be made arbitrarily large compared to $v_E$, while the other approaches $v_E$.
 
@@ -30,7 +30,7 @@ The smallest stairs are 1-stairs, which are just individual gates. As in the der
 \begin{align}
 \Gamma_1(m) = \gamma\frac{1-m^2}{2},
 \end{align}
-where the subscript represents the size of the staircases.
+where the subscript represents the size of the staircases. The random architecture does not generate any correlation, so this growth rate is exact for a long enough system with constant slope.
 
 2-stairs consist of one gate acting at cut $x$ and one at cut $x+1$. The entropy production of these gates is affected by the slope between the two cuts and the slopes on either side. There are 8 possible configurations of those three slopes, but only 4 result in entropy growth, as shown in table~\ref{tab:2stair}. Weighting each configuration by its probability and the entropy generated, and then multiplying by the staircase rate $\frac{\gamma}{2}$, the growth rate is approximately
 \begin{align}
@@ -98,11 +98,13 @@ Alternatively, start with a finite spin chain with length $N$ and periodic bound
 
 In both cases the rates $\Gamma_\infty(0)=\gamma$ and $\Gamma_\infty(1) = 2\gamma$ can be understood easily. In the $m=0$ case, after a gate falls between sites $i$ and $i+1$, $s_{i+1}$ will be a down slope regardless of whether the gate generated entanglement. Then the next gate falls across sites $i+1$ and $i+2$. At site $i+2$ $s_{i+2}=u$ with probability $\half$, so on average $\half$ of the gates produce 2 units of entanglement. At near-maximal slope nearly all slopes are $u$, except at the site to the right of the most recent gate. Then the next gate falls at a local minimum with probability 1, and all gates produce 2 units of entanglement.
 
+\emph{Independent of correlations.}
+
 \subsubsection{Entanglement and Butterfly Velocities} \label{susub:vels}
 
-The entanglement velocity can be immediately read from the entanglement growth rate; it is just 
+The entanglement velocity can be immediately read from the entanglement growth rate. Again ignoring the correlations, it is just 
 \begin{align}
-v_B=\Gamma_n(0)=\frac{\gamma}{n}\left(n+\th{2^n}-1\right),
+v_E=\Gamma_n(0)=\frac{\gamma}{n}\left(n+\th{2^n}-1\right),
 \end{align}
 which starts at .5 at $m=0$ and asymptotes to 1, as it should. Since there is no way to define asymmetric entanglement velocities this is as far as we will take the analysis of $v_E$.
 
@@ -113,7 +115,9 @@ For $n\to\infty$, in a system of length $L$, the maximal growth rate occurs when
 
 If there are 2 down steps, for a slope of $\frac{L-4}{L}$, the entropy generation is almost the same. One local minimum still moves to the right with the leading edge of the staircase. However, once per staircase (once every $L$ gates), one down step is next to the other down step. This results in no entropy growth for that step, for an average entropy gain of $2\frac{L-1}{L}$.
 
-This pattern continues as the slope decreases. With $\l$ down steps, the slope is $\frac{L-2\l}{L}$ and the average growth rate is $2\frac{L-\l}{L} = m+1$. At $m = -1$ there is no growth, as expected. At $m=0$, the growth rate is 1. This matches the discussion in Sec.~\ref{subsub:largestairs}.
+This pattern continues as the slope decreases. With $\rho L$ down steps, the slope is $\frac{L-2\rho L}{L}$ and the average growth rate is $2\frac{L-\rho L}{L} = m+1$. At $m = -1$ there is no growth, as expected. At $m=0$, the growth rate is 1. This matches the discussion in Sec.~\ref{subsub:largestairs}.
+
+When we combine left and right stairs to recover symmetry, in the limit of large $n$, the entanglement growth rate becomes $\Gamma(m)\to 1$, with $\Gamma(1) = \Gamma(-1)=0$. Since the slopes at $m=\pm1$ become infinite, these slopes have arbitrarily high $v_B/v_E$, which was shown using these symmetric staircase circuits in Ref.~\cite{Nahum2018}.
 
 \subsection{Steady States with Correlation} \label{sub:steadystate}
 
@@ -332,6 +336,8 @@ For 1-stairs (the random architecture), the measured growth rate is not signific
 This implies that the lack of correlation is exact, and that the finite size effects are small enough at $L=100$ to not significantly affect $\Gamma_1(m)$.
 
 Stairs of length greater than 1 do however generate correlations. Figure~\ref{fig:6stairRates} shows the growth rates for 6-stairs. 
+\emph{Normalized}
+\emph{Does this go away?}
 \begin{figure}
 	\centering
 	\includegraphics[width=.495\textwidth]{2stairRates.pdf}
@@ -364,6 +370,7 @@ The correlation also depends on the slope of the entanglement curve. This must b
 The 3-stair circuit indeed generates more correlation than the 1-stair circuit. The solid curve is a simple quadratic function of the slope, which shows that the correlation function is asymmetric, and that negative slope states have slightly more correlation in the steady state. \emph{Why?}
 
 We can insert this empirical correlation into the growth rate correlation to get a closer estimate of the true growth rate. Fig.~\ref{fig:2corRates} compares this procedure to the earlier calculation. The systematic error appears to now be in the other direction, overestimating the growth rate of these circuits.
+\emph{Relabel plots with better legends}
 \begin{figure}
 	\centering
 	\includegraphics[width=.495\linewidth]{2corRates}
@@ -383,4 +390,11 @@ Fig.~\ref{fig:cor_length} shows $C_\l$ for various circuit architectures. $C_\l$
 \end{figure}
 This suggests that it might be possible to have a circuit architecture with a mix of staircases of different lengths, such that correlations introduced by different length stairs cancel each other out.
 
-\emph{plot of correlation with respect to stair length}
+Instead of looking at the variation of correlation with respect to distance, we can look at variation with respect to stair length, as in Fig.~\ref{fig:cor_stair}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{cor_stair}
+	\caption{\textbf{Dependence of correlation on stair length} for different $\l$. Note that the correlation appears to level off for long stairs.}
+	\label{fig:cor_stair}
+\end{figure}
+This does not include new information, but presents the information from Fig.~\ref{fig:cor_length} differently. In particular, it appears that the correlation begins to level off for large stairs. Once again, the negative correlation for $n\approx\l$ is assumed to be due to finite-size effects.

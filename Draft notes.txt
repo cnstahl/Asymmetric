@@ -4,6 +4,8 @@
 
 How do I differentiate plot lines?
 Go over gamma normalization
+Why is correlation plot asymmetric?
+Title
 
 
 
@@ -15,11 +17,16 @@ Second half of introduction
 2.4: Information velocities
   Lieb Robinson
   Butterfly
+Real evolution
+\sigma vs S
+Multiple of 8
 Hamiltonian figures
   Fix titles
   Label axes
 4.3.1: Surface growth
 Fix OTOC discussion
+Combine left and right stairs to get large v_B/v_E
+Large stairs have no correlation effects 
 Check stair/gate normalization
   All fucked up around v_E, v_B
 Correlations
