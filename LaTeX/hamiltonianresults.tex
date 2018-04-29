@@ -82,7 +82,7 @@ T = \th{\sqrt{3}}\begin{bmatrix}
 \end{align}
 Altogether, the Hamiltonian is
 \begin{align}
-H_3 = \frac{2\pi i}{\sqrt{3}}\begin{bmatrix}
+H_3 = \frac{2\pi i}{3\sqrt{3}}\begin{bmatrix}
 0 & 0  & 0  & 0  & 0  & 0  & 0  & 0 \\
 0 & 0  & 1  & 0  & -1 & 0  & 0  & 0 \\
 0 & -1 & 0  & 0  & 1  & 0  & 0  & 0 \\
@@ -93,13 +93,19 @@ H_3 = \frac{2\pi i}{\sqrt{3}}\begin{bmatrix}
 0 & 0  & 0  & 0  & 0  & 0  & 0  & 0 \\
 \end{bmatrix}\label{eqn:3ham}
 \end{align}
+
+This Hamiltonian is antisymmetric and purely imaginary. One effect of this is that if the system starts in a state with real coefficients all coefficients stay real because
+\begin{align}
+\dot{\psi}=-iH\psi
+\end{align}
+is purely real.
 Before moving on we note that this commutes with the total spin-Z operator 
 \begin{align}
-S_Z = \text{diag}(\frac{3}{2}, \frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, -\frac{1}{2}, -\frac{3}{2})
+S_Z = \text{diag}\left(-\frac{3}{2}, -\frac{1}{2}, -\frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{3}{2}\right)
 \end{align}
 so total spin-Z is conserved. It also commutes with the other components of spin and therefore also total spin $S^2$.
 
-There are a few checks we can perform on this Hamiltonian, First,it should be symmetric under a simultaneous rotation of all three spins in real space, so that it can be written as $H_3(\bm{S}_1,\,\bm{S}_2 ,\,\bm{S}_3)$. Furthermore it should be antisymmetric under the interchange of any two spins (equivalent to reversing the direction of propagation). The only function of three vectors that has this property is the triple product $H_3= \bm{S}_1\cdot\left(\bm{S}_2 \times\bm{S}_3\right)$, where multiplication of components is interpreted as tensor products.
+There are a few checks we can perform on this Hamiltonian, First, it should be symmetric under a simultaneous rotation of all three spins in real space, so that it can be written as $H_3(\bm{S}_1,\,\bm{S}_2 ,\,\bm{S}_3)$ as a function invariant to simultaneous rotations of the three spin vectors. Furthermore it should be antisymmetric under the interchange of any two spins (equivalent to reversing the direction of propagation). The only function of three vectors that has this property is the triple product $H_3= \bm{S}_1\cdot\left(\bm{S}_2 \times\bm{S}_3\right)$, where multiplication of components is interpreted as tensor products.
 
 The representation of the Hamiltonian as a triple product provides another reason for the spectrum of the Hamiltonian. As previously mentioned the Hilbert space of the 3 spins decomposes into one spin-$\frac{3}{2}$ space and two spin-$\half$ spaces. The state $\ket{111}$ is part of the spin-$\frac{3}{2}$ space. Since the three spins point in the same direction, their triple product vanished. Furthermore, since the other three states in the spin-$\frac{3}{2}$ subspace are related to $\ket{111}$ by rotation and the Hamiltonian is symmetric in this respect they also must have energy 0. Of the two spin-$\half$ pairs, one pair has positive energy and one has negative energy.
 
@@ -119,11 +125,11 @@ H &= \bm{S}_1\cdot\left(\bm{S}_2 \times\bm{S}_3\right) \nn
 	0 & i & 0 & 0 & 0 & 0 & 0 & 0
 	\end{bmatrix} + \dots
 \end{align}
-which is indeed equivalent to Eq.~\ref{eqn:3ham}.
+which the reader can check is indeed proportional to Eq.~\ref{eqn:3ham}.
 
 Exponentiating the Hamiltonian should act as another check. This gives the time evolution operator for one time step
 \begin{align}
-U(1) = e^{-iH_3} = \begin{bmatrix}
+U(t=1) = e^{-iH_3} = \begin{bmatrix}
 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
@@ -134,10 +140,10 @@ U(1) = e^{-iH_3} = \begin{bmatrix}
 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
 \end{bmatrix}
 \end{align}
-This has the properties of of condition~\ref{eqn:condition}. Furthermore, application three times gives $U(3) = 1$. 
+This has the properties of of condition~\ref{eqn:condition}. Furthermore, application three times gives $U(t=3) = 1$. 
 
-We can learn more about this Hamiltonian by watching the evolution of a single state. If the system starts in the state $\ket{100}$, the coefficients for the other states with equal total $S_Z$ will both change from 0 while the other coefficients will stay 0 due to conservation of $S_Z$.
-The state will become $\ket{010}$ at time 1. Fig.~\ref{fig:timeevol} shows this evolution. An important point to realize is that the coefficient of $\ket{001}$ also becomes non-zero at early time, as it must for evolution under a time-independent Hamiltonian if it is going to become non-zero in the future. 
+We can learn more about this Hamiltonian by watching the evolution of a single state. If the system starts in the state $\ket{100}$, the coefficients for the other states with equal total $S_Z$ will both change from 0 while the other coefficients will stay 0 due to conservation of $S_Z$. Furthermore we know that the coefficients should remain real, so we can plot the actual coefficients instead of their magnitudes.
+From the definition of the unitary operator we know the state will become $\ket{010}$ at time 1. Fig.~\ref{fig:timeevol} shows this evolution. An important point to realize is that the coefficient of $\ket{001}$ also becomes non-zero at early time, as it must for evolution under a time-independent Hamiltonian if it is going to become non-zero in the future. In fact, at early time the coefficients for $\ket{010}$ and $\ket{001}$ increase with the same magnitude.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{timeevol}
@@ -147,7 +153,9 @@ The state will become $\ket{010}$ at time 1. Fig.~\ref{fig:timeevol} shows this 
 
 \subsection{Multi-Site Hamiltonian} \label{sub:multistate}
 
-The 3-site system is periodic, and furthermore is not large enough to effectively study operator spreading. One way would be to apply $H_3$ repeatedly to each triplet of spins. This would equivalently apply $S_{123}$ to each triplet. However this is not a time-independent Hamiltonian, but rather a Floquet system. To preserve time independence we can apply the 3-site Hamiltonian to all triplets simultaneously, as in Eqn.~\ref{eqn:chain}. Note that this means that $U(t)$ will no longer have a simple form like Eqn.~\ref{eqn:condition}. This subsection will explore the dynamics of this multi-site Hamiltonian.
+The 3-site system is periodic, and furthermore is not large enough to effectively study operator spreading. One way would be to apply $H_3$ repeatedly to each triplet of spins. This would equivalently apply $S_{123}$ to each triplet. However this is not a time-independent Hamiltonian, but rather a Floquet system. To preserve time independence we can apply the 3-site Hamiltonian to all triplets simultaneously, as in Eqn.~\ref{eqn:chain}. Note that this means that $U(t)$ will no longer simply shuffle the states as in  Eqn.~\ref{eqn:condition}. This subsection will explore the dynamics of this multi-site Hamiltonian.
+
+Since the perturbations on states move from site $0\to1\to2\to0$, after chaining multiple Hamiltonians together the perturbations should move faster from high $i$ to low $i$, which we will call the backward direction. Heuristically, this is because weight can ``jump" directly from site 2 to site 0, but has to move through site 1 when it is moving forward. Once we get to the butterfly velocity, which is defined in terms of perturbations to operators, we expect the velocity to be faster forward, since operators evolve in the opposite direction from states.
 
 \subsubsection{Construction} \label{subsub:construction} 
 
@@ -192,8 +200,6 @@ which is shown in figure~\ref{fig:onecoef}. Although it appears to be quasi-peri
 	\caption{\textbf{Simplified view of Fig.~\ref{fig:timeevol5dense}}, showing only the coefficient for $\ket{00001}$ when that is the starting state. Even with the longer range of time, the coefficient never returns to 1.}
 	\label{fig:onecoef}
 \end{figure}
-
-%The coefficient for $\ket{00100}$ does not fit the pattern. It does not reach maximum at the right time and it does have a periodic structure. Furthermore, when the starting state is $\ket{00010}$ the problematic state is still $\ket{00100}$, probably because of the chaining mechanism. When the starting state is $\ket{00100}$ the coefficients for $\ket{10000}$ and $\ket{00001}$ always vanish. The next chaining method to try will be to have $2n$ spins, and to have the first spin complete the last trio.
 
 Instead of putting $H_3$ on every triplet, we can only chain together the odd triplets. \emph{Figure} We will call these sparse systems, and they are only possible for odd $L$. For example the sparse Hamiltonian for $L=5$ is
 \begin{align}
@@ -350,7 +356,17 @@ We will focus on the dense Hamiltonian, as it has more asymmetry. Unsurprisingly
 	\label{fig:otocs_denseforeallL11}
 \end{figure}
 
-We can boost the odd sites by connecting site 0 to site 1 with a term that does not connect it to site 2. The simplest rotationally symmetric term with that property is $H'=\bm{S}_i\cdot\bm{S}_j$. The coefficient of $H'$ should be chosen to maximize the smoothness of the OTOC. Empirically, a very effective coefficient is 1. This is not all too surprising because the $\bm S$ are already normalized. If we add this term to spins 0 and 1 and spins 10 and 11, the OTOC decay becomes much more linear, although still not perfectly so, as shown in Fig.~\ref{fig:otocs_pert}.
+We could still use these plots to calculate $\lambda(v)$, but there are few enough sites that the calculation will have high uncertainty. Alternatively we can boost the odd sites by connecting site 0 to site 1 with a term that does not connect it to site 2. This will change the overall dynamics but hopefully only by bringing neighboring sites closer to each other, so that it does not change the dynamics averaged over even and odd sites.
+
+The simplest rotationally symmetric term with the desired property is $H'=\bm{S}_i\cdot\bm{S}_j$. The coefficient of $H'$ should be chosen to maximize the smoothness of the OTOC. Empirically, a very effective coefficient is 4. Smaller constants left too much of the jaggedness, and larger constants introduced jaggedness in the other direction. We also dd a 2-site term to spins 9 and 10, to have the same effect on the backwards wave. The total Hamiltonian is
+\begin{align}
+H = \frac{2\pi}{3\sqrt{3}}\sum_{i=0}^{L-2}\bm{S}_i \cdot \left(\bm{S}_{i+1}
+	\times\bm{S}_{i+2}\right) + 4\left(\bm{S}_0\cdot\bm{S}_1 + \bm{S}_{L-2}
+	\cdot\bm{S}_{L-1}\right).
+\end{align}
+This perturbation is large enough to noticeably change the plots of the Pauli weight and the OTOC, by shuffling weight back and forth between the initial two sites early in the evolution. However the early time behavior, averaged over even and odd sites, is similar enough to not change $\lambda(v)$ dramatically.
+
+Using the new Hamiltonian, the OTOC decay becomes much more linear, although still not perfectly so, as shown in Fig.~\ref{fig:otocs_pert}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.495\textwidth]{otocs_dense_pert_foreallL11}
@@ -358,8 +374,7 @@ We can boost the odd sites by connecting site 0 to site 1 with a term that does 
 	\caption{\textbf{Velocity-dependent OTOC decay} in dense Hamiltonian with initial and final dot product perturbations. Although there is still jaggedness on the edges, the linear behavior in the bulk allows us to extract $\lambda(v)$.}
 	\label{fig:otocs_pert}
 \end{figure}
-
-Fig.~\ref{fig:balanced_butterfly_dense_pert_L11} shows the $v$ dependence of $\lambda(v)$. In a large enough system, $\lambda(v)$ should approach 0 for finite $v$. However, due to the small size of our system we were not able to effectively probe these slow speeds. However, it is clear that $\lambda_+>\lambda_-$ for all $v$. Therefore, unless the larger systems introduce some strange new behavior, $v_{B+}>v_{B-}$.
+Fig.~\ref{fig:balanced_butterfly_dense_pert_L11} shows the $v$ dependence of $\lambda(v)$. In a large enough system, $\lambda(v)$ should approach 0 for finite $v$. However, due to the small size of our system we were not able to effectively probe these slow speeds. However, it is clear that $\lambda_+>\lambda_-$ for all $v$. Therefore, for these time-independent Hamiltonian systems, $v_{B+}>v_{B-}$.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{balanced_butterfly_dense_pert_L11}

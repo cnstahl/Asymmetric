@@ -132,10 +132,9 @@ Ignoring finite-size effects, we have
 \ex{s_is_{i+1}} &= p(uu) + p(dd) - p(ud) - p(du),\nn
 m &= p(uu) - p(dd)\nn
 C_{1} &= \ex{s_is_{i+1}}-\ex{s_i}\ex{s_{i+1}} = \ex{s_is_{i+1}} - m^2,\nn
-&= 2p(dd) -p(ud) - p(du)\nn
-&= 2p(dd) - 2p(du),
+&= p(uu) + p(dd) - p(ud) - p(du) - (p(uu))^2 - (p(dd))^2 + 2p(uu)p(dd).
 \end{align}
-where the last line follows from the fact that there are an equal number of transitions from up to down as from down to up. After more manipulation we arrive at 
+After more manipulation we arrive at 
 \begin{align}
 p(ud) &= p(du) = \frac{1-m^2-C_1}{4},\\
 p(uu) &= \frac{(1+m)^2+C_1}{4},\\
@@ -194,7 +193,7 @@ We do this by enumerating all possible states for our system of size $L$ and slo
 
 The hard part is constructing the transition matrices. For small systems it is possible to explicitly enumerate all states and calculate the probabilities of transitioning to other states from these. Luckily it is possible to calculate transition matrices for larger systems recursively from the small case. This step is made easier by calculating the matrices for all slopes, not just a specific one. we can then take only the subspace of slope $m$. We will go through this procedure for 2-stairs.
 
-The case for $L=2$ is almost trivial. There are 4 states: $dd$, $du$, $ud$, $uu$. Recall that the systems are periodic, so for example the first system looks like $dddddd\dots$ over multiple periods. The first and last state have no local minima, so gates cannot change the states and these are stationary. For the middle two states, label the cut before the listed sites cut 0 and the cut between the listed sites cut 1. Then for the state $du$ cut 0 is a local maximum and cut 1 is a local minimum. If the first gate in the two stair lands on cut 1, the state will become $ud$, and will finish in state $du$ after the second gate. Otherwise the first gate, on cut 0, will have no effect and the final state will be $ud$, after the second gate falls on the local minimum. State $ud$ has a similar analysis. The result is that from either $m=0$ state, the probability of transition to the either $m=0$ state is $1/2$.
+The case for $L=2$ is almost trivial. There are 4 states: $dd$, $du$, $ud$, $uu$. Recall that the systems are periodic, so for example the first state would look like $dddddd\dots$ if viewed over multiple periods. The first and last state have no local minima, so gates cannot change the states and these are stationary. For the middle two states, label the cut before the listed sites cut 0 and the cut between the listed sites cut 1. Then for the state $du$ cut 0 is a local maximum and cut 1 is a local minimum. If the first gate in the two stair lands on cut 1, the state will become $ud$, and will finish in state $du$ after the second gate. Otherwise the first gate, on cut 0, will have no effect and the final state will be $ud$, after the second gate falls on the local minimum. State $ud$ has a similar analysis. The result is that from either $m=0$ state, the probability of transition to the either $m=0$ state is $1/2$.
 
 The 2-site transition matrix for 2-stairs is then 
 \begin{align}
@@ -206,7 +205,7 @@ T_{2,2} &=
 	0 & 0 & 0 & 2
 	\end{bmatrix}
 \end{align}
-The steady state for $m=1$ is $uu$, the steady state for $m=-1$ is $dd$, and the steady state for $m=0$ is $\half(uu+dd)$. The result that steady states for extremal slopes are all up or all down is general.
+The steady state for $m=1$ is $uu$, the steady state for $m=-1$ is $dd$, and the steady state for $m=0$ is $\half(ud+du)$. The result that steady states for extremal slopes are all up or all down is general.
 
 For the 3-site transition matrix we will show the calculation of 2 columns and then display the full matrix. Once again the state $ddd$ cannot transition, so the first column is $(1,0,0\dots)$. The second state in our basis is $ddu$, with $m=-1/3$. If the two gates fall on cuts 0 and 1, there is no change. If they land on cuts 1 and 2 or on sites 2 and 3 the final state is $dud$. These three possibilities are shown in figure~\ref{fig:3trans}.
 \begin{figure}
