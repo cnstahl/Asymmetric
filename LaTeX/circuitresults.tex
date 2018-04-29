@@ -13,7 +13,7 @@ In the picture in which the entropy has slope up or down at each site, as in Fig
 \begin{figure}
 	\centering
 	\input{diagstairs}
-	\caption{\textbf{Another picture of the staircase architecture.} Note that this picture results in the same final state.}
+	\caption{\textbf{Another picture of the staircase architecture.} Note that this picture results in the same final state as in Fig.~\ref{fig:stairs}.}
 	\label{fig:diagstairs}
 \end{figure}
 Since each staircase consists of multiple gates, there is an ambiguity in whether the rate $\gamma$ defines the number of gates per bond per time step or the number of staircases. We will use the convention that it is the number of gates per bond per unit time, so that $\gamma/n$ is the rate of staircases.
@@ -84,21 +84,21 @@ Figure~\ref{fig:growthrates} contains a graph of some normalized growth rates $\
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{analrates.png}
-	\caption{Growth rates for 1-, 4-, 17-, and 100-stairs as a function of slope $m$. As stair length increases, the growth rate asymptotes to the function $\pd{S}{t} = m+1$.}
+	\includegraphics[width=.6\textwidth]{analrates}
+	\caption{\textbf{Approximate growth rates} for 1-, 4-, 17-, and 100-stairs as a function of slope $m$. As stair length increases, the growth rate asymptotes to the function $\pd{S}{t} = m+1$.}
 	\label{fig:growthrates}
 \end{figure}
 
 \subsubsection{Infinite Stairs}
 
-Note that with increasing stair length the last term takes over and the growth rate asymptotes to the function $\Gamma_1\infty = \gamma(m+1)$. This is the most asymmetric behavior, with the ratio $v_{B+}/v_{B-}$ increasing without limit. Furthermore $v_{B-}/v_E$ approaches 1 from above, and $v_{B+}/v_E$ increases without bound.
+Note that with increasing stair length the last term takes over and the growth rate asymptotes to the function $\Gamma_\infty = \gamma(m+1)$. This is the most asymmetric behavior, with the ratio $v_{B+}/v_{B-}$ increasing without limit. Furthermore $v_{B-}/v_E$ approaches 1 from above, and $v_{B+}/v_E$ increases without bound.
 
 There are two ways to reason about this behavior. The first, which matches the order of limits of the current reasoning, is to start with infinite spatial support, which we have been assuming, and take the stair length $n\to\infty$. 
 Alternatively, start with a finite spin chain with length $N$ and periodic boundary conditions, and set the stair length to $\infty$. Now a single gate acts on site $1,2,3\dots N$, before wrapping around to act at site 1 again. 
 
 In both cases the rates $\Gamma_\infty(0)=\gamma$ and $\Gamma_\infty(1) = 2\gamma$ can be understood easily. In the $m=0$ case, after a gate falls between sites $i$ and $i+1$, $s_{i+1}$ will be a down slope regardless of whether the gate generated entanglement. Then the next gate falls across sites $i+1$ and $i+2$. At site $i+2$ $s_{i+2}=u$ with probability $\half$, so on average $\half$ of the gates produce 2 units of entanglement. At near-maximal slope nearly all slopes are $u$, except at the site to the right of the most recent gate. Then the next gate falls at a local minimum with probability 1, and all gates produce 2 units of entanglement.
 
-\emph{Independent of correlations.}
+Interestingly, this argument applies regardless of correlations, so that while the growth rates in this section are only approximate for finite $n>1$, the approximation actually becomes better at very large $n$. The only argument might be that if a long stair falls across multiple down steps, it will not generate the maximal entanglement and the sharp peak in $\Gamma_\infty = \gamma(m+1)$ might be rounded out. However, the earlier argument that these particles are uncorrelated means that the in the large $m$ limit the particles do not interact.
 
 \subsubsection{Entanglement and Butterfly Velocities} \label{susub:vels}
 
@@ -123,9 +123,9 @@ When we combine left and right stairs to recover symmetry, in the limit of large
 
 The first correction to make to the previous section is to incorporate a non-zero correlation in the steady state. For example, the system could be slightly ferromagnetic or antiferromagnetic, meaning that after an up slope the next slope is slightly more or less likely to be up, respectively. These terms are used in analogy with the Ising model; there is no actual magnetism in the circuit. An antiferromagnetic state has more local minima, so more gates will generate entanglement leading to a higher growth rate.
 
-The correlation affects the growth rate for 2-stairs through the probabilities in table~\ref{tab:2stair}, which are can be calculated using the slope and correlation, as shown below. We then show how to find the steady state in Secs.~\ref{subsub:randstate} and~\ref{subsub:stairstate}.
+The correlation affects the growth rate for 2-stairs through the probabilities in table~\ref{tab:2stair}. In a system with non-zero correlation they depend on both the slope and correlation, as shown below. We then show how to find the steady state in Secs.~\ref{subsub:randstate} and~\ref{subsub:stairstate}.
 
-When looking at a single site, the probabilities of $u$ or $d$ are simple: $p(u) = \frac{1+m}{2}, p(d) = \frac{1-m}{2}$. Previously we used the na\"ive assumption that, when looking at 2 sites, $p(uu) = p(u)p(u)$. However this is only true without correlations. The nearest neighbor correlation $C_{i,i+1}$ completely captures this dependence. Since our system is translationally invariant, the correlation cannot depend on position and $C_{i,i+1}=C_1$.
+When looking at a single site, the probabilities of $u$ or $d$ are simple: $p(u) = \frac{1+m}{2}, p(d) = \frac{1-m}{2}$. Previously we used the na\"ive assumption that, when looking at 2 sites, $p(uu) = p(u)p(u)$. However this is only true without correlations. The nearest neighbor correlation $C_{i,i+1}$ completely captures this dependence. Since our system is translationally invariant, the correlation cannot depend on position so $C_{i,i+1}=C_1$.
 
 Ignoring finite-size effects, we have
 \begin{align}
@@ -134,6 +134,7 @@ m &= p(uu) - p(dd)\nn
 C_{1} &= \ex{s_is_{i+1}}-\ex{s_i}\ex{s_{i+1}} = \ex{s_is_{i+1}} - m^2,\nn
 &= p(uu) + p(dd) - p(ud) - p(du) - (p(uu))^2 - (p(dd))^2 + 2p(uu)p(dd).
 \end{align}
+Along with the constraint $p(ud)=p(du)$ due to the fact that their must be an even number of domain walls, this gives 4 constraints on 4 probabilities, so the 2-site probabilities are completely constrained.
 After more manipulation we arrive at 
 \begin{align}
 p(ud) &= p(du) = \frac{1-m^2-C_1}{4},\\
@@ -142,7 +143,24 @@ p(dd) &= \frac{(1-m)^2+C_1}{4}.
 \end{align}
 These reduce to our old expressions for $C_1\to0$.
 
-\emph{Finish this.}
+If there were correlation in the random circuit then these new probabilities would affect the growth rate. However, as we will show, there is no correlation in that architecture. However, we can use $C_1$ to calculate the first order correction to the 2-stair growth rate. 
+
+Referring back to table~\ref{tab:2stair}, the only quantities that have changed are the probabilities. Although we haven't explicitly calculated the 3-site probabilities, we can get the $C_1$ correction using Bayes' rule. For example,
+\begin{align}
+p(ddu) &= p(dd)*p(u|d) = p(dd)\frac{p(du)}{p(d)}\nn
+&= \frac{(1-m)^2+C_1}{4}\frac{1-m^2-C_1}{4}\frac{2}{1-m}\nn
+&= \frac{\left((1-m)^2+C_1\right) \left(1-m^2-C_1\right)}{8 (1-m)},
+\end{align}
+where $p(u|d)$ is the probability that $s_i=u$ given $s_{i-1}=d$.
+This value is the same as it would be if we had started from the right side and calculated $p(ddu) = p(du)*p(d;d)$, where $p(d;d)$ is the probability that $s_i=d$ given $s_{i+1}=d$.
+
+After calculating the other relevant probabilities and going through the same process used to generate Eq.~\ref{eqn:2rate}, we find
+\begin{align}
+\Gamma_2^{(1)}(m)=\frac{\gamma}{2}\frac{\left(1-m^2-C_1\right) \big((1+m) (5+m)
+	\big)+C_1}{4 (1+m)},
+\end{align}
+which reduces to Eq.~\ref{eqn:2rate}.
+The superscript notes that this is the $C_1$ correction to the growth rate. The $n$-stair growth rate will have corrections from correlations up to $C_n$. The analysis of these corrections will proceed similar to the analysis for $C_1$.
 
 \subsubsection{Ergodicity and Stability} \label{subsub:ergstab}
 
@@ -207,7 +225,7 @@ T_{2,2} &=
 \end{align}
 The steady state for $m=1$ is $uu$, the steady state for $m=-1$ is $dd$, and the steady state for $m=0$ is $\half(ud+du)$. The result that steady states for extremal slopes are all up or all down is general.
 
-For the 3-site transition matrix we will show the calculation of 2 columns and then display the full matrix. Once again the state $ddd$ cannot transition, so the first column is $(1,0,0\dots)$. The second state in our basis is $ddu$, with $m=-1/3$. If the two gates fall on cuts 0 and 1, there is no change. If they land on cuts 1 and 2 or on sites 2 and 3 the final state is $dud$. These three possibilities are shown in figure~\ref{fig:3trans}.
+For the 3-site transition matrix we will show the calculation of 2 columns and then display the full matrix. Once again the state $ddd$ cannot transition, so the first column is $(1,0,0\dots)$. The second state in our basis is $ddu$, with $m=-1/3$. If the two gates fall on cuts 0 and 1, there is no change. If they land on cuts 1 and 2 or on sites 2 and 3 the final state is $dud$. These three possibilities are shown in Fig.~\ref{fig:3trans}.
 \begin{figure}
 	\centering
 	\input{3trans}
@@ -244,7 +262,7 @@ T_{2,3}^{(1)} =
 	0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
 	\end{bmatrix}
 \end{align}
-The other 2 components of the transition matrix will be this matrix, with states permuted by 1 or two spaces. This permutation can be achieved using the cyclic swap matrix $S_3$ from section~\ref{sec:asymham}, so that $T_{2,3}^{(2)}=S_3\,T_{2,3}^{(1)}\,S_3^{-1}$, etc.
+The other 2 components of the transition matrix will be this matrix, with states permuted by 1 or two spaces. This permutation can be achieved using the cyclic swap matrix $S_3$ from Sec.~\ref{sec:asymham}, so that $T_{2,3}^{(2)}=S_3\,T_{2,3}^{(1)}\,S_3^{-1}$, etc.
 
 The usefulness of this decomposition comes when looking at the analogous matrix for 4 sites,
 %\begin{align}
@@ -344,7 +362,7 @@ Stairs of length greater than 1 do however generate correlations. Figure~\ref{fi
 	\caption{\textbf{Measured and predicted growth rates} for the 2- and 6-stair architecture. The measured rate is now significantly lower than predicted, implying that the correlations built up by the stairs act to lower their entropy production.}
 	\label{fig:6stairRates}
 \end{figure}
-The notable difference in growth rate here is probably due to correlations created by the 6-stairs. Hopefully reasoning similar to that in section~\ref{sub:steadystate} will be able to predict the correlation so that its effect, at least to first order, can be calculated. This would allow a much closer approximation than that in Fig.~\ref{fig:6stairRates}
+The notable difference in growth rate here is probably due to correlations created by the 6-stairs. Hopefully reasoning similar to that in Sec.~\ref{sub:steadystate} will be able to predict the correlation so that its effect, at least to first order, can be calculated. This would allow a much closer approximation than that in Fig.~\ref{fig:6stairRates}
 
 \subsubsection{Measuring Correlations}  \label{subsub:correlations}
 

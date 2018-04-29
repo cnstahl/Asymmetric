@@ -13,16 +13,7 @@ Title
 —To Do—
 Acknowledgements
 Abstract
-Introduction 
-  Second half
-  Cite Nahum2017q
-  Cite Maldacena
-  Cite Localized Shocks
-2.1: Thermalization
 
-Hamiltonian figures
-  Fix titles
-  Label axes
 Fix OTOC discussion
 Better math def of v_E
 Why is v_E \le v_B
@@ -30,17 +21,19 @@ Combine left and right stairs to get large v_B/v_E
 Large stairs have no correlation effects 
 Check stair/gate normalization
   All fucked up around v_E, v_B
-Correlations
+Plot growth rate with calculated correlation
 
 
 
 —Small Things—
 
-Operator vs unitary
+Operator vs unitary terminology
+Make sure Anderson is first citation
+Don't have contractions
 
 
 —Printing—
 COLOR
 Pequod
   One sided
-  
+ 
