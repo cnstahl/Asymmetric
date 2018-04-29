@@ -4,22 +4,43 @@
 
 How do I differentiate plot lines?
 Go over gamma normalization
+Why is correlation plot asymmetric?
+Title
 
 
 
 
 —To Do—
+Acknowledgements
 Abstract
-Second half of introduction
+Introduction 
+  Second half
+  Cite Nahum2017q
+  Cite Maldacena
+  Cite Localized Shocks
 2.1: Thermalization
-2.4: Information velocities
-  Lieb Robinson
-  Butterfly
+
 Hamiltonian figures
   Fix titles
   Label axes
-4.3.1: Surface growth
 Fix OTOC discussion
+Better math def of v_E
+Why is v_E \le v_B
+Combine left and right stairs to get large v_B/v_E
+Large stairs have no correlation effects 
 Check stair/gate normalization
   All fucked up around v_E, v_B
 Correlations
+
+
+
+—Small Things—
+
+Operator vs unitary
+
+
+—Printing—
+COLOR
+Pequod
+  One sided
+  

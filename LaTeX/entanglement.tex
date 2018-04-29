@@ -1,4 +1,7 @@
-\documentclass[11pt]{article}
+\documentclass[11pt,
+%twoside
+]{article}
+
 
 \usepackage[hyperfootnotes=false]{hyperref}                                    
 \usepackage{amsmath,amsthm,amssymb}      
@@ -15,17 +18,25 @@
 \usepackage{graphicx}                                      
 \graphicspath{{../figures/}, {../figures/growthrates/}, {../figures/correlations/}, {../python/Hamiltonian/figures/}}
 
-\usepackage[sorting=none, url=false]{biblatex}
+\usepackage[sorting=none, url=false, maxbibnames=5]{biblatex}
 \bibliography{bib.bib}
 
 % Formatting
 \usepackage{indentfirst}
 \usepackage{geometry}  
-\geometry{margin=1in}       
-\geometry{lmargin=1.5in} 
+\geometry{inner=1.5in,outer=1in}
+\geometry{margin=1in, lmargin=1.5in}
+\usepackage{setspace}
 \titleformat{\subsection}
 {\normalfont\large\bfseries}{\thesubsection}{1em}{}
 \renewcommand{\baselinestretch}{1.4}
+
+\newcommand\blfootnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
 
 \renewcommand{\bf}{\mathbf}
 \renewcommand{\cal}{\mathcal}
@@ -68,8 +79,10 @@
 \begin{document}
 	
 \pagenumbering{Roman}
+\begin{titlepage}
 \input{frontmatter}
-\newpage
+\end{titlepage}
+\cleardoublepage
 \pagenumbering{arabic}
 \input{introduction}
 \input{tihamiltonian}
@@ -77,6 +90,7 @@
 \input{circuits}
 \input{circuitresults}
 \input{conclusion}
+\newpage
 \printbibliography
 
 \end{document}

@@ -9,26 +9,27 @@ After chaining together these local terms to define a multi-site Hamiltonian we 
 
 We want a multi-site in which sites interact only through local interactions. We can accomplish this by defining an $n$-site Hamiltonian for $n$ small, and then putting this Hamiltonian on each set of $n$ sites,
 \begin{align}
-H_{\text{tot}} = \sum_{i=1}^{L-n}H_n(\psi_i,\psi_{i+1},\dots\psi_{i+n})
+H_{\text{tot}} = \sum_{i=0}^{L-n}H_n^{(i)},
  \label{eqn:chain}
 \end{align}
-A common choice is $n=2$ but this will not suffice, because 2-site Hamiltonians are always symmetric. Unitarity preserves information so for any weight the Hamiltonian moves from site $i$ to $i+1$ it must move an equal amount from site $i+1$ to $i$. There do exists asymmetric Hamiltonians for three sites, though. 
+where $H_n^{(i)}$ is a $n$-site Hamiltonian acting on sites $i$ through $i+n-1$.
+A common choice is $n=2$ but this will not suffice, because 2-site Hamiltonians are always symmetric with respect to their operator dynamics. Unitarity preserves information so for any weight the 2-site Hamiltonian moves from site $i$ to $i+1$ it must move an equal amount from site $i+1$ to $i$. 3-site Hamiltonian do not have this constraint, though, and can have asymmetric dynamics.
 
 The feature we are looking for in this Hamiltonian is asymmetry in its dynamics. To that end, instead of looking directly for an asymmetric Hamiltonian, we can find a unitary operator $U(t)$ with the dynamics we want. From that operator we can construct a Hamiltonian that gives $U(t)=e^{-iHt}$. There are multiple ways to construct $H$ from $U(T)$. One way is to just take the matrix log, for example by using Mathematica. Since this method is not very physical, we can instead look at eigenstates. $U(t)$ and $H$ will have the same eigenstates, with the eigenvalues of $H$ given by $\lambda_H = i\log(U(1))$. The Hamiltonian is completely specified by its eigenstates and eigenvalues. Since scalar logs are easier, this method is much more intuitive.
 
-One asymmetric unitary operator is the 3-site swap $S_{123}$. $S_{123}$ is a unitary operator such that
+One asymmetric unitary operator is the 3-site cyclic swap $S_{123}$. $S_{123}$ is a unitary operator such that
 \begin{align}
 S_{123}\ket{\alpha\beta\gamma} =\ket{\gamma\alpha\beta}, \label{eqn:condition}
 \end{align}
-where the position of the state denotes the site on which it sits. The idea of using this operator is that it can transport a state from the left side to the right side in 1 step, but takes two applications to move a state from the right to the left.
+where $\ket{\alpha\beta\gamma}$ is a product state with state $\ket{\alpha}$ on site 0, $\ket{\beta}$ on site 1, and $\ket{\gamma}$ on site 2. The idea of using this operator is that it can transport a state from site 3 to site 1 in 1 step, but takes two applications to move a state from site 1 to site 3.
 
 One way to build the three site swap gate is in a Floquet system or quantum circuit, out of 2-site swap gates $S_{123} = S_{12}S_{23}$. Each 2-site swap interchanges two states, so the action is 
 \begin{align}
-S_{12}S_{23}\ket{\alpha\beta\gamma} &= S_{23}\ket{\alpha\gamma\beta} = 
+S_{12}S_{23}\ket{\alpha\beta\gamma} &= S_{12}\ket{\alpha\gamma\beta} = 
 	\ket{\gamma\alpha\beta}\nn
 &= S_{123}\ket{\alpha\beta\gamma}.
 \end{align}
-It is also possible to build $S_{123}$t out of a time-independent Hamiltonian, so that $U(1) = e^{-iH_3} = S_{123}$. We will construct the Hamiltonian using the eigendecomposition, but it is also possible to take the matrix log.
+It is also possible to build $S_{123}$t out of a time-independent Hamiltonian, so that $U(t=1) = e^{-iH_3} = S_{123}$. We will construct the Hamiltonian using the eigendecomposition, but it is also possible to take the matrix log.
 
 For a system with spin-$\half$ objects on the sites there is an 8-dimensional Hilbert space, which can be decomposed into a spin-$\frac{3}{2}$ subspace with 4 states and 2 spin-$\half$ subspaces with 2 states each. Since the eigenstates of $S_{123}$ only pick up a phase under unitary evolution, they will be states in which individual particle states differ only by phases, so that the phase from the dynamics effectively permutes the states. 
 
@@ -36,10 +37,12 @@ There are four states that are symmetric with respect to the three sites, and th
 \begin{align}
 \ket{\psi_{0,0}}=\ket{000},\quad \ket{\psi_{0,1}}=\ket{100}+\ket{010}+\ket{001},
 	\nn
-\ket{\psi_{0,3}}=\ket{111},\quad \ket{\psi_{0,2}}=\ket{011}+\ket{101}+\ket{110}.
+\ket{\psi_{0,3}}=\ket{111},\quad \ket{\psi_{0,2}}=\ket{011}+\ket{101}+\ket{110},
 	\label{eqn:zero}
 \end{align}
-Of the four other states, two should have positive energy and two should have negative energy. Since $U(3)=1$, their eigenvalues must be cube roots of unity. The energies should be $E_\pm = \pm\frac{2\pi}{3}$ so they pick up a phase $\phi_\pm =e^{-iE_\pm} = e^{\mp i\frac{2\pi}{3}}$. Using condition~\ref{eqn:condition}, we can show that the positive energy states are
+where, for example, $\ket{001}$ is a product state with sites 0 and 1 in state $\ket{0}$ and site 3 in state $\ket{1}$. $\ket{1}$ is the spin-up state and $\ket{0}$ is the spin-down state.
+
+Of the four other states, two should have positive energy and two should have negative energy. Since $U(t=3)=1$, their eigenvalues must be cube roots of unity. The energies should be $E_\pm = \pm\frac{2\pi}{3}$ so they pick up a phase $\phi_\pm =e^{-iE_\pm} = e^{\mp i\frac{2\pi}{3}}$. Using condition~\ref{eqn:condition}, we can show that the positive energy states are
 \begin{align}
 \ket{\psi_{+,1}}=&\ket{100} + \phi_-\ket{010} + \phi_+\ket{001},\nn
 \ket{\psi_{+,2}}=&\ket{011} + \phi_-\ket{101} + \phi_+\ket{110},\label{eqn:plus}
@@ -58,7 +61,8 @@ U(1)\ket{\psi_{+,1}} &= \phi_+ \left(\ket{100} + \phi_-\ket{010} + \phi_+
 \end{align}
 with similar results for the other 3 non-zero energy states.
 
-To write the Hamiltonian as a matrix we have to choose a basis. In the eigenbasis, of course, the Hamiltonian is diagonal. A more useful basis is the computational basis, which has states $\ket{000},\,\ket{001},\,\ket{010},$ etc,
+To write the Hamiltonian as a matrix we have to choose a basis. In the eigenbasis, of course, the Hamiltonian is diagonal. A more useful basis is the computational basis, which has states $\ket{000},\,\ket{001},\,\ket{010},\,\ket{011},\,\ket{100},\,\ket{101},\,\ket{110},\,\ket{111}$. The strings inside each ket can be interpreted as binary number, so that the states can be written as $\ket{0},\,\ket{1},\,\ket{2}$, etc.
+
 Then the Hamiltonian is 
 \begin{align}
 H_3 = T\; \text{diag}(0,0,0,0,E_+,E_+,E_-,E_-)\; T^\dag,
@@ -78,7 +82,7 @@ T = \th{\sqrt{3}}\begin{bmatrix}
 \end{align}
 Altogether, the Hamiltonian is
 \begin{align}
-H_3 = \frac{2\pi i}{\sqrt{3}}\begin{bmatrix}
+H_3 = \frac{2\pi i}{3\sqrt{3}}\begin{bmatrix}
 0 & 0  & 0  & 0  & 0  & 0  & 0  & 0 \\
 0 & 0  & 1  & 0  & -1 & 0  & 0  & 0 \\
 0 & -1 & 0  & 0  & 1  & 0  & 0  & 0 \\
@@ -89,21 +93,27 @@ H_3 = \frac{2\pi i}{\sqrt{3}}\begin{bmatrix}
 0 & 0  & 0  & 0  & 0  & 0  & 0  & 0 \\
 \end{bmatrix}\label{eqn:3ham}
 \end{align}
+
+This Hamiltonian is antisymmetric and purely imaginary. One effect of this is that if the system starts in a state with real coefficients all coefficients stay real because
+\begin{align}
+\dot{\psi}=-iH\psi
+\end{align}
+is purely real.
 Before moving on we note that this commutes with the total spin-Z operator 
 \begin{align}
-S_Z = \text{diag}(\frac{3}{2}, \frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, -\frac{1}{2}, -\frac{3}{2})
+S_Z = \text{diag}\left(-\frac{3}{2}, -\frac{1}{2}, -\frac{1}{2}, \frac{1}{2}, -\frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{3}{2}\right)
 \end{align}
 so total spin-Z is conserved. It also commutes with the other components of spin and therefore also total spin $S^2$.
 
-There are a few checks we can perform on this Hamiltonian, First,it should be symmetric under a simultaneous rotation of all three spins in real space, so that it can be written as $H_3(\bm{\sigma}_1,\,\bm{\sigma}_2 ,\,\bm{\sigma}_3)$. Furthermore it should be antisymmetric under the interchange of any two spins (equivalent to reversing the direction of propagation). The only function of three vectors that has this property is the triple product $H_3= \bm{\sigma}_1\cdot\left(\bm{\sigma}_2 \times\bm{\sigma}_3\right)$, where multiplication of components is interpreted as tensor products.
+There are a few checks we can perform on this Hamiltonian, First, it should be symmetric under a simultaneous rotation of all three spins in real space, so that it can be written as $H_3(\bm{S}_1,\,\bm{S}_2 ,\,\bm{S}_3)$ as a function invariant to simultaneous rotations of the three spin vectors. Furthermore it should be antisymmetric under the interchange of any two spins (equivalent to reversing the direction of propagation). The only function of three vectors that has this property is the triple product $H_3= \bm{S}_1\cdot\left(\bm{S}_2 \times\bm{S}_3\right)$, where multiplication of components is interpreted as tensor products.
 
 The representation of the Hamiltonian as a triple product provides another reason for the spectrum of the Hamiltonian. As previously mentioned the Hilbert space of the 3 spins decomposes into one spin-$\frac{3}{2}$ space and two spin-$\half$ spaces. The state $\ket{111}$ is part of the spin-$\frac{3}{2}$ space. Since the three spins point in the same direction, their triple product vanished. Furthermore, since the other three states in the spin-$\frac{3}{2}$ subspace are related to $\ket{111}$ by rotation and the Hamiltonian is symmetric in this respect they also must have energy 0. Of the two spin-$\half$ pairs, one pair has positive energy and one has negative energy.
 
-Writing the $j$th component of spin on site $i$ as $\sigma_{i,j}$, this triple product is
+Writing the $j$th component of spin on site $i$ as $S_{i,j}$, this triple product is
 \begin{align}
-H &= \bm{\sigma}_1\cdot\left(\bm{\sigma}_2 \times\bm{\sigma}_3\right) \nn
-&= \sigma_{1,1}\otimes\sigma_{2,2}\otimes{\sigma}_{3,3} - {\sigma}_{1,1}
-	\otimes\sigma_{2,3}\otimes\sigma_{3,2} + \sigma_{1,2}\otimes{\sigma}_{2,3} \otimes {\sigma}_{3,1}-\cdots\nn
+H &= \bm{S}_1\cdot\left(\bm{S}_2 \times\bm{S}_3\right) \nn
+&= S_{1,1}\otimes S_{2,2}\otimes{S}_{3,3} - {S}_{1,1}
+	\otimes S_{2,3}\otimes S_{3,2} + S_{1,2}\otimes{S}_{2,3} \otimes {S}_{3,1}-\cdots\nn
 &= \begin{bmatrix}
 	0 & 0 & 0 & 0 & 0 & 0 &-i & 0 \\
 	0 & 0 & 0 & 0 & 0 & 0 & 0 & i \\
@@ -115,11 +125,11 @@ H &= \bm{\sigma}_1\cdot\left(\bm{\sigma}_2 \times\bm{\sigma}_3\right) \nn
 	0 & i & 0 & 0 & 0 & 0 & 0 & 0
 	\end{bmatrix} + \dots
 \end{align}
-which is indeed equivalent to Eq.~\ref{eqn:3ham}.
+which the reader can check is indeed proportional to Eq.~\ref{eqn:3ham}.
 
 Exponentiating the Hamiltonian should act as another check. This gives the time evolution operator for one time step
 \begin{align}
-U(1) = e^{-iH_3} = \begin{bmatrix}
+U(t=1) = e^{-iH_3} = \begin{bmatrix}
 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
@@ -130,27 +140,30 @@ U(1) = e^{-iH_3} = \begin{bmatrix}
 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
 \end{bmatrix}
 \end{align}
-This has the properties of of condition~\ref{eqn:condition}. Furthermore, application three times gives $U(3) = 1$. 
+This has the properties of of condition~\ref{eqn:condition}. Furthermore, application three times gives $U(t=3) = 1$. 
 
-We can learn more about this Hamiltonian by watching the evolution of a single state. If the system starts in the state $\ket{100}$, the coefficients for the other states with equal total $S_Z$ will both change from 0 while the other coefficients will stay 0 due to conservation of $S_Z$.
-The state will become $\ket{010}$ at time 1. Fig.~\ref{fig:timeevol} shows this evolution. An important point to realize is that the coefficient of $\ket{001}$ also becomes non-zero at early time, as it must for evolution under a time-independent Hamiltonian if it is going to become non-zero in the future. 
+We can learn more about this Hamiltonian by watching the evolution of a single state. If the system starts in the state $\ket{100}$, the coefficients for the other states with equal total $S_Z$ will both change from 0 while the other coefficients will stay 0 due to conservation of $S_Z$. Furthermore we know that the coefficients should remain real, so we can plot the actual coefficients instead of their magnitudes.
+From the definition of the unitary operator we know the state will become $\ket{010}$ at time 1. Fig.~\ref{fig:timeevol} shows this evolution. An important point to realize is that the coefficient of $\ket{001}$ also becomes non-zero at early time, as it must for evolution under a time-independent Hamiltonian if it is going to become non-zero in the future. In fact, at early time the coefficients for $\ket{010}$ and $\ket{001}$ increase with the same magnitude.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{timeevol}
-	\caption{\textbf{Evolution of coefficients in 3-site system} if the system starts in state $\ket{100}$. Note that the coefficient for $\ket{001}$ peaks before the coefficient for $\ket{010}$ even though the system moves to state $\ket{010}$ first.}
+	\caption{\textbf{Evolution of coefficients in 3-site system} if the system starts in state $\ket{100}$. Note that the system initially moves to states $\ket{010}$ and $\ket{001}$ with equal coefficient squared, although at time $t=1$ the state is entirely $\ket{010}$.}
 	\label{fig:timeevol}
 \end{figure}
 
 \subsection{Multi-Site Hamiltonian} \label{sub:multistate}
 
-The 3-site system is periodic, and furthermore is not large enough to effectively study operator spreading. One way would be to apply $H_3$ repeatedly to each triplet of spins. This would equivalently apply $S_{123}$ to each triplet. However this is not a time-independent Hamiltonian, but rather a Floquet system. To preserve time independence we can apply the 3-site Hamiltonian to all triplets simultaneously, as in Eqn.~\ref{eqn:chain}. Note that this means that $U(t)$ will no longer have a simple form like Eqn.~\ref{eqn:condition}. This subsection will explore the dynamics of this multi-site Hamiltonian.
+The 3-site system is periodic, and furthermore is not large enough to effectively study operator spreading. One way would be to apply $H_3$ repeatedly to each triplet of spins. This would equivalently apply $S_{123}$ to each triplet. However this is not a time-independent Hamiltonian, but rather a Floquet system. To preserve time independence we can apply the 3-site Hamiltonian to all triplets simultaneously, as in Eqn.~\ref{eqn:chain}. Note that this means that $U(t)$ will no longer simply shuffle the states as in  Eqn.~\ref{eqn:condition}. This subsection will explore the dynamics of this multi-site Hamiltonian.
+
+Since the perturbations on states move from site $0\to1\to2\to0$, after chaining multiple Hamiltonians together the perturbations should move faster from high $i$ to low $i$, which we will call the backward direction. Heuristically, this is because weight can ``jump" directly from site 2 to site 0, but has to move through site 1 when it is moving forward. Once we get to the butterfly velocity, which is defined in terms of perturbations to operators, we expect the velocity to be faster forward, since operators evolve in the opposite direction from states.
 
 \subsubsection{Construction} \label{subsub:construction} 
 
-Explicitly, the extension of this Hamiltonian to 4 sites is
+Explicitly, the extension of this Hamiltonian to 4 sites is, using the notation in Eq.~\ref{eqn:chain},
 \begin{align}
-H_4 = H_5\otimes\mathbb{I} + \mathbb{I}\otimes H_3.
+H_4 = H_3^{(0)}\otimes\mathbb{I}_1^{(3)} + \mathbb{I}_1^{(0)}\otimes H_3^{(1)},
 \end{align}
+so that the 3-site Hamiltonian acts on each contiguous triplet of spins.
 This Hamiltonian still preserves each component of total spin. Since we are applying the Hamiltonian to the 4 sites simultaneous, its unitary behavior does not simply swap states between the sites. However, the behavior is still periodic. Fig.~\ref{fig:timeevol4} shows that when the system starts in state $\ket{0001}$ it returns to that state with period $\tau=3\sqrt{\frac{3}{5}}$ but never fully reaches any other basis state.
 \begin{figure}
 \centering
@@ -159,11 +172,13 @@ This Hamiltonian still preserves each component of total spin. Since we are appl
 \label{fig:timeevol4}
 \end{figure}
 
-With 5 sites, adding the third triplet destroys the simple periodic behavior of the system. The Hamiltonian is now
+With 5 sites, adding the third triplet destroys the simple periodic behavior of the system, although it is still quasiperiodic. The Hamiltonian is now
 \begin{align}
-H_5 = H_3\otimes\mathbb{I}_2 + \mathbb{I}\otimes H_3\otimes\mathbb{I} +
-	\mathbb{I}_2\otimes H_3.
+H_5 = H_3^{(0)}\otimes\mathbb{I}^{(3)}\otimes\mathbb{I}^{(4)} + 
+	\mathbb{I}^{(0)}\otimes H_3^{(1)}\otimes\mathbb{I}^{(4)} +
+	\mathbb{I}^{(0)}\otimes\mathbb{I}^{(1)}\otimes H_3^{(2)},
 \end{align} 
+so that there is again one 3-site Hamiltonian on each contiguous triplet.
 Starting in $\ket{00001}$, the coefficients follow the pattern of figure~\ref{fig:timeevol5}. At first the evolution is similar to the $n=1$ case, with $\ket{10000}$ and then $\ket{01000}$ reaching near maximal. This suggests that the system retains some of its swap gate-like behavior. However the system is never fully in any basis state after $t=0$, due to the lack of periodicity.
 
 By directly diagonalizing the Hamiltonian we can study the evolution of a single component of the state. The coefficient of $\ket{00001}$ is 
@@ -185,8 +200,6 @@ which is shown in figure~\ref{fig:onecoef}. Although it appears to be quasi-peri
 	\caption{\textbf{Simplified view of Fig.~\ref{fig:timeevol5dense}}, showing only the coefficient for $\ket{00001}$ when that is the starting state. Even with the longer range of time, the coefficient never returns to 1.}
 	\label{fig:onecoef}
 \end{figure}
-
-%The coefficient for $\ket{00100}$ does not fit the pattern. It does not reach maximum at the right time and it does have a periodic structure. Furthermore, when the starting state is $\ket{00010}$ the problematic state is still $\ket{00100}$, probably because of the chaining mechanism. When the starting state is $\ket{00100}$ the coefficients for $\ket{10000}$ and $\ket{00001}$ always vanish. The next chaining method to try will be to have $2n$ spins, and to have the first spin complete the last trio.
 
 Instead of putting $H_3$ on every triplet, we can only chain together the odd triplets. \emph{Figure} We will call these sparse systems, and they are only possible for odd $L$. For example the sparse Hamiltonian for $L=5$ is
 \begin{align}
@@ -343,7 +356,17 @@ We will focus on the dense Hamiltonian, as it has more asymmetry. Unsurprisingly
 	\label{fig:otocs_denseforeallL11}
 \end{figure}
 
-We can boost the odd sites by connecting site 0 to site 1 with a term that does not connect it to site 2. The simplest rotationally symmetric term with that property is $H'=\bm{S}_i\cdot\bm{S}_j$. If we add this term to spins 0 and 1 and spins 10 and 11, the OTOC decay becomes much more linear, although still not perfectly so, as shows in Fig.~\ref{fig:otocs_pert}.
+We could still use these plots to calculate $\lambda(v)$, but there are few enough sites that the calculation will have high uncertainty. Alternatively we can boost the odd sites by connecting site 0 to site 1 with a term that does not connect it to site 2. This will change the overall dynamics but hopefully only by bringing neighboring sites closer to each other, so that it does not change the dynamics averaged over even and odd sites.
+
+The simplest rotationally symmetric term with the desired property is $H'=\bm{S}_i\cdot\bm{S}_j$. The coefficient of $H'$ should be chosen to maximize the smoothness of the OTOC. Empirically, a very effective coefficient is 4. Smaller constants left too much of the jaggedness, and larger constants introduced jaggedness in the other direction. We also dd a 2-site term to spins 9 and 10, to have the same effect on the backwards wave. The total Hamiltonian is
+\begin{align}
+H = \frac{2\pi}{3\sqrt{3}}\sum_{i=0}^{L-2}\bm{S}_i \cdot \left(\bm{S}_{i+1}
+	\times\bm{S}_{i+2}\right) + 4\left(\bm{S}_0\cdot\bm{S}_1 + \bm{S}_{L-2}
+	\cdot\bm{S}_{L-1}\right).
+\end{align}
+This perturbation is large enough to noticeably change the plots of the Pauli weight and the OTOC, by shuffling weight back and forth between the initial two sites early in the evolution. However the early time behavior, averaged over even and odd sites, is similar enough to not change $\lambda(v)$ dramatically.
+
+Using the new Hamiltonian, the OTOC decay becomes much more linear, although still not perfectly so, as shown in Fig.~\ref{fig:otocs_pert}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.495\textwidth]{otocs_dense_pert_foreallL11}
@@ -351,8 +374,7 @@ We can boost the odd sites by connecting site 0 to site 1 with a term that does 
 	\caption{\textbf{Velocity-dependent OTOC decay} in dense Hamiltonian with initial and final dot product perturbations. Although there is still jaggedness on the edges, the linear behavior in the bulk allows us to extract $\lambda(v)$.}
 	\label{fig:otocs_pert}
 \end{figure}
-
-Fig.~\ref{fig:balanced_butterfly_dense_pert_L11} shows the $v$ dependence of $\lambda(v)$. In a large enough system, $\lambda(v)$ should approach 0 for finite $v$. However, due to the small size of our system we were not able to effectively probe these slow speeds. However, it is clear that $\lambda_+>\lambda_-$ for all $v$. Therefore, unless the larger systems introduce some strange new behavior, $v_{B+}>v_{B-}$.
+Fig.~\ref{fig:balanced_butterfly_dense_pert_L11} shows the $v$ dependence of $\lambda(v)$. In a large enough system, $\lambda(v)$ should approach 0 for finite $v$. However, due to the small size of our system we were not able to effectively probe these slow speeds. However, it is clear that $\lambda_+>\lambda_-$ for all $v$. Therefore, for these time-independent Hamiltonian systems, $v_{B+}>v_{B-}$.
 \begin{figure}
 	\centering
 	\includegraphics[width=.5\textwidth]{balanced_butterfly_dense_pert_L11}

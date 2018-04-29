@@ -1,6 +1,6 @@
 \section{Operator Spreading in Time-Independent Hamiltonian Systems} \label{sec:opsp}
 
-This section includes a short review of unitary time evolution of states and operators. It defines measures of how far an operator has spread, and from these defines a speed called the butterfly speed $v_B$ the measures how fast these operators spread.
+This section includes a short review of unitary time evolution of states and operators. It defines measures of how far an operator has spread, and from these defines a speed called the butterfly speed $v_B$ that measures how fast these operators spread.
 
 \subsection{Motivation: Thermalization} \label{sub:therm}
 
@@ -133,8 +133,15 @@ For $q=2$ there is a particularly easy way to calculate the value in expression~
 
 \subsection{Information Velocities} \label{sub:vels}
 
-Lieb-Robinson bounds
+Since we are studying the spreading of information throughout a system, we want to quantify how fast the information is spreading. In a relativistic system, for example, no information can travel past the speed of light. This is stated precisely by saying that operators at space-like separated points in spacetime must commute. Only within the light cone can two operators have non-zero commutation. Lack of commutation is used as a measure of information transfer because it quantifies how much the two measurements affect each other.
 
+In a spin chain evolving under a Hamiltonian without relativity, there is no requirement that any two operators must commute. This is because of Eqn.~\ref{eqn:BCH}, which can connect distant operators at very small $t$. However, the Lieb-Robinson bound~\cite{Lieb} limits the largest possible commutator of two normalized observables $A_0(t)$ and $B_i$ to
+\begin{align}
+\abs{\left[A_0(t),B_i\right]}\le K_0 e^{-(\abs{i}-v_{LR}t)/\xi_0},
+\end{align}
+where $K_0$ and $\xi_0$ are constants and $v_{LR}$ is the Lieb-Robinson velocity, set by the Hamiltonian. Outside $x=v_{LR}$, commutators must be exponentially small, so this is a reasonable ``light cone."
+
+Another velocity that limits the spreading of information in spin chains is the butterfly velocity.
 The butterfly velocity is the fastest velocity at which perturbations can propagate without decaying exponentially in time. In systems large enough so that the site index $i$ can be replaced with a continuous position $x$, the OTOC behaves as~\cite{Khemani2018}
 \begin{align}
 C(x,t)\sim \e^{\lambda(v)t}\quad\text{for}\;\;x=vt.\label{eqn:butterfly}
@@ -147,3 +154,11 @@ This tracks the OTOC along rays of constant velocity, as in Fig.~\ref{fig:kheman
 	\label{fig:khemani_lambda}
 \end{figure}
 The fact that there is a single $v_B$, or rather one in each direction, is due to the fact that $\lambda(v)$ must be convex, and can only cross 0 once in each direction.
+
+Note that, for a system with high temperature such that the density operator $\rho\propto\mathbb{I}$, the definitions of $v_{LR}$ and $v_B$ coincide. In general $v_B$ is a ``low-energy analog" of $v_{LR}$. These two speeds then can be different, but are not measuring something fundamentally different about the Hamiltonian.
+
+Information dynamics in quantum circuits does have another velocity scale, defined by the entanglement velocity $v_E$. We do not study the entanglement velocity in our Hamiltonian system, but we do in Sec.~\ref{sec:stairs}. The entanglement velocity is defined in terms of entanglement entropy, which is defined in Sec.~\ref{sec:circuits}. Even without the quantitative definition, we can still have some understanding of $v_E$.
+
+Two systems $A$ and $B$ are entangled if their joint state $\ket{\Psi}_{AB}$ can not be written as a product state $\ket{\psi_A}_A\ket{\psi_B}_B$. If two parts of a spin chain are initially unentangled and then coupled, they will gradually become entangled. The spins closer to the boundary will become entangled first. The entanglement reaches farther spins at the speed $v_E$.
+
+In general, $v_B/v_E>1$, but the ratio can be made arbitrarily large, as in Ref.~\cite{Nahum2018}. In Sec.~\ref{sec:stairs} we recreate the systems from that reference, but also build systems in which $v_B$ is different in different directions. Before going into more detail about $v_E$, though, we will present systems with time-independent Hamiltonian in which there are two different values of $v_B$.
