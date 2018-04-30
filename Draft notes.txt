@@ -1,35 +1,14 @@
 
 
-—Questions—
-
-How do I differentiate plot lines?
-Go over gamma normalization
-Why is correlation plot asymmetric?
-Title
-
-
 
 
 —To Do—
 Acknowledgements
 Abstract
 
-Fix OTOC discussion
-Better math def of v_E
-Why is v_E \le v_B
-Combine left and right stairs to get large v_B/v_E
-Large stairs have no correlation effects 
-Check stair/gate normalization
-  All fucked up around v_E, v_B
-Plot growth rate with calculated correlation
-
-
-
-—Small Things—
-
-Operator vs unitary terminology
 Make sure Anderson is first citation
-Don't have contractions
+
+Full H end of 3.2.1
 
 
 —Printing—

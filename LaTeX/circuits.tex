@@ -4,13 +4,13 @@ One drawback to studying systems with time-independent Hamiltonians is that thei
 
 The circuits provide solvable systems in certain limits, after averaging over circuit architecture. In this limit, which will be discussed later in this section, it is easier to discuss information dynamics in terms of entanglement entropy rather than operator spreading. This is not to say that operator spreading does not apply in circuits, or that entanglement dynamics do not apply to Hamiltonian systems. Rather, this is an easier tool to use for these systems.
 
-In this section we first introduce bitartite entanglement entropy and the constraints it must satisfy. We then discuss the construction of quantum circuits, and the behavior of the entanglement entropy in these circuits. We show that it is possible to calculate $v_B$ entirely from the entanglement entropy, and that this velocity is the same as $v_B$ calculated from operator spreading.
+In this section we first introduce bitartite entanglement entropy and the constraints it must satisfy. We then discuss the construction of quantum circuits, and the behavior of the entanglement entropy in these circuits. We describe a solvable limit from Ref.~\cite{Nahum2017}. We show that it is possible to calculate $v_B$ entirely from the entanglement entropy, and that this velocity is the same as $v_B$ calculated from operator spreading.
 
 \subsection{Entanglement Entropy} \label{sub:intro}
 
-Quantum entanglement has applications to branches of physics from high energy and quantum information theory to experimental studies of cold atomic gases. Although entanglement is so widely studied, its dynamics are less well understood. The dynamics of the entanglement are closely related to the speed at which information travels or spreads. 
+Quantum entanglement has applications to branches of physics from high energy and quantum information theory to experimental studies of cold atomic gases. Entanglement entropy can be used to study topological properties in systems with mass gaps~\cite{Kitaev2006}. In conformal field theories entropy informs the scale of the renormalization group flow~\cite{Casini2011, Myers2011}. Although entanglement is so widely studied, its dynamics are less well understood. The dynamics of the entanglement are closely related to the speed at which information travels or spreads. 
 
-Let us briefly review entanglement in composite systems. First assume the full system $AB$ can be decomposed into subsystems $A$ and $B$, and $AB$ is in the pure state $\ket{\Psi}_{{AB}}$. In the spin chains considered here, the chain is often divided such that $A$ is all spins on one side of a cut and $B$ is all spins on the other side. Another common decomposition is having $A$ be all spins between two cuts, and $B$ being all other spins. If the states of $A$ and $B$ are entangled it is impossible to write $\ket{\Psi}_{AB} = \ket{\psi_A}_A \ket{\psi_B}_B$. If this is possible then $\ket{\Psi_{{AB}}}$ is called a product state. Subscripts on kets represent the space that the ket lives in, but this is clear from the name of the state (uppercase for the full state, subscripts otherwise) so we will drop the outside subscripts.
+Let us briefly review entanglement in composite systems. First assume the full system $AB$ can be decomposed into subsystems $A$ and $B$, and $AB$ is in the pure state $\ket{\Psi}_{{AB}}$. In the spin chains considered here, the chain is often divided such that $A$ is all spins on one side of a cut and $B$ is all spins on the other side. Another common decomposition is having $A$ be all spins between two cuts, and $B$ being all other spins. If the states of $A$ and $B$ are entangled it is impossible to write $\ket{\Psi}_{AB} = \ket{\psi_A}_A \ket{\psi_B}_B$. If this is possible then $\ket{\Psi_{{AB}}}$ is not entangled and is called a product state. Subscripts on kets represent the space that the ket lives in, but this is clear from the name of the state (uppercase for the full state, subscripts otherwise) so we will drop the outside subscripts.
 
 We can assess the amount of entanglement by looking at the density matrix $\rho_{AB} = \ket{\Psi}\bra{\Psi}$. All density matrices satisfy $\Tr \rho = 1$. Generic pure state density matrices further satisfy 
 \begin{align}
@@ -35,15 +35,16 @@ S_n = \th{1-n}\log\left(\Tr\rho^n\right). \label{eqn:renyi}
 In the limit $n\to1$ this becomes the von Neumann entropy 
 \begin{align}
 S_{vN} &= \th{1-(1+\epsilon)}\log\left(\Tr\rho^{1+\epsilon}\right) \nn
-&= -\frac{1}{\epsilon}\log \Tr \rho \rho^{\epsilon}\nn
-&= -\th{\epsilon}\log\Tr\rho\left(1+\epsilon\rho\right) \nn
+&= -\frac{1}{\epsilon}\log \Tr \left[\rho \rho^{\epsilon}\right]\nn
+&= -\th{\epsilon}\log\Tr\left[\rho\left(1+\epsilon\log\rho\right)\right] \nn
+&= -\th{\eps}\log\left(1+\eps\Tr\rho\log\rho\right)\nn
 &= -\Tr\rho\log\rho,
 \end{align}
 the analogue of the classical Shannon entropy. The calculation uses the small $x$ expansions of $a^x$ and $\log(1+x)$. All Renyi entropies are maximized by maximally mixed states, with entropy $N\log q$ for $N$-site systems with $q$-dimensional Hilbert spaces at each site. They are also minimized by pure states, which have entropy 0.
 
 For the spin chain, we can define many different subsystems, each with a corresponding entanglement entropy. The following description is largely taken from~\cite{Nahum2017}. Consider a spin chain of N sites with dimension $q$. Sites are labeled by $i=1,\dots N$, while the bonds between sites are labeled by $x = 1,\dots N-1$. After cutting the system at bond $x$, define the entropy across this cut as the bipartite entanglement entropy of all sites to the right of $x$. If the whole chain is in a pure state, this is equal to the bipartite entanglement entropy of all sites to the left of $x$.
 
-We can define a function $S(x) = -\Tr\rho_x\log\rho_x$ where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out. As long as the full system is in a pure state, this is the von Neumann entanglement entropy of the two subsystems divided by the bond at $x$. For convenience logarithms are taken base $q$. $S(x)$ will observe constraints not already made clear due to the fact that subsystems defined by adjacent $x$ have heavy overlap.
+We can define a function $S(x) = -\Tr\rho_x\log\rho_x$ where $\rho_x$ is the density matrix of the system with all sites left of $x$ traced out. As long as the full system is in a pure state, this is the von Neumann entanglement entropy of the two subsystems divided by the bond at $x$. For convenience logarithms are taken base $q$ because $\log_qq=1$. $S(x)$ will observe constraints not already made clear due to the fact that subsystems defined by adjacent $x$ have heavy overlap.
 
 Classically, for an arbitrary system decomposable into subsystems $A$ and $B$, the entropies satisfy $\max(S(A), S(B)) \leq S(AB)\leq S(A) + S(B)$. In quantum mechanics, this is replaced by the subadditivity of the von Neumann entropy 
 \begin{align}
@@ -53,7 +54,7 @@ If we take subsystem $A$ to be the single site between cuts $x$ and $x+1$ and su
 \begin{align}
 \left|S_1 - S(x+1)\right| \leq S(x) \leq S_1 + S(x+1),
 \end{align}
-where $S_1$ denotes the entropy of the single site between cuts $x$ and $x+1$. After some rearranging this can be written $\left|S(x+1) - S(x)\right| \leq S_1$. However, since the single site is $q$ dimensional, $S_1 \leq \log_q q = 1$, explaining the use of $q$ for the base. The preceding arguments taken together give the constraint
+where $S_1$ denotes the entropy of the single site between cuts $x$ and $x+1$. After some rearranging this can be written $\left|S(x+1) - S(x)\right| \leq S_1$. However, since the single site is $q$ dimensional, $S_1 \leq \log_q q = 1$. The preceding arguments taken together give the constraint
 \begin{align}
 \left|S(x+1) - S(x)\right| \leq 1. \label{eqn:offbyone}
 \end{align}
@@ -67,7 +68,7 @@ A finite system has $S(x)$ pinned at its endpoint, because the entanglement entr
 \end{figure}
 The flat section has a constant growth rate $\pd{S(x,t)}{t}$ so the border position $y$ moves at a constant speed defined by the growth rate and the slope. Since the maximal slope is $\pd{S(x,t)}{x}=1$, this velocity is
 \begin{align}
-\pd{y}{t} = \pd{S}{t}\left(\pd{S}{x}\right)^{-1} = \pd{S}{t} = v_E. 
+v_E =  \pd{y}{t} = \pd{S}{t}\left(\pd{S}{x}\right)^{-1} = \pd{S}{t}. 
 \label{eqn:vE}
 \end{align}
 This entanglement speed is equivalent to the entanglement growth rate, under certain assumptions not mentioned here. This calculation is repeated more generally and in more detail in Sec.~\ref{sub:coarse}.
@@ -76,15 +77,15 @@ Refs.~\cite{Keyserlingk, Jonay17, Jonay18, Nahum2017} discuss the speed of entan
 
 \subsection{Circuit Architectures} \label{sub:arch}
 
-Like the earlier systems, quantum circuits consist of chains of Hilbert spaces. Instead of evolving under a time-independent Hamiltonian, they evolve with unitary operators, called gates, at discrete times. If a gate acts on a site at time $t$ it is said to `fall' on that site. Simple circuits only contain 2-site gates which act on the product of Hilbert spaces at adjacent sites. There is a possibility of confusion regarding the term ``operator": the ``unitary operator," ``unitary gate," or just ``gate" will be the time evolution operator of the circuit, while ``operator" without qualification will refer to the observable that is evolving in time.
+Like the earlier systems, quantum circuits consist of chains of Hilbert spaces. Instead of evolving under a time-independent Hamiltonian, they evolve with unitary operators, called gates, at discrete times. If a gate acts on a site at time $t$ it is said to `fall' on that site. Simple circuits only contain 2-site gates which act on the product of Hilbert spaces at adjacent sites. Once again to clarify the term ``operator", the ``unitary operator," ``unitary gate," or just ``gate" will be the time evolution operator of the circuit, while ``operator" without qualification will refer to the observable that is evolving in time.
 
 We could study the dynamics of a single circuit, in analogy with the single Hamiltonian studied in the previous section. However, it is also instructive to look at ensembles of circuits, with some type of randomness. This section presents two sources of randomness, the choice of gates and their locations in the circuit.
 
 %References~\cite{Keyserlingk} and~\cite{Nahum2017} both discuss circuits of this type. Both discuss random circuits, although with different sources of randomness. 
 One source is the unitary operator chosen at each site at each time. Different gates result in different architectures. 
-If the Hilbert space at each site is $q$ dimensional, the space of 2-site unitary matrices is $q^2\times q^2$ dimensional. To find representative behavior, each circuit is made by drawing gates from some distribution. The circuits can then be averaged over these choices. A common choice is the Haar distribution, which is invariant to rotations in the space of 2-site operators. Since these act on a $q^2$-dimensional Hilbert space, there are $q^4$ independent operators, including one trivial operator (the identity). 
+If the Hilbert space at each site is $q$ dimensional, the space of 2-site unitary matrices is $q^2\times q^2$ dimensional. To find representative behavior, each circuit is made by drawing gates from some distribution. The circuits can then be averaged over these choices. A common choice is the Haar distribution, which is invariant to rotations in the space of 2-site operators. Since these act on a $q^2$-dimensional Hilbert space, there are $q^4$ independent operators, including one trivial operator, the identity. 
 
-Another source of randomness is the placement of the gates. The ``brickwork" model~\cite{Keyserlingk} uses a deterministic architecture, in which at odd times there is a gate to the right of every odd site, while for even times there is a gate to the right of every even site. Figure~\ref{fig:brickcircuit} shows an example. The ``random" architecture~\cite{Nahum2017} chooses a random site for a single gate at each time step $t = n/\gamma$, where $\gamma$ is the gate rate and $n$ is an integer. The placement is then averaged over. 
+Another source of randomness is the placement of the gates. The ``brickwork" model~\cite{Keyserlingk} uses a deterministic architecture, in which at odd times there is a gate to the right of every odd site, while for even times there is a gate to the right of every even site. Figure~\ref{fig:brickcircuit} shows an example. The ``random" architecture~\cite{Nahum2017} chooses a random site for a single gate at each time step $t = n/(L\gamma)$, where $\gamma$ is the gate rate per site and $n$ is an integer. The placement is then averaged over. 
 
 \begin{figure}
 	\centering
@@ -93,7 +94,7 @@ Another source of randomness is the placement of the gates. The ``brickwork" mod
 	\label{fig:brickcircuit}
 \end{figure}
 
-The random architecture is equivalent to placing gates at each site in continuous time with Poisson-distributed time steps, as the gate rate $\gamma$ and the length $L$ are taken to infinity with the gate rate density $\gamma/L$ held constant.~\cite{Nahum2017}. This thesis focuses on a generalization of this model, described in Sec.~\ref{sec:stairs}.
+The random architecture is equivalent to placing gates at each site in continuous time with Poisson-distributed time steps, as the length $L$ is taken to infinity with the gate rate density $\gamma$ held constant.~\cite{Nahum2017}. This thesis focuses on a generalization of this model, described in Sec.~\ref{sec:stairs}.
 
 %At least say that large $q$ moves operator ends to the right with probability 1: this will be useful in discussing $v_B$.
 
@@ -107,7 +108,7 @@ W(t+1, i+1), = p\left(W(t, i) + W(t, i+1)\right). \label{eqn:opsp}
 
 \subsection{Deterministic Limit}  \label{sub:determ}
 
-Note the the dynamics in Eq.~\ref{eqn:opsp} are degenerate in the large $q$ limit to deterministic movement of end sites with the application of each gate. This implies that this limit may be interesting, and indeed it is. This is more easily seen by studying the entropy growth.
+Note the the dynamics in Eq.~\ref{eqn:opsp} are degenerate in the large $q$ limit to deterministic movement of end sites with the application of each gate. This implies that this limit may be interesting, and indeed it is. This is also seen by studying the entropy growth.
 
 Recall the entropy bound from Eq.~\ref{eqn:offbyone}. This means that when a gate falls at bond $x$, the maximum entanglement possible across cut $x$ is 
 \begin{align}
@@ -142,7 +143,7 @@ In general, it is possible for the entropy across two adjacent cuts to be equal.
 	\label{fig:applyingUnitary}
 \end{figure}
 
-If the system has been evolving for a long time, then, it makes sense then to only consider states that have no flat sections, so that $S(x) = S(x-1)\pm1$ for all $x$. In this case, instead of a picture like Fig.~\ref{fig:tetris} it is possible to represent the entropy at each bond as a point, with a diagonal slope connecting bonds. The slope between cuts (at a site) will always be $\pm1$. Instead of $2\times1$ or $1\times1$ rectangles, the gates are then squares coming down point-first, as in Fig.~\ref{fig:diaggate}. 
+If the system has been evolving for a long time, then, it makes sense then to only consider states that have no flat sections, so that $S(x) = S(x-1)\pm1$ for all $x$. In this case, instead of a picture like Fig.~\ref{fig:tetris} it is possible to represent the entropy at each bond as a point, with a diagonal slope connecting bonds. The slope between cuts (at a site) will always be $\pm1$. Instead of $2\times1$ rectangles, the gates are then squares coming down point-first, as in Fig.~\ref{fig:diaggate}. 
 \begin{figure}
 	\centering
 	\input{diaggate}
@@ -164,7 +165,7 @@ The minimal cut picture~\cite{Nahum2017} reproduces this behavior by considering
 	\caption{\textbf{Minimal cut picture.} Assuming an initial product state, $S(x)$ is given by the minimal number of legs that must be cut to draw a line from the bottom of the circuit to $x$. Cutting through gates is not allowed (or equivalently costs two cuts) and the initial point need not be $x$. Figure adapted from~\cite{Nahum2017}.}
 	\label{fig:mincut}
 \end{figure}
-To find the entanglement across $x$, start in an unentangled state. If the initial state is entangled, include gates for $t<0$ that evolve a product state into the initial state at time $t=0$. Then, starting at the top of the circuit at $x$, find the path through the circuit that cuts through no gates and through the fewest of the lines defined by sites, called legs. The path need not end at $x$. The entanglement at $x$ is the number of legs cut by this path. 
+To find the entanglement across $x$, start in an unentangled state. If the initial state is entangled, expand the circuit backward by including gates for $t<0$ that evolve a product state into the initial state at time $t=0$. Then, starting at the top of the circuit at $x$, find the path through the circuit that cuts through no gates and through the fewest of the lines defined by sites, called legs. The path need not end at $x$. The entanglement at $x$ is the number of legs cut by this path. 
 
 For the brickwork circuit, this reproduces the entropy calculation quoted above, with first gates generating 1 unit of entanglement and subsequent gates generating 2. However, in circuits where not every gate is productive, the min-cut picture still works, and agrees with the surface growth picture.
 
@@ -189,19 +190,19 @@ Instead of asking about the entanglement from $x$ to the bottom of the circuit, 
 
 \subsection{Coarse Graining and Long Wavelength Dynamics} \label{sub:coarse}
 
-It is possible to abstract out even more of the detailed dynamics to consider the large scale behavior. To do this, interpret $S(x)$ as a continuous real valued function. The entanglement growth rate can be calculated under the assumption that up and down steps (from the picture in Fig.~\ref{fig:diaggate}) are uncorrelated and the large scale slope $\pd{S}{x}$ is constant. These assumptions hold only in the stead state of the random (1-stair) architecture. However, they are a useful first-order approximation to the behavior of other length stair circuits.
+It is possible to abstract out even more of the detailed dynamics to consider the large scale behavior. To do this, interpret $S(x)$ as a continuous real valued function. The entanglement growth rate can be calculated under the assumption that the large scale slope $\pd{S}{x}$ is constant. We will go through this procedure for the random circuit architecture, where the results are exact in the large $L$ limit. In Sec.~\ref{sec:stairs} we calculate this function for different architectures, but we only calculate an approximation to this function because we will work under an inexact assumption, that individual sites are uncorrelated. However, that assumption is exact in the random circuit.
 
-For an entropy surface with constant slope $m\equiv\pd{S}{x}$ and no correlations, each step from one site to the next has probability $\frac{1+m}{2}$ of being up and $\frac{1-m}{2}$ of being down. The assumption that there are no correlations is exact in the random architecture. Consider a gate operating on cut $x$ at time $t$. For the gate to increase the entropy $S(x)$, it must be the case that $S(x)<S(x-1), S(x+1)$. The probability of this is $\frac{1+m}{2} \frac{1-m}{2} = \frac{1-m^2}{4}$. In this case we have $S(x,t+1)=S(x,t)+2$, because the gate increases the entropy to be great than that of its neighbors. Then if the gates arrive at each cut with a rate $\gamma$, the entanglement growth rate is
+For an entropy surface with constant slope $m\equiv\pd{S}{x}$ and no correlations, each step from one site to the next has probability $\frac{1+m}{2}$ of being up and $\frac{1-m}{2}$ of being down. Consider a gate operating on cut $x$ at time $t$. For the gate to increase the entropy $S(x)$, it must be the case that $S(x)<S(x-1), S(x+1)$. The probability of this is $\frac{1+m}{2} \frac{1-m}{2} = \frac{1-m^2}{4}$. In this case we have $S(x,t+1)=S(x,t)+2$, because the gate increases the entropy to be great than that of its neighbors. Then if the gates arrive at each cut with a rate $\gamma$, the entanglement growth rate is
 \begin{align}
 \pd{S}{t} = \gamma\frac{1-m^2}{2}\equiv \Gamma(m). \label{eqn:randomgrowthrate}
 \end{align}
-Useful checks of this formula are that the entropy does not increase at maximal or minimal slope $m=1,-1$, and that at $m=0$, $\pd{S}{t}=\gamma/2$, 1/4 the brickwork value, since $1/4$ of the gates are productive. The latter rate makes sense because in the case of the brickwork circuit all gates are guaranteed to raise the entropy, while here only 1/4 will have an effect.
+Useful checks of this formula are that the entropy does not increase at maximal or minimal slope $m=1,-1$, and that $\Gamma(0)=\gamma/2$, 1/4 the brickwork value. The rate $\Gamma(0)$ makes sense because in the case of the brickwork circuit all gates are guaranteed to raise the entropy, while here only 1/4 will have an effect.
 
 \subsubsection{Entanglement Velocity} \label{subsub:v_E }
 
 $\Gamma(m)$ contains encodes a significant amount of information about the entanglement growth of the system~\cite{Jonay18}, and is useful in calculating both the entanglement velocity and the butterfly velocity. We will discuss this function in more detail and show how these speeds can be extracted.
 
-Consider a linear section of the entanglement curve $S(x,t)$, and its evolution through time $\tau$. We know that $S(y,t+\tau) = \min_x\{S_U(y,x,\tau) + S(x,t)\}$. If we assume the gate architecture is translationally invariant (which is true in the large-scale limit) then $S_U(y,x,\tau)$ depends only on the slope $v = \frac{y-x}{\tau}$, multiplied by the length of the cut from $x$ to $y$. Graphically, this corresponds to Fig.~\ref{fig:legendre}.
+Consider a linear section of the entanglement curve $S(x,t)$, and its evolution through time $\tau$. We know that $S(y,t+\tau) = \min_x\{S_U(y,x,\tau) + S(x,t)\}$. If we assume the gate architecture is translationally invariant (which is true in the large-scale limit) then $S_U(y,x,\tau)$ depends only on the slope $v = \frac{y-x}{\tau}$, with the overall value scaled by the length of the cut from $x$ to $y$. Graphically, this corresponds to Fig.~\ref{fig:legendre}.
 \begin{figure}
 	\centering
 	\input{legendre}
@@ -218,7 +219,7 @@ Ref.~\cite{Jonay18} contains this equation with an extra factor of $m_\text{eq}$
 
 One useful fact about $\Gamma(m)$ is that it is convex. If it were not, then there would be some $m^*$ such that $\Gamma(m^*+\eps), \Gamma(m^*-\eps)<\Gamma(m^*)$. However, if this is the case, we can always draw a jagged path from $x$ to $y$ alternating between slopes $m^*+\eps$ and $m^*-\eps$. This path with have average slope $m$ but have a higher growth rate than $\Gamma(m)$. Therefore we have reached a contradiction and $\Gamma(m)$ is convex.
 
-We can use the coarse-grained dynamics to reproduce the calculation of the entanglement velocity in Eq.~\ref{eqn:vE}. The entanglement velocity is the speed at which the kinks between the flat section $m=0$ and the sloped sections $m=\pm1$ move in the coarse grained version of Fig.~\ref{fig:Tower}. The sloped section does not move up, while the flat section moves up at $\Gamma(0)$. To preserve the continuity of $S(x)$, the kinks have to move at $v_E=\Gamma(0)$. Fig.~\ref{fig:entanglevel} shows this calculation of $v_E$.
+We can use the coarse-grained dynamics to reproduce the calculation of the entanglement velocity in Eq.~\ref{eqn:vE}. The entanglement velocity is the speed at which the kinks between the flat section $m=0$ and the sloped sections $m=\pm1$ move in the coarse grained version of Fig.~\ref{fig:Tower}. The sloped section does not move up, while the flat section moves up at $\Gamma(0)$. To preserve the continuity of $S(x)$, the kinks have to move at $v_E=\Gamma(0)$. Fig.~\ref{fig:entanglevel} graphically shows this calculation of $v_E$.
 \begin{figure}
 	\centering
 	\input{entanglevel}
@@ -238,16 +239,16 @@ This expression has a nice interpretation in terms of the growth rate $\Gamma(m)
 
 \subsubsection{Butterfly Velocity} \label{subsub:v_B}
 
-The same calculation does not work if the kink is a local minimum, as these features do not remain sharp. This is because a perturbation to the kink will travel up faster than either side of the kink, filling in the kink with a smooth curve. There is a well defined point where this curve hits the linear section with slope $m$ at a tangent. It is possible to calculate the speed at which this point moves (see Fig.~\ref{fig:buttvel}).
+The same calculation for the velocity of a kink does not work if the kink is a local minimum, as these features do not remain sharp. This is because a perturbation to the kink will travel up faster than either side of the kink, filling in the kink with a smooth curve. There is a well defined point where this curve hits the linear section with slope $m$ at a tangent. It is possible to calculate the speed at which this point moves (see Fig.~\ref{fig:buttvel}).
 \begin{figure}
 	\centering
 	\input{buttvel}
 	\caption{\textbf{Velocity of tangent points.} On the left, the left and right points move at $v=-\Gamma'(m_1)$ and $v=-\Gamma'(m_2)$ respectively. On the right these two speeds are the butterfly speeds, $-\Gamma'(\pm1) = \mp v_B$. Since both slopes are extremal, the linear sections do not grow.}
 	\label{fig:buttvel}
 \end{figure}
-Since this tangent point is the limiting case of a cusp where the two slopes $m_1$ and $m_2$ approach each other. This turns the calculation of the chord slope into a calculation of the tangent to the entanglement growth curve at $m$, $\Gamma'(m)$. Since $\Gamma(m)$ is convex, this is the largest slope attainable by a chord or tangent line, so $v_B$ is the fastest possible speed for a feature on the entanglement function.
+This tangent point is the limiting case of a cusp where the two slopes $m_1$ and $m_2$ approach each other. This turns the calculation of the chord slope into a calculation of the tangent to the entanglement growth curve at $m$, $\Gamma'(m)$. 
 
-Although it is not obvious, the butterfly is given by the speed of tangent points on maximal slope sections, $v_B = -\Gamma'(m_{\text{max}})$. This connection holds in general, but is clearer in the random circuits considered here.
+Although it is not obvious, the butterfly is given by the speed of tangent points on maximal slope sections, $v_B = -\Gamma'(m_{\text{max}})$. This connection holds in general, but is clearer in the random circuits considered here. Since $\Gamma(m)$ is convex, this is the largest slope attainable by a chord or tangent line, so $v_B$ is the fastest possible speed for a feature on the entanglement function.
 
 When the slope is near its largest possible value, so that the entropy increases at nearly every site, it is possible to isolate the behavior of the few down steps. Figure~\ref{fig:particle} shows such a configuration.
 \begin{figure}
@@ -268,6 +269,14 @@ All that remains is to show how the speed of the particle is connected to $\Gamm
 \left.\pd{\Gamma}{m}\right|_{m=0}  &= -v_B.
 \end{align}
 
-The previous discussion assumed that the particles are far enough from each other that they do not interfere with each other's dynamics. This is valid in the large $m$ limit as long as the particles are not attracted to each other. They could only affect each other if they are closer than a single series of gates. Then the early gates move the first particle until it is touching the second. At this point there are 2 down steps in a row and the next gate has no effect. The following gate lands on a local minimum and is able to move the second down slope to the end of the series of gates.
+The identification of particle dynamics with operator end dynamics assumed that the particles are far enough from each other that they do not interfere with each other's dynamics. This is valid in the large $m$ limit as long as the particles are not attracted to each other. They could only affect each other if they are closer than a single series of gates. Then the early gates move the first particle until it is touching the second. At this point there are 2 down steps in a row and the next gate has no effect. The following gate lands on a local minimum and is able to move the second down slope to the end of the series of gates.
 
 An equivalent description of these dynamics is that when a series of gates falls over two particles, the first one moves to just behind the second one, and then the second one moves to the end of the series of gates. Therefore the second one moves the distance it would without the first, while the first moves less than it would have if the second had not gotten in its way. This means that the particles are uncorrelated when far apart, and repel when they get too close. Therefore the uncorrelated assumption is correct. 
+
+The interpretation of $v_B$ as the maximal slope of $\Gamma(m)$ does not imply any upper bound on $v_B$, but it does imply $v_B\ge v_E$. Recall that $\Gamma(m)$ is convex. Then the minimal slope possible at $m=-1$ is obtained by a straight line with slope
+\begin{align}
+v_{B,\text{min}} = \frac{\Gamma(0)-\Gamma(-1)}{0-(-1)}=\Gamma(0),
+\end{align}
+which is just the entanglement velocity.
+
+We have assumed so far that $\Gamma(m)$ is symmetric. There is no constraint that this must be true, however. When it is asymmetric, the two butterfly velocities are $v_{B+} = \Gamma'(m_\text{max})$ and $v_{B-} = \Gamma'(m_\text{min})$, where in our systems $m_\text{max}=1$, $m_\text{min}= -1$. However since $v_E$ is defined as $\Gamma(0)$, there is no way to define an asymmetric $v_E$. We discuss asymmetric systems in the next section. 
