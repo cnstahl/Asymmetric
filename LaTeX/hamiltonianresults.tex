@@ -146,7 +146,7 @@ We can learn more about this Hamiltonian by watching the evolution of a single s
 From the definition of the unitary operator we know the state will become $\ket{010}$ at time 1. Fig.~\ref{fig:timeevol} shows this evolution. An important point to realize is that the coefficient of $\ket{001}$ also becomes non-zero at early time, as it must for evolution under a time-independent Hamiltonian if it is going to become non-zero in the future. In fact, at early time the coefficients for $\ket{010}$ and $\ket{001}$ increase with the same magnitude.
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{timeevol}
+	\includegraphics[width=.6\textwidth]{timeevol}
 	\caption{\textbf{Evolution of coefficients in 3-site system} if the system starts in state $\ket{100}$. Note that the system initially moves to states $\ket{010}$ and $\ket{001}$ with equal coefficient squared, although at time $t=1$ the state is entirely $\ket{010}$.}
 	\label{fig:timeevol}
 \end{figure}
@@ -167,7 +167,7 @@ so that the 3-site Hamiltonian acts on each contiguous triplet of spins.
 This Hamiltonian still preserves each component of total spin. Since we are applying the Hamiltonian to the 4 sites simultaneous, its unitary behavior does not simply swap states between the sites. However, the behavior is still periodic. Fig.~\ref{fig:timeevol4} shows that when the system starts in state $\ket{0001}$ it returns to that state with period $\tau=3\sqrt{\frac{3}{5}}$ but never fully reaches any other basis state.
 \begin{figure}
 \centering
-\includegraphics[width=.5\linewidth]{timeevol4}
+\includegraphics[width=.6\linewidth]{timeevol4}
 \caption{\textbf{Evolution of the 4-site system} when the initial state is $\ket{0001}$. Each curve is the coefficient of one of the basis states. The system is periodic with period $\tau=3\sqrt{\frac{3}{5}}$, and is never fully in one of the other basis states.}
 \label{fig:timeevol4}
 \end{figure}
@@ -196,7 +196,7 @@ which is shown in figure~\ref{fig:onecoef}. Although it appears to be quasi-peri
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{onecoefd}
+	\includegraphics[width=.6\textwidth]{onecoefd}
 	\caption{\textbf{Simplified view of Fig.~\ref{fig:timeevol5dense}}, showing only the coefficient for $\ket{00001}$ when that is the starting state. Even with the longer range of time, the coefficient never returns to 1.}
 	\label{fig:onecoef}
 \end{figure}
@@ -208,7 +208,7 @@ H'_5 = H_3\otimes\mathbb{I}_2 + \mathbb{I}_2\otimes H_3.
 Like the dense $L=5$ Hamiltonian, this system is not periodic. A plot of the coefficients over time the the starting state $\ket{00001}$ is shown in Fig.~\ref{fig:timeevol5}. An interesting detail is that the coefficient on state $\ket{00100}$ is actually periodic. 
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\linewidth]{timeevol5}
+	\includegraphics[width=.6\linewidth]{timeevol5}
 	\caption{\textbf{Evolution of the sparse 5-site system}. Although the coefficients for most states are not periodic, the coefficient for $\ket{00100}$ is.}
 	\label{fig:timeevol5}
 \end{figure} 
@@ -230,8 +230,8 @@ H'\propto\sum_i S_i\cdot S_{i+1}
 to break the rotational symmetry of the system. This small term does not noticeably affect any results in this section. The distribution of $r_n$ is shown in Fig.~\ref{fig:level_stats_denseL11}.
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{level_stats_denseL11}
-	\caption{\textbf{Level statistics for dense Hamiltonian.}}
+	\includegraphics[width=.6\textwidth]{level_stats_denseL11}
+	\caption{\textbf{Level statistics for dense Hamiltonian.} The suppression of ratios close to 0 implies that this Hamiltonian is chaotic.}
 	\label{fig:level_stats_denseL11}
 \end{figure}
 The distribution does appear to be suppressed at small $r$, so we conclude that this Hamiltonian is quantum chaotic.
@@ -249,7 +249,7 @@ To understand this behavior, realize that $W(i,t)$ only measures the weight of o
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end3n20front}
-	\caption{Weight of operators that end on site $i$.}
+	\caption{\textbf{Weight of operators that end on site $i$} in the sparse Hamiltonian. The weight starts on site and ends up mostly on site 10, with the large peaks occurring at even $i$.}
 	\label{fig:L11end3n20front}
 \end{figure}
 
@@ -260,7 +260,7 @@ Both the faster speed of the signal and the early dominance of the weight on sit
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end3n20back}
-	\caption{Weight of operators that begin on site $i$.}
+	\caption{\textbf{Weight of operators that begin on site $i$}. The weight now starts on site 10 and ends mostly on site 0, but takes longer to get to site 0.}
 	\label{fig:L11end3n20back}
 \end{figure}
 
@@ -287,13 +287,13 @@ Figure~\ref{fig:L11end1n60fore} shows this behavior, while figure~\ref{fig:L11en
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end1n60fore}
-	\caption{Early-time leading edge weights for right propagating wave.}
+	\caption{\textbf{Early-time leading edge weights for right propagating wave.} All weights initially grow or decay polynomially. Odd sites $i$ are paired with site $i-3$, as explained below.}
 	\label{fig:L11end1n60fore}
 \end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end1n60back}
-	\caption{Early-time leading edge weights for left propagating wave.}
+	\caption{\textbf{Early-time leading edge weights for left propagating wave.} Odd sites are again paired with an even site 3 sites away.}
 	\label{fig:L11end1n60back}
 \end{figure}
 
@@ -317,32 +317,65 @@ Other interesting features include the persistence of the fast-moving signal in 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end3n20_herefront}
-	\caption{\textbf{OTOC for sparse Hamiltonian,} right moving perturbation.}
+	\caption{\textbf{OTOC for sparse Hamiltonian,} right moving perturbation. Note that odd sites are paired with neighbors now, because we are measuring the total weight on a site.}
 	\label{fig:L11end3n20_herefront}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{L11end3n20_hereback}
-	\caption{\textbf{OTOC for sparse Hamiltonian,} left moving perturbation.}
+	\caption{\textbf{OTOC for sparse Hamiltonian,} left moving perturbation. Once again odd sites are paired with their neighbors, and again the backwards perturbation moves slower.}
 	\label{fig:L11end3n20_hereback}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{denseL11end3n20_herefront}
-	\caption{\textbf{OTOC for dense Hamiltonian,} right moving perturbation.}
+	\caption{\textbf{OTOC for dense Hamiltonian,} right moving perturbation. Although odd sites are still paired with their neighbors at early time, each pair diverges more clearly due to having more 3-site Hamiltonians to move weight. Also, unlike the sparse analog, the pairs peak in the correct order in the forward direction.}
 	\label{fig:denseL11end3n20_herefront}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{denseL11end3n20_hereback}
-	\caption{\textbf{OTOC for dense Hamiltonian,} left moving perturbation.}
+	\caption{\textbf{OTOC for dense Hamiltonian,} left moving perturbation. Once again the pairs diverge, and once again the backward perturbation is slower.}
 	\label{fig:denseL11end3n20_hereback}
 \end{figure}
 
-Like for the Pauli weights we can study the early behavior. We will only show the plot for for the forward wave for the sparse Hamiltonian, \emph{Why?}
+Like for the Pauli weights we can study the early behavior. Since the forward and backward behavior is so similar, we will only show the forward waves. For the sparse Hamiltonian the pairs of sites are so close they are indistinguishable, in Fig.~\ref{fig:L11end1n60_herefore}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{L11end1n60_herefore}
+	\caption{\textbf{Early-time OTOC for sparse Hamiltonian.} Sites 1 and 2 are on top of each other. The same is true of 3 and 4, etc.}
+	\label{fig:L11end1n60_herefore}
+\end{figure}
+The exponents for the polynomial fits are
+\begin{align*}
+\begin{tabular}{rll}
+$i$ & $b$ & $a$\\
+0 &-0.0110169 & -0.02903279\\
+1 & 1.85885984 & 1.36784057\\
+2 & 1.87645224 & 1.41529219\\
+3 & 3.86681506 & 1.76926911\\
+4 & 3.87270585 & 1.78515861\\
+5 & 5.87947281 & 1.37400747\\
+6 & 5.88219513 & 1.38134381\\
+7 & 7.8910584  & 0.40044216\\
+8 & 7.89252802 & 0.40439999\\
+9 & 9.80995422 &-1.17920962\\
+10& 9.88377179 &-1.04727877
+\end{tabular}
+\end{align*}
+Although these are not integers, they are much more regular than the exponents for the Pauli weight were.
+
+The early-time OTOCs for the dense Hamiltonian are in Fig.~\ref{fig:denseL11end1n60_herefore}.
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{denseL11end1n60_herefore}
+	\caption{\textbf{Early-time OTOC for dense Hamiltonian.} Each pair is slightly separated now.}
+	\label{fig:denseL11end1n60_herefore}
+\end{figure}
+Since the added 3-site Hamiltonians move some weight to the odd sites, the coefficients are not as close as there were in the sparse case.
 
 To find the butterfly velocity, we have to first find the velocity-dependent Lyapunov exponents $\lambda(v)$. To do this we plot $C(vt,t)$, where $vt=i$, for different values of $v$. For a sufficiently large system there should be a $v=v_B$ such that $C(vt,t)$ does not decay with $t$. Our system suffers from finite size effect that prevent us from finding $v_B$ exactly, but we can still explore the $v$ dependence of $C(vt,t)$.
 
@@ -350,13 +383,13 @@ We will focus on the dense Hamiltonian, as it has more asymmetry. Unsurprisingly
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.495\textwidth]{otocs_denseforeallL11}
-	\includegraphics[width=.495\textwidth]{otocs_densebackallL11}
+	\includegraphics[width=.7\textwidth]{otocs_denseforeallL11}
+	\includegraphics[width=.7\textwidth]{otocs_densebackallL11}
 	\caption{\textbf{Velocity-dependent OTOC decay} in dense Hamiltonian. The jaggedness comes from odd/even effects. Each line corresponds to a velocity, given in the legend. The overall behavior is exponential decay as expected.}
 	\label{fig:otocs_denseforeallL11}
 \end{figure}
 
-We could still use these plots to calculate $\lambda(v)$, but there are few enough sites that the calculation will have high uncertainty. Alternatively we can boost the odd sites by connecting site 0 to site 1 with a term that does not connect it to site 2. This will change the overall dynamics but hopefully only by bringing neighboring sites closer to each other, so that it does not change the dynamics averaged over even and odd sites.
+We could still use these plots to calculate $\lambda(v)$ using only even or only odd sites, but there are few enough sites that the calculation will have high uncertainty. Alternatively we can boost the odd sites by connecting site 0 to site 1 with a term not connected to site 2. This will change the overall dynamics but hopefully only by bringing neighboring sites closer to each other, so that it does not change the dynamics averaged over even and odd sites.
 
 The simplest rotationally symmetric term with the desired property is $H'=\bm{S}_i\cdot\bm{S}_j$. The coefficient of $H'$ should be chosen to maximize the smoothness of the OTOC. Empirically, a very effective coefficient is 4. Smaller constants left too much of the jaggedness, and larger constants introduced jaggedness in the other direction. We also dd a 2-site term to spins 9 and 10, to have the same effect on the backwards wave. The total Hamiltonian is
 \begin{align}
@@ -369,15 +402,15 @@ This perturbation is large enough to noticeably change the plots of the Pauli we
 Using the new Hamiltonian, the OTOC decay becomes much more linear, although still not perfectly so, as shown in Fig.~\ref{fig:otocs_pert}.
 \begin{figure}
 	\centering
-	\includegraphics[width=.495\textwidth]{otocs_dense_pert_foreallL11}
-	\includegraphics[width=.495\textwidth]{otocs_dense_pert_backallL11}
+	\includegraphics[width=.7\textwidth]{otocs_dense_pert_foreallL11}
+	\includegraphics[width=.7\textwidth]{otocs_dense_pert_backallL11}
 	\caption{\textbf{Velocity-dependent OTOC decay} in dense Hamiltonian with initial and final dot product perturbations. Although there is still jaggedness on the edges, the linear behavior in the bulk allows us to extract $\lambda(v)$.}
 	\label{fig:otocs_pert}
 \end{figure}
 Fig.~\ref{fig:balanced_butterfly_dense_pert_L11} shows the $v$ dependence of $\lambda(v)$. In a large enough system, $\lambda(v)$ should approach 0 for finite $v$. However, due to the small size of our system we were not able to effectively probe these slow speeds. However, it is clear that $\lambda_+>\lambda_-$ for all $v$. Therefore, for these time-independent Hamiltonian systems, $v_{B+}>v_{B-}$.
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{balanced_butterfly_dense_pert_L11}
+	\includegraphics[width=.7\textwidth]{balanced_butterfly_dense_pert_L11}
 	\caption{\textbf{Velocity dependent Lyapunov exponents} for the dense Hamiltonian with end perturbations. The butterfly velocity should be where these curves cross the origin, such $\lambda(v_B) = 0$. This doesn't happen, due to finite size effects, but we can see that $\lambda_+>\lambda_-$ for all $v$, which implies that $v_{B+}>v_{B-}$.}
 	\label{fig:balanced_butterfly_dense_pert_L11}
 \end{figure}

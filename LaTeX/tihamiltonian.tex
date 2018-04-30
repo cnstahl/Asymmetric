@@ -1,18 +1,8 @@
 \section{Operator Spreading in Time-Independent Hamiltonian Systems} \label{sec:opsp}
 
-This section includes a short review of unitary time evolution of states and operators. It defines measures of how far an operator has spread, and from these defines a speed called the butterfly speed $v_B$ that measures how fast these operators spread.
+We will start our discussion of time-independent Hamiltonians with a brief review of unitary time evolution of states and operators. We will also define measures of how far an initially local operator has spread over a system. From these we define the butterfly speed $v_B$, which measures how fast operators spread.
 
-\subsection{Motivation: Thermalization} \label{sub:therm}
-
-Discuss information movement in Time-Independent Hamiltonian systems
-  Find a source for this
-  What is the relationship between entropy and OTOC?
-  Argument about extremal slope
-    From Nahum: stairs to separate $v_B$ and $v_E$ - It is possible to make $v_E << v_B$ in quantum circuit architectures [CITE], which will be discussed in section~\ref{sec:circuits}
-    
-For now use Jonay paper, but hopefully find another. Could use Keyserlingk but it would be nice to save that for the discussion of random unitary dynamics.
-
-Although most sources consider symmetric dynamics [CITE] this is not a requirement. Find the Nahum paper that discusses asymmetric systems.
+Referring back to the introduction, we want a measure of the information spreading in a system. We can define information through commutation, because if two measurements commute, then they do not affect each other. This is equivalent to saying that performing one measurement does not send information to the other measurement. For example, in scalar quantum field theory a correlation function for space-like separated points may be non-zero, but commutation between operators at these points must always vanish, which is to say that information can not travel faster than the speed of light.
 
 \subsection{Background: Evolution in Time} \label{sub:evoltime}
 
@@ -84,7 +74,7 @@ This decomposition is particularly useful when the initial operator is local. Th
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\linewidth]{hamspreading}
+	\includegraphics[width=.7\linewidth]{hamspreading}
 	\caption{\textbf{Operator spreading as shown by the Pauli weight} in an Ising model with transverse field, from~\cite{Jonay17}. The end weight starts on site 1 and moves sequentially across the system to site 6. Note that the weights at any time sum to 1.}
 	\label{fig:hamspreading}
 \end{figure}
@@ -128,7 +118,7 @@ If the operator $A_0(t)$ is sufficiently random, all $q^{2L}$ coefficients will 
 For $q=2$ there is a particularly easy way to calculate the value in expression~\ref{eqn:otoc}. Since $\Tr(X) = \Tr(Y)=\Tr(Z) = 0$ and $\Tr(I) = 2$, in order to find the non-identity weight at site $i$ start by tracing over the degrees of freedom at that site to obtain $\tilde{A}_0(t) = \half\Tr_iA_0(t)$. Only the strings with the identity at $i$ survive this operation so
 \begin{align}
 \sum_\nu \abs{c_\nu(t)}^2\delta(\text{condition}) = \frac{3}{2}C(i,t) =  \Tr 
-	\tilde{A}_0(t)\dag\tilde{A}_0(t).
+	\tilde{A}^\dag_0(t)\tilde{A}_0(t).
 \end{align}
 
 \subsection{Information Velocities} \label{sub:vels}
@@ -149,7 +139,7 @@ C(x,t)\sim \e^{\lambda(v)t}\quad\text{for}\;\;x=vt.\label{eqn:butterfly}
 This tracks the OTOC along rays of constant velocity, as in Fig.~\ref{fig:khemani_lambda}.
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\linewidth]{khemani_lambda}
+	\includegraphics[width=.55\linewidth]{khemani_lambda}
 	\caption{\textbf{Velocity dependent Lyapunov exponents} along rays of constant velocity, from~\cite{Khemani2018}. For $v<v_B$, inside the light cone, $\lambda>0$ or is not defined. Outside the light cone $\lambda<0$ and perturbations decay exponentially. The speed $v_B$ is where $\lambda=0$ and perturbations remain of order 1.}
 	\label{fig:khemani_lambda}
 \end{figure}
