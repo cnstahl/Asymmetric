@@ -1,7 +1,26 @@
 \section{Introduction} \label{sec:intro}
 
-Motivate information speeds.
+In quantum mechanics, information is special in that it is always conserved. Conservation of information, which is defined as the ability to recover initial conditions, is ensured by the unitary evolution. For any time evolution operator $U(t)$, there is an inverse operator $U^\dag(t)$ such that $U^\dag(t)U(t)=1$, which brings a system back to its initial conditions. 
 
-Scrambling, unitarity and information loss?
+This is emphatically not the case in classical mechanics. Fluid mechanics and thermodynamics are both examples of dissipative systems. The fluid flow equations with non-zero viscosity are dispersive, so that local features in the flow die away. In thermodynamics, a system with general initial conditions will equilibrate to one which can be described by a small number of parameters, such as temperature, pressure, and chemical potential.
 
-Why do we care about asymmetry?
+Black holes are an extreme example of systems with information loss, at least when treated classically. The no-hair theorems~\cite{Israel1967, Israel1968, Carter71} state that black holes can also be described by only a few degrees of freedom. The connection between these classical systems is thermalization or equilibration, where any initial state approaches one describable by a small number of parameters. This implies that there must be some way to obtain thermalization in quantum systems.
+
+In fact, there are two robust, long-term behaviors that isolated quantum systems can demonstrate, thermalization and localization~\cite{Nandkishore2015}. In a localized system, initially local perturbations can be robust to the dynamics of the system and not diffuse away~\cite{Anderson58}. Thermalizing systems, on the other hand, equilibrate to a thermal equilibrium state. This equilibration occurs in the thermodynamic limit of large size and long time. 
+
+But then where does the information encoded in the initial conditions go? In thermodynamics, we couple systems to baths, so that the degrees of freedom in the bath can absorb the information. Connecting the system to a bath seems to solve this problem, but quantum mechanically we have only extended the problem to the larger Hilbert space that contains the system and bath. 
+
+The resolution is that the initial information in a subsystem spreads throughout the system in a process called scrambling. The full information about the initial conditions is present within the entire system at later times, but the number of degrees of freedom associated with the system is too large, and they may be too far apart, to make recovering this information feasible. Black holes, with their extremal information-hiding, are the fastest scramblers~\cite{Sekino2008, Maldacena2016}.
+
+For thermalization to work on systems in any state, it must work on eigenstates of the many-body Hamiltonian. Since eigenstates don't evolve in time, subsystems must locally look thermal when the whole system is in an eigenstate, even before the long-time limit. This argument is referred to as the Eigenstate Thermalization Hypothesis (ETH)~\cite{Deutsch91, Srednicki1994, Rigol2008, Nandkishore2015}. Of course, localized systems do not obey the ETH because they do not thermalize. This thesis will study thermalizing systems.
+
+Since information initially localized in a subsystem spreads to other degrees of freedom outside the subsystem, the system acts as a bath for its subsystems. These degrees of freedom become entangled with the subsystem so that the state of the subsystem cannot be described without knowledge of the whole, making it look thermal. Ref.~\cite{Nandkishore2015} suggests the fundamental characteristic of a bath is its ability to entangle its degrees of freedom with those of the subsystem.
+
+After realizing that thermalization leads to information spreading and local information loss, the next point of study becomes its dynamics. Scrambling in black holes can be described using holography~\cite{Sekino2008, Shenker2014}. Scrambling has been studied in conformal field theories~\cite{Calabrese2005} and spin chains with integrable and non-integrable Hamiltonian evolution~\cite{Fagotti2008, Luchli2008, Kim2013, Baradson2012}. Random unitary dynamics~\cite{Keyserlingk, Nahum2017,Nahum2017q,Nahum2018,Jonay18} provide another setting to study spreading.
+
+We will present two velocity scales of the information dynamics, the butterfly velocity and the entanglement velocity. Both of these quantify the scrambling of a system, but do not have a set relationship. In fact, the butterfly velocity can be made arbitrarily large with respect to the entanglement velocity~\cite{Nahum2018}. The result of this thesis is that the butterfly velocity itself need not be the same in both directions on a 1-d system, and that one butterfly velocity can be made arbitrarily large with respect to the other.
+
+We discuss these dynamics in two different types of systems: those with time-independent Hamiltonians (Secs.~\ref{sec:opsp} and~\ref{sec:asymham}) and quantum circuits with random unitary dynamics (Secs.~\ref{sec:circuits} and~\ref{sec:stairs}). In the Hamiltonian systems we use operator spreading to quantify thermalization, where an initially local operator becomes non-local when evolved in time. We show that a particular Hamiltonian that has slightly asymmetric butterfly velocities.
+
+In the quantum circuits we study entanglement dynamics, quantified by the entanglement entropy, instead of operator dynamics. 
+We show that the butterfly velocity as defined by operator spreading can also be calculated from the entanglement dynamics in our systems. We show that the quantum circuits can have arbitrarily asymmetric butterfly velocities. 

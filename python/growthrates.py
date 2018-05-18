@@ -64,3 +64,14 @@ def stair_update_S(S, n):
         S[i] = site_update_S(S, i)
         S[-1] = S[0] + diff
     return(S)
+
+def stair_update_S_fixed(S, n):
+    N = len(S)
+    i = random.randint(1,N-3)
+#     print(i)
+    for idx in range(n):
+        i = i+1
+        if i == N-1: break
+#         print(i)
+        S[i] = site_update_S(S, i)
+    return(S)

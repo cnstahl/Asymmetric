@@ -1,0 +1,24 @@
+\section{Conclusion} 
+
+\subsection{Summary} \label{sub:sum}
+
+In this thesis, we analyzed the operator and entanglement dynamics in two asymmetric systems, a system with a time-independent Hamiltonian and a quantum circuit. In the Hamiltonian system we used the OTOC to diagnose operator spreading and move toward finding a butterfly velocity. Studying operator spreading worked particularly well in the Hamiltonian system because the OTOC has a simple form for a spin chain with spin-$\half$ sites. In the circuit we used the entanglement dynamics to assess the entanglement and butterfly velocities. Entanglement dynamics were well suited to the circuit because of a simplification in the large $q$ limit, which allowed exact solvability after averaging over circuits. We provided an argument that $v_B$ as calculated using entanglement dynamics or operator spreading is the same in the circuit models.
+
+We constructed the Hamiltonian out of local 3-site terms, with the individual terms asymmetric. We explored the dynamics of the Hamiltonian before explicitly calculating velocity dependent Lyapunov exponents $\lambda(v)$. Since $v_B$ is defined by $\lambda(v_B)=0$, we would expect $\lambda(v)$ to have a zero. However, due to the finite size of our system, the $\lambda(v)$ we measured did not have a zero. Despite this difficulty, $\lambda(v)$ was greater for right moving signals than for left moving signals for all velocities, implying that $v_{B+}>v_{B-}$ when these velocities are well defined.
+
+The quantum circuits we considered are staircase circuits, where $n$ gates fall sequentially on consecutive sites. We used the large-$q$ limit to calculate entanglement growth rates of these circuits in the approximation that the staircases do not generate correlations in the entanglement $S(x)$. We also moved toward calculating the correlations in the steady state.
+
+We then simulated these circuits to show that this approximation is incorrect, but does capture the gross shape of $S(x)$. 
+We then measured the correlation of the simulated circuits, and showed that inserting this empirical correlation removes most of the error in growth rate. We also demonstrated that it is possible to analytically predict the correlation over different distances for different stair lengths, and that only a finite number of correlations affect the growth rate.
+
+\subsection{Outlook}
+
+For both systems, there are several improvements that can be made, both obvious and subtle. The simplest extension to the Hamiltonian model is to extend the chain to more sites. This is computationally difficult, but might reward the user with a close approximation to $v_B$. 
+
+Other extensions include different Hamiltonians. For example, instead of having a multisite Hamiltonian that is a chain of 3-site Hamiltonians, one could build it out of 4-site Hamiltonians. Then each individual term could be the Hamiltonian whose unitary evolution is the 4-site swap. 
+
+In a broader analysis, it could be worthwhile to search the space of possible Hamiltonians for the most asymmetric system. This thesis only studies the Hamiltonian that it does because the 3-site swap is an asymmetric unitary operator. However there could very well be a different 3-site Hamiltonian that, when chained together, gives a higher ratio of $v_{B+}/v_{B-}$. Searching the space of Hamiltonians would be difficult because the criterion for asymmetry is non-linear.
+
+In the circuit system, the main improvement to be made is to better calculate the correlation, and to possibly come up with a closed form expression for $C_\l$ for $n$-stairs. This thesis indicates that if this were completed the growth rated could be calculated exactly, because the main discrepancies between calculated and measured growth rates were explained by the measured correlation. Furthermore, this thesis did not include detailed discussion of the  function $G(v)$, which encodes the shape of $S(x,t)$ as $t$ grows~\cite{Jonay17}.
+
+Another topic discussed in Refs.~\cite{Nahum2017, Jonay18} is entanglement growth for higher dimensional systems. It might be interesting to introduce asymmetric, or direction-dependent, entanglement dynamics into these systems.
