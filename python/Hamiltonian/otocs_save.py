@@ -4,10 +4,10 @@ import hamiltonian as hm
 #import matplotlib.pyplot as plt
 import os.path
 
-L     = 12
+L     = 8
 dense = True
-vs = np.asarray([5])
-#vs    = np.asarray([5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
+#vs = np.asarray([5])
+vs    = np.asarray([5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 sites = np.arange(L)
 pert_strength = 4
 
@@ -78,7 +78,7 @@ for idx, v in enumerate(vs):
         j = (sites_at_ts_fore[i]).index(site)
 #         print(v, site, sites_at_ts_fore[i][j], t_need, times[i])
         otocsfore[idx, site] = weightsfore[i][j]
-for idx, v in enumerate(vs):
+
     for dist in range(L):
         site = L-dist-1
         t_need = dist/v
@@ -88,7 +88,6 @@ for idx, v in enumerate(vs):
 #         print(v, site, sites_at_ts_back[i][j], t_need, times[i])
         otocsback[idx, site] = weightsback[i][j]
 
-for idx, v in enumerate(vs):
     np.save(prefix + "foreL" + str(L) + "v" + str(v), otocsfore[idx])
     np.save(prefix + "backL" + str(L) + "v" + str(v), otocsback[idx])
         

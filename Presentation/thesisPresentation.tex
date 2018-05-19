@@ -92,7 +92,7 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Short title]{Entanglement Speeds in Asymmetric Systems} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Asymmetric Dynamics]{Operator and Entanglement Dynamics in \\Asymmetric Quantum Systems} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Charles Stahl} % Your name
 
@@ -113,6 +113,88 @@
 %	PRESENTATION SLIDES
 %----------------------------------------------------------------------------------------
 
+\section{Introduction: Thermalization}
+
+\begin{frame}{Thermalization in Quantum Systems}
+Contradiction? Unitarity vs. Information Loss
+\begin{itemize}
+	\item Quantum mechanics
+	\item Fluid dynamics
+	\item Thermodynamics
+	\item Black holes
+\end{itemize}
+Resolution: Information Spreading
+\begin{itemize}
+	\item Information not destroyed but spread
+	\item Not accessible to local measurements
+\end{itemize}
+\end{frame}
+
+\section{Time-Independent Hamiltonian}
+
+\begin{frame}{Time-Independent Hamiltonian}
+\begin{itemize}
+	\item Spin-$\half$ sites
+	\item Not relativistic: no limit to information speed
+	\item \emph{Most} information still travels at finite speed: Lieb Robinson bounds
+	\item Exponentially small outside ``lightcone"
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Out-of-Time-Order Commutator}
+Instead use OTOC:
+\begin{align*}
+C(i,t) &= \half\ex{|[O_0(t), W_i]|^2}\\
+O_0 &= Z\otimes I\otimes I\otimes\cdots\\
+O_0(t) &= e^{-Ht}O_0e^{-iHt}\\
+W_i &= I\otimes I\otimes\cdots W\otimes \cdots I,
+\end{align*}
+with $W=X,Y,Z$ at site $i$.
+\end{frame}
+
+\begin{frame}{Velocity-Dependent Lyapunov Exponent}
+For a set velocity, $C(i = vt, t) \sim e^{\lambda(v)t}$
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{khemani_lambda}
+	\caption{Lyapunov exponent at various velocities, from \cite{Khemani2018}}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Asymmetric Hamiltonian}
+3-site Hamiltonian
+\begin{itemize}
+	\item Want $S_{123}\ket{\alpha\beta\gamma} =\ket{\gamma\alpha\beta}$
+	\item Use $H_3 = \frac{2\pi}{3\sqrt{3}}\;\vec{\sigma}_1\cdot(\vec{\sigma}_2
+		\times\vec{\sigma}_3)$
+	\item $S_{123} = \exp\left(-iH_3\right)$\\
+\end{itemize}
+Chain these together
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\linewidth]{Hamchain}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Weight at site}
+Average of OTOC over $W = X, Y, Z$
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{L11end3n20_herefront}
+	\caption{Weight of operators that begin on site $i$.}
+	\label{fig:L11end3n20back}
+\end{figure}
+\end{frame}
+
+\begin{frame}{OTOC}
+Looking for asymmetry in early behavior
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{balanced_butterfly_dense_pert_L11}
+	\caption{Calculating Butterfly Velocity from early time evolution.}
+\end{figure}
+\end{frame}
+
 \section{Entanglement Growth Rates in Quantum Circuits}
 
 \begin{frame}{Quantum Circuits}
@@ -130,96 +212,82 @@
 
 \begin{frame}{Entanglement Entropy}
 \begin{itemize}
-	\item Start with $\rho_{AB}= \ket{\Psi}\bra{\Psi}$, $\rho_A = \Tr_B\rho_{AB},$ $\rho_B = \Tr_A\rho_{AB}$
-	\item Decompose $\rho_{AB}$ into $\rho_A$, $\rho_B$
-	\item Entanglement Entropy: $S(i) = \Tr_A\{\rho_A\log\rho_A\} =
-		\Tr_B\{\rho_B\log\rho_B\}$
+\item Start with $\rho_{AB}= \ket{\Psi}\bra{\Psi}$, $\rho_A = \Tr_B\rho_{AB},$ $\rho_B = \Tr_A\rho_{AB}$
+\item Decompose $\rho_{AB}$ into $\rho_A$, $\rho_B$
+\item Entanglement Entropy: $S(i) = \Tr_A\{\rho_A\log\rho_A\} =
+\Tr_B\{\rho_B\log\rho_B\}$
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Entanglement Bounds}
 \begin{itemize}
-	\item For spin $q$, $|S(i) - S(i+1)| \le S(1) \le \log q$
-	\item Take log base $q$, $\quad\imp |S(i) - S(i+1)| \le 1$
-	\item For $q\to\infty$, arbitrary gates will saturate bound \cite{Nahum2017}
+\item For spin $q$, $|S(i) - S(i+1)| \le S(1) \le \log q$
+\item Take log base $q$, $\quad\imp |S(i) - S(i+1)| \le 1$
+\item For $q\to\infty$, arbitrary gates will saturate bound \cite{Nahum2017}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Staircase Model}
+\begin{frame}{Solvable Limit}
+\begin{figure}
+\centering
+\includegraphics[width=.5\textwidth]{tetris.pdf}
+\caption{\textbf{Tetris-like model for large-$q$ chain.} The gate at cut $x$ adds enough entropy so that $S(x)$ is one greater than either of its neighbors. Taken from~\cite{Nahum2017}.}
+\label{fig:tetris}
+\end{figure}
+\end{frame}
 
+\begin{frame}{Staircase Circuits}
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{tetris.pdf}
-	\caption{\textbf{Tetris-like model for large-$q$ chain.} The gate at cut $x$ adds enough entropy so that $S(x)$ is one greater than either of its neighbors. Taken from~\cite{Nahum2017}.}
-	\label{fig:tetris}
+	\includegraphics[width=.5\textwidth]{stairs}
+	\caption{\textbf{Staircase circuit architecture}, in which the gate at site x is always followed by ones at sites x + 1,x + 2, and x + 3 making this a 4-stair. Note that not all gates are productive, only the ones that fall on sites that are local minima when they fall.}
+	\label{fig:stair}
 \end{figure}
-
 \end{frame}
 
 \begin{frame}{Growth Rates}
-
 After course graining, $\pd{S}{t}$ is a function of $m = \pd{S}{x}$ to first order or for linear entropy.
 \begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{analrates.png}
-	\caption{Growth rates for 1-, 4-, 17-, and 100-stairs as a function of slope $m$. As stair length increases, the growth rate asymptotes to the function $\pd{S}{t} = m+1$.}
-	\label{fig:growthrates}
+\centering
+\includegraphics[width=.5\textwidth]{analrates}
+\caption{Growth rates for 1-, 4-, 17-, and 100-stairs as a function of slope $m$. As stair length increases, the growth rate asymptotes to the function $\pd{S}{t} = m+1$.}
+\label{fig:growthrates}
 \end{figure}
-The butterfly velocities are the extremal slopes of this curve \cite{Jonay}.
+The butterfly velocities are the extremal slopes of this curve \cite{Jonay18}.
 \end{frame}
 
-\section{Time-Independent Hamiltonian}
+\begin{frame}{Measured Growth Rates}
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{4stairRates}
+	\caption{\textbf{Measured and predicted growth rates} for the 4-stair architecture. The measured rate is now significantly lower than predicted, implying that the correlations built up by the stairs act to lower their entropy production.}
+	\label{fig:4stairRates}
+\end{figure}
+\end{frame}
 
-\begin{frame}{Time-Independent Hamiltonian}
+\begin{frame}{Correlations}
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{beststairCorrel}
+	\caption{\textbf{Correlations created by 1-, 2-, and 3-stair circuits}. The correlation in 1-stair circuits is consistent with 0. Larger stairs generate significant correlation. The black dots are the correlations calculated analytically.}
+	\label{fig:beststairCorrel}
+\end{figure}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+Summary
 \begin{itemize}
-	\item Back to spin-$\half$
-	\item Not relativistic: no limit to information speed
-	\item \emph{Most} information still travels at finite speed
-	\item Use $H_3 = \vec{\sigma}_1\cdot(\vec{\sigma}_2\times\vec{\sigma}_3)$, the three-site swap
+	\item Asymmetric $v_B$ in Hamiltonian system
+	\item Maximally asymmetric $v_B$ in circuit models
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Out-of-Time-Order Commutator}
-Instead use OTOC:
-\begin{align*}
-C(i,t) &= \half\ex{|[O_0(t), W_i]|^2}\\
-O_0 &= Z\otimes I\otimes I\otimes\cdots\\
-O_0(t) &= \e^{-Ht}O_0\e^{-iHt}\\
-W_i &= I\otimes I\otimes\cdots W\otimes \cdots I,
-\end{align*}
-with $W=X,Y,Z$ at site $i$.
-\end{frame}
-
-\begin{frame}{Velocity-Dependent Lyapunov Exponent}
-For a set velocity, $C(i = vt, t) \sim \e^{\lambda(v)t}$
-\begin{figure}
-	\centering
-	\includegraphics[width=.7\textwidth]{khemani_lambda}
-	\caption{Lyapunov exponent at various velocities, from \cite{Khemani2018}}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Weight at site}
-
-Average of OTOC over $W = X, Y, Z$
-\begin{figure}
-	\centering
-	\includegraphics[width=.7\textwidth]{L11end3n20_hereback}
-	\caption{Weight of operators that begin on site $i$.}
-	\label{fig:L11end3n20back}
-\end{figure}
-
-\end{frame}
-
-\begin{frame}{OTOC}
-
-Looking for asymmetry
-\begin{figure}
-	\centering
-	\includegraphics[width=.7\textwidth]{balanced_butterfly_dense_pert_L11}
-	\caption{Calculating Butterfly Velocity from early time evolution.}
-\end{figure}
-
+Further Work
+\begin{itemize}
+	\item More asymmetric Hamiltonian
+	\item Understand correlations better
+	\item Direct calculation of growth rate
+\end{itemize}
 \end{frame}
 
 \begin{frame}
