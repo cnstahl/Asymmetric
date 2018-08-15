@@ -15,6 +15,59 @@ H3mult = np.array([[0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 0],
                [0 ,  0 ,  0 , -1 ,  0 ,  1 ,  0 , 0],
                [0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 0]])
 
+def Zl(L):
+    Zl = np.zeros((2**L,2**L))
+    for i in range(L):
+        Zi = 1
+        for j in range(L):
+            if (j==i): Zi = np.kron(Zi,Z/2)
+            else: Zi = np.kron(Zi,I)
+        Zl += Zi
+    return Zl
+
+def get_Pz(L):
+    Zl = np.eye(2**L)
+    for i in range(L):
+        Zi = 1
+        for j in range(L):
+            if (j==i): Zi = np.kron(Zi,Z/2)
+            else: Zi = np.kron(Zi,I)
+        Zl = Zl@Zi*2
+    return Zl
+
+def Xl(L):
+    Xl = np.zeros((2**L,2**L))
+    for i in range(L):
+        Xi = 1
+        for j in range(L):
+            if (j==i): Xi = np.kron(Xi,X/2)
+            else: Xi = np.kron(Xi,I)
+        Xl += Xi
+    return Xl
+
+def get_Px(L):
+    Xl = np.eye(2**L)
+    for i in range(L):
+        Xi = 1
+        for j in range(L):
+            if (j==i): Xi = np.kron(Xi,X/2)
+            else: Xi = np.kron(Xi,I)
+        Xl = Xi@Xl*2
+    return Xl
+
+def Yl(L):
+    Yl = np.zeros((2**L,2**L), dtype=complex)
+    for i in range(L):
+        Yi = 1
+        for j in range(L):
+            if (j==i): Yi = np.kron(Yi,Y/2)
+            else: Yi = np.kron(Yi,I)
+        Yl += Yi
+    return Yl
+
+def S2(L): return Xl(L)@Xl(L) + Yl(L)@Yl(L) + Zl(L)@Zl(L)
+def Z2(L): return Zl(L)@Zl(L)
+
 def sparse_Hmult(l):
     if (l==3): return H3mult
 #     print(np.shape(np.kron(sparse_Hmult(l-2),I2)))
@@ -45,9 +98,9 @@ def ising_mult(l):
     return (np.kron(ising_mult(l-1), np.eye(2)) + 
             np.kron(np.eye(2**(l-2)), np.matmul(np.kron(Z,I), np.kron(I, Z))))
 
-def chop(a):
+def chop(a, warn = True):
     if not np.all(np.isclose(np.imag(a),0)): 
-        print("\nchop() removed the imaginary part\n ")
+        if warn: print("\nchop() removed the imaginary part\n ")
     A = np.round(np.real(a),3)
     if np.all(np.isclose(A.astype(int), A)): return A.astype(int)
     else: return A
