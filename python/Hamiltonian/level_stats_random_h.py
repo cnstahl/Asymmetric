@@ -1,3 +1,4 @@
+DEPRECATED!! See notebook
 import numpy as np
 import matplotlib.pyplot as plt
 import quantum as qm
