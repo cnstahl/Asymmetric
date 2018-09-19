@@ -1,12 +1,13 @@
 Thesis to do
 
-Traces of other R operators
-Try adding other fields
-Read Pal paper
-Start on r plots
-Read review
+Coding
+  Only calculate C(vt,t) needed for fitting
+  Which should I use though?
+  Average over disorder here?
 
-
+Timeline
+  Finish v_B calculations
+  Do more?
 
 —————————
 
@@ -19,4 +20,5 @@ Where would I learn about... In a class?
   Spin glasses
   Bulk gaps
   Topological order
+  Jordan-Wigner transformation
 What is a 'spectrum' (fig 5 in Nandkishore)? Energies or gaps?
