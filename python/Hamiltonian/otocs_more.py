@@ -75,16 +75,16 @@ for q in range(num_trials):
 
     sites_at_ts_fore = []
     sites_at_ts_back = []
-    for time in times:
+    for ttime in times:
         sites_at_t_fore = []
         sites_at_t_back = []
         for v in vs:
-            dist = (int) (np.round(time*v))
+            dist = (int) (np.round(ttime*v))
             site_fore = dist
             site_back = L-dist-1
-            if np.isclose((time*v), dist) and (site_fore < L) and not site_fore in sites_at_t_fore:
+            if np.isclose((ttime*v), dist) and (site_fore < L) and not site_fore in sites_at_t_fore:
                 sites_at_t_fore.append(site_fore)
-            if np.isclose((time*v), dist) and (site_back >-1) and not site_back in sites_at_t_back:
+            if np.isclose((ttime*v), dist) and (site_back >-1) and not site_back in sites_at_t_back:
                 sites_at_t_back.append(site_back)
         sites_at_ts_fore.append(sites_at_t_fore)
         sites_at_ts_back.append(sites_at_t_back)
