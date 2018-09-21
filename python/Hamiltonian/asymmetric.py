@@ -42,7 +42,7 @@ def init_pert(L, pert_strength):
     pert = sparse.csr_matrix([[ 0,  0,  0,  0],
                  [ 0, -1,  1,  0],
                  [ 0,  1, -1,  0],
-                 [ 0,  0,  0,  0]])
+                 [ 0,  0,  0,  0]])/4
     for i in range(L-2):
         pert = sparse.kron(pert, ident(2))
     return pert*pert_strength
@@ -51,7 +51,7 @@ def finl_pert(L, pert_strength):
     pert = sparse.csr_matrix([[ 0,  0,  0,  0],
                  [ 0, -1,  1,  0],
                  [ 0,  1, -1,  0],
-                 [ 0,  0,  0,  0]])
+                 [ 0,  0,  0,  0]])/4
     for i in range(L-2):
         pert = sparse.kron(ident(2), pert)
     return pert*pert_strength

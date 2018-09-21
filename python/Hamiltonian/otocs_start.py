@@ -11,7 +11,7 @@ dense = True
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 vs    = np.asarray([1, 3, 5,  7, 9, 11, 14, 17, 20])
 sites = np.arange(L)
-pert_strength = 4
+pert_strength = 14
 h = 2
 _, _, _, sig_z_list = qm.get_sigma_lists(L)
 
@@ -25,7 +25,7 @@ if (not pert_strength == 0):
     prefix = prefix + "_pert_"
 H = H + asym.init_pert(L, pert_strength)
 H = H + asym.finl_pert(L, pert_strength)
-H = H + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
+H = H + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)/2
 Hlist = asym.mat2list(H)
 vals_list = []
 vecs_list = []
