@@ -1,9 +1,8 @@
 Thesis to do
 
 Coding
+  Check at low L
   Only calculate C(vt,t) needed for fitting
-  Which should I use though?
-  Average over disorder here?
 
 Timeline
   Finish v_B calculations

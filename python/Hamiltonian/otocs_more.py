@@ -2,6 +2,7 @@ import numpy as np
 import scipy.linalg as la
 import asymmetric as asym
 import quantum as qm
+import time
 #import matplotlib.pyplot as plt
 import glob
 
@@ -53,6 +54,7 @@ otocsback_all = otocsback_all[np.argsort(vsback)]
 H = H + asym.init_pert(L, pert_strength)
 H0 = H + asym.finl_pert(L, pert_strength)
 
+start = time.time()
 for q in range(num_trials):
     H = H0 + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)/2
     Hlist = asym.mat2list(H)
@@ -125,6 +127,9 @@ for q in range(num_trials):
     for idx, v in enumerate(vs):
         np.save(prefix + "foreL" + str(L) + "v" + str(v), otocsfore_all[idx])
         np.save(prefix + "backL" + str(L) + "v" + str(v), otocsback_all[idx])
+    
+    end = time.time()
+    print('trials:', q, 'seconds:', end-start)
 
 #ax = plt.subplot(111)
 #for idx, otocfore in enumerate(otocsfore):
