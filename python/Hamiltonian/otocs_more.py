@@ -6,8 +6,8 @@ import time
 #import matplotlib.pyplot as plt
 import glob
 
-num_trials = 1
-L     = 8
+num_trials = 3
+L     = 4
 dense = True
 # Get vs list from loading
 sites = np.arange(L)
