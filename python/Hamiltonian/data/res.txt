@@ -1,0 +1,3 @@
+trials: 0 seconds: 23.536482095718384
+trials: 1 seconds: 47.12890076637268
+trials: 2 seconds: 70.68872809410095
