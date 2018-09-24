@@ -1,7 +1,9 @@
 Thesis to do
 
 Coding
-  Check at low L
+  Check at low L                                 Done
+  Choose vs judiciously                          
+  Normalize
   Only calculate C(vt,t) needed for fitting
 
 Timeline
