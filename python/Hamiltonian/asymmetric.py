@@ -22,8 +22,7 @@ def sparse_Hmult(l):
 
 def sparse_H(l):
     if (l%2 != 1): assert False, "l must be odd"
-    H = sparse_Hmult(l)
-    return H * (2j * np.pi)/(3 * np.sqrt(3))
+    return sparse_Hmult(l) * 1j
 
 def dense_Hmult(l):
     if (l==3): return H3mult
@@ -34,15 +33,14 @@ def dense_Hmult(l):
 
 def dense_H(l):
     if (l < 3): assert False, "l must be >=3"
-    H = dense_Hmult(l)
-    return H * (2j * np.pi)/(3 * np.sqrt(3))
+    return dense_Hmult(l) * 1j
 
 
 def init_pert(L, pert_strength):
     pert = sparse.csr_matrix([[ 0,  0,  0,  0],
                  [ 0, -1,  1,  0],
                  [ 0,  1, -1,  0],
-                 [ 0,  0,  0,  0]])/4
+                 [ 0,  0,  0,  0]])
     for i in range(L-2):
         pert = sparse.kron(pert, ident(2))
     return pert*pert_strength
@@ -51,7 +49,7 @@ def finl_pert(L, pert_strength):
     pert = sparse.csr_matrix([[ 0,  0,  0,  0],
                  [ 0, -1,  1,  0],
                  [ 0,  1, -1,  0],
-                 [ 0,  0,  0,  0]])/4
+                 [ 0,  0,  0,  0]])
     for i in range(L-2):
         pert = sparse.kron(ident(2), pert)
     return pert*pert_strength

@@ -7,11 +7,11 @@ import time
 import glob
 
 num_trials = 3
-L     = 4
+L     = 9
 dense = True
 # Get vs list from loading
 sites = np.arange(L)
-pert_strength = 14
+pert_strength = 2.5
 h = 2
 _, _, _, sig_z_list = qm.get_sigma_lists(L)
 
@@ -56,7 +56,7 @@ H0 = H + asym.finl_pert(L, pert_strength)
 
 start = time.time()
 for q in range(num_trials):
-    H = H0 + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)/2
+    H = H0 + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
     Hlist = asym.mat2list(H)
     vals_list = []
     vecs_list = []
@@ -93,6 +93,7 @@ for q in range(num_trials):
     weightsback = []
 
     for idx, t in enumerate(times):
+#        print(t)
         (fore, _) = asym.get_weights_from_time_sites(
                 L, t, sites_at_ts_fore[idx], vals_list, vecs_list, vecsd_list)
         (_, back) = asym.get_weights_from_time_sites(
@@ -127,7 +128,7 @@ for q in range(num_trials):
     for idx, v in enumerate(vs):
         np.save(prefix + "foreL" + str(L) + "v" + str(v), otocsfore_all[idx])
         np.save(prefix + "backL" + str(L) + "v" + str(v), otocsback_all[idx])
-    
+
     end = time.time()
     print('trials:', q, 'seconds:', end-start)
 
