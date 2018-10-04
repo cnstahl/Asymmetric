@@ -1,0 +1,289 @@
+\documentclass[aps,prl,reprint,superscriptaddress, longbibliography]{revtex4-1}
+\usepackage{H1}
+\usepackage[pdftex,colorlinks=true]{hyperref}
+\hypersetup{citecolor = blue}
+\usepackage[normalem]{ulem}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{mathtools}
+\usepackage{enumerate}
+
+\newcommand{\vedika}[1]{ {\color{red} {{#1}}}}
+\newcommand{\david}[1]{ {\color{blue} {{#1}}}}
+\newcommand{\adam}[1]{ {\color{Magenta} {{#1}}}}
+
+\newcommand{\Tr}{ \mbox{Tr}}
+\newcommand{\vb}{v_B}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\ip}{i+1}
+\newcommand{\mc}[1]{ { \mathcal {{#1}}}}
+\newcommand{\Sz}{S_z^{\rm tot}}
+\newcommand{\lamv}{\lambda(v)}
+\newcommand{\otoc}{{C}({\bf x},t)}
+
+\begin{document}
+\title{Velocity-dependent Lyapunov exponents in many-body quantum,\\  semi-classical, and classical chaos
+} 
+
+\author{Vedika Khemani}
+\affiliation{\mbox{Department of Physics, Harvard University, Cambridge, MA 02138, USA}}
+\author{David A. Huse}
+\affiliation{\mbox{Department of Physics, Princeton University, Princeton, NJ 08544, USA}}
+\author{Adam Nahum}
+\affiliation{\mbox{Theoretical Physics, Oxford University, 1 Keble Road, Oxford OX1 3NP, United Kingdom}}
+
+\begin{abstract}
+The exponential growth or decay with time of the out-of-time-order commutator (OTOC) is one widely used diagnostic of many-body chaos in spatially-extended systems.  In studies of many-body classical chaos, it has been noted that one can define a velocity-dependent Lyapunov exponent, $\lambda({\bf v})$, which is the growth or decay rate along ``rays'' at that velocity.  We examine the behavior of $\lambda({\bf v})$ 
+for a variety of many-body systems, both chaotic and integrable.  The so-called light cone for the spreading of operators is defined by $\lambda({\bf \hat n}v_B({\bf \hat n}))=0$, with a generally direction-dependent ``butterfly speed'' $v_B({\bf \hat n})$.  In spatially local systems, $\lamv$ is negative outside the light cone where it takes the form $\lambda(v) \sim -(v-v_B)^{\alpha}$ near $\vb$, with the exponent $\alpha$ taking on various values over the range of systems we examine. The regime inside the light cone with positive Lyapunov exponents may only exist for classical, semi-classical or large-$N$ systems, but not for ``fully quantum'' chaotic systems with strong short-range interactions and local Hilbert space dimensions of order one.
+\end{abstract}
+
+\maketitle
+
+One central goal of quantum statistical mechanics is understanding whether and how isolated quantum systems
+undergoing reversible unitary time evolution are able to bring themselves to thermal equilibrium under their own dynamics \cite{Deutsch,Srednicki, Rigol}.  These questions have recently been brought to the forefront following remarkable developments both in experiments (particularly in cold atomic gases~\cite{BlochRMP, Choi2016,Smith2015,KaufmanEntanglement}) and theory (particularly on the topics of many-body localization~\cite{Anderson58, Basko06,  PalHuse,OganesyanHuse, Znidaric,Imbrie2016}, quantum chaos, and new perspectives from holography~\cite{Maldacena_holo, Witten_holo} relating the  physics of information scrambling in black holes to thermalization in other many-body systems~\cite{HaydenPreskill,SekinoSusskind,HosurYoshida,ShenkerStanfordButterfly,Lashkari,LocalizedShocks,CotlerRM, RobertsStanford,KitaevSYK, SachdevSYK}).  We now understand that while memory of the initial conditions is never lost under unitary dynamics, it can get ``scrambled'' or ``hidden" in experimentally inaccessible nonlocal correlations --- leading to an effective  decoherence that can bring local subsytems to thermal equilibrium.  Indeed, one major upshot of this set of developments has been a crisp formulation of the meaning of ``thermalization" in closed quantum systems in terms of the late time values of local observables. By contrast, an equally precise formulation of many-body ``quantum chaos", and if and how it is distinct from thermalization, is still an active area of research and debate. 
+
+One useful window on many-body quantum chaos is provided by the spreading of initially local operators.  In the Heisenberg picture, an operator $O_0$  initially supported at the origin evolves into an operator ${O_0(t) = U^\dagger(t) O_0 U(t)}$ with appreciable support on a region that grows with time $t$.  The ``out-of-time-order {\it commutator}'' (OTOC)~\cite{Lieb72,Larkinotoc,KitaevSYK,chaosbound,HosurYoshida,ShenkerStanfordButterfly,LocalizedShocks,CotlerRM,RobertsStanford,GuQiStanford,GuQi_rcft,StanfordWeakCoupling,PatelDiffusiveMetal,ChowdhuryON,Galitski_lyapunov,DoraMoessner,LuitzScrambling,ProsenWeakChaos,AleinerOTOC,MotrunichTFIM_otoc,FradkinHuse,ChalkerFloquetChaos,FawziScrambling,opspreadAdam, opspreadCurt, TiborCons, KhemaniCons} is a simple measure of the ``footprint'' of the spatially spreading operator:
+\begin{equation}
+{C}({\bf x},t) = \frac{1}{2} \langle [O_0(t), W_{\bf{x}}]^\dagger [O_0(t), W_{\bf{x}}] \rangle~,
+\label{eq:otoc}
+\end{equation} 
+where $W_{\bf x}$ is a local operator at position $\bf x$ and the expectation value is taken in a chosen equilibrium ensemble. If $\bf{x}$ is away from the origin, then at early times $W_{\bf{x}}$ either exactly or approximately commutes with $O_0(t)$ and the OTOC is either zero or exponentially small in $x$.  However, as the operator $O_0(t)$ spreads, ${C}({\bf x},t)$ grows to become of order one inside a``light cone'' that is bounded by a ``front'' that propagates in all directions.  (We assume the two operators are normalized so that the long time average of the OTOC is one.)
+We focus here on systems where the front propagates ballistically at a nonzero ``butterfly speed'' $v_B$ (touching briefly on strongly disordered systems in which operators spread sub-ballistically \cite{Znidaric, BardarsonPollmannMoore, PVP, VHA, NahumRuhmanHuse}). 
+In these systems the OTOC increases rapidly as the front approaches $\bf{x}$, and saturates to a constant after the front has passed. We note that $v_B$ will typically depend on the orientation of the front  \cite{opspreadAdam}, unless spatial symmetries prevent this.  
+
+The OTOC has been studied intensely as an early-to-intermediate time diagnostic of quantum chaos in a variety of quantum models whose time-evolution is generated by either a time-independent Hamiltonian\cite{KitaevSYK, ShenkerStanfordButterfly,LocalizedShocks,CotlerRM,RobertsStanford,GuQiStanford,GuQi_rcft,StanfordWeakCoupling,PatelDiffusiveMetal,ChowdhuryON,AleinerOTOC,
+DoraMoessner,Galitski_lyapunov,LuitzScrambling,ProsenWeakChaos,MotrunichTFIM_otoc}, or by Floquet dynamics\cite{FradkinHuse,ChalkerFloquetChaos}, or by a random unitary circuit~\cite{FawziScrambling,HosurYoshida,opspreadAdam, opspreadCurt, TiborCons, KhemaniCons}. This diagnostic is natural since 
+a classical limit of the OTOC, with the commutator becoming a Poisson bracket, measures the sensitivity of a classical observable at $({\bf x},t)$ to an infinitesimal perturbation of the initial conditions at the origin.
+In classical chaotic systems this sensitivity grows exponentially at late times, at a rate set by a Lyapunov exponent,  $C_{\rm cl}\sim e^{\lambda_L t}$, characteristic of the ``butterfly effect" \footnote{We note that the usual definition of the classical Lyapunov exponent involves averaging the logarithm of the factor by which perturbations grow over initial states and perturbations. This is subtly different from the classical analog of the quantum OTOC where the commutator/Poisson bracket is averaged before taking the logarithm. It is worth exploring in future studies whether or not this difference in definitions has any qualitative consequences\cite{Galitski_lyapunov}.}.
+
+Analogously, an exponential growth with time in ${C}({\bf x},t)$ has been widely used as a metric for \emph{quantum} chaos. Since the OTOC is bounded in the quantum setting (due to unitarity), extracting a quantum Lyapunov exponent requires a small parameter $\epsilon$ such that the OTOC scales as $\epsilon$ at early times: ${C \sim \epsilon\; e^{\lambda_L t}}$. This furnishes a parametrically large time scale ${t_* \sim \frac{1}{\lambda_L}\log(\frac{1}{\epsilon})}$ over which the OTOC can grow exponentially before becoming of order one. In the absence of such a small parameter, the OTOC grows to become of order one in some microscopic order one time scale instead of showing an extended period of exponential growth, leaving no room to define a Lyapunov exponent \cite{chaosbound}. Indeed, all known quantum examples that show an exponential growth at intermediate times work in either a large-$N$ or ``semiclassical" weak scattering limit, where the small parameter $\epsilon$ is either set by $1/N$ or a weak scattering rate\cite{KitaevSYK, ShenkerStanfordButterfly,LocalizedShocks,CotlerRM,RobertsStanford,GuQiStanford,StanfordWeakCoupling,PatelDiffusiveMetal,ChowdhuryON,AleinerOTOC}. Some representative examples of such systems include (i) models that are (or are thought to be) holographically dual to black holes\cite{ShenkerStanfordButterfly,LocalizedShocks,CotlerRM}, including the Sachdev-Ye-Kitaev (SYK) model\cite{SachdevSYK, KitaevSYK} and chains of coupled SYK dots at large $N$\cite{GuQiStanford},
+(ii) large-$N$ gauge theories\cite{StanfordWeakCoupling,RobertsStanford,ChowdhuryON} and (iii) weakly interacting disordered systems whose low-temperature dynamics are described, to leading order, via a semiclassical weak scattering theory of quasiparticles\cite{PatelDiffusiveMetal}. Additionally, in spatially local systems, a small parameter $\epsilon$ can be defined for ${\bf x}$ away from the origin, since it takes a time linear in the separation between operators $ t_* \sim|{\bf x}|/\vb$ for a large commutator to build up. 
+
+
+
+We note that even in systems with a large $t_*$, there can exist parametrically longer time scales for thermalization, whence our characterization of the OTOC as an \emph{intermediate} time diagnostic of quantum chaos that is distinct from probes of thermalization at the longest times. These longer times can include, for example,  a  ``Thouless time'' $t_{\rm th} \sim L^2$ probing the slow hydrodynamics of diffusive conserved densities or, alternatively, a time scale set by the the inverse energy level spacing which probes level repulsion (a conventional``late-time'' diagnostic of quantum chaos) and scales exponentially with the volume of the system $t_\delta \sim \exp(V)$.  
+
+Here we present a description of the intermediate-time behavior of the OTOC that encompasses many-body quantum, classical and semiclassical chaos within a single framework described by \emph{velocity-dependent Lyapunov exponents} (VDLEs) $\lambda({\bf v})$ \cite{Lieb72,Deissler1984,Kaneko1986,DeisslerKaneko}. These characterize the growth (or decay) with time of the OTOC along ``rays" ${\bf x} = {\bf v}t$, and this framework more completely elucidates the spatiotemporal structure of quantum chaos in spatially extended systems (c.f. Fig.~\ref{fig:lamv}). We define the butterfly velocity $v_B$ in terms of VDLEs and explain the conditions necessary for $C(\mathbf{x}_0,t)$ to display simple-exponential growth with time for fixed $\mathbf{x}_0$.  We find that a careful definition of quantum chaos requires distinguishing between the behavior of the OTOC both \emph{inside} and \emph{outside} the ballistic operator front defined by $|{\bf x}| = v_B t$. This allows us to sharply delineate the differences in the behavior of the OTOC between classical/semiclassical/holographic/large-$N$ models and more generic ``fully"  quantum thermalizing spin systems. 
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{lamv.pdf}
+  \caption{\label{fig:lamv} Schematic illustration of velocity-dependent Lyapunov exponents $\lambda(v)$ along rays $|x|=vt$ in a 1D system. The color scale encodes $\lambda(v)$ which is positive inside the light cone for $v < \vb$ in classical and semiclassical/large-$N$ quantum systems, but is ill-defined inside the cone in ``fully" quantum thermalizing spin systems that do not see an extended period of exponential growth for $v < \vb$. All local systems have  negative $\lambda(v) <0$ for $v > \vb$ following Lieb-Robinson, and $\lambda(v)$ smoothly interpolates from positive to negative in semiclassical/large $N$ systems, passing through zero at $\vb$. The OTOC $C(x_0,t)$ for a fixed position $x_0$ and increasing time (green arrow) cuts through rays with different $\lambda(v)$'s and thus will not show a simple-exponential-in-time growth unless $\lambda(v)$ scales linearly with $v$ \eqref{eq:tdep}.} 
+\end{figure}
+
+
+More precisely, only classical and semiclassical/large-$N$ quantum theories have positive VDLEs  for $v< \vb$ \emph{i.e.} exponential growth of the OTOC \emph{inside} the ballistic light cone  $|{\bf x}| < \vb t$ . By contrast,  ``fully'' quantum thermalizing spin systems with strong short-range interactions and small local Hilbert space dimensions (\emph{i.e.} away from semiclassical or large-$N$ limits) lack such a positive exponential growth regime {\it inside} the light cone since such models do not generically have any small parameter $\epsilon$ to prevent the OTOC from saturating on some order one time scale.
+On the other hand, if at early times one starts well \emph{outside} the light cone at fixed large ${\bf x_0}$, then spatially local systems do have a large range of growth of the OTOC before the front reaches ${\bf x_0}$. However, even here, the OTOC appears \emph{not} to show any extended period of simple-exponential-in-time growth in many fully quantum systems (both integrable and non-integrable) since the operator front not only propagates ballistically, but also broadens with  time in such systems~\cite{opspreadAdam, opspreadCurt}.  As a result of this front broadening, fully quantum systems can lack a well-defined positive Lyapunov exponent even outside the ballistic front where a small parameter $\epsilon$ does exist. 
+
+Additionally, all spatially local systems display \emph{negative} VDLEs for  $v > \vb$: these quantify the exponential {decay} of correlations with time along rays {outside} the ballistically propagating front. The existence of negative VDLEs outside the front follows simply from spatial locality and Lieb-Robinson type bounds, and these apply even in nonchaotic integrable systems that display ballistic operator spreading~\cite{CalabreseCardy}. 
+
+
+We posit that the most useful definition(s) of many-body ``quantum chaos" should extend to generic thermalizing spin systems and distinguish between integrable and non-integrable cases. The combination of (i) the lack of a positive $\lambda(v)$ regime in the OTOC for $v < \vb$  in fully quantum chaotic systems and (ii) many qualitative similarities between the early to intermediate time (pre-saturation) growth of the OTOC  between quantum chaotic and integrable systems, suggests that exponential growth in the OTOC may not be best suited as an intermediate time diagnostic of quantum chaos in a fully quantum setting away from semiclassical limits. We note, however, that the saturation behavior of the OTOC for chosen pairs of operators may contain signatures of integrability (on times $t_*\ll t \ll t_\delta$ that are still ``intermediate''). This has so far only been explored in certain cases including free-fermions\cite{MotrunichTFIM_otoc} and conformal field theories\cite{RobertsStanford, GuQi_rcft}, and warrants further study. 
+The existence of other quantities~\cite{ProsenWeakChaos} better suited as an intermediate time diagnostic of quantum chaos is an open question (one interesting quantity is the ``operator entanglement'' of a spreading operator, which at least in some integrable systems \cite{prosen2007operator,pizorn2009operator,dubail2017entanglement} grows much slower than in chaotic systems \cite{LuitzScrambling, jonay}.)
+In all, our results clarify and synthesize several disparate results in the literature, and also provide a useful lens for guiding future studies.  
+
+\emph{Universal Framework ---} We start by describing our general framework and the concept of VDLEs. 
+To the best of our knowledge,  VDLEs first make an appearance in the original incarnation of the Lieb-Robinson (LR) bound~\cite{Lieb72}, which stated that for local observables $A, B$ in a local quantum system
+\begin{equation}
+\lim_{\substack{  {t\rightarrow \infty}\\{ |{\bf x}|>vt}}} ||[A({\bf x},t), B(0,0)]||e^{\mu(v)t} =0,
+\label{eq:lr} 
+\end{equation}
+for all $v> v_{LR}$, with $\mu(v)>0$ a positive increasing function.  The Lieb-Robinson velocity $v_{LR}$ is the minimum speed for which \eqref{eq:lr} holds, and it defines an intrinsic speed of spreading or ``group-velocity'' for the system.  The norm of the commutator decays exponentially with time outside the ballistic ``light-cone" $|{\bf x}| = v_{LR}t$, and the function $\mu(v)$ bounds the exponential decay rate along different ``rays'' $|{\bf x}| = vt > v_{LR}t $ outside the  cone. 
+This velocity-dependent decay rate (which formally is the supremum of all $\mu(v)$ for which \eqref{eq:lr} holds) is the analog of the VDLE as defined below.
+The formulation of the LR bound, in terms of $\mu(v)$, emphasizes that the spatiotemporal structure of  operator spreading is organized along rays of fixed velocities in spacetime, a nuance that more recent restatements of the bound~\cite{Nachtergaele1, Nachtergaele2, HastingsSpectralGap} miss by dropping the reference to $\mu(v)$. 
+
+Building on LR and following work on classical chaos~\cite{Deissler1984,Kaneko1986,DeisslerKaneko}, the velocity-dependent Lyapunov exponent $\lambda({\bf v})$ quantifies the exponential growth or decay with time of the OTOC along rays of a given velocity via: 
+\begin{equation}
+C({\bf x},t) \sim e^{\lambda({\bf v}) t} \;\;  \mbox{ for } \;\; {\bf x} = {\bf v}t~, 
+\label{eq:lamvdef}
+\end{equation}
+and $\lambda({\bf v})$ will in general also depend on the ensemble one is considering (e.g., the temperature for a system with a conserved energy).  
+One of the goals of this work is to elucidate the form of $\lambda(v)$ for various physical systems of interest, and to understand when the OTOC exhibits such an exponential growth/decay. 
+
+First, note that the LR bound \eqref{eq:lr} implies that in all local quantum systems, even non-chaotic ones, the OTOC \emph{decays} exponentially with a \emph{negative} VDLE $\lambda(v)$ \emph{outside} the light cone defined by the propagating operator front \emph{i.e.} for $v>\vb$.  
+In this language, the butterfly speed $v_B({\bf \hat n})$ along a spatial direction ${\bf \hat n}$ can be defined as the maximum speed $v$ for which 
+\begin{equation}
+\lambda(v {\bf \hat n})=0~, 
+\end{equation}
+and this physical propagation speed  is upper-bounded by $v_{LR}$~\cite{RobertsSwingle}.
+For simplicity, we will assume full rotational symmetry in the formulas below.
+In this case $v_B$ is simply a constant, and is equal to the propagation speed of the front. 
+In the absence of rotational symmetry, a subtlety is that  we must distinguish between $\vb({\bf \hat n})$ and the  speed $\widetilde v_B ({\bf \hat n})$ at which a front perpendicular to ${\bf \hat n}$ propagates, but the two speeds are simply related \footnote{Here $\tilde{v}_B({\bf \hat n})$, with a tilde, denotes the  normal propagation speed of a straight front whose normal is parallel to ${\bf \hat n}$. In Ref.~\cite{opspreadAdam} this was denoted $v_B({\bf \hat n})$, but here we use $v_B({\bf \hat n})$ to denote the speed at which  an
+initially local operator spreads away from the origin in the direction ${\bf \hat n}$. These differ because  in the absence of rotational symmetry the operator's front is not in general perpendicular to the radial vector, but they are related by a geometrical construction known from classical droplet growth  \cite{WolfWulff, krug1991solids,opspreadAdam}.}.
+
+
+Next, in chaotic classical and semiclassical/large $N$ many-body systems, the OTOC also \emph{grows} exponentially with time along rays  $v< \vb$ as a result of the chaotic growth of local perturbations inside the light cone corresponding to a positive $\lambda(v)$.  This behavior of $\lambda(v)$ in the different regimes is summarized in Fig.~\ref{fig:lamv}.   On the other hand, fully quantum models like spin-1/2 chains do not see an extended period of {exponential} growth inside the light cone --- in such models, the negative $\lambda(v)$ for $v>\vb$ outside of the light cone continuously approaches zero as $v \rightarrow v_B^{+}$ without extending to a positive $\lambda(v)$ regime inside the light cone (Fig.~\ref{fig:lamvforms}(c)).  A similar behavior,  but with some universal differences in the form of $\lambda(v)$ near $v_B$, also occurs in noninteracting and integrable systems, both classical and quantum.
+
+
+
+We now comment on the implications of these results for the behavior of $C({\bf x_0},t)$ at fixed ${\bf x_0}$ and increasing $t$ (arrow in  Fig.~\ref{fig:lamv}). For large $x_0$, one is initially outside the light cone and approaches it with increasing $t$, which certainly results in a growth of the OTOC. However, as Fig.~\ref{fig:lamv} shows, this vertical cut passes through rays at different speeds $v$, each with a different decay rate $\lambda(v)$. Thus, in general, 
+unless $\lambda(v)$ varies linearly with $v$ for $v \rightarrow v_B^+$ one does not see a simple exponential growth with time in $C({\bf x_0},t)$ just outside the operator front.  
+For $v$ larger than and near $\vb$, if we assume that $\lambda(v)$ continuously approaches zero at $\vb$ as a power law with exponent $\alpha$, $\lambda(v) \sim -(v- \vb )^\alpha$, as is the case in all the models we are aware of, then
+\begin{align}
+C(|{\bf x_0}|=vt, t) &\sim \exp\big({- c (v- \vb )^\alpha}t \big)\nonumber \\
+&\sim \exp\left({-c \frac{(|{\bf x_0}|-\vb t)^\alpha}{t^{\alpha-1}}}\right), 
+\label{eq:tdep}
+\end{align}
+which is only a simple exponential in time for $\alpha =1$. 
+
+For chaotic classical/semiclassical/large-$N$ models in which $\lambda(v)$ smoothly interpolates from negative to positive and passes linearly through zero at $\vb$ (Fig.~\ref{fig:lamvforms}(a,b)), the leading term in the Taylor expansion of $\lambda(v)$ near $\vb$ scales linearly with $(v-\vb)$  which is $\alpha=1$, thus giving the known exponential growth with time in $C({\bf x_0},t)$ for these cases for $v \sim \vb$ \emph{both inside and outside the front}. 
+However, for fully quantum systems with no additional small parameters $\epsilon$, there is no positive $\lambda(v)$ regime for $v< \vb$ and $\lambda(v)$ can instead can vanish at $v_B$ with exponent $\alpha > 1$ (Fig.~\ref{fig:lamvforms}(c)). This happens whenever the front of the operator broadens with time (see below). In this case there is no simple exponential in time growth of $C({\bf x_0}, t)$ even outside the operator front.  
+
+The relation between $\alpha$ and the width of the (broadening) front follows from an assumption about matching of scaling forms of a standard kind.
+Let $\delta x = |{\bf x}| - v_B t$.
+If the the front broadens like $t^\beta$ with $\beta>0$, then in the ``typical" regime where $\delta x$ is of order $t^\beta$ we expect that the OTOC may be written as a scaling function of $\delta x / t^\beta$. 
+The last line of  \eqref{eq:tdep} resembles such a scaling form 
+${f\big( {\delta x}/{t^{\frac{\alpha-1}{\alpha}}}\big)}$
+with 
+\be
+\beta = \frac{\alpha-1}{\alpha}.
+\ee
+The expression \eqref{eq:tdep} is, however,  valid in a different ``large deviation'' regime in which $\delta x \sim O(t)$ since it applies to $v> \vb$. 
+Nevertheless the simplest assumption (which holds in all cases we are aware of) is that as $v \rightarrow \vb^+$ the ``large deviation" scaling function smoothly matches the tail of the ``typical" scaling function for the front region, giving the above relation between exponents. For example a diffusively  broadening front, $\beta = 1/2$, corresponds to $\alpha=2$. We will discuss this matching in more detail below when considering OTOCs in random circuit models.
+
+We now turn to various examples of OTOCs  in classical, quantum and semiclassical/large $N$ systems and examine them through this new lens. 
+
+\emph{Chaotic classical systems---}  The concept of the velocity-dependent (or ``convective" or ``co-moving") Lyapunov exponent was introduced for spatially extended classical chaotic systems in Refs.~\onlinecite{Deissler1984,Kaneko1986,DeisslerKaneko}.  Here we will use a somewhat different definition in order to match to the classical limit of the quantum OTOC:
+The average growth or decay rate $\lambda({\bf v})$ of an infinitesimal initial disturbance $\delta u({\bf x}_0=0,t_0=0)$ to a state parameterized by continuous local degrees of freedom $u(x,t)$ is computed in a moving frame with velocity $\bf v$ by calculating 
+$|\partial u({\bf x}={\bf v}t,t)/\partial{u(0,0)}|^2$ and averaging over the thermal equilibrium ensemble of initial states: 
+\be\label{eq:classicalquantity}
+\left\langle \left|\partial u({\bf x}={\bf v}t,t)/\partial{u(0,0)}\right|^2 \right\rangle \sim e^{\lambda({\bf v}) t}.
+\ee
+In these classical chaotic systems $\lambda({\bf v})$ typically has both a positive and a negative regime, and passes smoothly through zero at a classical butterfly velocity, as illustrated in Fig.~\ref{fig:lamvforms}(a).   This has also recently been explored for a chaotic classical spin chain~\cite{DharClassicalSpinChainChaos} with similar results, and we expect qualitatively similar behavior in higher $d$. 
+
+One way to think about the classical $\lambda({\bf v})$  is by expressing the derivative $\partial u({\bf x}={\bf v}t,t)/\partial{u(0,0)}$ as a sum over paths in spacetime from $(0,0)$ to $({\bf x},t)$ \cite{livi1992scaling,kaneko1992propagation,pikovsky1994roughening}. For illustrative purposes let us discretize time in integer steps: then by the chain rule of differentiation
+\be
+\f{\partial u({\bf x},t)}{\partial{u(0,0)}}
+=
+\sum_{{\bf y}_1, \ldots, {\bf y}_{t-1}} W(0,{\bf y}_1, \ldots, {\bf y}_{t-1},{\bf x}),
+\ee
+where the amplitude $W(0,{\bf y}_1, \ldots, {\bf y}_{t-1},{\bf x})$ for the path
+${(0,0)},\, {({\bf y}_1,1)},  \ldots, {({\bf x},t)}$
+ is a product of local ``weights'' 
+$\partial u({\bf y}_{i+1}, i+1) / \partial u({\bf y}_{i}, i)$ describing how strongly the perturbation is communicated from site ${\bf y}_i$ to site ${\bf y}_{i+1}$ (against the background of a given chaotic configuration).
+By locality, this weight will be small if $|{\bf y}_{i+1}- {\bf y}_i|$ is large.
+ The exponent $\lambda({\bf v})$
+is a measure of how the total weight of paths grows or attenuates with time when their coarse-grained velocity is ${\bf v}$.
+It can also be viewed as a ``free energy'' in a statistical ensemble of such paths \footnote{The expression on the left-hand side of (\ref{eq:classicalquantity}) becomes a ``partition function'' for two paths.
+ The local weights $\partial u({\bf y}_{i+1}, i+1) / \partial u({\bf y}_{i}, i)$ depend not only on ${\bf y}_{i+1}$ and ${\bf y}_{i}$ but also on the  configuration $u({\bf y_i},i)$. The chaotic time-dependence of $u({\bf y}_i,i)$ means that the configurational average has a similar effect to averaging over weakly correlated randomness in the weights. Since we are averaging the ``partition function'', rather than its logarithm, this is an annealed average, and $-\lambda({\bf v})t$ is an annealed ``free energy'' for the pair of paths. The quenched free energy, in which we take the logarithm before averaging, would give the more conventional definition of the Lyapunov exponent \cite{livi1992scaling,kaneko1992propagation,pikovsky1994roughening}.}. 
+
+\begin{figure}[t]
+  \includegraphics[width=\columnwidth]{lamvforms2.pdf}
+  \caption{\label{fig:lamvforms} Schematic illustration of $\lambda(v)$ for the different models considered here. (a) In classical and semiclassical weak-scattering systems, $\lamv$ smoothly interpolates from positive to negative, passing through zero at $\vb$. (b) In large $N$ holographic models and chains of coupled SYK dots, the OTOC has a simple exponential form $C \sim \epsilon e^{2\pi T(1-v/\vb)t}$ at low $T$ and leading order in $1/N$. For cases (a) and (b), $\lamv$ scales linearly with $v$ near $\vb$: $\lamv \sim (v-\vb)$, corresponding to $\alpha =1 $ and a simple exponential in time growth for $C(x_0,t)$ near $\vb$. (c) $\lamv$ in fully quantum thermalizing systems with $d<4$ and in integrable models. In these cases, a negative $\lamv$ for $v>\vb$ smoothly approaches zero as $v\rightarrow \vb+$ with exponent $\alpha >1$ due to broadening of the operator front. As a result, these models do not show a simple exponential in time growth in $C(|{\bf x_0}|,t)$ outside the front. (d) In higher dimensions $(d>4)$, the KPZ model capturing the dynamics of operator spreading in chaotic quantum systems has a flat phase which may allow for $\alpha = 1$ and a simple exponential growth in $C(|{\bf x_0}|,t)$ outside the front. Cases (c) and (d) do not show an extended period of exponential growth inside the light cone due to the absence of additional small parameters $\epsilon$, and hence these do not have a well-defined $\lambda(v)$ for $v < \vb$.}
+\end{figure}
+
+\emph{Thermalizing quantum spin models---}  Next, we consider the case of ``fully" quantum thermalizing spin models. 
+While exact analytic results for the OTOC are generally not available in these settings for Floquet systems or for time-independent Hamiltonians, recent work has shown that local random unitary circuit models provide a controlled, analytically tractable setting that captures many of the universal aspects of quantum chaos in thermalizing quantum spin systems \cite{nahum2017quantum, opspreadAdam, opspreadCurt, TiborCons, KhemaniCons}.  Refs.~\cite{opspreadAdam, opspreadCurt, TiborCons, KhemaniCons}  have furnished an emergent hydrodynamical picture relating the dynamics of the spreading operator front to stochastic classical surface growth models in one and higher dimensions. From the mapping to noisy surface growth problems, the universal aspects of the front dynamics is captured by the Kardar-Parisi-Zhang (KPZ) equation in $(d-1)$ spatial dimensions~\cite{opspreadAdam}. This gives a front that not only propagates ballistically with speed $\vb$, but also \emph{broadens} in time as $t^\beta$ with $\beta = \frac{1}{2}, \frac{1}{3},  0.24(0)$ in $d=1,2,3$, respectively. This leads to a scaling $\lambda(v)\sim -(v-\vb)^{\alpha}$ with $\alpha=\frac{1}{1-\beta} >1$, and hence no simple exponential in time growth in $C({\bf x_0},t)$ \eqref{eq:tdep}.  
+
+Starting with 1d, in a qubit chain model whose dynamics are given by a random unitary local circuit, the (left and right) operator fronts can each be described by a spatial probability distribution for a fictitious biased random walker, and this biased diffusion results in fronts that propagate ballistically with speed $v_B$, but also broaden diffusively with the front width scaling as $\sqrt{t}$ in time~\cite{opspreadAdam, opspreadCurt}.  The behavior of the averaged OTOC at long times (with no additional structure or conservation laws, and reflection symmetry on average) is, in the ``typical'' regime, $|x| - \vb t \sim O(\sqrt{t})$, near the front
+\begin{align}
+C_{1d}^{\rm rc}(x,t) \sim \f{1}{4} \left[ 1+  {\rm erf} \left( \frac{\vb t +x}{ \sqrt{2Dt} } \right) \right]\left[1+  {\rm erf} \left( \frac{\vb t -x}{ \sqrt{2Dt} } \right) \right],
+\label{eq:1drc}
+\end{align}
+where $D$ is the diffusion constant of the fictitious  walker (not to be confused with the diffusivity of any conserved observables that are transported within the system) and the superscript ${\rm rc}$ refers to ``random circuit". 
+Outside the front in the large deviation regime, but for $v$ close to $v_B$, the exact microscopic probability \cite{opspreadAdam, opspreadCurt} for the random walker to travel an improbably large distance $vt$ leads to
+\begin{align}
+C_{1d}^{\rm rc}(x,t) %\stackrel{(|x|-\vb t) \gg \sqrt {2Dt}}
+\sim \exp\left[{-\frac{(|x|-\vb t)^2}{2Dt}}\right] = \exp \left[{-\frac{(v-\vb )^2}{2D} t}\right],
+\label{eq:1drc_out} 
+\end{align}
+corresponding to a negative VDLE:
+\be
+\lambda(v) \approx -\f{(v-\vb)^2}{2D}.
+\label{eq:1d_lambda}
+\ee
+Note that the large deviation form \eqref{eq:1drc_out}  matches smoothly onto the tail of  typical OTOC \eqref{eq:1drc} in the regime $v_B t \gg (|x|-v_B t) \gg \sqrt{2Dt}$, consistent with our discussion below \eqref{eq:tdep}. This qualitative form for $\lambda(v)$ is depicted in Fig.~\ref{fig:lamvforms}(c), with no positive $\lambda(v)$ regime inside the front. 
+\footnote{{Inside the light cone there is a large deviation form governing convergence to the saturation value:   
+${C_{1d}^{\rm rc}(x,t) \sim  1- \exp\big({-\frac{(v-\vb )^2}{2D} t}\big)}$. 
+The exponent here is the continuation of $\lambda(v)$ outside the front. However, in the higher dimensional examples, the large deviation form inside the front scales with a distinct power of $t$, $t^d$ in $d$ spatial dimensions \cite{MajumdarKPZTail}.
+In the presence of additional conserved densities (like energy or charge), the late time saturation of the OTOC is a power-law in time instead of exponential~\cite{KhemaniCons, TiborCons}.}}.
+
+As an aside, note that if we view the mapping of the operator dynamics to the 1d diffusion process in terms of the worldline of the random walker,  $-\lambda(v)$ can be viewed as the ``free energy'' cost per unit time for this worldline ``string'' when it is stretched to have speed $v$. This is reminiscent of the relation between $\lambda(v)$ in classical systems and paths in spacetime which we reviewed above, although the two statistical ensembles of paths are quite different. (The random circuit calculations also suggest that the negative $\lambda(v)$ outside the front is related to the ``entanglement line tension'' \cite{jonay} for the second Renyi entropy \footnote{{
+In random circuits related random walk pictures underlie the calculation of both the OTOC and the second Renyi entropy \cite{opspreadAdam, opspreadCurt}. 
+In these random systems this yields a  relation between $\lambda(v)$ and the ``entanglement line tension'' defined in \cite{jonay}, specifically the line tension $\mathcal{E}_2(v)$ for the second Renyi entropy. This motivates the conjecture, for non-random systems, that $\lambda(v)|_\text{cont} = - s_\text{eq} ( \mathcal{E}_2(v) - v)$, where $s_\text{eq}$ is the thermal entropy density. The left hand side denotes the analytic continuation of $\lambda(v)$ from ${v>v_B}$ to values $v<v_B$. In random circuits  we must distinguish different kinds of averages. The line tension extracted from a calculation of $\overline{e^{-S_2}}$ determines $\lambda(v)$ for  the average OTOC $\overline{C(x,t)}$ by the above formula. It is natural to expect that the line tension determined by the more natural direct average  $\overline{S_2}$  determines $\lambda(v)$ for the typical value of the OTOC,  $\exp \overline{\ln C(x,t)}$. The average and typical values of the OTOC are parametrically close in the region close to the front, but they may differ significantly in the far-front regime where both are exponentially small.}}.)
+
+
+While thermalizing Hamiltonian spin chains do not show simple exponential in time \emph{growth} for $C({\bf x_0},t)$, we have numerically checked that a negative $\lambda(v)$ \emph{decay} regime consistent with \eqref{eq:1d_lambda} can be found for such systems, as discussed above.
+Hamiltonian spin chains also allow $\lambda(v)$ to be defined for arbitrarily large $v$ 
+ (in contrast to local quantum circuits, and relativistic field theories, where there is a strict ``light cone'' beyond which even exponentially weak signalling is impossible). A naive perturbative argument suggests that as $v\rightarrow \infty$ the VDLE will scale as 
+\begin{align}
+\lambda(v) &\sim - v \ln v ,
+&
+v&\rightarrow \infty.
+\end{align}
+
+
+Turning to 2d, the  behavior of the OTOC near the front follows from a mapping to a cluster growth problem: $C({\bf x},t)$ is proportional to the probability that site ${\bf x}$ has been incorporated inside a growing cluster in a fictitious stochastic growth process \cite{opspreadAdam}. If the effects of lattice anisotropies can be neglected (i.e. in the presence of  rotational invariance
+\footnote{{In some circuit models in $d>1$ (which do not have continuous spatial rotation symmetry) some sections of the operator's front can be ``glued'' to the strict lightcone defined by the discrete time circuit \cite{opspreadAdam}. This is a peculiar case where ${v_B( {\bf \hat n} ) = v_\text{LC}( {\bf \hat n})}$ for some directions ${\bf \hat n}$ in space, so that no nontrivial  $\lambda({\mathbf v})$ can be defined for these directions of ${\bf v}$.}}) the Tracy-Widom distribution $F_2$ is expected for the ``typical" scaling:
+\begin{align}
+C_{2d}^{\rm rc}(r,t) \approx 1- F_2 \left( \frac{r-\vb t}{ ct^{1/3 }} \right) ,
+\label{eq:2drc}
+\end{align}
+where $r$ is a radial coordinate in 2d and $c$ is a constant. 
+Large deviations  of the KPZ growth process \cite{MajumdarKPZTail, MonthusKPZNumerics,KolokolovKPZtails} have been studied extensively.  A fluctuation in which a point on the boundary of the cluster travels beyond the mean position by $(v-v_B)t$ requires $O(t)$ rare events, so that $C_{2d}^{\rm rc}(r,t)\sim e^{-t|\lambda(v)|}$ as expected.  The large deviation form has been calculated explicitly in various classical growth models and shown to match smoothly onto the tail of the typical Tracy Widom distribution \eqref{eq:2drc} \cite{MajumdarKPZTail}:
+\be\label{eq:2plus1lambda}
+\lambda(v) = -\f{4(v-\vb)^{3/2}}{3c^{3/2}}.
+\ee
+The 3d case is similar but with a different exponent $\beta = 0.240$ \cite{KPZ_2d_exponent} and scaling form $F\left(\frac{r-\vb t}{t^\beta}\right)$.
+It has been numerically verified  \cite{MonthusKPZNumerics,KPZcocktail}, that the tail of this distribution  for large argument decays with exponent $\frac{1}{(1-\beta)}$, consistent with the expected matching.
+
+
+The  width $t^\beta$ of the operator front  decreases with increasing spatial dimension  corresponding to reduced quantum
+fluctuations in the operator front for higher dimensions,
+and the exponent $\alpha = \frac{1}{1-\beta}$ decreases towards one, bringing the  form of $C({\bf x_0},t)$ outside the front closer to a simple exponential in time \eqref{eq:tdep}.  In fact, for $d>3$ the  KPZ equation  has a flat phase, suggesting that fronts with $\alpha = 1$ may be possible without fine-tuning for fully quantum systems in $d>3$, see Fig.~\ref{fig:lamvforms}(d). A simple exponential growth with time would then occur in the OTOC outside the front.
+Again, this would not continue into a positive $\lambda(v)$ regime inside the front due to the lack of a small parameter $\epsilon$ when $v < \vb$ (Fig.~\ref{fig:lamvforms}(d)). In an appropriate regime, the ``traveling combustion wave'' picture of Ref.~\cite{AleinerOTOC}
+also yields  a form with $\lambda(v) = 0$ inside the lightcone and linear behaviour $\alpha=1$ outside the lightcone. 
+
+
+
+\emph{Integrable models---}We now turn to non-chaotic integrable systems where our presentation will be quite brief. These have no positive $\lamv$ regime, neither in the classical setting nor in the quantum one. Consider first a translationally invariant free fermion lattice system in 1d with quasiparticles of momentum ${k}$ and dispersion $\epsilon_k$. The OTOC between two local fermion densities is readily understood by considering the spreading of a local wave-packet in first quantized notation: $\psi(x = vt ,t) = \int \frac{dk}{2\pi} e^{i (k v - \epsilon_k) t}$. The butterfly velocity $\vb$ is the maximum group-velocity $\vb = \max_k (\frac{\partial \epsilon_k}{\partial k})$ and this defines a $k_B$.  Considering $v \approx \vb$ at late times $t$ and doing a saddle point approximation gives $\psi(x  ,t) \sim \frac{1}{t^{1/3}}{\rm Ai}\left(\frac{x-\vb t}{c t^{1/3}}\right)$ where $\rm{Ai}$ is the Airy function and this form follows because $\epsilon_k$ has an inflection point at $\vb$: $\frac{\partial^2 \epsilon_k}{\partial k^2}|_{k_B} = 0$, and hence evaluating the integral requires going to cubic order in the expansion of $\epsilon_k$ near $k_B$. Thus, for this non-interacting fermion system,
+\be
+\lambda(v) \sim -(v-\vb)^{3/2}
+\ee
+for $v>\vb$ which smoothly approaches zero as $v\rightarrow \vb^+$. The same argument (with the same exponent) holds in any dimension $d$. 
+The growth of the OTOC outside the light cone is qualitatively similar to the case of non-integrable spin chains, although the two can be 
+distinguished  by the value of  $\alpha$ --- except in 2d where by \eqref{eq:2plus1lambda} the exponents happen to be the same (coincidentally, since the mechanisms for front propagation are different). The difference in $\alpha$ between 1d integrable  ($\alpha=3/2$) and  chaotic  ($\alpha=2$) models is not strong and may be hard to detect in numerical or experimental studies. 
+
+A calculation of $\lambda(v)$ outside the light cone in a non-interacting transverse field Ising model again gives ${\alpha = 3/2}$ for OTOCs involving both the transverse and the longitudinal spin operators~\cite{JacobLesik_private}. This is noteworthy because, although the Ising model maps to free fermions, the longitudinal spin carries a non-local Jordan-Wigner string in the fermion language. The late-time behavior of the OTOC (inside the light cone) certainly looks different between the two cases: the transverse OTOC decays to zero (a clear signal of the  absence of chaos) while the OTOC involving the non-local longitudinal operator saturates to one just as in the chaotic case~\cite{MotrunichTFIM_otoc}. Nevertheless, the ``string" apparently remains ``coherent" enough for the two operators to show the same exponents for $\lambda(v)$ outside the front. 
+
+In addition, a preliminary numerical study of the classical integrable Toda lattice indicates that the qualitative behavior of $\lambda(v)$ near $v_B$ is the same as for noninteracting systems and harmonic chains with the same exponent $3/2$~\cite{Dhar_unpublished}. Strikingly, recent large-scale MPS numerics on the integrable XXZ spin chain also give $\alpha=3/2$, despite the presence of interactions in this model~\cite{Swingle_otocMPS}. This suggests that operator spreading, even in interacting integrable models, proceeds through a coherent quasiparticle spreading picture just as in the non-interacting case, but with generalized dispersion and momentum relations (this will be examined further elsewhere). Consequently, the universal scaling functions in the front region, and the time-dependence inside the lightcone, will presumably differ from the nonintegrable case, although these have again not been studied in much detail for integrable systems.  
+
+\emph{Semiclassical/ large $N$ models---}  We  now  turn to cases where a large-$N$/semiclassical weak-scattering limit is used to produce a regime of
+exponential growth (positive $\lambda(v)$) of the OTOC inside the light cone, with  $\alpha = 1$ near $v_B$ (Fig.~\ref{fig:lamvforms}(a,b)).
+
+The OTOC can be explicitly calculated in various holographic\cite{KitaevSYK,ShenkerStanfordButterfly,LocalizedShocks,CotlerRM,GuQiStanford} and field theoretic\cite{RobertsStanford,ChowdhuryON} models at large $N$ (which includes the case of a chain of coupled SYK dots\cite{GuQiStanford}) and in weak coupling models\cite{StanfordWeakCoupling,PatelDiffusiveMetal}. In several of these models, the OTOC  takes a simple exponential form ${C(x,t) \sim \epsilon e^{\lambda_0 (t- |{\bf x}|/\vb)}}$ with ${\lambda(v) = \lambda_0(1-v/v_B)}$ scaling linearly with $v$. In particular, in the SYK chain model\cite{GuQiStanford}, it is found that over a range of $v$ that includes $v_B$, $\lambda_0$ is at the chaos bound of $2\pi T$.  At low $|v| \ll v_B$ there is also a small regime where $\lambda(v)$ is slightly below this bound, as illustrated in Fig. \ref{fig:lamvforms}(b)\cite{GuQiStanford}.  Another common scaling form for the OTOC, particularly in weakly scattering, weakly disordered models looks like $C(x,t) \sim e^{\lambda_0 t} e^{-{\bf x}^2/(4Dt)}$\cite{PatelDiffusiveMetal}. This corresponds to $\lambda(v) = \lambda_0 -v^2/(4D)$ which defines $\vb = \sqrt{4D\lambda_0}$ (Fig~\ref{fig:lamvforms}(b)). $\lambda_0$ must again obey the chaos bound, and both $\lambda_0$ and $\vb$ tend to zero with decreasing temperature.
+
+
+  The cases described above with a positive $\lambda(v)$ that is linear near $v_B$ are presumably only valid strictly in the limit of large $N$ or the semiclassical limit, and once quantum effects are fully included in models that are not strictly in such a limit, the long-time behavior of $\lambda(v)$ just outside of the light cone but close to $v_B$ will be as we discuss above for fully quantum models, assuming that the scaling forms that have been conjectured on the basis of random circuits are indeed generic.  For finite $N$, the positive $\lambda(v)$ is then ``only'' an intermediate time behavior, thus making $\lambda(v)$ less sharply defined in this regime. As $N$ is reduced to of order one, this intermediate regime may no longer have a well-defined positive $\lambda(v)$ within the light cone.
+
+
+
+\emph{Disordered thermalizing systems---} To end, we briefly consider disordered systems where operator spreading can be sub-ballistic. In disordered 1d chains that are on the thermal side of the many body localization transition (but close to this transition) operator spreading is hindered by weak links with a power-law distribution of timescales \cite{PVP, VHA, NahumRuhmanHuse}. Varying the strength of disorder yields various regimes, including a regime with finite $v_B$ where ${\lambda(v)\sim -(v-v_B)^\alpha}$ and  $\alpha\geq 2$ varies continuously with disorder, and a strong disorder regime with $v_B=0$ and $\lambda\sim - |v|^\alpha$ \footnote{Let the probability distribution for weak-link ``waiting times'' be ${P(\tau)\sim \tau^{-a-2}}$.
+At weak disorder $(1<a)$ the broadening of the operator's front \cite{NahumRuhmanHuse} is diffusive, as in the clean system. At intermediate disorder (${0<a<1}$) the front broadens more strongly, giving ${\lambda(v)\sim -(v-v_B)^{(a+1)/a}}$.
+For strong disorder ($-1<a<0$) the butterfly speed vanishes: in this regime ${\lambda(v)\sim - |v|^{1-|a|}}$. In the disordered system the definition of $\lambda(v)$ depends on whether we consider e.g. the mean or the typical value of the OTOC, but this should not change these exponents.}.
+
+\emph{Summary---} Many-body quantum chaos is a rich subject in its infancy where many ideas for characterizing notions of ``chaos" and ``scrambling" are still being developed. In this work, we introduce the framework of velocity dependent Lyapunov exponents $\lambda(v)$ for many-body quantum chaos, and use it to more completely characterize the intermediate time behaviour of the OTOC in a variety of different models. 
+We find that the spatiotemporal structure of the butterfly effect is organized along ``rays" $|{\bf x}|= vt$ with fixed speeds $v$, with local systems having an intrinsic (possibly direction dependent) spreading speed $\vb$ defined by $\lambda(\vb)=0$. In the quantum setting, only models with a small parameter inhibiting OTOC growth for a long time (for example $1/N$ or a weak scattering rate) 
+ display an extended period of exponential growth \emph{inside} the lightcone, i.e. a time regime during which we may define positive VDLEs $\lamv$ for $v <\vb$.  
+``Fully quantum'' models with small local Hilbert space dimensions and local interactions do not display an extended period of exponential growth for $v < \vb$. In such models, the OTOC saturates to an order one value in some order one time after the front reaches a particular position. 
+
+On the other hand, \emph{outside} the light-cone, locality  guarantees a negative $\lambda(v)$ regardless of the chaos properties of a system, taking the form ${\lamv \sim -(v-\vb)^\alpha}$ just outside the light-cone. This gives exponential ``Lyapunov--like'' growth only if $\alpha=1$. This is prevented by front-broadening for low-dimensional spin systems, which leads to $\alpha>1$. More studies of the growth and saturation of the OTOC in interacting integrable systems, as well as chaotic ones, to confirm the the similarities and differences in exponents and scaling forms is an important direction for future work.  In all, our work delineates some of the challenges associated with using the intermediate time behavior of the OTOC as a general diagnostic for many-body quantum chaos. Whether one can find other more useful intermediate-time metrics for  chaos, that both extend to ``fully" quantum systems and are distinct from late-time diagnostics of thermalization, remains an open challenge.
+
+\vspace{2pt}
+\emph{Related Work:} While we were completing this manuscript, a study~\cite{Swingle_otocMPS} conjecturing the form of the OTOC in Eq.~\eqref{eq:tdep} appeared on the arXiv. Instead, our work derives this form within a broader universal framework of velocity-dependent Lyapunov exponents. 
+
+
+
+\section*{Acknowledgements}
+We thank Xiao Chen, Abhishek Dhar,  Jeongwan Haah, Timothy Halpin-Healy, 
+Cheryne Jonay, 
+Cheng Ju Lin, Satya Majumdar, Lesik Motrunich, Xiaoliang Qi, Jonathan Ruhman,  Douglas Stanford, Sagar Vijay, and Tianci Zhou for helpful discussions and for previous collaborations.  VK was supported by the Harvard Society of Fellows and the William F. Milton Fund.  
+AN acknowledges EPSRC Grant No.~EP/N028678/1. 
+
+\bibliography{global}
+
+\begin{appendix}
+
+
+\end{appendix}
+
+\end{document}

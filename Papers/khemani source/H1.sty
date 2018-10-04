@@ -1,0 +1,193 @@
+\usepackage{longtable}
+\usepackage{subfigure}
+\usepackage{stmaryrd}
+\usepackage{amsmath,amssymb,amsfonts,bm}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{array}
+\usepackage{mathrsfs}  
+\usepackage[pdftex,colorlinks=true]{hyperref}
+\usepackage{morefloats}%needed to make marginpar todo behave
+\newcommand{\todo}[1]{$ \color{red} ^{\clubsuit}$ \marginpar{  {\color{red} $ \clubsuit $ \color{black}} \tiny   #1 \color{black}  }}
+
+
+
+\usepackage{graphicx}
+%\usepackage{pstricks}
+%\usepackage{comment}
+\usepackage{color}
+\renewcommand{\^}{\wedge}
+\newcommand{\integ}{ \mathbb{Z} }
+\newcommand{\cred}[1]{ \color{red} #1  \color{black}  }
+
+\newcommand{\bbZ}{ \mathbb{Z} }
+\newcommand{\bbR}{ \mathbb{R} }
+\newcommand{\bbQ}{ \mathbb{Q} }
+
+\newcommand{\mfu}{\mathfrak{u}}
+\newcommand{\mfg}{\mathfrak{g}}
+\newcommand{\mfB}{\mathfrak{B}}
+\newcommand{\mfb}{\mathfrak{b}}
+
+
+
+\newcommand{\maD}{\mathcal{D}}
+\newcommand{\maH}{\mathcal{H}}
+\newcommand{\maJ}{\mathcal{J}}
+\newcommand{\maL}{\mathcal{L}}
+\newcommand{\maO}{\mathcal{O}}
+\newcommand{\maOb}{\overline{\mathcal{O}}}
+\newcommand{\maP}{\mathcal{P}}
+\newcommand{\su}{\text{SU}(2)_k}
+\def\KeyWord#1{$\backslash$\IfColor{$\!\!$\textRed{#1}\textBlack}{#1}$\!\!$}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\da}{\downarrow}
+\newcommand{\ua}{\uparrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\w}{ \omega }
+\newcommand{\W}{ \Omega }
+\newcommand{\gW}{ \Omega }
+\newcommand{\p}{ (\psi, \psi) }
+\newcommand{\proj}{\mathcal{P} }
+\newcommand{\pd}{\partial}
+\newcommand{\pdf}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\fdf}[2]{\frac{\delta#1}{\delta#2}}
+\newcommand{\s}{\sigma}
+\newcommand{\gs}{\sigma}
+\newcommand{\gS}{\Sigma}
+%\newcommand{\f}{\phi}
+\newcommand{\f}[2]{\frac{#1}{#2}}
+\newcommand{\ga}{\alpha}
+\newcommand{\gb}{\beta}
+%\renewcommand{\gg}{\gamma}
+\newcommand{\gG}{\Gamma}
+\newcommand{\ggb}{\overline{\gamma}}
+\newcommand{\gGb}{\overline{\Gamma}}
+\newcommand{\gd}{\delta}
+\newcommand{\gdf}[1]{\delta\db{#1}}
+\newcommand{\gD}{\Delta}
+\newcommand{\gDb}{\overline{\Delta}}
+\renewcommand{\ge}{\epsilon}
+\newcommand{\gf}{\phi}
+\newcommand{\gF}{\Phi}
+\newcommand{\gfb}{\overline{\phi}}
+\newcommand{\gk}{\kappa}
+\newcommand{\gl}{\lambda}
+\newcommand{\gL}{\Lambda}
+\newcommand{\gr}{\rho}
+\newcommand{\gt}{\tau}
+\newcommand{\gth}{\theta}
+\newcommand{\gthb}{\overline{\theta}}
+\newcommand{\gTh}{\Theta}
+\newcommand{\gy}{\psi}
+\newcommand{\gyb}{\overline{\psi}}
+\newcommand{\gY}{\Psi}
+\newcommand{\gYb}{\overline{\Psi}}
+%\newcommand{\t}{\tau}\rho_r
+\newcommand{\be}{\begin{equation} }      
+\newcommand{\ee}{\end{equation} }
+\newcommand{\bal}{\begin{align} }
+\newcommand{\eal}{\end{align} }
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\ba}{\begin{eqnarray} }
+\newcommand{\ea}{\end{eqnarray} }
+\newcommand{\n}{\nonumber \\ }
+\newcommand{\m}{\item}
+\newcommand{\db}[1]{\left( #1\right)}
+\newcommand{\ds}[1]{\left[ #1\right]}
+\newcommand{\dang}[1]{\left<#1\right>}
+\newcommand{\abs}[1]{\left| #1\right|}
+\newcommand{\floor}[1]{\lfloor #1\rfloor}
+\newcommand{\ceil}[1]{\lceil #1\rceil}
+\newcommand{\mac}{\mathcal}
+\newcommand{\maC}{\mathcal{C} }
+\newcommand{\maN}{\mathcal{N} }
+\newcommand{\mb}{\mathbf}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\im}{\item}
+\newcommand{\ch}{Chain-Mail }
+\newcommand{\Isi}{Ising$\times$Ising }
+\def\em{\it}
+\newcommand{\scit}{{\color{red}$\bullet$}}
+\def\steve#1{{\it \color{blue}{#1}}}
+\newcommand{\matrixsymb}[1]{\mathsf{#1}}
+\newcommand{\vecgrk}[1]{\boldsymbol{#1}}
+\newcommand{\eqnref}[1]{Eq.~\eqref{#1}}
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\secref}[1]{Sec.~\ref{#1}}
+\newcommand{\appref}[1]{App.~\ref{#1}}
+\newcommand{\blankfrac}[2]{\substack{{#1}\\{#2}}}
+\newcommand{\ket}[1]{\mid#1\rangle}
+\newcommand{\brak}[1]{\langle#1\mid}
+\newcommand{\e}[1]{\text{e}^{#1}}
+\newcommand{\cmplxi}{\text{i}}
+\newcommand{\bracetextsize}{\displaystyle}
+\newcommand{\tr}{\operatorname{Tr}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\obrace}[2]{\overbrace{#1}^{\bracetextsize{#2}}}
+\newcommand{\ubrace}[2]{\underbrace{#1}_{\bracetextsize{#2}}}
+\newcommand{\punc}[1]{\,#1}
+\newcommand{\braket}[1]{\langle#1\rangle}
+\newcommand{\neweqnline}{\nonumber\\}
+\newcommand{\diffd}{\text{d}}
+\newcommand{\curtred}[1]{\color{red} #1 \color{black}}
+\newcommand{\cblue}[1]{\textit{\color{blue} #1 \color{black}}}
+\newcommand{\curtblue}[1]{\color{blue} #1 \color{black}}
+\newcommand{\cgreen}[1]{\textit{\color{green} #1 \color{black}}}
+
+\newcommand{\expecval}[1]{\langle#1\rangle}
+\renewcommand{\mb}{\overline{m}}
+\newcommand{\nb}{\overline{n}}
+\newcommand{\psib}{\overline{\psi}}
+\newcommand{\chib}{\overline{\chi}}
+\newcommand{\gammab}{\overline{\gamma}}
+\newcommand{\etab}{\overline{\eta}}
+\newcommand{\phib}{\overline{\phi}}
+\newcommand{\glb}{\overline{\lambda}}
+\newcommand{\wE}{\widetilde{E}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bn}{\mathbf{n}}
+\newcommand{\bL}{\mathbf{L}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bi}{\mathbf{i}}
+\newcommand{\bj}{\mathbf{j}}
+\newcommand{\bk}{\mathbf{k}}
+\newcommand{\bl}{\mathbf{l}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+
+\providecommand\vr{}
+\renewcommand{\vr}{\vec{r}}
+\newcommand{\hx}{\hat{x}}
+\newcommand{\hy}{\hat{y}}
+\newcommand{\hga}{\hat{\ga}}
+\newcommand{\htau}{\hat{\tau}}
+
+
+
+\newcommand{\ub}[1]{\underbrace{#1}}
+
+
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{conj}{Conjecture}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eneq}{\end{equation}}
+\renewcommand{\eqnref}[1]{Eq.~\eqref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\defref}[1]{Def.~\ref{#1}}
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\mA}{\mathcal{A}}
+\newcommand{\mT}{\mathcal{T}}
+\newcommand{\scI}{\mathscr{I}}
