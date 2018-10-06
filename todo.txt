@@ -1,14 +1,10 @@
 Thesis to do
 
 Coding
-  Check at low L                                 Done
-  Choose vs judiciously                          
-  Normalize
+  Change asym defaults
   Only calculate C(vt,t) needed for fitting
 
-Timeline
-  Finish v_B calculations
-  Do more?
+Try A_0+A_1, A_(0,1)
 
 —————————
 
@@ -22,4 +18,6 @@ Where would I learn about... In a class?
   Bulk gaps
   Topological order
   Jordan-Wigner transformation
+  Plaquettes
+  DMRG
 What is a 'spectrum' (fig 5 in Nandkishore)? Energies or gaps?
