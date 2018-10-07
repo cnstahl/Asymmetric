@@ -2,6 +2,7 @@ Thesis to do
 
 Coding
   Change asym defaults
+  Parallelize!
   Only calculate C(vt,t) needed for fitting
 
 Try A_0+A_1, A_(0,1)

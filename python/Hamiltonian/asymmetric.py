@@ -106,25 +106,19 @@ def arr2list(array):
 #     mat = diag[Sz2alph]
 #    return mat[:,Sz2alph]
 
-# Get weights at only some sites at a given time
-# Pass (vals, vecs) for faster performance
-def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list,
-                                vecsd_list, here=True):
+# Get weights at some sites at a given time
+# Do here and/or pauli, and any inits we might want
+def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
+                                here=True, pauli=False, Azero=True,
+                                Aplus=False, Amult=False):
+    # Size of return array
+    num_weights = (Azero+Aplus+Amult) * (pauli+here) * 2 # For front and back
+    # ret = np.zeros((num_weights, L))
+    ret = []
+    weightfore = np.zeros[L]
+    weightback = np.zeros[L]
 
-    # Get preliminary stuff
-    A = np.array([1, -1])
-    for i in range(L-1):
-        A = np.kron(A,np.array([1,1]))
-    Alist = arr2list(A)
-    B = np.array([1, -1])
-    for i in range(L-1):
-        B = np.kron(np.array([1,1]),B)
-    Blist = arr2list(B)
-
-
-    weightfore = np.empty(len(sites))
-    weightback = np.empty(len(sites))
-
+    # Get evolution matrices
     ulist = []
     uinvlist = []
     for idx, vecs in enumerate(vecs_list):
@@ -133,51 +127,90 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list,
         uinvlist.append(np.matmul(vecs * np.exp( 1j*vals_list[idx]*t),
                                   vecsd_list[idx]))
 
-    Atlist = []
-    for idx, val in enumerate(Alist):
-        Atlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
-    Btlist = []
-    for idx, val in enumerate(Blist):
-        Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
-    At = list2mat(Atlist)
-    Bt = list2mat(Btlist)
+    # Make init matrices
+    A0 = None; A1 = None; A2 = None
+    if (Azero):
+        A = np.array([1, -1])
+        for i in range(L-1):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, -1])
+        for i in range(L-1):
+            B = np.kron(np.array([1,1]),B)
+        A0 = (A,B)
+    if (Aplus):
+        A = np.array([1, 0, 0, -1])*np.sqrt(2)
+        for i in range(L-2):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, 0, 0, -1])*np.sqrt(2)
+        for i in range(L-2):
+            B = np.kron(np.array([1,1]),B)
+        A1 = (A,B)
+    if (Amult):
+        A = np.array([1, -1, -1, 1])
+        for i in range(L-2):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, 0, 0, -1])
+        for i in range(L-2):
+            B = np.kron(np.array([1,1]),B)
+        A2 = (A,B)
 
-    front = 1
-    back  = 1
+    # For each requested init, evolve it forward then get weightsback
+    for idx, (A,B) in enumerate(x for x in [A0, A1, A2] if (x != None)):
+        # Evolve Forward
+        Alist = arr2list(A)
+        Atlist = []
+        for idx, val in enumerate(Alist):
+            Atlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
+        At = list2mat(Atlist)
 
-    if (here):
-        for j, site in enumerate(sites):
-            Aj = qm.par_tr(At,site)
-            Bj = qm.par_tr(Bt,site)
-            fronthere = qm.mat_norm(Aj)
-            backhere  = qm.mat_norm(Bj)
-            weightfore[j] = 1 - fronthere
-            weightback[j] = 1 - backhere
-    elif (not here):
-        for j in range(L):
-            At = qm.end_trace(At,1)
-            Bt = qm.front_trace(Bt,1)
-            fronthere = qm.mat_norm(At)
-            backhere  = qm.mat_norm(Bt)
-            weightfore[L-1-j] = front - fronthere
-            weightback[j]     = back  - backhere
-            front = fronthere
-            back  = backhere
-    else: assert False, "Should never get here"
+        Blist = arr2list(B)
+        Btlist = []
+        for idx, val in enumerate(Blist):
+            Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
+        Bt = list2mat(Btlist)
 
-    return np.array([weightfore, weightback])
+        # Get weightsback
+        front = 1
+        back  = 1
 
-# Get (L x N) matrix containing all weights
-def get_all_weights(L, end, n, here=True, dense = False, pert_strength=0,
-                    finl_pert_strength=None, ising_strength=None):
+        if (here):
+            for j, site in enumerate(sites):
+                Aj = qm.par_tr(At,site)
+                Bj = qm.par_tr(Bt,site)
+                fronthere = qm.mat_norm(Aj)
+                backhere  = qm.mat_norm(Bj)
+                weightfore[j] = 1 - fronthere
+                weightback[j] = 1 - backhere
+            ret.append(weightfore)
+            ret.append(weightback)
+        if (pauli):
+            for j in range(L):
+                At = qm.end_trace(At,1)
+                Bt = qm.front_trace(Bt,1)
+                fronthere = qm.mat_norm(At)
+                backhere  = qm.mat_norm(Bt)
+                weightfore[L-1-j] = front - fronthere
+                weightback[j]     = back  - backhere
+                front = fronthere
+                back  = backhere
+            ret.append(weightfore)
+            ret.append(weightback)
+
+    return np.array(ret)
+
+def get_vecs_vals(L, dense=True, dot_strength=None, field_strength=None):
+    # Construct Hamiltonian
     if (dense): H = dense_H(L)
     else: H = sparse_H(L)
-    if (finl_pert_strength == None): finl_pert_strength = pert_strength
-    if (not pert_strength==0):
-        H = H + init_pert(L, pert_strength)
-        H = H + finl_pert(L, finl_pert_strength)
-    if (not ising_strength==None): H = H + ising_strength * ising_mult(L)
+    if (not dot_strength==None):
+        H = H + init_pert(L, dot_strength)
+        H = H + finl_pert(L, dot_strength)
+    if (not field_strength==None):
+        _, _, _, sig_z_list = qm.get_sigma_lists(L)
+        h = field_strength
+        H = H + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
     Hlist = mat2list(H)
+    # Diagonalize
     vals_list = []
     vecs_list = []
     vecsd_list = []
@@ -187,14 +220,46 @@ def get_all_weights(L, end, n, here=True, dense = False, pert_strength=0,
         vecs_list.append(vecs)
         vecsd_list.append(vecs.T.conj())
 
-    N = n*end
+    return vals_list, vecs_list, vecsd_list
 
+# Get (L x N) matrix containing all weights of a single type for a A_0
+def get_plot_weights(L, end, n, here=True, dense=True,
+                    dot_strength=None, field_strength=None):
+
+    pauli = not here
+    vals_list, vecs_list, vecsd_list = get_vecs_vals(L, dense, dot_strength,
+                                                     field_strength)
+    N = n*end
+    # Get weights we want
     weightfore = np.empty((L, N))
     weightback = np.empty((L, N))
 
     for i in np.arange(N):
         t = i/n
         weightfore[:,i], weightback[:,i] = \
-                          get_weights_from_time_sites(L, t, range(L), vals_list, vecs_list, vecsd_list, here=here)
+                    get_weights_from_time_sites(L, t, range(L), vals_list,
+                                                vecs_list, vecsd_list,
+                                                here=here, pauli=pauli)
 
     return weightfore, weightback
+
+# Get all available data
+def get_all_weights(L, end, n, here=True, pauli=False, dense=True,
+                    dot_strength=None, field_strength=None,
+                    Azero=True, Aplus=False, Amult=False):
+    num_weights = (Azero+Aplus+Amult) * (pauli+here) * 2 # For front and back
+    N = n*end
+    ret = np.zeros((num_weights, L, N))
+
+    # Get vecs and vals
+    vals_list, vecs_list, vecsd_list = get_vecs_vals(L, dense, dot_strength,
+                                                     field_strength)
+
+    # Get all the weights we want at each time
+    for i in np.arange(N):
+        t = i/n
+        ret[:,:,i] = get_weights_from_time_sites(L, t, range(L), vals_list,
+                                                 vecs_list, vecsd_list,
+                                                 here,pauli, Azero,Aplus,Amult)
+
+    return ret_list
