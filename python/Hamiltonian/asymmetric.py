@@ -115,8 +115,8 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
     num_weights = (Azero+Aplus+Amult) * (pauli+here) * 2 # For front and back
     # ret = np.zeros((num_weights, L))
     ret = []
-    weightfore = np.zeros[L]
-    weightback = np.zeros[L]
+    weightfore = np.zeros(len(sites))
+    weightback = np.zeros(len(sites))
 
     # Get evolution matrices
     ulist = []
@@ -149,7 +149,7 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
         A = np.array([1, -1, -1, 1])
         for i in range(L-2):
             A = np.kron(A,np.array([1,1]))
-        B = np.array([1, 0, 0, -1])
+        B = np.array([1, -1, -1, 1])
         for i in range(L-2):
             B = np.kron(np.array([1,1]),B)
         A2 = (A,B)
@@ -169,10 +169,9 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
             Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
         Bt = list2mat(Btlist)
 
-        # Get weightsback
+        # Get weights
         front = 1
         back  = 1
-
         if (here):
             for j, site in enumerate(sites):
                 Aj = qm.par_tr(At,site)
@@ -181,8 +180,8 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
                 backhere  = qm.mat_norm(Bj)
                 weightfore[j] = 1 - fronthere
                 weightback[j] = 1 - backhere
-            ret.append(weightfore)
-            ret.append(weightback)
+            ret.append(weightfore.copy())
+            ret.append(weightback.copy())
         if (pauli):
             for j in range(L):
                 At = qm.end_trace(At,1)
@@ -193,8 +192,8 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
                 weightback[j]     = back  - backhere
                 front = fronthere
                 back  = backhere
-            ret.append(weightfore)
-            ret.append(weightback)
+            ret.append(weightfore.copy())
+            ret.append(weightback.copy())
 
     return np.array(ret)
 
@@ -225,7 +224,6 @@ def get_vecs_vals(L, dense=True, dot_strength=None, field_strength=None):
 # Get (L x N) matrix containing all weights of a single type for a A_0
 def get_plot_weights(L, end, n, here=True, dense=True,
                     dot_strength=None, field_strength=None):
-
     pauli = not here
     vals_list, vecs_list, vecsd_list = get_vecs_vals(L, dense, dot_strength,
                                                      field_strength)
@@ -244,9 +242,10 @@ def get_plot_weights(L, end, n, here=True, dense=True,
     return weightfore, weightback
 
 # Get all available data
-def get_all_weights(L, end, n, here=True, pauli=False, dense=True,
+def get_all_weights(L, end, n, here=True, pauli=None, dense=True,
                     dot_strength=None, field_strength=None,
                     Azero=True, Aplus=False, Amult=False):
+    if (pauli==None): pauli = not here
     num_weights = (Azero+Aplus+Amult) * (pauli+here) * 2 # For front and back
     N = n*end
     ret = np.zeros((num_weights, L, N))
@@ -262,4 +261,4 @@ def get_all_weights(L, end, n, here=True, pauli=False, dense=True,
                                                  vecs_list, vecsd_list,
                                                  here,pauli, Azero,Aplus,Amult)
 
-    return ret_list
+    return ret
