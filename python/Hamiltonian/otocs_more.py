@@ -7,7 +7,7 @@ import time
 import glob
 
 num_trials = 3
-L     = 11
+L     = 13
 dense = True
 # Get vs list from loading
 sites = np.arange(L)

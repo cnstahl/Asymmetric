@@ -1,3 +1,7 @@
-trials: 0 seconds: 269.6553659439087
-trials: 1 seconds: 532.9811019897461
-trials: 2 seconds: 798.7112417221069
+trials: 0 seconds: 12419.759197711945
+trials: 1 seconds: 25249.290400981903
+trials: 2 seconds: 37859.743176460266
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: *** JOB 550747 ON node116 CANCELLED AT 2018-09-25T23:46:51 DUE TO TIME LIMIT ***
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded job memory limit at some point.

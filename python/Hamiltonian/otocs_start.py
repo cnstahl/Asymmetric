@@ -5,7 +5,7 @@ import quantum as qm
 #import matplotlib.pyplot as plt
 import os.path
 
-L     = 11
+L     = 13
 dense = True
 #vs = np.asarray([5])
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
