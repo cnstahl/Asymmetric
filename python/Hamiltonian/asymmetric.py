@@ -22,7 +22,7 @@ def sparse_Hmult(l):
 
 def sparse_H(l):
     if (l%2 != 1): assert False, "l must be odd"
-    return sparse_Hmult(l) * 1j
+    return sparse_Hmult(l) * 1j / 8
 
 def dense_Hmult(l):
     if (l==3): return H3mult
@@ -33,7 +33,7 @@ def dense_Hmult(l):
 
 def dense_H(l):
     if (l < 3): assert False, "l must be >=3"
-    return dense_Hmult(l) * 1j
+    return dense_Hmult(l) * 1j / 8
 
 
 def init_pert(L, pert_strength):
@@ -205,7 +205,7 @@ def get_vecs_vals(L, dense=True, dot_strength=None, field_strength=None):
         H = H + init_pert(L, dot_strength)
         H = H + finl_pert(L, dot_strength)
     if (not field_strength==None):
-        _, _, _, sig_z_list = qm.get_sigma_lists(L)
+        _, _, _, sig_z_list = qm.get_sigma_lists(L) / 2
         h = field_strength
         H = H + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
     Hlist = mat2list(H)
