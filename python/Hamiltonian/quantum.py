@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.sparse as sparse
+import scipy.sparse.linalg as spla
 import scipy.linalg as  la
 ###import scipy.special
 
@@ -54,6 +55,12 @@ def mean_and_std(data):
     mean   = np.mean(data, axis=0)
     std    = np.std(data, axis=0)/np.sqrt(trials-1)
     return mean, std
+
+# Return a vector from the Haar distribution
+def get_vec_Haar(N):
+    vec = np.random.normal(size=N) + 1j * np.random.normal(size=N)
+    norm = la.norm(vec)
+    return vec/norm
 
 ################################################################################
 ##                                                                            ##
@@ -151,3 +158,23 @@ def get_local_field(op_list, h_list, warn=True):
     if warn:
         if not len(op_list) == len(h_list): print("truncating field")
     return sum([op*h for op,h in zip(op_list, h_list)])
+
+################################################################################
+##                                                                            ##
+## OTOC Stuff                                                                 ##
+################################################################################
+
+# Compute the OTOC of A(t), B, approximating by the expectation wrt v
+# <v| A(t) B A(t) B |v>
+# Notation: v_a = B v, v_b = A e^(-iHt) B v, etc
+# ts can be a list of times (soon)
+def get_otoc(H, v, A, B, start=None, stop=None, num=None, endpoint=None):
+    v_a = B.dot(v)
+    v_b = A.dot(spla.expm_multiply(-1j*H, v_a, start, stop, num, endpoint))
+    v_1 =       spla.expm_multiply( 1j*H, v_b, start, stop, num, endpoint)
+
+    v_c = A.dot(spla.expm_multiply(-1j*H, v,   start, stop, num, endpoint))
+    v_2 = B.dot(spla.expm_multiply( 1j*H, v_c, start, stop, num, endpoint))
+#     print(np.shape(v_1))
+
+    return (v_2.conj() * v_1).sum(0)

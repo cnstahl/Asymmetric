@@ -2,8 +2,8 @@ Thesis to do
 
 Coding
   Parallelize!
+Don't recalculate Alist each time
 
-**USE EXPM**
 
 What is pass2?
 Why is slurm so slow?
@@ -15,6 +15,7 @@ Make Krylov work
 
 Questions
 
+Why does H connect O(l) states?
 Can a thermal state contain information?
 In thermalization, do we mean thermal states or states that 'look thermal'?
 Nandkishore p19: Do single particle localized systems have noninteracting l bits?
