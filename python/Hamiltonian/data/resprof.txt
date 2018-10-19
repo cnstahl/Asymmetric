@@ -1,0 +1,1 @@
+cmdModule.c(567):ERROR:50: Cannot open file '/etc/modulefiles/mpi/mpich-3.2-x86_64' for 'reading'

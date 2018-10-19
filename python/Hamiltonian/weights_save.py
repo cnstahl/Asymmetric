@@ -2,8 +2,8 @@ import numpy as np
 import asymmetric as asym
 import glob
 
-runs = 100
-L = 14
+runs = 1
+L = 11
 end = 3
 n = 20
 
