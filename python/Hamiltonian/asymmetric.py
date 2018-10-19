@@ -205,7 +205,8 @@ def get_vecs_vals(L, dense=True, dot_strength=None, field_strength=None):
         H = H + init_pert(L, dot_strength)
         H = H + finl_pert(L, dot_strength)
     if (not field_strength==None):
-        _, _, _, sig_z_list = qm.get_sigma_lists(L) / 2
+        _, _, _, sig_z_list = ([sig/2 for sig in sigs] for sigs in
+                               qm.get_sigma_lists(L))
         h = field_strength
         H = H + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
     Hlist = mat2list(H)
