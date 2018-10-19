@@ -48,6 +48,7 @@ def get_r(mat, avg=True, frac=1/3, nonz=False):
     return stats
 
 # Take an array of data, and return a tuple containing mean and std
+# Average over the 0th dimension
 def mean_and_std(data):
     trials = len(data)
     mean   = np.mean(data, axis=0)
