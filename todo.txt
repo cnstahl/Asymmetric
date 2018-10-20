@@ -1,15 +1,18 @@
 Thesis to do
 
-Coding
-  Parallelize!
-Don't recalculate Alist each time
+Switch to Z OTOCs 
+Use block diag nature 
+Check sparcity of blocks 
+Use expm_multiply 
 
 
+How many tasks to suggest?
 What is pass2?
 Why is slurm so slow?
 Peaks at L=14
 OTOCs at L=14
 Make Krylov work
+Parallelize!
 
 —————————
 

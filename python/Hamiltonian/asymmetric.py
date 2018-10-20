@@ -99,18 +99,10 @@ def arr2list(array):
         j = k
     return A
 
-# def list2arr(A):
-#     L = len(A) - 1
-#     alph2Sz, Sz2alph = permutations(L)
-#     diag = la.block_diag(*A)
-#     mat = diag[Sz2alph]
-#    return mat[:,Sz2alph]
-
 # Get weights at some sites at a given time
 # Do here and/or pauli, and any inits we might want
 def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
-                                here=True, pauli=False, Azero=True,
-                                Aplus=False, Amult=False):
+                                here=True, pauli=False, As=[]):
     # Size of return array
     num_weights = (Azero+Aplus+Amult) * (pauli+here) * 2 # For front and back
     # ret = np.zeros((num_weights, L))
@@ -127,35 +119,8 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
         uinvlist.append(np.matmul(vecs * np.exp( 1j*vals_list[idx]*t),
                                   vecsd_list[idx]))
 
-    # Make init matrices
-    A0 = None; A1 = None; A2 = None
-    if (Azero):
-        A = np.array([1, -1])
-        for i in range(L-1):
-            A = np.kron(A,np.array([1,1]))
-        B = np.array([1, -1])
-        for i in range(L-1):
-            B = np.kron(np.array([1,1]),B)
-        A0 = (A,B)
-    if (Aplus):
-        A = np.array([1, 0, 0, -1])*np.sqrt(2)
-        for i in range(L-2):
-            A = np.kron(A,np.array([1,1]))
-        B = np.array([1, 0, 0, -1])*np.sqrt(2)
-        for i in range(L-2):
-            B = np.kron(np.array([1,1]),B)
-        A1 = (A,B)
-    if (Amult):
-        A = np.array([1, -1, -1, 1])
-        for i in range(L-2):
-            A = np.kron(A,np.array([1,1]))
-        B = np.array([1, -1, -1, 1])
-        for i in range(L-2):
-            B = np.kron(np.array([1,1]),B)
-        A2 = (A,B)
-
     # For each requested init, evolve it forward then get weightsback
-    for idx, (A,B) in enumerate(x for x in [A0, A1, A2] if (x != None)):
+    for idx, (A,B) in enumerate(As):
         # Evolve Forward
         Alist = arr2list(A)
         Atlist = []
@@ -222,26 +187,6 @@ def get_vecs_vals(L, dense=True, dot_strength=None, field_strength=None):
 
     return vals_list, vecs_list, vecsd_list
 
-# Get (L x N) matrix containing all weights of a single type for a A_0
-def get_plot_weights(L, end, n, here=True, dense=True,
-                    dot_strength=None, field_strength=None):
-    pauli = not here
-    vals_list, vecs_list, vecsd_list = get_vecs_vals(L, dense, dot_strength,
-                                                     field_strength)
-    N = n*end
-    # Get weights we want
-    weightfore = np.empty((L, N))
-    weightback = np.empty((L, N))
-
-    for i in np.arange(N):
-        t = i/n
-        weightfore[:,i], weightback[:,i] = \
-                    get_weights_from_time_sites(L, t, range(L), vals_list,
-                                                vecs_list, vecsd_list,
-                                                here=here, pauli=pauli)
-
-    return weightfore, weightback
-
 # Get all available data
 def get_all_weights(L, end, n, here=True, pauli=None, dense=True,
                     dot_strength=None, field_strength=None,
@@ -255,11 +200,38 @@ def get_all_weights(L, end, n, here=True, pauli=None, dense=True,
     vals_list, vecs_list, vecsd_list = get_vecs_vals(L, dense, dot_strength,
                                                      field_strength)
 
+    # Make init matrices
+    As = []
+    if (Azero):
+        A = np.array([1, -1])
+        for i in range(L-1):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, -1])
+        for i in range(L-1):
+            B = np.kron(np.array([1,1]),B)
+        As.append((A,B))
+    if (Aplus):
+        A = np.array([1, 0, 0, -1])*np.sqrt(2)
+        for i in range(L-2):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, 0, 0, -1])*np.sqrt(2)
+        for i in range(L-2):
+            B = np.kron(np.array([1,1]),B)
+        As.append((A,B))
+    if (Amult):
+        A = np.array([1, -1, -1, 1])
+        for i in range(L-2):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, -1, -1, 1])
+        for i in range(L-2):
+            B = np.kron(np.array([1,1]),B)
+        As.append((A,B))
+
     # Get all the weights we want at each time
     for i in np.arange(N):
         t = i/n
         ret[:,:,i] = get_weights_from_time_sites(L, t, range(L), vals_list,
                                                  vecs_list, vecsd_list,
-                                                 here,pauli, Azero,Aplus,Amult)
+                                                 here,pauli, As)
 
     return ret
