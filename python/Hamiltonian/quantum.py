@@ -67,10 +67,10 @@ def get_vec_Haar(N):
 ## Sigma Matrices                                                             ##
 ################################################################################
 
-I      = sparse.csr_matrix([[ 1,  0],[ 0,  1]])
+I      = sparse.csr_matrix([[1., 0.],[0., 1.]])
 sig_x  = sparse.csr_matrix([[0., 1.],[1., 0.]])
-sig_y  = sparse.csr_matrix([[ 0,-1j],[1j,  0]])
-sig_z  = sparse.csr_matrix([[ 1,  0],[ 0, -1]])
+sig_y  = sparse.csr_matrix([[0.,-1j],[1j, 0.]])
+sig_z  = sparse.csr_matrix([[1., 0.],[0.,-1.]])
 
 def get_sigma_lists(L, half = False):
     sig_0_list = []
@@ -83,7 +83,7 @@ def get_sigma_lists(L, half = False):
             X = sig_x
             Y = sig_y
             Z = sig_z
-            if half: X/=2; Y/=2; X/=2
+            if half: X/=2; Y/=2; Z/=2
         else:
             X = I
             Y = I
@@ -93,7 +93,7 @@ def get_sigma_lists(L, half = False):
                 X = sparse.kron(X, sig_x, 'csr')
                 Y = sparse.kron(Y, sig_y, 'csr')
                 Z = sparse.kron(Z, sig_z, 'csr')
-                if half: X/=2; Y/=2; X/=2
+                if half: X/=2; Y/=2; Z/=2
             else:
                 X = sparse.kron(X, I,     'csr')
                 Y = sparse.kron(Y, I,     'csr')

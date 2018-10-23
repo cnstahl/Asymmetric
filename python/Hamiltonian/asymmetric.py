@@ -74,7 +74,7 @@ def mat2list(matrix):
     j = 0
     for i in range(L+1):
         k = j + (int) (scipy.special.comb(L,i))
-        A.append(diag[j:k, j:k].A)
+        A.append(diag[j:k, j:k])
         j = k
     return A
 

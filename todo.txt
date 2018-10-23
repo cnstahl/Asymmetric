@@ -1,11 +1,11 @@
 Thesis to do
 
-Switch to Z OTOCs 
-Use block diag nature 
+Switch to Z OTOCs ✔
+Use block diag nature ✔
 Check sparcity of blocks 
 Use expm_multiply 
 
-
+* vs @ vs dot()
 How many tasks to suggest?
 What is pass2?
 Why is slurm so slow?
