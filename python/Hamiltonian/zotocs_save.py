@@ -5,7 +5,7 @@ import scipy.sparse.linalg as spla
 import glob
 
 runs = 1
-L = 9
+L = 15
 end = 20
 n = 3
 tot = end*n
@@ -29,7 +29,8 @@ vec = qm.get_vec_Haar(2**L)
 vecs = asym.arr2list(vec)
 
 # Break into small and large blocks
-cutoff = 20
+cutoff = 500
+
 s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
 s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
 s_Z0list =  [Z for Z in Z0list if Z.shape[0]<cutoff]
