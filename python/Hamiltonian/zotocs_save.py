@@ -5,7 +5,7 @@ import scipy.sparse.linalg as spla
 import glob
 
 runs = 1
-L = 11
+L = 14
 end = 20
 n = 3
 tot = end*n
