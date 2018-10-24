@@ -1,6 +1,7 @@
 import quantum as qm
 import scipy.special
 import scipy.sparse as sparse
+import scipy.sparse.linalg as spla
 import scipy.linalg as  la
 import numpy as np
 
@@ -98,6 +99,36 @@ def arr2list(array):
         A.append(perm[j:k])
         j = k
     return A
+
+# Get zotocs, exactly, using full Hilbert space
+def zotoc_mat_exact(L, Hlist, Z0list, Zlists, end=20, n=3):
+    tot = end*n
+    OTOCs = np.zeros((L,tot))
+    for T in range(tot):
+        t = T/n
+        Ulist    = [spla.expm(-1j*H*t) for H in Hlist]
+        Ulistinv = [spla.expm( 1j*H*t) for H in Hlist]
+        Z0tlist  = [Ui@Z0@U for (Ui, Z0, U) in zip(Ulistinv, Z0list, Ulist)]
+
+        for i in range(L):
+            corr = [Z0t@Zi@Z0t@Zi for (Z0t, Zi) in zip(Z0tlist, Zlists[i])]
+            OTOCs[i, T] = 1-sum([c.diagonal().sum().real for c in corr])/2**L
+    return OTOCs
+
+# Get zotocs, using expm_multiply, projecting onto a vector
+def zotoc_vec_expm(L, Hlist, Z0list, vecs, Zlists, end=20, n=3):
+    e = spla.expm_multiply
+    tot = end*n
+    OTOCs = np.zeros((L,tot))
+    for T in range(tot):
+        t = T/n
+        vbs  = [e(1j*H*t, Z0@e(-1j*H*t, vec)) for (H, Z0, vec) in zip(Hlist, Z0list, vecs)]
+
+        for i in range(L):
+            v1s = [e(1j*H*t, Z0@e(-1j*H*t, Zi@vec)) for (H, Z0, vec, Zi) in zip(Hlist, Z0list, vecs, Zlists[i])]
+            v2s = [Zi@vb for (Zi, vb) in zip(Zlists[i], vbs)]
+            OTOCs[i, T] = 1-sum([v2.conj().T@v1 for (v1, v2) in zip(v1s, v2s)]).real
+    return OTOCs
 
 # Get weights at some sites at a given time
 # Do here and/or pauli, and any inits we might want

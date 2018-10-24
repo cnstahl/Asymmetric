@@ -5,7 +5,7 @@ import scipy.sparse.linalg as spla
 import glob
 
 runs = 1
-L = 14
+L = 9
 end = 20
 n = 3
 tot = end*n
@@ -28,16 +28,20 @@ Z0list = Zlists[0]
 vec = qm.get_vec_Haar(2**L)
 vecs = asym.arr2list(vec)
 
-e = spla.expm_multiply
-OTOCs = np.zeros((L,tot))
-for T in range(tot):
-    t = T/n
-    vbs  = [e(1j*H*t, Z0@e(-1j*H*t, vec)) for (H, Z0, vec) in zip(Hlist, Z0list, vecs)]
+# Break into small and large blocks
+cutoff = 20
+s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
+s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
+s_Z0list =  [Z for Z in Z0list if Z.shape[0]<cutoff]
 
-    for i in range(L):
-        v1s = [e(1j*H*t, Z0@e(-1j*H*t, Zi@vec)) for (H, Z0, vec, Zi) in zip(Hlist, Z0list, vecs, Zlists[i])]
-        v2s = [Zi@vb for (Zi, vb) in zip(Zlists[i], vbs)]
-        OTOCs[i, T] = 1-sum([v2.conj().T@v1 for (v1, v2) in zip(v1s, v2s)]).real
+l_Hlist  =  [H for H in Hlist  if H.shape[0]>=cutoff]
+l_Zlists = [[Z for Z in z_list if Z.shape[0]>=cutoff] for z_list in Zlists]
+l_Z0list =  [Z for Z in Z0list if Z.shape[0]>=cutoff]
+l_vecs  =   [v for v in vecs   if len(v)>=cutoff]
+
+# Use different methods for small and large blocks
+OTOCs = asym.zotoc_mat_exact(L, s_Hlist, s_Z0list, s_Zlists, end=20, n=3) + \
+        asym.zotoc_vec_expm( L, l_Hlist, l_Z0list, l_vecs, l_Zlists)
 
 # Save data
 existing = glob.glob(prefix + "*.npy")

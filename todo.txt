@@ -1,11 +1,8 @@
 Thesis to do
 
-Switch to Z OTOCs ✔
-Use block diag nature ✔
-Check sparcity of blocks 
-Use expm_multiply 
+Change approach based on block size 
+Average over vector, disorder properly
 
-* vs @ vs dot()
 How many tasks to suggest?
 What is pass2?
 Why is slurm so slow?
