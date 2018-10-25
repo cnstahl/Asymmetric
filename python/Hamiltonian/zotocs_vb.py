@@ -51,8 +51,8 @@ for time in times:
             site_back_1 = (int) (L-dist-1.5)
             if (site_fore_0 < L-1): sites_at_t_fore.update(site_fore_0, site_fore_1)
             if (site_back_0 <   0): sites_at_t_back.update(site_back_0, site_back_1)
-    sites_at_ts_fore.append(sites_at_t_fore)
-    sites_at_ts_back.append(sites_at_t_back)
+    sites_at_ts_fore.append(list(sites_at_t_fore))
+    sites_at_ts_back.append(list(sites_at_t_back))
 
 weightsfore = []
 weightsback = []
