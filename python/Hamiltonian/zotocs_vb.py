@@ -5,7 +5,7 @@ import quantum as qm
 #import matplotlib.pyplot as plt
 import os.path
 
-L     = 13
+L     = 9
 dense = True
 field_strength = 1
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
@@ -19,6 +19,11 @@ _,x_list,y_list, z_list = qm.get_sigma_lists(L, half=False)
 if (not field_strength is None):
     h = field_strength/2 # Take into account spin-1/2
     H = H + qm.get_local_field(z_list, np.random.rand(L)*2*h - h)
+
+Hlist  = asym.mat2list(H)
+Zlists = [asym.mat2list(Z) for Z in z_list]
+vec = qm.get_vec_Haar(2**L)
+vecs = asym.arr2list(vec)
 
 mask = np.zeros(len(vs), dtype=bool)
 for idx, v in enumerate(vs):
@@ -52,8 +57,8 @@ weightsfore = []
 weightsback = []
 
 for idx, t in enumerate(times):
-    (fore, _) = asym.get_weights_from_time_sites(L, t, sites_at_ts_fore[idx], vals_list, vecs_list, vecsd_list)
-    (_, back) = asym.get_weights_from_time_sites(L, t, sites_at_ts_back[idx], vals_list, vecs_list, vecsd_list)
+    fore = asym.zotoc_vec_sites(Hlist, vecs, Zlists, sites_at_ts_fore[idx], t, fore=True)
+    back = asym.zotoc_vec_sites(Hlist, vecs, Zlists, sites_at_ts_back[idx], t, fore=False)
     weightsfore.append(fore)
     weightsback.append(back)
 
