@@ -11,9 +11,9 @@ field_strength = 1
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
-sites = np.arange(L)
+bonds = np.arange(L-1)+.5
 
-prefix = 'data/zotoc_vb'
+prefix = 'data/zotoc_dense'
 H = asym.dense_H(L)
 _,x_list,y_list, z_list = qm.get_sigma_lists(L, half=False)
 if (not field_strength is None):
@@ -32,7 +32,7 @@ for idx, v in enumerate(vs):
 vs = vs[mask]
 
 times = []
-for v in vs: times.extend(sites/v)
+for v in vs: times.extend(bonds/v)
 times = list(dict.fromkeys(times))
 times.sort()
 # print(times)
@@ -40,16 +40,17 @@ times.sort()
 sites_at_ts_fore = []
 sites_at_ts_back = []
 for time in times:
-    sites_at_t_fore = []
-    sites_at_t_back = []
+    sites_at_t_fore = set([])
+    sites_at_t_back = set([])
     for v in vs:
-        dist = (int) (np.round(time*v))
-        site_fore = dist
-        site_back = L-dist-1
-        if np.isclose((time*v), dist) and (site_fore < L) and not site_fore in sites_at_t_fore:
-            sites_at_t_fore.append(site_fore)
-        if np.isclose((time*v), dist) and (site_back >-1) and not site_back in sites_at_t_back:
-            sites_at_t_back.append(site_back)
+        dist = np.round(time*v)
+        if np.isclose(dist%1, .5):
+            site_fore_0 = (int) (  dist-0.5)
+            site_fore_1 = (int) (  dist+0.5)
+            site_back_0 = (int) (L-dist-0.5)
+            site_back_1 = (int) (L-dist-1.5)
+            if (site_fore_0 < L-1): sites_at_t_fore.update(site_fore_0, site_fore_1)
+            if (site_back_0 <   0): sites_at_t_back.update(site_back_0, site_back_1)
     sites_at_ts_fore.append(sites_at_t_fore)
     sites_at_ts_back.append(sites_at_t_back)
 
@@ -62,25 +63,25 @@ for idx, t in enumerate(times):
     weightsfore.append(fore)
     weightsback.append(back)
 
-otocsfore = np.zeros((len(vs), L))
-otocsback = np.zeros((len(vs), L))
+otocsfore = np.zeros((len(vs), L-1))
+otocsback = np.zeros((len(vs), L-1))
 for idx, v in enumerate(vs):
-    for site in range(L):
-        t_need = site/v
+    for bond in range(L-1)+.5:
+        t_need = bond/v
         for i, t in enumerate(times):
             if np.isclose(t,t_need): break
-        j = (sites_at_ts_fore[i]).index(site)
-#         print(v, site, sites_at_ts_fore[i][j], t_need, times[i])
-        otocsfore[idx, site] = weightsfore[i][j]
+        j = (sites_at_ts_fore[i]).index((int) (bond-.5))
+        k = (sites_at_ts_fore[i]).index((int) (bond+.5))
+        otocsfore[idx, bond] = (weightsfore[i][j] + weightsfore[i][k])/2
 
-    for dist in range(L):
-        site = L-dist-1
+    for dist in range(L-1)+.5:
+        bond = L-dist-1
         t_need = dist/v
         for i, t in enumerate(times):
             if np.isclose(t,t_need): break
-        j = (sites_at_ts_back[i]).index(site)
-#         print(v, site, sites_at_ts_back[i][j], t_need, times[i])
-        otocsback[idx, site] = weightsback[i][j]
+        j = (sites_at_ts_back[i]).index((int) (bond-.5))
+        k = (sites_at_ts_back[i]).index((int) (bond+.5))
+        otocsback[idx, bond] = (weightsback[i][j] + weightsback[i][k])/2
 
     np.save(prefix + "foreL" + str(L) + "v" + str(v), [otocsfore[idx]])
     np.save(prefix + "backL" + str(L) + "v" + str(v), [otocsback[idx]])
