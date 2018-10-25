@@ -101,33 +101,49 @@ def arr2list(array):
     return A
 
 # Get zotocs, exactly, using full Hilbert space
-def zotoc_mat_exact(L, Hlist, Z0list, Zlists, end=20, n=3):
+def zotoc_ed_sites(Hlist, Zlists, sites, t, fore=True):
+    Z0list = Zlists[0] if fore else Zlists[-1]
+    Ulist    = [spla.expm(-1j*H*t) for H in Hlist]
+    Ulistinv = [spla.expm( 1j*H*t) for H in Hlist]
+    Z0tlist  = [Ui@Z0@U for (Ui, Z0, U) in zip(Ulistinv, Z0list, Ulist)]
+
+    OTOCs = np.zeros(len(sites))
+    for idx, site in enumerate(sites):
+        corr = [Z0t@Zi@Z0t@Zi for (Z0t, Zi) in zip(Z0tlist, Zlists[site])]
+        OTOCs[idx] = 1-sum([c.diagonal().sum().real for c in corr])/2**len(Zlists)
+    return OTOCs
+
+def zotoc_mat_exact(L, Hlist, Zlists, end=20, n=3, fore=True):
     tot = end*n
+    sites = range(L)
+
     OTOCs = np.zeros((L,tot))
     for T in range(tot):
         t = T/n
-        Ulist    = [spla.expm(-1j*H*t) for H in Hlist]
-        Ulistinv = [spla.expm( 1j*H*t) for H in Hlist]
-        Z0tlist  = [Ui@Z0@U for (Ui, Z0, U) in zip(Ulistinv, Z0list, Ulist)]
-
-        for i in range(L):
-            corr = [Z0t@Zi@Z0t@Zi for (Z0t, Zi) in zip(Z0tlist, Zlists[i])]
-            OTOCs[i, T] = 1-sum([c.diagonal().sum().real for c in corr])/2**L
+        OTOCs[:, T] = zotoc_ed_sites(Hlist, Zlists, sites, t, fore)
     return OTOCs
 
 # Get zotocs, using expm_multiply, projecting onto a vector
-def zotoc_vec_expm(L, Hlist, Z0list, vecs, Zlists, end=20, n=3):
+def zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore=True):
     e = spla.expm_multiply
+    Z0list = Zlists[0] if fore else Zlists[-1]
+    vbs  = [e(1j*H*t, Z0@e(-1j*H*t, vec)) for (H, Z0, vec) in zip(Hlist, Z0list, vecs)]
+
+    OTOCs = np.zeros(len(sites))
+    for idx, site in enumerate(sites):
+        v1s = [e(1j*H*t, Z0@e(-1j*H*t, Zi@vec)) for (H, Z0, vec, Zi) in zip(Hlist, Z0list, vecs, Zlists[site])]
+        v2s = [Zi@vb for (Zi, vb) in zip(Zlists[site], vbs)]
+        OTOCs[idx] = 1-sum([v2.conj().T@v1 for (v1, v2) in zip(v1s, v2s)]).real
+    return OTOCs
+
+def zotoc_vec_expm(L, Hlist, vecs, Zlists, end=20, n=3, fore=True):
     tot = end*n
+    sites = range(L)
+
     OTOCs = np.zeros((L,tot))
     for T in range(tot):
         t = T/n
-        vbs  = [e(1j*H*t, Z0@e(-1j*H*t, vec)) for (H, Z0, vec) in zip(Hlist, Z0list, vecs)]
-
-        for i in range(L):
-            v1s = [e(1j*H*t, Z0@e(-1j*H*t, Zi@vec)) for (H, Z0, vec, Zi) in zip(Hlist, Z0list, vecs, Zlists[i])]
-            v2s = [Zi@vb for (Zi, vb) in zip(Zlists[i], vbs)]
-            OTOCs[i, T] = 1-sum([v2.conj().T@v1 for (v1, v2) in zip(v1s, v2s)]).real
+        OTOCs[:, T] = zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore)
     return OTOCs
 
 # Get weights at some sites at a given time
