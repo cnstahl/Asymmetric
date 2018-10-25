@@ -16,7 +16,7 @@ vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
 sites = np.arange(L)
 
-prefix = 'data/zotoc_vbL' + str(L) + "#"
+prefix = 'data/yotoc_vbL' + str(L) + "#"
 times = []
 for v in vs: times.extend(sites/v)
 times = list(dict.fromkeys(times))
@@ -46,7 +46,7 @@ if (not field_strength is None):
     H = H + qm.get_local_field(z_list, np.random.rand(L)*2*h - h)
 
 Hlist  = asym.mat2list(H)
-Zlists = [asym.mat2list(Z) for Z in z_list]
+Zlists = [asym.mat2list(Z) for Z in x_list]
 # s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
 # s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
 # s_weightsfore = []
