@@ -43,14 +43,15 @@ for time in times:
     sites_at_t_fore = set([])
     sites_at_t_back = set([])
     for v in vs:
-        dist = np.round(time*v)
+        dist = time*v
         if np.isclose(dist%1, .5):
             site_fore_0 = (int) (  dist-0.5)
             site_fore_1 = (int) (  dist+0.5)
             site_back_0 = (int) (L-dist-0.5)
             site_back_1 = (int) (L-dist-1.5)
-            if (site_fore_0 < L-1): sites_at_t_fore.update(site_fore_0, site_fore_1)
-            if (site_back_0 <   0): sites_at_t_back.update(site_back_0, site_back_1)
+            if (site_fore_0 < L-1): sites_at_t_fore.update([site_fore_0, site_fore_1])
+            if (site_back_0 <   0): sites_at_t_back.update([site_back_0, site_back_1])
+#    if (np.isclose(time, .5)): print(sites_at_t_fore)
     sites_at_ts_fore.append(list(sites_at_t_fore))
     sites_at_ts_back.append(list(sites_at_t_back))
 
@@ -58,6 +59,7 @@ weightsfore = []
 weightsback = []
 
 for idx, t in enumerate(times):
+    print(sites_at_ts_back[idx])
     fore = asym.zotoc_vec_sites(Hlist, vecs, Zlists, sites_at_ts_fore[idx], t, fore=True)
     back = asym.zotoc_vec_sites(Hlist, vecs, Zlists, sites_at_ts_back[idx], t, fore=False)
     weightsfore.append(fore)
@@ -70,6 +72,7 @@ for idx, v in enumerate(vs):
         t_need = bond/v
         for i, t in enumerate(times):
             if np.isclose(t,t_need): break
+        print(v, bond, t_need, i, times[i], sites_at_ts_fore[i])
         j = (sites_at_ts_fore[i]).index((int) (bond-.5))
         k = (sites_at_ts_fore[i]).index((int) (bond+.5))
         otocsfore[idx, bond] = (weightsfore[i][j] + weightsfore[i][k])/2
