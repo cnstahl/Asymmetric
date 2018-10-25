@@ -21,7 +21,7 @@ if (not field_strength is None):
     H = H + qm.get_local_field(z_list, np.random.rand(L)*2*h - h)
 
 Hlist  = asym.mat2list(H)
-Zlists = [asym.mat2list(Z) for Z in y_list]
+Zlists = [asym.mat2list(Z) for Z in z_list]
 vec = qm.get_vec_Haar(2**L)
 vecs = asym.arr2list(vec)
 
