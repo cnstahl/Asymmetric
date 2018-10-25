@@ -5,12 +5,12 @@ import quantum as qm
 #import matplotlib.pyplot as plt
 import os.path
 
-L     = 9
+L     = 14
 dense = True
 field_strength = 1
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
-# vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
-vs    = np.asarray([1, 3, 5, 7])
+vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
+# vs    = np.asarray([1, 3, 5, 7])
 bonds = np.arange(L-1)+.5
 
 prefix = 'data/zotocs_vb'
