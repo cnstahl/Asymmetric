@@ -13,7 +13,7 @@ vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
 sites = np.arange(L)
 
-prefix = 'data/zotoc_dense'
+prefix = 'data/zotoc_vb'
 H = asym.dense_H(L)
 _,x_list,y_list, z_list = qm.get_sigma_lists(L, half=False)
 if (not field_strength is None):
