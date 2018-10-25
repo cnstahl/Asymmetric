@@ -66,7 +66,7 @@ for idx, t in enumerate(times):
 otocsfore = np.zeros((len(vs), L-1))
 otocsback = np.zeros((len(vs), L-1))
 for idx, v in enumerate(vs):
-    for bond in range(L-1)+.5:
+    for bond in np.arange(L-1)+.5:
         t_need = bond/v
         for i, t in enumerate(times):
             if np.isclose(t,t_need): break
@@ -74,7 +74,7 @@ for idx, v in enumerate(vs):
         k = (sites_at_ts_fore[i]).index((int) (bond+.5))
         otocsfore[idx, bond] = (weightsfore[i][j] + weightsfore[i][k])/2
 
-    for dist in range(L-1)+.5:
+    for dist in np.arange(L-1)+.5:
         bond = L-dist-1
         t_need = dist/v
         for i, t in enumerate(times):
