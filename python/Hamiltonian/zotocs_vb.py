@@ -6,7 +6,7 @@ import quantum as qm
 import os.path
 import glob
 
-L     = 9
+L     = 14
 dense = True
 field_strength = 1
 nvecs = 2
