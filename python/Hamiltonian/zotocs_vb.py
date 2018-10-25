@@ -10,7 +10,7 @@ L     = 9
 dense = True
 field_strength = 1
 nvecs = 2
-cutoff = 30
+cutoff = 0
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
@@ -47,16 +47,16 @@ if (not field_strength is None):
 
 Hlist  = asym.mat2list(H)
 Zlists = [asym.mat2list(Z) for Z in z_list]
-s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
-s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
-s_weightsfore = []
-s_weightsback = []
-
-for idx, t in enumerate(times):
-    fore = asym.zotoc_ed_sites(Hlist, Zlists, sites_at_ts_fore[idx], t, fore=True)
-    back = asym.zotoc_ed_sites(Hlist, Zlists, sites_at_ts_back[idx], t, fore=False)
-    s_weightsfore.append(fore)
-    s_weightsback.append(back)
+# s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
+# s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
+# s_weightsfore = []
+# s_weightsback = []
+#
+# for idx, t in enumerate(times):
+#     fore = asym.zotoc_ed_sites(Hlist, Zlists, sites_at_ts_fore[idx], t, fore=True)
+#     back = asym.zotoc_ed_sites(Hlist, Zlists, sites_at_ts_back[idx], t, fore=False)
+#     s_weightsfore.append(fore)
+#     s_weightsback.append(back)
 
 l_Hlist  =  [H for H in Hlist  if H.shape[0]>=cutoff]
 l_Zlists = [[Z for Z in z_list if Z.shape[0]>=cutoff] for z_list in Zlists]
@@ -81,8 +81,10 @@ for n in range(nvecs-1):
         l_weightsfore[idx] += fore
         l_weightsback[idx] += back
 
-weightsfore = [s + l/nvecs for (s,l) in zip(s_weightsfore, l_weightsfore)]
-weightsback = [s + l/nvecs for (s,l) in zip(s_weightsback, l_weightsback)]
+# weightsfore = [s + l/nvecs for (s,l) in zip(s_weightsfore, l_weightsfore)]
+# weightsback = [s + l/nvecs for (s,l) in zip(s_weightsback, l_weightsback)]
+weightsfore = [l/nvecs for l in l_weightsfore]
+weightsback = [l/nvecs for l in l_weightsback]
 
 ####### Post processing #######
 
