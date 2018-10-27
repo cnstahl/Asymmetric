@@ -7,7 +7,7 @@ import time
 import glob
 
 num_trials = 10
-L     = 13
+L     = 5
 dense = True
 # Get vs list from loading
 sites = np.arange(L)
@@ -26,6 +26,7 @@ else:
 if (not pert_strength == 0):
     fix    = fix    + "_pert_"
     prefix = prefix + "_pert_"
+prefix = prefix+ "h" +str(h)
 
 # Load existing data
 

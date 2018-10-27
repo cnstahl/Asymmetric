@@ -5,7 +5,7 @@ import quantum as qm
 #import matplotlib.pyplot as plt
 import os.path
 
-L     = 13
+L     = 5
 dense = True
 #vs = np.asarray([5])
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
@@ -24,6 +24,7 @@ else:
     prefix = 'data/otoc_sparse'
 if (not pert_strength == 0):
     prefix = prefix + "_pert_"
+prefix = prefix + "h" + str(h)
 H = H + asym.init_pert(L, pert_strength)
 H = H + asym.finl_pert(L, pert_strength)
 H = H + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
