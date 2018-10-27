@@ -6,13 +6,13 @@ import time
 #import matplotlib.pyplot as plt
 import glob
 
-num_trials = 3
+num_trials = 10
 L     = 13
 dense = True
 # Get vs list from loading
 sites = np.arange(L)
-pert_strength = 2.5
-h = 2
+pert_strength = 0
+h = 1/2
 _, _, _, sig_z_list = qm.get_sigma_lists(L)
 
 if (dense):
