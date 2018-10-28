@@ -2,17 +2,17 @@ import numpy as np
 import asymmetric as asym
 import glob
 
-runs = 1
-L = 11
-end = 3
-n = 20
+runs = 5
+L = 9
+end = 20
+n = 3
 
 here = True
 pauli = True
 Azero = True
 Aplus = False
 Amult = False
-field_strength = 1
+field_strength = .5
 dot_strength = 0
 
 prefix = "data/weights_L"+str(L)+"end"+str(end)+"n"+str(n)+"_"+str(int(here))+ \
