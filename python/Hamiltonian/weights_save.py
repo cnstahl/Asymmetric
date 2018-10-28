@@ -3,7 +3,7 @@ import asymmetric as asym
 import glob
 
 runs = 5
-L = 9
+L = 10
 end = 20
 n = 3
 

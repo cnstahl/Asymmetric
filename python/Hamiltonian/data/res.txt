@@ -1,16 +1,10 @@
-Traceback (most recent call last):
-  File "otocs_more.py", line 126, in <module>
-    otocsfore_all = np.append(otocsfore_all, otocsfore, axis=1)
-  File "/group/cmtheory/cnstahl/group/cmtheory/cnstahl/lib/python3.6/site-packages/numpy/lib/function_base.py", line 5166, in append
-    return concatenate((arr, values), axis=axis)
-numpy.core._internal.AxisError: axis 1 is out of bounds for array of dimension 1
-trials: 0 seconds: 1356.8985345363617
-trials: 1 seconds: 2698.6990687847137
-trials: 2 seconds: 4055.9328968524933
-trials: 3 seconds: 5399.902174472809
-trials: 4 seconds: 6743.123576879501
-trials: 5 seconds: 8084.437410831451
-trials: 6 seconds: 9427.944576263428
-trials: 7 seconds: 10769.759288072586
-trials: 8 seconds: 12114.208684921265
-trials: 9 seconds: 13458.812706947327
+trials: 0 seconds: 91.06734299659729
+trials: 1 seconds: 182.4473602771759
+trials: 2 seconds: 273.5736970901489
+trials: 3 seconds: 364.0819799900055
+trials: 4 seconds: 454.95856046676636
+trials: 5 seconds: 545.6132130622864
+trials: 6 seconds: 636.5570065975189
+trials: 7 seconds: 727.8657183647156
+trials: 8 seconds: 818.5320227146149
+trials: 9 seconds: 909.2544255256653
