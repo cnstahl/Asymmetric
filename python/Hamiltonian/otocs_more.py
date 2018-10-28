@@ -7,12 +7,12 @@ import time
 import glob
 
 num_trials = 10
-L     = 12
+L     = 4
 dense = True
 # Get vs list from loading
 sites = np.arange(L)
 pert_strength = 0
-h = .1
+h = .5
 _, _, _, sig_z_list = qm.get_sigma_lists(L)
 
 if (dense):
@@ -58,7 +58,7 @@ H0 = H + asym.finl_pert(L, pert_strength)
 start = time.time()
 for q in range(num_trials):
     H = H0 + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
-    Hlist = asym.mat2list(H)
+    Hlist = [H.A]
     vals_list = []
     vecs_list = []
     vecsd_list = []
