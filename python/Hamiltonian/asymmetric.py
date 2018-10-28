@@ -161,13 +161,13 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
         Atlist = []
         for idx, val in enumerate(Alist):
             Atlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
-        At = list2mat(Atlist)
+        At = sparse.csr_matrix(Atlist[0])
 
         Blist = [B]
         Btlist = []
         for idx, val in enumerate(Blist):
             Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
-        Bt = list2mat(Btlist)
+        Bt = sparse.csr_matrix(Btlist[0])
 
         # Get weights
         front = 1
@@ -184,7 +184,6 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
             ret.append(weightback.copy())
         if (pauli):
             for j in range(L):
-                print(type(At))
                 At = qm.end_trace(At,1)
                 Bt = qm.front_trace(Bt,1)
                 fronthere = qm.mat_norm(At)
