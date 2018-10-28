@@ -157,13 +157,13 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
     # For each requested init, evolve it forward then get weightsback
     for idx, (A,B) in enumerate(x for x in [A0, A1, A2] if (x != None)):
         # Evolve Forward
-        Alist = arr2list(A)
+        Alist = [A]
         Atlist = []
         for idx, val in enumerate(Alist):
             Atlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
         At = list2mat(Atlist)
 
-        Blist = arr2list(B)
+        Blist = [B]
         Btlist = []
         for idx, val in enumerate(Blist):
             Btlist.append(np.matmul(uinvlist[idx] * val, ulist[idx]))
@@ -184,6 +184,7 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
             ret.append(weightback.copy())
         if (pauli):
             for j in range(L):
+                print(type(At))
                 At = qm.end_trace(At,1)
                 Bt = qm.front_trace(Bt,1)
                 fronthere = qm.mat_norm(At)
@@ -209,7 +210,7 @@ def get_vecs_vals(L, dense=True, dot_strength=None, field_strength=None):
                                qm.get_sigma_lists(L))
         h = field_strength
         H = H + qm.get_local_field(sig_z_list, np.random.rand(L)*2*h - h)
-    Hlist = mat2list(H)
+    Hlist = [H.A]
     # Diagonalize
     vals_list = []
     vecs_list = []
