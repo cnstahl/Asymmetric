@@ -6,12 +6,12 @@ import time
 #import matplotlib.pyplot as plt
 import glob
 
-num_trials = 10
+num_trials = 4
 L     = 12
 dense = True
 # Get vs list from loading
 sites = np.arange(L)
-pert_strength = 0
+pert_strength = 2
 h = .5
 _, _, _, sig_z_list = qm.get_sigma_lists(L)
 
