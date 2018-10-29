@@ -22,7 +22,7 @@ def sparse_Hmult(l):
 
 def sparse_H(l):
     if (l%2 != 1): assert False, "l must be odd"
-    return sparse_Hmult(l) * 1j / 8
+    return sparse_Hmult(l) * (2j * np.pi)/(3 * np.sqrt(3))
 
 def dense_Hmult(l):
     if (l==3): return H3mult
@@ -33,7 +33,7 @@ def dense_Hmult(l):
 
 def dense_H(l):
     if (l < 3): assert False, "l must be >=3"
-    return dense_Hmult(l) * 1j / 8
+    return dense_Hmult(l) * (2j * np.pi)/(3 * np.sqrt(3))
 
 
 def init_pert(L, pert_strength):
