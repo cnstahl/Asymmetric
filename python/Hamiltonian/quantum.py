@@ -34,14 +34,15 @@ def mat_norm(A):
 
 # get r value (average ratio between adjacent gaps) from a matrix
 def get_r(mat, avg=True, frac=1/3, nonz=False):
-    vals, _ = la.eigh(mat)
+    vals = la.eigvalsh(mat)
     # print(vals)
     if nonz:
         vals = vals[np.isclose(np.isclose(vals,0),0)]
         vals = vals[vals<0]
         size = (int) (len(vals)*frac*2)
         vals = vals[range(len(vals)-size, len(vals))]
-    else: print(not supported)
+    else:
+        vals = vals[(int)(len(vals/L)) : (int)(2*len(vals)/3)]
     # print(vals)
     delta = (vals - np.roll(vals, 1))[1:]
     stats = (np.minimum(delta, np.roll(delta, 1)) / np.maximum(delta, np.roll(delta, 1)))[1:]
