@@ -6,13 +6,13 @@ import quantum as qm
 import os.path
 import glob
 
-L     = 14
+L     = 12
 dense = True
 field_strength = 1
 nvecs = 2
 cutoff = 0
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
-vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
+vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])/6
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
 sites = np.arange(L)
 
@@ -46,7 +46,7 @@ if (not field_strength is None):
     H = H + qm.get_local_field(z_list, np.random.rand(L)*2*h - h)
 
 Hlist  = asym.mat2list(H)
-Zlists = [asym.mat2list(Z) for Z in x_list]
+Zlists = [asym.mat2list(Z) for Z in z_list]
 # s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
 # s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
 # s_weightsfore = []
