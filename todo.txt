@@ -1,15 +1,10 @@
 Thesis to do
 
-Coding
-  Parallelize!
-Don't recalculate Alist each time
-
+Peaks and OTOCs at L = 12
+Rewrite code from scratch
 
 What is pass2?
 Why is slurm so slow?
-Peaks at L=14
-OTOCs at L=14
-Make Krylov work
 
 —————————
 
