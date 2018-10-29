@@ -12,7 +12,7 @@ pauli = True
 Azero = True
 Aplus = False
 Amult = False
-field_strength = .5
+field_strength = 0
 dot_strength = 0
 
 prefix = "data/weights_L"+str(L)+"end"+str(end)+"n"+str(n)+"_"+str(int(here))+ \
