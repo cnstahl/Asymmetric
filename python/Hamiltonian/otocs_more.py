@@ -12,7 +12,7 @@ dense = True
 # Get vs list from loading
 sites = np.arange(L)
 pert_strength = 0
-h = .1
+h = .5
 _, _, _, sig_z_list = qm.get_sigma_lists(L)
 
 if (dense):
