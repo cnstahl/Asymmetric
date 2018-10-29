@@ -4,8 +4,8 @@ import glob
 
 runs = 1
 L = 12
-end = 3
-n = 20
+end = 20
+n = 3
 
 here = True
 pauli = True
