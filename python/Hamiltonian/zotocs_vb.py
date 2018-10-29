@@ -8,7 +8,7 @@ import glob
 
 L     = 12
 dense = True
-field_strength = 1
+field_strength = .2
 nvecs = 2
 cutoff = 0
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
@@ -16,7 +16,7 @@ vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])/6
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
 sites = np.arange(L)
 
-prefix = 'data/zotoc_vbL' + str(L) + "#"
+prefix = 'data/zotoc_vbL' + str(L) + 'h' + str(field_strength) + "#"
 times = []
 for v in vs: times.extend(sites/v)
 times = list(dict.fromkeys(times))
