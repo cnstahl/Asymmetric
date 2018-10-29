@@ -16,7 +16,7 @@ vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])/6
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
 sites = np.arange(L)
 
-prefix = 'data/yotoc_vbL' + str(L) + "#"
+prefix = 'data/zotoc_vbL' + str(L) + "#"
 times = []
 for v in vs: times.extend(sites/v)
 times = list(dict.fromkeys(times))
