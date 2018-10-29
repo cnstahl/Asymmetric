@@ -9,10 +9,10 @@ L     = 11
 dense = True
 #vs = np.asarray([5])
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
-vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])
+vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18, 24])
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
 sites = np.arange(L)
-pert_strength = .5
+pert_strength = 4
 h = 0
 _, _, _, sig_z_list = qm.get_sigma_lists(L)
 
