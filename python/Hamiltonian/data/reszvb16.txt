@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "zotocs_vb.py", line 43, in <module>
+    _,x_list,y_list, z_list = qm.get_sigma_lists(L, half=False)
+  File "/home/cnstahl/thesis/python/Hamiltonian/quantum.py", line 80, in get_sigma_lists
+    sig0 = ident(2**L)
+  File "/home/cnstahl/thesis/python/Hamiltonian/quantum.py", line 13, in ident
+    return sparse.csr_matrix(np.eye(len))
+  File "/group/cmtheory/cnstahl/group/cmtheory/cnstahl/lib/python3.6/site-packages/numpy/lib/twodim_base.py", line 186, in eye
+    m = zeros((N, M), dtype=dtype, order=order)
+MemoryError

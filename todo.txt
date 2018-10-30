@@ -1,10 +1,9 @@
 Thesis to do
 
-Peaks and OTOCs at L = 12
-Rewrite code from scratch
+Change approach based on block size
+Average over vector, disorder properly
+Get error in lambda from disorder
 
-What is pass2?
-Why is slurm so slow?
 
 —————————
 

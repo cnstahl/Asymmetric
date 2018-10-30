@@ -1,19 +1,20 @@
 import quantum as qm
 import scipy.special
 import scipy.sparse as sparse
+import scipy.sparse.linalg as spla
 import scipy.linalg as  la
 import numpy as np
 
 ident = qm.ident
 
 H3mult = sparse.csr_matrix([[0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 0],
-               [0 ,  0 ,  1 ,  0 , -1 ,  0 ,  0 , 0],
-               [0 , -1 ,  0 ,  0 ,  1 ,  0 ,  0 , 0],
-               [0 ,  0 ,  0 ,  0 ,  0 , -1 ,  1 , 0],
-               [0 ,  1 , -1 ,  0 ,  0 ,  0 ,  0 , 0],
-               [0 ,  0 ,  0 ,  1 ,  0 ,  0 , -1 , 0],
-               [0 ,  0 ,  0 , -1 ,  0 ,  1 ,  0 , 0],
-               [0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 0]])
+                            [0 ,  0 ,  1 ,  0 , -1 ,  0 ,  0 , 0],
+                            [0 , -1 ,  0 ,  0 ,  1 ,  0 ,  0 , 0],
+                            [0 ,  0 ,  0 ,  0 ,  0 , -1 ,  1 , 0],
+                            [0 ,  1 , -1 ,  0 ,  0 ,  0 ,  0 , 0],
+                            [0 ,  0 ,  0 ,  1 ,  0 ,  0 , -1 , 0],
+                            [0 ,  0 ,  0 , -1 ,  0 ,  1 ,  0 , 0],
+                            [0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 0]])
 
 def sparse_Hmult(l):
     if (l==3): return H3mult
@@ -74,7 +75,7 @@ def mat2list(matrix):
     j = 0
     for i in range(L+1):
         k = j + (int) (scipy.special.comb(L,i))
-        A.append(diag[j:k, j:k].A)
+        A.append(diag[j:k, j:k])
         j = k
     return A
 
@@ -99,18 +100,68 @@ def arr2list(array):
         j = k
     return A
 
-# def list2arr(A):
-#     L = len(A) - 1
-#     alph2Sz, Sz2alph = permutations(L)
-#     diag = la.block_diag(*A)
-#     mat = diag[Sz2alph]
-#    return mat[:,Sz2alph]
+# Get zotocs, exactly, using full Hilbert space
+def zotoc_ed_sites(Hlist, Zlists, sites, t, fore=True):
+    Z0list = Zlists[0] if fore else Zlists[-1]
+    Ulist    = [spla.expm(-1j*H*t) for H in Hlist]
+    Ulistinv = [spla.expm( 1j*H*t) for H in Hlist]
+    Z0tlist  = [Ui@Z0@U for (Ui, Z0, U) in zip(Ulistinv, Z0list, Ulist)]
+
+    OTOCs = np.zeros(len(sites))
+    for idx, site in enumerate(sites):
+        corr = [Z0t@Zi@Z0t@Zi for (Z0t, Zi) in zip(Z0tlist, Zlists[site])]
+        OTOCs[idx] = 1-sum([c.diagonal().sum().real for c in corr])/2**len(Zlists)
+    return OTOCs
+
+def zotoc_mat_exact(L, Hlist, Zlists, end=20, n=3, fore=True):
+    tot = end*n
+    sites = range(L)
+
+    OTOCs = np.zeros((L,tot))
+    for T in range(tot):
+        t = T/n
+        OTOCs[:, T] = zotoc_ed_sites(Hlist, Zlists, sites, t, fore)
+    return OTOCs
+
+# Get zotocs, using expm_multiply, projecting onto a vector
+def zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore=True):
+    e = spla.expm_multiply
+    Z0list = Zlists[0] if fore else Zlists[-1]
+    vbs  = [e(1j*H*t, Z0@e(-1j*H*t, vec)) for (H, Z0, vec) in zip(Hlist, Z0list, vecs)]
+
+    OTOCs = np.zeros(len(sites))
+    for idx, site in enumerate(sites):
+        v1s = [e(1j*H*t, Z0@e(-1j*H*t, Zi@vec)) for (H, Z0, vec, Zi) in zip(Hlist, Z0list, vecs, Zlists[site])]
+        v2s = [Zi@vb for (Zi, vb) in zip(Zlists[site], vbs)]
+        OTOCs[idx] = 1-sum([v2.conj().T@v1 for (v1, v2) in zip(v1s, v2s)]).real
+    return OTOCs
+
+def zotoc_vec_expm(L, Hlist, vecs, Zlists, end=20, n=3, fore=True):
+    tot = end*n
+    sites = range(L)
+
+    OTOCs = np.zeros((L,tot))
+    for T in range(tot):
+        t = T/n
+        OTOCs[:, T] = zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore)
+    return OTOCs
+
+# Use hybrid methods for blocks
+def zotoc_hy_sites(Hlist, vecs, Zlists, sites, t, fore=True):
+    not implemented
+    s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
+    s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
+
+    l_Hlist  =  [H for H in Hlist  if H.shape[0]>=cutoff]
+    l_Zlists = [[Z for Z in z_list if Z.shape[0]>=cutoff] for z_list in Zlists]
+    l_vecs  =   [v for v in vecs   if len(v)>=cutoff]
+
+    return zotoc_ed_sites(s_Hlist, s_Zlists, sites, t, fore)
 
 # Get weights at some sites at a given time
 # Do here and/or pauli, and any inits we might want
 def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
-                                here=True, pauli=False, Azero=True,
-                                Aplus=False, Amult=False):
+                                here=True, pauli=False, As=[]):
     # Size of return array
     num_weights = (Azero+Aplus+Amult) * (pauli+here) * 2 # For front and back
     # ret = np.zeros((num_weights, L))
@@ -127,35 +178,8 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
         uinvlist.append(np.matmul(vecs * np.exp( 1j*vals_list[idx]*t),
                                   vecsd_list[idx]))
 
-    # Make init matrices
-    A0 = None; A1 = None; A2 = None
-    if (Azero):
-        A = np.array([1, -1])
-        for i in range(L-1):
-            A = np.kron(A,np.array([1,1]))
-        B = np.array([1, -1])
-        for i in range(L-1):
-            B = np.kron(np.array([1,1]),B)
-        A0 = (A,B)
-    if (Aplus):
-        A = np.array([1, 0, 0, -1])*np.sqrt(2)
-        for i in range(L-2):
-            A = np.kron(A,np.array([1,1]))
-        B = np.array([1, 0, 0, -1])*np.sqrt(2)
-        for i in range(L-2):
-            B = np.kron(np.array([1,1]),B)
-        A1 = (A,B)
-    if (Amult):
-        A = np.array([1, -1, -1, 1])
-        for i in range(L-2):
-            A = np.kron(A,np.array([1,1]))
-        B = np.array([1, -1, -1, 1])
-        for i in range(L-2):
-            B = np.kron(np.array([1,1]),B)
-        A2 = (A,B)
-
     # For each requested init, evolve it forward then get weightsback
-    for idx, (A,B) in enumerate(x for x in [A0, A1, A2] if (x != None)):
+    for idx, (A,B) in enumerate(As):
         # Evolve Forward
         Alist = arr2list(A)
         Atlist = []
@@ -222,26 +246,6 @@ def get_vecs_vals(L, dense=True, dot_strength=None, field_strength=None):
 
     return vals_list, vecs_list, vecsd_list
 
-# Get (L x N) matrix containing all weights of a single type for a A_0
-def get_plot_weights(L, end, n, here=True, dense=True,
-                    dot_strength=None, field_strength=None):
-    pauli = not here
-    vals_list, vecs_list, vecsd_list = get_vecs_vals(L, dense, dot_strength,
-                                                     field_strength)
-    N = n*end
-    # Get weights we want
-    weightfore = np.empty((L, N))
-    weightback = np.empty((L, N))
-
-    for i in np.arange(N):
-        t = i/n
-        weightfore[:,i], weightback[:,i] = \
-                    get_weights_from_time_sites(L, t, range(L), vals_list,
-                                                vecs_list, vecsd_list,
-                                                here=here, pauli=pauli)
-
-    return weightfore, weightback
-
 # Get all available data
 def get_all_weights(L, end, n, here=True, pauli=None, dense=True,
                     dot_strength=None, field_strength=None,
@@ -255,11 +259,38 @@ def get_all_weights(L, end, n, here=True, pauli=None, dense=True,
     vals_list, vecs_list, vecsd_list = get_vecs_vals(L, dense, dot_strength,
                                                      field_strength)
 
+    # Make init matrices
+    As = []
+    if (Azero):
+        A = np.array([1, -1])
+        for i in range(L-1):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, -1])
+        for i in range(L-1):
+            B = np.kron(np.array([1,1]),B)
+        As.append((A,B))
+    if (Aplus):
+        A = np.array([1, 0, 0, -1])*np.sqrt(2)
+        for i in range(L-2):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, 0, 0, -1])*np.sqrt(2)
+        for i in range(L-2):
+            B = np.kron(np.array([1,1]),B)
+        As.append((A,B))
+    if (Amult):
+        A = np.array([1, -1, -1, 1])
+        for i in range(L-2):
+            A = np.kron(A,np.array([1,1]))
+        B = np.array([1, -1, -1, 1])
+        for i in range(L-2):
+            B = np.kron(np.array([1,1]),B)
+        As.append((A,B))
+
     # Get all the weights we want at each time
     for i in np.arange(N):
         t = i/n
         ret[:,:,i] = get_weights_from_time_sites(L, t, range(L), vals_list,
                                                  vecs_list, vecsd_list,
-                                                 here,pauli, Azero,Aplus,Amult)
+                                                 here,pauli, As)
 
     return ret

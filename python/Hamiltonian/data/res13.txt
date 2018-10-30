@@ -1,2 +1,0 @@
-slurmstepd: error: *** JOB 587320 ON node103 CANCELLED AT 2018-10-10T11:09:53 DUE TO TIME LIMIT ***
-slurmstepd: error: Exceeded step memory limit at some point.

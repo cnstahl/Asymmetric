@@ -34,14 +34,15 @@ def mat_norm(A):
 
 # get r value (average ratio between adjacent gaps) from a matrix
 def get_r(mat, avg=True, frac=1/3, nonz=False):
-    vals, _ = la.eigh(mat)
+    vals = la.eigvalsh(mat)
     # print(vals)
     if nonz:
         vals = vals[np.isclose(np.isclose(vals,0),0)]
         vals = vals[vals<0]
         size = (int) (len(vals)*frac*2)
         vals = vals[range(len(vals)-size, len(vals))]
-    else: print(not supported)
+    else:
+        vals = vals[(int)(len(vals/L)) : (int)(2*len(vals)/3)]
     # print(vals)
     delta = (vals - np.roll(vals, 1))[1:]
     stats = (np.minimum(delta, np.roll(delta, 1)) / np.maximum(delta, np.roll(delta, 1)))[1:]
@@ -67,12 +68,12 @@ def get_vec_Haar(N):
 ## Sigma Matrices                                                             ##
 ################################################################################
 
-I      = sparse.csr_matrix([[ 1,  0],[ 0,  1]])
+I      = sparse.csr_matrix([[1., 0.],[0., 1.]])
 sig_x  = sparse.csr_matrix([[0., 1.],[1., 0.]])
-sig_y  = sparse.csr_matrix([[ 0,-1j],[1j,  0]])
-sig_z  = sparse.csr_matrix([[ 1,  0],[ 0, -1]])
+sig_y  = sparse.csr_matrix([[0.,-1j],[1j, 0.]])
+sig_z  = sparse.csr_matrix([[1., 0.],[0.,-1.]])
 
-def get_sigma_lists(L):
+def get_sigma_lists(L, half = False):
     sig_0_list = []
     sig_x_list = []
     sig_y_list = []
@@ -83,6 +84,7 @@ def get_sigma_lists(L):
             X = sig_x
             Y = sig_y
             Z = sig_z
+            if half: X/=2; Y/=2; Z/=2
         else:
             X = I
             Y = I
@@ -92,6 +94,7 @@ def get_sigma_lists(L):
                 X = sparse.kron(X, sig_x, 'csr')
                 Y = sparse.kron(Y, sig_y, 'csr')
                 Z = sparse.kron(Z, sig_z, 'csr')
+                if half: X/=2; Y/=2; Z/=2
             else:
                 X = sparse.kron(X, I,     'csr')
                 Y = sparse.kron(Y, I,     'csr')
