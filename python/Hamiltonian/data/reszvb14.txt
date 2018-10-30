@@ -1,1 +1,9 @@
-slurmstepd: error: *** JOB 631175 ON node116 CANCELLED AT 2018-10-25T19:14:42 ***
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.

@@ -6,13 +6,13 @@ import quantum as qm
 import os.path
 import glob
 
-L     = 12
+L     = 15
 dense = True
 field_strength = .2
 nvecs = 2
 cutoff = 0
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
-vs    = np.asarray([1, 2, 3, 4, 6, 8, 12, 16, 18])/6
+vs    = np.asarray([.5, .75, .8, .9, 1, 1.1, 1.2, 1.35, 1.5, 2, 2.5, 3])
 #vs    = np.asarray([1, 3, 5, 7, 9, 12, 15, 18, 20])
 sites = np.arange(L)
 
