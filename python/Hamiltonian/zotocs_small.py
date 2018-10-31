@@ -6,8 +6,8 @@ import glob
 
 runs = 1
 L = 11
-end = 20
-n = 5
+end = 5
+n = 20
 tot = end*n
 field_strength = .2
 
@@ -41,8 +41,8 @@ l_Z0list =  [Z for Z in Z0list if Z.shape[0]>=cutoff]
 l_vecs  =   [v for v in vecs   if len(v)>=cutoff]
 
 # Use different methods for small and large blocks
-OTOCs = asym.zotoc_mat_exact(L, s_Hlist, s_Z0list, s_Zlists, end=20, n=3) + \
-        asym.zotoc_vec_expm( L, l_Hlist, l_Z0list, l_vecs, l_Zlists)
+OTOCs = asym.zotoc_mat_exact(L, s_Hlist, s_Zlists, end, n, i=(int)(L/2)) + \
+        asym.zotoc_vec_expm( L, l_Hlist, l_vecs, l_Zlists, end, n, i=(int)(L/2))
 
 # Save data
 existing = glob.glob(prefix + "*.npy")

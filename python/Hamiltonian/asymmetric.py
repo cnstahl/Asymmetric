@@ -101,8 +101,9 @@ def arr2list(array):
     return A
 
 # Get zotocs, exactly, using full Hilbert space
-def zotoc_ed_sites(Hlist, Zlists, sites, t, fore=True):
-    Z0list = Zlists[0] if fore else Zlists[-1]
+def zotoc_ed_sites(Hlist, Zlists, sites, t, fore=True, i=None):
+    if (i==None): Z0list = Zlists[0] if fore else Zlists[-1]
+    else: Z0list = Zlists[i]
     Ulist    = [spla.expm(-1j*H*t) for H in Hlist]
     Ulistinv = [spla.expm( 1j*H*t) for H in Hlist]
     Z0tlist  = [Ui@Z0@U for (Ui, Z0, U) in zip(Ulistinv, Z0list, Ulist)]
@@ -113,20 +114,21 @@ def zotoc_ed_sites(Hlist, Zlists, sites, t, fore=True):
         OTOCs[idx] = 1-sum([c.diagonal().sum().real for c in corr])/2**len(Zlists)
     return OTOCs
 
-def zotoc_mat_exact(L, Hlist, Zlists, end=20, n=3, fore=True):
+def zotoc_mat_exact(L, Hlist, Zlists, end=20, n=3, fore=True i=None):
     tot = end*n
     sites = range(L)
 
     OTOCs = np.zeros((L,tot))
     for T in range(tot):
         t = T/n
-        OTOCs[:, T] = zotoc_ed_sites(Hlist, Zlists, sites, t, fore)
+        OTOCs[:, T] = zotoc_ed_sites(Hlist, Zlists, sites, t, fore, i)
     return OTOCs
 
 # Get zotocs, using expm_multiply, projecting onto a vector
-def zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore=True):
+def zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore=True, i=None):
     e = spla.expm_multiply
-    Z0list = Zlists[0] if fore else Zlists[-1]
+    if (i==None): Z0list = Zlists[0] if fore else Zlists[-1]
+    else: Z0list = Zlists[i]
     vbs  = [e(1j*H*t, Z0@e(-1j*H*t, vec)) for (H, Z0, vec) in zip(Hlist, Z0list, vecs)]
 
     OTOCs = np.zeros(len(sites))
@@ -136,14 +138,14 @@ def zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore=True):
         OTOCs[idx] = 1-sum([v2.conj().T@v1 for (v1, v2) in zip(v1s, v2s)]).real
     return OTOCs
 
-def zotoc_vec_expm(L, Hlist, vecs, Zlists, end=20, n=3, fore=True):
+def zotoc_vec_expm(L, Hlist, vecs, Zlists, end=20, n=3, fore=True i=None):
     tot = end*n
     sites = range(L)
 
     OTOCs = np.zeros((L,tot))
     for T in range(tot):
         t = T/n
-        OTOCs[:, T] = zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore)
+        OTOCs[:, T] = zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore, i)
     return OTOCs
 
 # Use hybrid methods for blocks
