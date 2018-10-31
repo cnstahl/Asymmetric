@@ -5,7 +5,7 @@ import scipy.sparse.linalg as spla
 import glob
 
 runs = 1
-L = 15
+L = 11
 end = 20
 n = 5
 tot = end*n
@@ -23,7 +23,7 @@ if (not field_strength is None):
 
 Hlist  = asym.mat2list(H)
 Zlists = [asym.mat2list(Z) for Z in z_list]
-Z0list = Zlists[0]
+Z0list = Zlists[(int)(L/2)]
 
 vec = qm.get_vec_Haar(2**L)
 vecs = asym.arr2list(vec)
