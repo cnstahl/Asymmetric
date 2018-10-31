@@ -5,9 +5,9 @@ import scipy.sparse.linalg as spla
 import glob
 
 runs = 1
-L = 11
-end = 7
-n = 20
+L = 15
+end = 10
+n = 4
 tot = end*n
 field_strength = .2
 
