@@ -6,7 +6,7 @@ import glob
 
 runs = 1
 L = 11
-end = 5
+end = 7
 n = 20
 tot = end*n
 field_strength = .2
