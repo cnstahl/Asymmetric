@@ -114,7 +114,7 @@ def zotoc_ed_sites(Hlist, Zlists, sites, t, fore=True, i=None):
         OTOCs[idx] = 1-sum([c.diagonal().sum().real for c in corr])/2**len(Zlists)
     return OTOCs
 
-def zotoc_mat_exact(L, Hlist, Zlists, end=20, n=3, fore=True i=None):
+def zotoc_mat_exact(L, Hlist, Zlists, end=20, n=3, fore=True, i=None):
     tot = end*n
     sites = range(L)
 
@@ -138,7 +138,7 @@ def zotoc_vec_sites(Hlist, vecs, Zlists, sites, t, fore=True, i=None):
         OTOCs[idx] = 1-sum([v2.conj().T@v1 for (v1, v2) in zip(v1s, v2s)]).real
     return OTOCs
 
-def zotoc_vec_expm(L, Hlist, vecs, Zlists, end=20, n=3, fore=True i=None):
+def zotoc_vec_expm(L, Hlist, vecs, Zlists, end=20, n=3, fore=True, i=None):
     tot = end*n
     sites = range(L)
 

@@ -29,7 +29,7 @@ vec = qm.get_vec_Haar(2**L)
 vecs = asym.arr2list(vec)
 
 # Break into small and large blocks
-cutoff = 500
+cutoff = 00
 
 s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
 s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
