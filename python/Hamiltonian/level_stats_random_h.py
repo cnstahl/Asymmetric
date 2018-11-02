@@ -4,18 +4,13 @@ import asymmetric as asym
 import scipy.sparse as sparse
 import scipy.linalg as la
 
-L = 11
-trials = 20
-levels = 10
-rs = np.zeros((trials, levels))
-hs = np.linspace(1,10, levels)
-
 levels = 25
 Ls = [8, 10, 12, 14]
 data = np.zeros((len(Ls),2,levels))
 for i, L in enumerate(Ls):
 
     trials = 260 - 20*L
+    if (trials < 10): trials = 10
     rs = np.zeros((trials, levels))
     hs = np.logspace(-1,2, levels)
 
