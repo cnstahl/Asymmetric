@@ -33,11 +33,9 @@ cutoff = 00
 
 s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
 s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
-s_Z0list =  [Z for Z in Z0list if Z.shape[0]<cutoff]
 
 l_Hlist  =  [H for H in Hlist  if H.shape[0]>=cutoff]
 l_Zlists = [[Z for Z in z_list if Z.shape[0]>=cutoff] for z_list in Zlists]
-l_Z0list =  [Z for Z in Z0list if Z.shape[0]>=cutoff]
 l_vecs  =   [v for v in vecs   if len(v)>=cutoff]
 
 # Use different methods for small and large blocks

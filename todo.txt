@@ -1,8 +1,11 @@
 Thesis to do
 
+Find cutoff 
 Change approach based on block size
+Get small vals, vecs
 Average over vector, disorder properly
 Get error in lambda from disorder
+Put figures in with skeleton text
 
 
 —————————

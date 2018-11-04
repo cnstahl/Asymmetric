@@ -149,14 +149,18 @@ def zotoc_vec_expm(L, Hlist, vecs, Zlists, end=20, n=3, fore=True, i=None):
     return OTOCs
 
 # Use hybrid methods for blocks
-def zotoc_hy_sites(Hlist, vecs, Zlists, sites, t, fore=True):
-    not implemented
+def zotoc_hy_sites(Hlist, Zlists, sites, t, nvecs=5, cutoff=70, fore=True, i=None):
+    # Small ones first
     s_Hlist  =  [H for H in Hlist  if H.shape[0]<cutoff]
     s_Zlists = [[Z for Z in z_list if Z.shape[0]<cutoff] for z_list in Zlists]
+    s_weightsfore = []
+    s_weightsback = []
+    s_OTOCs = asym.zotoc_ed_sites(Hlist, Zlists, sites, t, fore, i)
 
     l_Hlist  =  [H for H in Hlist  if H.shape[0]>=cutoff]
     l_Zlists = [[Z for Z in z_list if Z.shape[0]>=cutoff] for z_list in Zlists]
-    l_vecs  =   [v for v in vecs   if len(v)>=cutoff]
+    for _ in range(nvecs):
+        l_vecs  =   [v for v in vecs   if len(v)>=cutoff]
 
     return zotoc_ed_sites(s_Hlist, s_Zlists, sites, t, fore)
 
