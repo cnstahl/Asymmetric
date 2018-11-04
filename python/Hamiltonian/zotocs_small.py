@@ -11,7 +11,7 @@ n = 5
 tot = end*n
 field_strength = .2
 # Break into small and large blocks, do large blocks nvecs times
-cutoff = 500
+cutoff = 300
 nvecs = 5
 
 prefix = "data/zotocs_L"+str(L)+"end"+str(end)+"n"+str(n)+"_"+ \
