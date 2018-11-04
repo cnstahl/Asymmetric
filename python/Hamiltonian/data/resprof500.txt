@@ -1,5 +1,0 @@
-/group/cmtheory/cnstahl/group/cmtheory/cnstahl/lib/python3.6/site-packages/scipy/sparse/linalg/dsolve/linsolve.py:295: SparseEfficiencyWarning: splu requires CSC matrix format
-  warn('splu requires CSC matrix format', SparseEfficiencyWarning)
-/group/cmtheory/cnstahl/group/cmtheory/cnstahl/lib/python3.6/site-packages/scipy/sparse/linalg/dsolve/linsolve.py:202: SparseEfficiencyWarning: spsolve is more efficient when sparse b is in the CSC matrix format
-  'is in the CSC matrix format', SparseEfficiencyWarning)
-slurmstepd: error: Exceeded step memory limit at some point.
