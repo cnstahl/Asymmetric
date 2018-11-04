@@ -10,7 +10,7 @@
 
 \newcommand{\vedika}[1]{ {\color{red} {{#1}}}}
 \newcommand{\david}[1]{ {\color{blue} {{#1}}}}
-\newcommand{\adam}[1]{ {\color{Magenta} {{#1}}}}
+\newcommand{\charlie}[1]{ {\color{Magenta} {{#1}}}}
 
 \newcommand{\Tr}{ \mbox{Tr}}
 \newcommand{\vb}{v_B}
@@ -34,12 +34,63 @@
 \affiliation{\mbox{Department of Physics, Harvard University, Cambridge, MA 02138, USA}}
 
 \begin{abstract}
-We have asymmetric butterfly velocities.
+The butterfly velocity $v_B$ is the velocity at which initially local operators spread. In many 1-D systems this velocity is independent of the direction of spreading. This need not be the case. In fact, with arbitrarily nonlocal Hamiltonians, or arbitrarily deep circuit models, the ratio of the two butterfly velocities may be made arbitrarily large. We provide a class of circuits whose limiting behavior shows this arbitrarily large ratio. We also describe a local Hamiltonian with an asymmetric $v_B$, presenting various methods to measure the asymmetry.
 \end{abstract}
 
 \maketitle
 
-We'll want to cite a bunch of people~\cite{Lieb72,Larkinotoc,KitaevSYK,chaosbound,HosurYoshida,ShenkerStanfordButterfly,LocalizedShocks,CotlerRM,RobertsStanford,GuQiStanford,GuQi_rcft,StanfordWeakCoupling,PatelDiffusiveMetal,ChowdhuryON,Galitski_lyapunov,DoraMoessner,LuitzScrambling,ProsenWeakChaos,AleinerOTOC,MotrunichTFIM_otoc,FradkinHuse,ChalkerFloquetChaos,FawziScrambling,opspreadAdam, opspreadCurt, TiborCons, KhemaniCons}.
+\section{Introduction}
+
+Thermalization is important because\dots
+
+In this paper we will\dots
+
+\pagebreak
+
+\section{Circuit models with asymmetric $v_B$} \label{sec:circ}
+
+In a 1-D circuit, how asymmetric can the spreading be?
+
+On the edge of a 2-D system, spreading can be chiral even with a finite circuit depth~\cite{PoChiralCircuit}.
+
+To be completely chiral with only 1 dimension, the circuit will have to be of infinite depth.
+
+Given a constraint on the depth, how asymmetric can the spreading be?
+
+\charlie{How much of the circuit model, with $\Gamma(ds/dx)$, etc. should we describe here?}
+
+For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}.
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{compareRates.pdf}
+	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit.}
+	\label{fig:compareRates}
+\end{figure}	
+
+For small $n$, we can simulate the circuit directly. This is particularly easy in the large $q$ limit, where $q$ is the dimension of the Hilbert space at each site. \charlie{Again, how in-depth should this section be?}.
+
+For large $n$, approaching the size of the system, we can approximate the entanglement curve as being uncorrelated. In that limit, the growth rate is $\Gamma(ds/dt) = ds/dt+1$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$.
+
+\section{Local Hamiltonians}
+
+Motivate triple product:
+Has to be asymmetric-can't have 2-site interactions.
+Impose SU(2) as a constraint?
+Then our only option is the triple product.
+
+Alone, this model is not very general.
+Large degeneracy at $E=0$. 
+Show parts of this degeneracy can be broken with various fields.
+A random $Z$ field breaks all the degeneracy.
+This phase change can be seen in Fig.~\ref{fig:levelrepultrans}.
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{levelrepultrans}
+	\caption{Phase transition for the model, with level repulsion parameter plotted against field strength. Note that in the thermalizing phase the ratio is $~0.6$ instead of $0.53$ because the statistics are GUE instead of GOE. \charlie{I think I remember Vedika saying this but I can't find where.}}
+	\label{fig:levelrepultrans}
+\end{figure}
+
+We'll want to cite a bunch of people~\cite{Larkinotoc,Lieb72,KitaevSYK,chaosbound,HosurYoshida,ShenkerStanfordButterfly,LocalizedShocks,CotlerRM,RobertsStanford,GuQiStanford,GuQi_rcft,StanfordWeakCoupling,PatelDiffusiveMetal,ChowdhuryON,Galitski_lyapunov,DoraMoessner,LuitzScrambling,ProsenWeakChaos,AleinerOTOC,MotrunichTFIM_otoc,FradkinHuse,ChalkerFloquetChaos,FawziScrambling,opspreadAdam, opspreadCurt, TiborCons, KhemaniCons}.
 
 \section*{Acknowledgements}
 We thank many people.

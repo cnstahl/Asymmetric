@@ -11,7 +11,6 @@
 *.xml
 *.toc
 *.pyc
-figures/*
 LaTeX/entanglement.pdf
 python/__pycache__/
 .ipynb_checkpoints/
