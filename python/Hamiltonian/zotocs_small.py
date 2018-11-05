@@ -5,13 +5,13 @@ import scipy.sparse.linalg as spla
 import glob
 
 runs = 1
-L = 12
+L = 15
 end = 13
-n = 5
+n = 20
 tot = end*n
 field_strength = .2
 # Break into small and large blocks, do large blocks nvecs times
-cutoff = 300
+cutoff = 500
 nvecs = 5
 
 prefix = "data/zotocs_L"+str(L)+"end"+str(end)+"n"+str(n)+"_"+ \
