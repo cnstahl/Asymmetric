@@ -43,6 +43,8 @@ The butterfly velocity $v_B$ is the velocity at which initially local operators 
 
 Thermalization is important because\dots
 
+Asymmetric transport is seen in ``staircase" and ``glider" circuits, but we wanted to show it is also possible in time-independent Hamiltonians. 
+
 In this paper we will\dots
 
 \pagebreak
@@ -78,8 +80,9 @@ Has to be asymmetric-can't have 2-site interactions.
 Impose SU(2) as a constraint?
 Then our only option is the triple product.
 
-Alone, this model is not very general.
+Alone, this model is not general.
 Large degeneracy at $E=0$. 
+Explain the degeneracy is due to the $E\to -E$ (anti-)symmetry.
 Show parts of this degeneracy can be broken with various fields.
 A random $Z$ field breaks all the degeneracy.
 This phase change can be seen in Fig.~\ref{fig:levelrepultrans}.
@@ -88,6 +91,14 @@ This phase change can be seen in Fig.~\ref{fig:levelrepultrans}.
 	\includegraphics[width=\columnwidth]{levelrepultrans}
 	\caption{Phase transition for the model, with level repulsion parameter plotted against field strength. Note that in the thermalizing phase the ratio is $~0.6$ instead of $0.53$ because the statistics are GUE instead of GOE. \charlie{I think I remember Vedika saying this but I can't find where.}}
 	\label{fig:levelrepultrans}
+\end{figure}
+
+In the thermalizing, generic phase, the right weights \charlie{should we define these in this section?} peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect. It is possible to account for these by averaging judiciously, or by only looking at even (or odd) sites. At $L=13$, there are enough even sites that the asymmetry can be seen. For a picture of the rights weights with their successive peaks, see Fig.~\ref{fig:Rweightpeakshape}
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{Rweightpeakshape}
+	\caption{Right weight at even sites for $L=13$. The peak travels ballistically. Later peaks are smaller \charlie{Is this due to broadening?}}
+	\label{fig:Rweightpeakshape}
 \end{figure}
 
 We'll want to cite a bunch of people~\cite{Larkinotoc,Lieb72,KitaevSYK,chaosbound,HosurYoshida,ShenkerStanfordButterfly,LocalizedShocks,CotlerRM,RobertsStanford,GuQiStanford,GuQi_rcft,StanfordWeakCoupling,PatelDiffusiveMetal,ChowdhuryON,Galitski_lyapunov,DoraMoessner,LuitzScrambling,ProsenWeakChaos,AleinerOTOC,MotrunichTFIM_otoc,FradkinHuse,ChalkerFloquetChaos,FawziScrambling,opspreadAdam, opspreadCurt, TiborCons, KhemaniCons}.
