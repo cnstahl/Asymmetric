@@ -9,7 +9,7 @@ L = 15
 end = 13
 n = 20
 tot = end*n
-field_strength = .2
+field_strength = .5
 # Break into small and large blocks, do large blocks nvecs times
 cutoff = 500
 nvecs = 5
