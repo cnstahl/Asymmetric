@@ -9,8 +9,8 @@ Ls = [8, 10, 12, 14]
 data = np.zeros((len(Ls),2,levels))
 for i, L in enumerate(Ls):
 
-    trials = 260 - 20*L
-    if (trials < 10): trials = 10
+    trials = 2600 - 200*L
+    if (trials < 10): trials = 100
     rs = np.zeros((trials, levels))
     hs = np.logspace(-1,2, levels)
 

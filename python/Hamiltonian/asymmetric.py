@@ -166,7 +166,7 @@ def get_vecs_vals(Hlist):
 def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
                                 here=True, pauli=False, As=[]):
     # Size of return array
-    num_weights = (Azero+Aplus+Amult) * (pauli+here) * 2 # For front and back
+    num_weights = (len(As)) * (pauli+here) * 2 # For front and back
     # ret = np.zeros((num_weights, L))
     ret = []
     weightfore = np.zeros(len(sites))
@@ -224,6 +224,7 @@ def get_weights_from_time_sites(L, t, sites, vals_list, vecs_list, vecsd_list,
 
     return np.array(ret)
 
+# This function is for the weights method
 def get_vecs_vals2(L, dense=True, dot_strength=None, field_strength=None):
     # Construct Hamiltonian
     if (dense): H = dense_H(L)
@@ -242,7 +243,7 @@ def get_vecs_vals2(L, dense=True, dot_strength=None, field_strength=None):
     vecs_list = []
     vecsd_list = []
     for idx, H in enumerate(Hlist):
-        vals, vecs = la.eigh(H)
+        vals, vecs = la.eigh(H.A)
         vals_list.append(vals)
         vecs_list.append(vecs)
         vecsd_list.append(vecs.T.conj())
