@@ -4,15 +4,15 @@ import glob
 
 runs = 1
 L = 13
-end = 3
-n = 20
+end = 20
+n = 3
 
 here = True
 pauli = True
 Azero = True
 Aplus = False
 Amult = False
-field_strength = 0.5
+field_strength = 1
 dot_strength = 0
 
 prefix = "data/weights_L"+str(L)+"end"+str(end)+"n"+str(n)+"_"+str(int(here))+ \
