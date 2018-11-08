@@ -43,19 +43,13 @@ The butterfly velocity $v_B$ is the velocity at which initially local operators 
 
 Thermalization is important because\dots
 
-Asymmetric transport is seen in ``staircase" and ``glider" circuits, but we wanted to show it is also possible in time-independent Hamiltonians. 
-
 \begin{figure}
 	\includegraphics[width=\columnwidth]{colorplot}
 	\caption{Illustration of the initially local operator. The bars indicate the time at which the OTOC passes 0.4, to emphasize the asymmetry.}
 	\label{fig:colorplot}
 \end{figure}
 
-In this paper we will\dots
-
-\pagebreak
-
-\section{Circuit models with asymmetric $v_B$} \label{sec:circ}
+Asymmetric transport is seen in ``staircase" and ``glider" circuits, but we wanted to show it is also possible in time-independent Hamiltonians. 
 
 In a 1-D circuit, how asymmetric can the spreading be?
 
@@ -65,19 +59,9 @@ To be completely chiral with only 1 dimension, the circuit will have to be of in
 
 Given a constraint on the depth, how asymmetric can the spreading be?
 
-\charlie{How much of the circuit model, with $\Gamma(ds/dx)$, etc. should we describe here?}
+In this paper we will\dots
 
-For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}.
-
-\begin{figure}
-	\includegraphics[width=\columnwidth]{compareRates.pdf}
-	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit.}
-	\label{fig:compareRates}
-\end{figure}	
-
-For small $n$, we can simulate the circuit directly. This is particularly easy in the large $q$ limit, where $q$ is the dimension of the Hilbert space at each site. \charlie{Again, how in-depth should this section be?}.
-
-For large $n$, approaching the size of the system, we can approximate the entanglement curve as being uncorrelated. In that limit, the growth rate is $\Gamma(ds/dt) = ds/dt+1$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$.
+\pagebreak
 
 \section{Local Hamiltonians}
 
@@ -124,6 +108,24 @@ It is also possible to extract butterfly velocities from the the velocity-depend
 	\caption{Velocity-dependent Lyapunov exponents extracted from the OTOC on even sites. Since $\lambda_r(v)>\lambda_l(v)$, we know $v_{B,r}>v_{B,l}$.}
 	\label{fig:vdle}
 \end{figure}
+
+\section{Circuit models with asymmetric $v_B$} \label{sec:circ}
+
+Define $\Gamma(ds/dx)$, reference Nahum and Cheryne papers. Explain how to get $v_B$ from this quantity.
+
+Define the staircase circuits. Motivate the large-$q$ approximation, describe effect of finite $q$ (Nahum).
+
+For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}.
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{compareRates.pdf}
+	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit.}
+	\label{fig:compareRates}
+\end{figure}	
+
+For small $n$, we can simulate the circuit directly. This is particularly easy in the large $q$ limit, where $q$ is the dimension of the Hilbert space at each site. \charlie{Again, how in-depth should this section be?}.
+
+For large $n$, approaching the size of the system, we can approximate the entanglement curve as being uncorrelated. In that limit, the growth rate is $\Gamma(ds/dt) = ds/dt+1$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$.
 
 \section{Conclusion}
 
