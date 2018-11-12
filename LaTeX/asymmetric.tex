@@ -110,7 +110,15 @@ Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling ballistically. The pea
 	\label{fig:Rweightpeaktimes}
 \end{figure}
 
-It is also possible to extract butterfly velocities from the the velocity-dependent Lyapunov exponents. Fig.~\ref{fig:vdle} shows the VDLEs for the right-going and left-going OTOCs. $v_B$ is defined by $\lambda(v_B) = 0$, so the plot shows that $v_{B,r}>v_{B,l}$.
+It is also possible to extract butterfly velocities from the the velocity-dependent Lyapunov exponents. The VDLEs quantify how fast signals decay along constant-velocity trajectories outside the lightcone. In particular, if the OTOC is measured at each site $i$ at time $t_i = i/v$ for some $v$, then it should decay exponentially,
+\begin{align}
+	C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
+\end{align}
+Ref.~\cite{khemani2018lambda} gives a thorough explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system.
+
+In the current system, the OTOCs are influenced by the previously-mentioned odd-even effects. We can once again look only at even sites for sufficiently large $L$ to calculate $\lambda(v)$. Then $v_B$ is the point at which $\lambda(v)$ smoothly goes to 0.
+
+Fig.~\ref{fig:vdle} shows the VDLEs for the right-going and left-going OTOCs. Finite-size effects slightly perturb $\lambda(v)$ around $v_B$, but we can see that $v_{B,l} \sim 0.7$ and $v_{B,r} \sim 0.85$.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{vdle}
