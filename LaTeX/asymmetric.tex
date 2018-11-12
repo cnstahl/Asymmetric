@@ -70,12 +70,21 @@ Has to be asymmetric-can't have 2-site interactions.
 Impose SU(2) as a constraint?
 Then our only option is the triple product.
 
-Alone, this model is not general.
-Large degeneracy at $E=0$. 
-Explain the degeneracy is due to the $E\to -E$ (anti-)symmetry.
-Show parts of this degeneracy can be broken with various fields.
-A random $Z$ field breaks all the degeneracy.
-This phase change can be seen in Fig.~\ref{fig:levelrepultrans}.
+In order to define a local Hamiltonian with asymmetric spreading, we have to move away from 2-site interactions because these will have to be symmetric. The space of 3-site Hamiltonians is large ($q^{6} = 64$) so we restrict to SU(2)-symmetric terms.
+
+This space is still large \charlie{Does it matter how large?}, but we know we want Hamiltonians that are different in opposite directions. If we restrict further to Hamiltonians antisymmetric under inversion of the spin chain, we are left with only one option, the triple product of spins. The Hamiltonian on the full chain is then
+\begin{align}
+H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2})\nonumber
+\end{align}
+
+As is, the model is not general, presenting a large degeneracy at $E=0$. This can be traced to the inversion antisymmetry, along with other related antisymmetries in the model~\cite{1710.05927}. \charlie{Should we go in-depth to show that various parts of the antisymmetry can be broken, etc?} We can fully break this degeneracy within each U(1) block by introducing a random field in the $Z$ direction, so the total Hamiltonians is
+\begin{align}
+H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2}) + 
+	\sum_{i=1}^{L}h_iS_i^z,
+\end{align}
+where each $h_i$ has a uniform probability distribution on $[-h,h]$. This field breaks the SU(2) symmetry but leaves the U(1) subgroup intact.
+
+For sufficiently large $h$ the model becomes localized. In the large-$L$ limit the transition from ergodic to localized is a phase transition, described in~\cite{1010.1992v1}. The transition for the present model can be seen in Fig.~\ref{fig:levelrepultrans}, showing the ratio of adjacent energy gaps. Note that at smaller $L$ the model also drifts away from GUE statistics at very small $h$, when the field is no longer large enough to fully lift the $E=0$ degeneracy.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{levelrepultrans}
@@ -113,7 +122,17 @@ It is also possible to extract butterfly velocities from the the velocity-depend
 
 Define $\Gamma(ds/dx)$, reference Nahum and Cheryne papers. Explain how to get $v_B$ from this quantity.
 
+Consider a spin chain of $N$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, N$ , while the bonds between sites are labeled by $x = 1, \dots, N − 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. Subadditivity tells us $|S(x + 1) − S(x)| \le S_1$, where $S_1$ is the entropy at a single site. If we take our logarithms with base $q$, then $S_1 \le 1$.
+
+After course-graining, this gives a continuous function $S(x,t)$ with maximal slope 1. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{jonay}
+\begin{align}
+\frac{\partial S}{\partial t} = \Gamma\left(\frac{\partial S}{\partial x}\right),
+\end{align}
+where we have dropped the $s_eq$ present in the source because for models that equilibrate to the maximally entangled state, $s_eq=1$. 
+
 Define the staircase circuits. Motivate the large-$q$ approximation, describe effect of finite $q$ (Nahum).
+
+For small $n$, we can simulate the circuit directly. This is particularly easy in the large $q$ limit, where $q$ is the dimension of the Hilbert space at each site. In this limit, a Haar-randomly chosen gate will, with probability 1, maximally increase the entanglement across the bond it acts on~\cite{nahum2017quantum}. Given the previous constraint, this means that if a gate acts at bond $x$ at time $t$, then $S(x, t+1) = \min\left\lbrace S(x-1,t)+1, S(x+1,t)+1\right\rbrace$.
 
 For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}.
 
@@ -122,8 +141,6 @@ For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:
 	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit.}
 	\label{fig:compareRates}
 \end{figure}	
-
-For small $n$, we can simulate the circuit directly. This is particularly easy in the large $q$ limit, where $q$ is the dimension of the Hilbert space at each site. \charlie{Again, how in-depth should this section be?}.
 
 For large $n$, approaching the size of the system, we can approximate the entanglement curve as being uncorrelated. In that limit, the growth rate is $\Gamma(ds/dt) = ds/dt+1$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$.
 
