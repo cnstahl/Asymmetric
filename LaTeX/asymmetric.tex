@@ -1,7 +1,7 @@
 \documentclass[aps,prl,reprint,superscriptaddress, longbibliography]{revtex4-1}
 \usepackage{H1}
 \usepackage[pdftex,colorlinks=true]{hyperref}
-\hypersetup{citecolor = blue}
+\hypersetup{citecolor = blue, linktocpage=true}
 \usepackage[normalem]{ulem}
 \usepackage{color}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
@@ -59,16 +59,11 @@ To be completely chiral with only 1 dimension, the circuit will have to be of in
 
 Given a constraint on the depth, how asymmetric can the spreading be?
 
-In this paper we will\dots
+In this paper we will start by discussing a local Hamiltonian with asymmetric spreading. We show that it is a general Hamiltonian, and provide multiple methods for measuring $v_B$ for left and right spreading. We then discuss staircase circuits in the small- and large-staircase limit and show that in the latter limit the circuit is completely chiral.
 
-\pagebreak
+\tableofcontents
 
 \section{Local Hamiltonians}
-
-Motivate triple product:
-Has to be asymmetric-can't have 2-site interactions.
-Impose SU(2) as a constraint?
-Then our only option is the triple product.
 
 In order to define a local Hamiltonian with asymmetric spreading, we have to move away from 2-site interactions because these will have to be symmetric. The space of 3-site Hamiltonians is large ($q^{6} = 64$) so we restrict to SU(2)-symmetric terms.
 
@@ -76,6 +71,8 @@ This space is still large \charlie{Does it matter how large?}, but we know we wa
 \begin{align}
 H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2})\nonumber
 \end{align}
+
+\subsection{Degeneracy and Generality}
 
 As is, the model is not general, presenting a large degeneracy at $E=0$. This can be traced to the inversion antisymmetry, along with other related antisymmetries in the model~\cite{1710.05927}. \charlie{Should we go in-depth to show that various parts of the antisymmetry can be broken, etc?} We can fully break this degeneracy within each U(1) block by introducing a random field in the $Z$ direction, so the total Hamiltonians is
 \begin{align}
@@ -128,21 +125,24 @@ Fig.~\ref{fig:vdle} shows the VDLEs for the right-going and left-going OTOCs. Fi
 
 \section{Circuit models with asymmetric $v_B$} \label{sec:circ}
 
-Define $\Gamma(ds/dx)$, reference Nahum and Cheryne papers. Explain how to get $v_B$ from this quantity.
+\charlie{I'm going to introduce staircase circuits first and then the $\Gamma(s)$ formalism, but I don't know if I should do it the other way around.}
 
-Consider a spin chain of $N$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, N$ , while the bonds between sites are labeled by $x = 1, \dots, N − 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. Subadditivity tells us $|S(x + 1) − S(x)| \le S_1$, where $S_1$ is the entropy at a single site. If we take our logarithms with base $q$, then $S_1 \le 1$.
+Consider a spin chain of $N$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, N$ , while the bonds between sites are labeled by $x = 1, \dots, N − 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. Subadditivity tells us $|S(x + 1) - S(x)| \le S_1$, where $S_1$ is the entropy at a single site. If we take our logarithms with base $q$, then $S_1 \le 1$.
 
-After course-graining, this gives a continuous function $S(x,t)$ with maximal slope 1. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{jonay}
+If a gate acts on bond $x$, it can increase the bipartite entanglement entropy $S(x)$, up to the constraint $|S(x + 1) - S(x)| \le 1$. In the large-$q$ limit, a Haar-randomly chosen gate will, with probability 1, maximally increase the entanglement across the bond it acts on~\cite{nahum2017quantum}. Given the previous constraint, this means that if a gate acts at bond $x$ at time $t$, then $S(x, t+1) = \min\left\lbrace S(x-1,t)+1, S(x+1,t)+1\right\rbrace$. \charlie{Should we explain why?} It suffices to consider integer-valued $S(x)$ with $|S(x)-S(x-1)|=1$ for all $x$. 
+
+Staircase circuits of length $n$ are defined by always having strings of $n$ gates act on sites $x$ through $x+n-1$ in succession. For $n=1$ this is just a random architecture, but large $n$ results in more asymmetric circuits. \charlie{Would a figure of the staircase circuit, as in Fig. 38 or 39 in my thesis?}
+
+
+After course-graining, the entanglement becomes a continuous function $S(x,t)$ with maximal slope 1. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{jonay}
 \begin{align}
-\frac{\partial S}{\partial t} = \Gamma\left(\frac{\partial S}{\partial x}\right),
+\frac{\partial S}{\partial t} = \Gamma\left(\frac{\partial S}{\partial x}\right).
 \end{align}
-where we have dropped the $s_eq$ present in the source because for models that equilibrate to the maximally entangled state, $s_eq=1$. 
+It is useful to define the entropy density $s = \partial S / \partial x$, which is so-called because the equilibrium entropy is $S(x, t) = s_\text{eq} \min\{x, L - x\}$. In our models $s_\text{eq} = 1$.
 
-Define the staircase circuits. Motivate the large-$q$ approximation, describe effect of finite $q$ (Nahum).
+This function encodes the butterfly velocity as the derivative $\Gamma'(\partial S / \partial x)|_{s_\text{ext}}$, where $s_\text{ext}$ is either extremal entropy density. \charlie{Should we say why?} It follows that any symmetry $\Gamma(s)$ will have symmetric butterfly velocities. Then any circuit with asymmetric $\Gamma(s)$ will have asymmetric butterfly velocities.
 
-For small $n$, we can simulate the circuit directly. This is particularly easy in the large $q$ limit, where $q$ is the dimension of the Hilbert space at each site. In this limit, a Haar-randomly chosen gate will, with probability 1, maximally increase the entanglement across the bond it acts on~\cite{nahum2017quantum}. Given the previous constraint, this means that if a gate acts at bond $x$ at time $t$, then $S(x, t+1) = \min\left\lbrace S(x-1,t)+1, S(x+1,t)+1\right\rbrace$.
-
-For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}.
+For small $n$, we can simulate the circuit directly. For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{compareRates.pdf}
@@ -150,7 +150,7 @@ For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:
 	\label{fig:compareRates}
 \end{figure}	
 
-For large $n$, approaching the size of the system, we can approximate the entanglement curve as being uncorrelated. In that limit, the growth rate is $\Gamma(ds/dt) = ds/dt+1$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$.
+For large $n$, approaching the size of the system, we can approximate the entanglement curve as being uncorrelated. In that limit, the growth rate is $\Gamma(ds/dt) = ds/dt+1$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$. This is of course maximally asymmetric. 
 
 \section{Conclusion}
 
