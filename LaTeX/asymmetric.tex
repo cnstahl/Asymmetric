@@ -1,4 +1,4 @@
-\documentclass[aps,prl,reprint,superscriptaddress, longbibliography]{revtex4-1}
+\documentclass[aps,prx,reprint,superscriptaddress, longbibliography]{revtex4-1}
 \usepackage{H1}
 \usepackage[pdftex,colorlinks=true]{hyperref}
 \hypersetup{citecolor = blue, linktocpage=true}
@@ -61,6 +61,8 @@ Given a constraint on the depth, how asymmetric can the spreading be?
 
 In this paper we will start by discussing a local Hamiltonian with asymmetric spreading. We show that it is a general Hamiltonian, and provide multiple methods for measuring $v_B$ for left and right spreading. We then discuss staircase circuits in the small- and large-staircase limit and show that in the latter limit the circuit is completely chiral.
 
+Throughout this paper we will use different methods to measure $v_B$. For the Hamiltonian system, we use two methods, both directly related to the spreading of operators. The first is non-local, measuring the velocity of the peak in the right- and left-weights. The other defines velocity-dependent Lyapunov exponents from the early-time OTOCs. For the circuit we extract $v_B$ from the growth rate of the entanglement entropy.
+
 \tableofcontents
 
 \section{Local Hamiltonians}
@@ -89,6 +91,8 @@ For sufficiently large $h$ the model becomes localized. In the large-$L$ limit t
 	\label{fig:levelrepultrans}
 \end{figure}
 
+\subsection{Right-weight peaks}
+
 We will measure the asymmetry using two metrics. The first is the weight of all operators with right (left) endpoint on site $i$, which we will call the right (left) weight. The other is the OTOC. \charlie{should we define these in this section?} \charlie{Make sure to point out use of initial operators as being on site 0 or $L-1$}.
 
 In the thermalizing, generic phase, the right weights peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect. It is possible to account for these by averaging judiciously, or by only looking at even (or odd) sites. At $L=13$, there are enough even sites that the asymmetry can be seen. For a picture of the rights weights with their successive peaks, see Fig.~\ref{fig:Rweightpeakshape}. 
@@ -107,6 +111,8 @@ Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling ballistically. The pea
 	\label{fig:Rweightpeaktimes}
 \end{figure}
 
+\subsection{Velocity-dependent Lyapunov exponents}
+
 It is also possible to extract butterfly velocities from the the velocity-dependent Lyapunov exponents. The VDLEs quantify how fast signals decay along constant-velocity trajectories outside the lightcone. In particular, if the OTOC is measured at each site $i$ at time $t_i = i/v$ for some $v$, then it should decay exponentially,
 \begin{align}
 	C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
@@ -123,7 +129,7 @@ Fig.~\ref{fig:vdle} shows the VDLEs for the right-going and left-going OTOCs. Fi
 	\label{fig:vdle}
 \end{figure}
 
-\section{Circuit models with asymmetric $v_B$} \label{sec:circ}
+\section{Circuit models} \label{sec:circ}
 
 \charlie{I'm going to introduce staircase circuits first and then the $\Gamma(s)$ formalism, but I don't know if I should do it the other way around.}
 
@@ -142,15 +148,29 @@ It is useful to define the entropy density $s = \partial S / \partial x$, which 
 
 This function encodes the butterfly velocity as the derivative $\Gamma'(\partial S / \partial x)|_{s_\text{ext}}$, where $s_\text{ext}$ is either extremal entropy density. \charlie{Should we say why?} It follows that any symmetry $\Gamma(s)$ will have symmetric butterfly velocities. Then any circuit with asymmetric $\Gamma(s)$ will have asymmetric butterfly velocities.
 
-For small $n$, we can simulate the circuit directly. For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}.
+\subsection{Small staircases}
 
+For small $n$, we can simulate the circuit directly. For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}. 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{compareRates.pdf}
 	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit.}
 	\label{fig:compareRates}
 \end{figure}	
+It is possible to approximate these growth rates by assuming the up and down steps are uncorrelated. Then the probability that a randomly placed gate will result in growth is $(1-s^2)/2$. Any asymmetry comes from the fact that for longer staircases, a gate acting on site $x$ is more likely to have been preceded by a gate on site $x-1$ so the step from $x-1$ to $x$ is more likely to be a down step.
 
-For large $n$, approaching the size of the system, we can approximate the entanglement curve as being uncorrelated. In that limit, the growth rate is $\Gamma(ds/dt) = ds/dt+1$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$. This is of course maximally asymmetric. 
+Under these assumptions the growth rate is
+\begin{align}
+\Gamma_n(s) = \frac{\gamma}{n}\frac{1+s}{1-s}\bigg(
+	(1+s)&\left[\left(\frac{1+s}{2}^2\right)^n-1\right]\nonumber \\
+	&+n(1-s)\bigg). \label{eqn:growthrate}
+\end{align}
+This produces successively more asymmetric growth rates as $n$ increases. However, the correlation in the true steady state, and therefore the error of this approximation, also increases. It is possible to correct for the correlation term-by-term in correlation length, but this quickly becomes tedious. For 2-stairs, including the nearest-neighbor correlation removes most of the error in $\Gamma(s)$.
+
+\subsection{Large staircases}
+
+Luckily, as $n$ becomes very large or approaches the size of the system, the correlations again become unimportant. To see this we can consider the growth rate at $s = -1, 0,$ and 1.
+
+The growth rate approaches $\Gamma_\infty = \gamma(s+1)$, so that for spreading to the left $v_B=1$ and for spreading to the right $v_B=\infty$. This is of course maximally asymmetric. 
 
 \section{Conclusion}
 

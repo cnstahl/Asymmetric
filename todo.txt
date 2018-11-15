@@ -1,6 +1,13 @@
 Thesis to do
 
-Get error in lambda from disorder
+Writing
+  Define right-weight
+  Define otoc
+  Organize circuits
+
+Graphics/Analysis
+  Do everything at h=0.5
+  Get error in lambda from disorder
 
 
 —————————
