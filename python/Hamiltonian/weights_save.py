@@ -4,7 +4,7 @@ import glob
 
 runs = 1
 L = 13
-end = 20
+end = 30
 n = 3
 
 here = True
