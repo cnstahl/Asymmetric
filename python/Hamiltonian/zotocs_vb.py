@@ -9,7 +9,7 @@ import glob
 L     = 15
 dense = True
 field_strength = .2
-nvecs = 2
+nvecs = 5
 cutoff = 0
 # vs    = np.asarray([1, 3, 5,  6,  7,  8,  9, 10, 11, 12, 14, 16, 18, 20, 22, 24])
 vs    = np.asarray([3.5, 4, 4.5, 5, 6, 7, 8])
