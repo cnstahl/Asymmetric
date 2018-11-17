@@ -4,15 +4,19 @@ import asymmetric as asym
 import scipy.sparse as sparse
 import scipy.linalg as la
 
-levels = 25
-Ls = [8, 10, 12, 14]
+Ls = [10]
+levels = 11
+mn = .1
+mx = .5
+log = False
+hs = (np.logspace(mn, mx, levels) if log else np.linspace(mn, mx, levels))
 data = np.zeros((len(Ls),2,levels))
 for i, L in enumerate(Ls):
 
-    trials = 2600 - 200*L
-    if (trials < 10): trials = 100
+    # trials = 2600 - 200*L
+    # if (trials < 10): trials = 100
+    trials = 100
     rs = np.zeros((trials, levels))
-    hs = np.logspace(-1,2, levels)
 
     # Only create these once per L
     H0 = asym.dense_H(L)
@@ -27,4 +31,5 @@ for i, L in enumerate(Ls):
 
     data[i] = qm.mean_and_std(rs)
 
-np.save("data/phasetrans", data)
+add = "log" if log else ""
+np.save("data/phasetrans_min"+str(mn)+"mx"+str(mx)+add, data)
