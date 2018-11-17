@@ -13,6 +13,7 @@
 \newcommand{\charlie}[1]{ {\color{Magenta} {{#1}}}}
 
 \newcommand{\Tr}{ \mbox{Tr}}
+\renewcommand{\Re}{ \mbox{Re}}
 \newcommand{\vb}{v_B}
 \newcommand{\I}{\mathbb{I}}
 \newcommand{\ip}{i+1}
@@ -20,6 +21,7 @@
 \newcommand{\Sz}{S_z^{\rm tot}}
 \newcommand{\lamv}{\lambda(v)}
 \newcommand{\otoc}{{C}({\bf x},t)}
+\newcommand{\half}{\frac{1}{2}}
 
 \begin{document}
 \title{Asymmetric butterfly velocities in local\\ time-independent Hamiltonians
@@ -95,7 +97,13 @@ For sufficiently large $h$ the model becomes localized. In the large-$L$ limit t
 
 We will measure the asymmetry using two metrics. The first is the weight of all operators with right (left) endpoint on site $i$, which we will call the right (left) weight. The other is the OTOC. \charlie{should we define these in this section?} \charlie{Make sure to point out use of initial operators as being on site 0 or $L-1$}.
 
-In the thermalizing, generic phase, the right weights peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect. It is possible to account for these by averaging judiciously, or by only looking at even (or odd) sites. At $L=13$, there are enough even sites that the asymmetry can be seen. For a picture of the rights weights with their successive peaks, see Fig.~\ref{fig:Rweightpeakshape}. 
+We use the definition of the right weight from~\cite{KeyserlingkHydro2017}. An arbitrary operator $\cal O$ can be decomposed into Pauli strings ${\cal O} = \sum_\nu c_\nu \sigma^\nu$ where each string contains one of $\{I, X, Y, Z\}$ acting on each site. As the operator evolves in time, so do the $c_\nu$. The right weight is then
+\begin{align}
+\rho_r(i,t) = \sum_\nu\abs{c_\nu(t)}^2\delta(\text{RHS}(\nu) = i),
+\end{align}
+where the delta function ensures that we only count Pauli strings that have their right-most non-identity operator on site $i$. The left weight $\rho_l(i,t)$ is defined analogously.  If $\cal O$ is initially local on site $j$ then $\rho_r(i,0) = \rho_l(i,0) = \delta_{ij}$. As the operator spreads, the support of $\rho_r$ moves right at $v_{B,r}$ and $\rho_L$ moves left at $v_{B,l}$. Operator broadening manifests itself in the support of both weights increasing in size. At late times both weights should vanish near $j$.
+
+In the thermalizing phase, the right weights peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect. It is possible to account for these by averaging judiciously, or by only looking at even (or odd) sites. At $L=13$, there are enough even sites that the asymmetry can be seen. For a picture of the rights weights with their successive peaks, see Fig.~\ref{fig:Rweightpeakshape}. 
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{Rweightpeakshape}
@@ -113,7 +121,16 @@ Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling ballistically. The pea
 
 \subsection{Velocity-dependent Lyapunov exponents}
 
-It is also possible to extract butterfly velocities from the the velocity-dependent Lyapunov exponents. The VDLEs quantify how fast signals decay along constant-velocity trajectories outside the lightcone. In particular, if the OTOC is measured at each site $i$ at time $t_i = i/v$ for some $v$, then it should decay exponentially,
+It is also possible to extract butterfly velocities from the the velocity-dependent Lyapunov exponents, which in turn rely on the OTOC. We define the OTOC as 
+\begin{align}
+C(i,t) & = \half \langle|[Z_j(t),Z_i(0)]|^2\rangle_{\beta=0}\nonumber\\
+&= 1 - \frac{1}{2^{L}}\Re\;\Tr\;[Z_j(t)Z_i(0)Z_j(t)Z_i(0)]
+\end{align}
+where $j$ is the site of the initial operator and the expectation value in the top row is with respect to a thermal ensemble at infinite temperature. We set $j=1$ to measure $v_{B,r}$ and $j=L$ to measure $v_{B,l}$. The OTOC should be order-1 inside the lightcone and exponentially small outside the lightcone defined by $v_B$.
+
+From conservation of $\Sz$, the Hamiltonian and all relevant operators are block-diagonal, with the size of the $i^\text{th}$ block being $\binom{L}{i}$. For smaller blocks we can compute the trace directly, but for larger blocks this becomes computationally difficult. We then rely on quantum typicality to approximate the trace in the large blocks. For each disorder realization we replace the trace with an average over expectation values in pure states~\cite{Luitz2017}. The pure states are chosen Haar-randomly, and we find that using 5 vectors gives relative errors around 0.05 for all but the smallest blocks.
+
+The VDLEs quantify how fast signals decay along constant-velocity trajectories outside the lightcone. In particular, if the OTOC is measured along the ray defined by each site $i$ at time $t_i = i/v$ for some $v$, then it should decay exponentially,
 \begin{align}
 	C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
 \end{align}
@@ -131,14 +148,11 @@ Fig.~\ref{fig:vdle} shows the VDLEs for the right-going and left-going OTOCs. Fi
 
 \section{Circuit models} \label{sec:circ}
 
-\charlie{I'm going to introduce staircase circuits first and then the $\Gamma(s)$ formalism, but I don't know if I should do it the other way around.}
+\charlie{I'm going to introduce the $\Gamma(s)$ formalism first and then staircase circuits, but I don't know if I should do it the other way around.}
 
-Consider a spin chain of $N$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, N$ , while the bonds between sites are labeled by $x = 1, \dots, N − 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. Subadditivity tells us $|S(x + 1) - S(x)| \le S_1$, where $S_1$ is the entropy at a single site. If we take our logarithms with base $q$, then $S_1 \le 1$.
+Before discussing asymmetric circuits we will explain how $v_B$ can be extracted from the growth of entanglement. We will show that this method is particularly tractable in the large-$q$ limit before applying this method to staircase circuits. We will see that the butterfly velocities can be made arbitrarily asymmetric by considering long staircases.
 
-If a gate acts on bond $x$, it can increase the bipartite entanglement entropy $S(x)$, up to the constraint $|S(x + 1) - S(x)| \le 1$. In the large-$q$ limit, a Haar-randomly chosen gate will, with probability 1, maximally increase the entanglement across the bond it acts on~\cite{nahum2017quantum}. Given the previous constraint, this means that if a gate acts at bond $x$ at time $t$, then $S(x, t+1) = \min\left\lbrace S(x-1,t)+1, S(x+1,t)+1\right\rbrace$. \charlie{Should we explain why?} It suffices to consider integer-valued $S(x)$ with $|S(x)-S(x-1)|=1$ for all $x$. 
-
-Staircase circuits of length $n$ are defined by always having strings of $n$ gates act on sites $x$ through $x+n-1$ in succession. For $n=1$ this is just a random architecture, but large $n$ results in more asymmetric circuits. \charlie{Would a figure of the staircase circuit, as in Fig. 38 or 39 in my thesis?}
-
+Consider a spin chain of $N$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, N$ , while the bonds between sites are labeled by $x = 1, \dots, N − 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. 
 
 After course-graining, the entanglement becomes a continuous function $S(x,t)$ with maximal slope 1. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{jonay}
 \begin{align}
@@ -148,7 +162,15 @@ It is useful to define the entropy density $s = \partial S / \partial x$, which 
 
 This function encodes the butterfly velocity as the derivative $\Gamma'(\partial S / \partial x)|_{s_\text{ext}}$, where $s_\text{ext}$ is either extremal entropy density. \charlie{Should we say why?} It follows that any symmetry $\Gamma(s)$ will have symmetric butterfly velocities. Then any circuit with asymmetric $\Gamma(s)$ will have asymmetric butterfly velocities.
 
-\subsection{Small staircases}
+\subsection{Staircase circuits}
+
+Subadditivity tells us $|S(x + 1) - S(x)| \le S_1$, where $S_1$ is the entropy at a single site. If we take our logarithms with base $q$, then $S_1 \le 1$.
+
+If a gate acts on bond $x$, it can increase the bipartite entanglement entropy $S(x)$, up to the constraint $|S(x + 1) - S(x)| \le 1$. In the large-$q$ limit, a Haar-randomly chosen gate will, with probability 1, maximally increase the entanglement across the bond it acts on~\cite{nahum2017quantum}. Given the previous constraint, this means that if a gate acts at bond $x$ at time $t$, then $S(x, t+1) = \min\left\lbrace S(x-1,t)+1, S(x+1,t)+1\right\rbrace$. \charlie{Should we explain why?} It suffices to consider integer-valued $S(x)$ with $|S(x)-S(x-1)|=1$ for all $x$. 
+
+Staircase circuits of length $n$ are defined by always having strings of $n$ gates act on sites $x$ through $x+n-1$ in succession. For $n=1$ this is just a random architecture, but large $n$ results in more asymmetric circuits. \charlie{Would a figure of the staircase circuit, as in Fig. 38 or 39 in my thesis?}
+
+\subsection{Asymmetric $v_B$}
 
 For small $n$, we can simulate the circuit directly. For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}. 
 \begin{figure}
@@ -165,8 +187,6 @@ Under these assumptions the growth rate is
 	&+n(1-s)\bigg). \label{eqn:growthrate}
 \end{align}
 This produces successively more asymmetric growth rates as $n$ increases. However, the correlation in the true steady state, and therefore the error of this approximation, also increases. It is possible to correct for the correlation term-by-term in correlation length, but this quickly becomes tedious. For 2-stairs, including the nearest-neighbor correlation removes most of the error in $\Gamma(s)$.
-
-\subsection{Large staircases}
 
 Luckily, as $n$ becomes very large or approaches the size of the system, the correlations again become unimportant. To see this we can consider the growth rate at $s = -1, 0,$ and 1.
 

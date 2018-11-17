@@ -1,9 +1,8 @@
 Thesis to do
 
 Writing
-  Define right-weight
-  Define otoc
-  Organize circuits
+  Clarify steps and staircase
+  Explain floquet SUSY thing—basic
 
 Graphics/Analysis
   Do everything at h=0.5
