@@ -5,7 +5,7 @@ import scipy.sparse as sparse
 import scipy.linalg as la
 
 Ls = [10]
-levels = 11
+levels = 31
 mn = .1
 mx = .5
 log = False
@@ -15,7 +15,7 @@ for i, L in enumerate(Ls):
 
     # trials = 2600 - 200*L
     # if (trials < 10): trials = 100
-    trials = 100
+    trials = 600
     rs = np.zeros((trials, levels))
 
     # Only create these once per L
