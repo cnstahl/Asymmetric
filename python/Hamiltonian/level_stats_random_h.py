@@ -15,7 +15,7 @@ for i, L in enumerate(Ls):
 
     # trials = 2600 - 200*L
     # if (trials < 10): trials = 100
-    trials = 600
+    trials = 1200
     rs = np.zeros((trials, levels))
 
     # Only create these once per L
