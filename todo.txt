@@ -5,8 +5,7 @@ Writing
   Explain floquet SUSY thing—basic
 
 Graphics/Analysis
-  Do everything at h=0.5
-  Get error in lambda from disorder
+  Do everything at h=0.35
 
 
 —————————
