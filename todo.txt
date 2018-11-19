@@ -2,7 +2,6 @@ Thesis to do
 
 Writing
   Clarify steps and staircase
-  Explain floquet SUSY thing—basic
 
 Graphics/Analysis
   Do everything at h=0.35

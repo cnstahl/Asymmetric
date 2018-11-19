@@ -43,6 +43,8 @@ The butterfly velocity $v_B$ is the velocity at which initially local operators 
 
 \section{Introduction}
 
+\charlie{If we label $1\dots L$, then even and odd sites switch. Be careful!}
+
 Thermalization is important because\dots
 
 \begin{figure}
@@ -75,10 +77,25 @@ This space is still large \charlie{Does it matter how large?}, but we know we wa
 \begin{align}
 H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2})\nonumber
 \end{align}
+Since this connects 2-nearest neighbors, even and odd sites will behave differently at early time. For example, first order perturbation theory will connect site 1 to sites 2 and 3, while second order perturbations connect site 1 to sites 4 and 5. This effect will come up when looking at spreading of operators.
 
 \subsection{Degeneracy and Generality}
 
-As is, the model is not general, presenting a large degeneracy at $E=0$. This can be traced to the inversion antisymmetry, along with other related antisymmetries in the model~\cite{1710.05927}. \charlie{Should we go in-depth to show that various parts of the antisymmetry can be broken, etc?} We can fully break this degeneracy within each U(1) block by introducing a random field in the $Z$ direction, so the total Hamiltonians is
+As is, the model is not general, presenting a large degeneracy at $E=0$. This is an effect of various antisymmetries in the model, which we will call $R_i$. Each of these operators maps between states of opposite energy. Ref.~\cite{IadecolaFSUSY} shows that each $\Tr\;R_i$ provides a lower bound on the $E=0$ degeneracy, which we will call $N_0$. Writing the $E=0$ states as $|\alpha\rangle$,
+\begin{align}
+\Tr\;R_i = \sum_{\alpha=1}^{N_0}\langle\alpha|R|\alpha\rangle,
+\end{align}
+But from $R_i^2=1$ we have
+\begin{align}
+\langle\alpha|R_i|\alpha\rangle=\pm 1.
+\end{align}
+Thus $\Tr\; R_i < N_0$.
+
+From the design of the model, one such $R_i$ is the inversion operator, $I$. This can be composed with parity operators such as $P_X=\prod_i X_i$ that commute with both $H$ and $I$ to form new $R_i$. Neither operator accounts for the entire degeneracy, but $\Tr\,I=N_0$ for odd $L$. If we break the SU(2) symmetry to U(1) but leave the inversion symmetry intact then $\Tr\,I$ is exact. If we add a uniform field in the $Z$ direction, then $IP_X$ is an antisymmetry but $I$ is not. In this case $\Tr(IP_X)$ is exact. Taken together, these facts imply that the extra degeneracies for odd $L$ come from mixing of the SU(2) symmetry and inversion antisymmetry.
+
+%From exact diagonalization we know that both $\Tr\;I=N_0$ for even $L$ and $<N_0$ for odd $L$ while $\Tr\;I\,P_X=0$ for even $L$ and $<N_0$ for odd $L$. We can make the exact degeneracy follow the $\Tr\;R_i$ patterns by adding various fields. For example, if we put an inversion-antisymmetric field in the $Z$ direction, tyyyy
+
+We can fully break this degeneracy within each U(1) block by introducing a random field in the $Z$ direction, so the total Hamiltonians is
 \begin{align}
 H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2}) + 
 	\sum_{i=1}^{L}h_iS_i^z,
@@ -134,7 +151,7 @@ The VDLEs quantify how fast signals decay along constant-velocity trajectories o
 \begin{align}
 	C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
 \end{align}
-Ref.~\cite{khemani2018lambda} gives a thorough explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system.
+Ref.~\cite{Khemani2018lambda} gives a thorough explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system.
 
 In the current system, the OTOCs are influenced by the previously-mentioned odd-even effects. We can once again look only at even sites for sufficiently large $L$ to calculate $\lambda(v)$. Then $v_B$ is the point at which $\lambda(v)$ smoothly goes to 0.
 
@@ -154,13 +171,14 @@ Before discussing asymmetric circuits we will explain how $v_B$ can be extracted
 
 Consider a spin chain of $N$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, N$ , while the bonds between sites are labeled by $x = 1, \dots, N − 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. 
 
-After course-graining, the entanglement becomes a continuous function $S(x,t)$ with maximal slope 1. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{jonay}
+After course-graining, the entanglement becomes a continuous function $S(x,t)$ with maximal slope 1. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{Jonay}
 \begin{align}
 \frac{\partial S}{\partial t} = \Gamma\left(\frac{\partial S}{\partial x}\right).
 \end{align}
 It is useful to define the entropy density $s = \partial S / \partial x$, which is so-called because the equilibrium entropy is $S(x, t) = s_\text{eq} \min\{x, L - x\}$. In our models $s_\text{eq} = 1$.
 
-This function encodes the butterfly velocity as the derivative $\Gamma'(\partial S / \partial x)|_{s_\text{ext}}$, where $s_\text{ext}$ is either extremal entropy density. \charlie{Should we say why?} It follows that any symmetry $\Gamma(s)$ will have symmetric butterfly velocities. Then any circuit with asymmetric $\Gamma(s)$ will have asymmetric butterfly velocities.
+This function encodes the butterfly velocity as the derivative $\Gamma'(\partial S / \partial x)|_{s_\text{ext}}$, where $s_\text{ext}$ is one of the extremal entropy densities, 1 or $-1$ in this case. A brief explanation of why this is the case is given in the appendix, while a stronger argument can be found in Ref.~\cite{Jonay}
+It follows that any $\Gamma(s)$ with asymmetry at the endpoints will have asymmetric butterfly velocities.
 
 \subsection{Staircase circuits}
 
@@ -211,10 +229,19 @@ We thank many people.
 
 \charlie{Note somewhere about arXiv:1809.02614v1}
 
+\appendix
+	
+\section{Butterfly velocity from $\Gamma(s)$}
+
+To see why $\Gamma'(s_\text{ext})$ gives $v_B$, consider a region in which the entropy profile is piecewise linear, with $S'(x<x^*)=s_1$ and $S'(x>x^*)=s_2$. Also note $\Gamma(s)$ is always convex. This is certainly true for the functions considered above, and is also true in general. Then if $s_1<0<s_2$, the transition between the region stays sharp. If it did not, a curve would form with intermediate slopes $s_1<S'(x)<s_2$. But from convexity all of this region would have a faster entanglement growth than $\min\{s_1,s_2\}$ and the peak would reform. Furthermore, this peak location $x^*$ travels at velocity $\dot{x}*=-\frac{\Gamma(s_2)-\Gamma(s_1)}{s_2-s_1}$, the slope of the chord connecting $\Gamma(s_2)$ and $\Gamma(s_1)$.
+
+If instead, $s_2<0<s_1$, the kink does not remain sharp. The sharp point $x^*$ becomes a smooth curve, running tangent to the two linear sections at $x^*_L$ and $x^*_R$. By a similar argument to the above, these features travel at $-\Gamma'(s_{1,2})$. Then the convexity shows that the fastest velocities in the system are $-\Gamma'(s_\text{ext})$. It remains to be shown that $v_B$ cannot be slower than this, but this is just an appendix.
+
 \bibliography{global}
 
 \begin{appendix}
-
+	
+\charlie{Should something go here?}
 
 \end{appendix}
 
