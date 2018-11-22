@@ -1,7 +1,8 @@
 Thesis to do
 
 Writing
-  Clarify steps and staircase
+  Intro
+  Conclusion
 
 Graphics/Analysis
   Do everything at h=0.35
