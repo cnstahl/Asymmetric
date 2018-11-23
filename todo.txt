@@ -1,11 +1,5 @@
 Thesis to do
 
-Writing
-  Intro
-  Conclusion
-
-Graphics/Analysis
-  Do everything at h=0.35
 
 
 —————————

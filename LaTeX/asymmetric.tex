@@ -36,20 +36,18 @@
 %\affiliation{\mbox{Department of Physics, Princeton University, Princeton, NJ 08544, USA}}
 
 \begin{abstract}
-The butterfly velocity $v_B$ is the velocity at which operators spread. In many 1-D systems this velocity is independent of the direction of spreading, but this need not be the case. In fact, with arbitrarily nonlocal Hamiltonians, or arbitrarily deep circuit models, the ratio of left- and right-going butterfly velocities may be made arbitrarily large. We present two models with asymmetric $v_B$. The first is a local Hamiltonian which is tunable and includes 2-nearest-neighbor interactions. The butterfly velocity can be measured from either the nonlocal right- and left-weights or from the OTOC. In both methods, we show the asymmetry is large enough to be significant. The other model is a class of circuits, which we call $n$-staircases, where $n$ can be interpreted as the depth of the circuit (\charlie{Can it?}). $n=1$ is a random architecture with symmetric spreading while $n=\infty$ is completely chiral, so this class of circuits allows us to interpolate between the two extremes.
+The butterfly velocity $v_B$ is the velocity at which operators spread, the effective speed limit in thermalizing systems. In many 1-D systems it is independent of the direction of spreading, but this need not be the case. In fact, with arbitrarily nonlocal Hamiltonians, or arbitrarily deep circuit models, the ratio of left- and right-going butterfly velocities may be made arbitrarily large. We present two models with asymmetric $v_B$. The first is a local Hamiltonian which is tunable and includes 3-site interactions. The butterfly velocity can be measured from either the nonlocal right- and left-weights or from the OTOC. In both methods, we show the asymmetry is large enough to be significant. The other model is a class of circuits, which we call $n$-staircases, where $n$ can be interpreted as the depth of the circuit (\charlie{Can it?}). $n=1$ is a random architecture with symmetric spreading while $n=\infty$ is completely chiral, so this class of circuits allows us to interpolate between the two extremes.
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
 
-\charlie{If we label $1\dots L$, then even and odd sites switch. Be careful!}
-
-Thermalization and operator spreading have recently become important subjects of study. In systems with time-independent Hamiltonians this spreading is often assumed to be symmetric, but there exists no such general constraint. Asymmetric transport is already seen in ``staircase" and ``glider" circuits. The existence of these circuits suggests that some asymmetric Hamiltonians exists, but they might not be general. One goal of this paper is then to describe \charlie{tunable} local asymmetric Hamiltonians.
+Thermalization and operator spreading have recently been important subjects of study. In systems with time-independent Hamiltonians this spreading is often assumed to be symmetric, but there exists no such general constraint. Asymmetric transport is already seen in ``staircase" and ``glider" circuits. The existence of these circuits suggests that some asymmetric Hamiltonians exists, but they might not be general. One goal of this paper is then to describe \charlie{tunable} local asymmetric Hamiltonians.
 
 The case of asymmetric circuits remains interesting. On the edge of a 2-D system, spreading can be chiral even with a finite circuit depth~\cite{PoChiralCircuit}. To be completely chiral with only 1 dimension, however, the circuit will have to be of infinite depth. After identifying the depth of the circuit with its locality \charlie{(how?)} we once again have a trade-off between locality and asymmetry. How asymmetric can a circuit of given depth be?
 
-In this paper we will start by discussing a local Hamiltonian with asymmetric spreading. We show that it is a general Hamiltonian, and provide multiple methods for measuring $v_B$ for left and right spreading. We then discuss staircase circuits in the small- and large-staircase limit and show that in the latter limit the circuit is completely chiral.
+In this paper we will start by discussing a local Hamiltonian with asymmetric spreading. We show that it is a general Hamiltonian, and provide multiple methods for measuring $v_B$ for left and right spreading. A representative plot can be seen in Fig~\ref{fig:colorplot}. We then discuss staircase circuits in the small- and large-staircase limit and show that in the latter limit the circuit is completely chiral.
 
 Throughout this paper we will use different methods to measure $v_B$. For the Hamiltonian system, we use two methods, both directly related to the spreading of operators. The first is non-local, measuring the velocity of the peak in the right- and left-weights. The other defines velocity-dependent Lyapunov exponents from the early-time OTOCs. For the circuit we extract $v_B$ from the growth rate of the entanglement entropy.
 
@@ -63,7 +61,7 @@ Throughout this paper we will use different methods to measure $v_B$. For the Ha
 
 \section{Local Hamiltonians}
 
-In order to define a local Hamiltonian with asymmetric spreading, we have to move away from 2-site interactions because these will have to be symmetric. The space of 3-site Hamiltonians is large ($q^{6} = 64$) so we restrict to SU(2)-symmetric terms. This space is still large \charlie{Does it matter how large?}, but we know we want Hamiltonians that are different in opposite directions. If we restrict further to Hamiltonians antisymmetric under inversion of the spin chain, we are left with only one option, the triple product of spins.
+In order to define a local Hamiltonian with asymmetric spreading, we have to move away from 2-site interactions because they will have to be symmetric. The space of 3-site Hamiltonians is large ($q^{6} = 64$) so we restrict to SU(2)-symmetric terms. This space is still large \charlie{Does it matter how large?}, but we know we want Hamiltonians that are different in opposite directions. If we restrict further to Hamiltonians antisymmetric under inversion of the spin chain, we are left with only one option, the triple product of spins.
 
  The Hamiltonian on the full chain is then
 \begin{align}
@@ -107,7 +105,7 @@ As we continue to increase $h$ the model moves through the thermalizing phase an
 \subsection{Right-weight peaks}
 
 To measure spreading we evolve initially local operators in the Heisenberg picture. For right-spreading the initial operator will be at site 1, and for left-spreading at site $L$.
-We will quantify the asymmetry using two metrics. The first is the weight of all operators with right (left) endpoint on site $i$, which we will call the right (left) weight. The other is the OTOC. \charlie{should we define these in this section?} \charlie{Make sure to point out use of initial operators as being on site 0 or $L-1$}.
+We will quantify the asymmetry using two metrics. The first is the weight of all operators with right (left) endpoint on site $i$, which we will call the right (left) weight. The other is the OTOC, which will be discussed below.
 
 We use the definition of the right weight from~\cite{KeyserlingkHydro2017}. An arbitrary operator $\cal O$ can be decomposed into Pauli strings ${\cal O} = \sum_\nu c_\nu \sigma^\nu$ where each string contains one of $\{I, X, Y, Z\}$ acting on each site. As the operator evolves in time, so do the $c_\nu$. The right weight is then
 \begin{align}
@@ -115,7 +113,7 @@ We use the definition of the right weight from~\cite{KeyserlingkHydro2017}. An a
 \end{align}
 where the delta function ensures that we only count Pauli strings that have their right-most non-identity operator on site $i$. The left weight $\rho_l(i,t)$ is defined analogously.  If $\cal O$ is initially local on site $j$ then $\rho_r(i,0) = \rho_l(i,0) = \delta_{ij}$. As the operator spreads, the support of $\rho_r$ moves right at $v_{B,r}$ and $\rho_L$ moves left at $v_{B,l}$. Operator broadening manifests itself in the support of both weights increasing in size. At late times both weights should vanish near $j$.
 
-In the thermalizing phase, the right weights peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect where site 3 peaks before 2, etc. It is possible to account for these by averaging judiciously, or by only looking at even (or odd) sites. At $L=13$, there are enough even sites that the asymmetry can be seen. For a picture of the rights weights with their successive peaks, see Fig.~\ref{fig:Rweightpeakshape}. 
+In the thermalizing phase, the right weights peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect where site 3 peaks before 2, etc. It is possible to account for these by averaging judiciously, or by only looking at even (or odd) sites. Once this has been done the peaks do travel balistically. At $L=13$, there are enough even sites that the asymmetry can be seen. For a picture of the rights weights with their successive peaks, see Fig.~\ref{fig:Rweightpeakshape}. 
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{Rweightpeakshape}
@@ -123,7 +121,7 @@ In the thermalizing phase, the right weights peak as the information front passe
 	\label{fig:Rweightpeakshape}
 \end{figure}
 
-Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling ballistically. The peaks reach equivalent sites at later times for the left-moving wave, implying $v_{B,l}<v_{B,r}$. We can extract $v_{B,l}$ and $v_{B,r}$ from these curves by fitting linear functions to the peak timings.
+Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling on odd sites. The peaks reach equivalent sites at later times for the left-moving wave, implying $v_{B,l}<v_{B,r}$. We can extract $v_{B,l}$ and $v_{B,r}$ from these curves by fitting linear functions to the peak timings. We find $v_{B,l}=0.419\pm 0.152$ and $v_{B,r}=0.768\pm0.299$. If we instead look at even sites we find $v_{B,l}=0.583\pm 0.201$ and $v_{B,r}=0.890\pm0.318$.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{Rweightpeaktimes}
@@ -147,7 +145,7 @@ The VDLEs quantify how fast signals decay along constant-velocity trajectories o
 \begin{align}
 	C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
 \end{align}
-Ref.~\cite{Khemani2018lambda} gives a thorough explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system.
+Ref.~\cite{Khemani2018lambda} gives a thorough exposition and explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system.
 
 In the current system, the OTOCs are influenced by the previously-mentioned odd-even effects. We can once again look only at even sites for sufficiently large $L$ to calculate $\lambda(v)$. Then $v_B$ is the point at which $\lambda(v)$ smoothly goes to 0.
 
@@ -162,19 +160,18 @@ These are not very close to the velocities estimated from the right weight. Sinc
 
 \section{Circuit models} \label{sec:circ}
 
-\charlie{I'm going to introduce the $\Gamma(s)$ formalism first and then staircase circuits, but I don't know if I should do it the other way around.}
+We will now move away from Hamiltonians to quantum circuits, which give us more direct control over the asymmetry. 
+Before discussing asymmetric circuits we will explain how $v_B$ can be extracted from the growth of entanglement. We will then show that this method is particularly tractable in the large-$q$ limit before applying this method to staircase circuits. 
 
-Before discussing asymmetric circuits we will explain how $v_B$ can be extracted from the growth of entanglement. We will show that this method is particularly tractable in the large-$q$ limit before applying this method to staircase circuits. We will see that the butterfly velocities can be made arbitrarily asymmetric by considering long staircases.
+Consider a spin chain of $L$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, L$ , while the bonds between sites are labeled by $x = 1, \dots, L - 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. 
 
-Consider a spin chain of $N$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, N$ , while the bonds between sites are labeled by $x = 1, \dots, N − 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. 
-
-After course-graining, the entanglement becomes a continuous function $S(x,t)$ with maximal slope 1. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{Jonay}
+After course-graining, the entanglement becomes a continuous function $S(x,t)$. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{Jonay}
 \begin{align}
 \frac{\partial S}{\partial t} = \Gamma\left(\frac{\partial S}{\partial x}\right).
 \end{align}
-It is useful to define the entropy density $s = \partial S / \partial x$, which is so-called because the equilibrium entropy is $S(x, t) = s_\text{eq} \min\{x, L - x\}$. In our models $s_\text{eq} = 1$.
+It is useful to define the entropy density $s = \partial S / \partial x$, which is so-called because the equilibrium entropy is $S(x, t) = s_\text{eq} \min\{x, L - x\}$.  In the next subsection we will show that the maximal slope is 1. In general the equilibrium slope can be smaller than 1, but since our systems are noisy, $s_\text{eq} = s_\text{max} = 1$.
 
-This function encodes the butterfly velocity as the derivative $\Gamma'(\partial S / \partial x)|_{s_\text{ext}}$, where $s_\text{ext}$ is one of the extremal entropy densities, 1 or $-1$ in this case. A brief explanation of why this is the case is given in the appendix, while a stronger argument can be found in Ref.~\cite{Jonay}
+This function encodes the butterfly velocity as the derivative $\Gamma'(s)|_{s_\text{ext}}$, where $s_\text{ext}$ is one of the extremal entropy densities, 1 or $-1$ in this case. A brief explanation of why this is the case is given in the appendix, while a stronger argument can be found in Ref.~\cite{Jonay}
 It follows that any $\Gamma(s)$ with asymmetry at the endpoints will have asymmetric butterfly velocities.
 
 \subsection{Staircase circuits}
@@ -206,21 +203,22 @@ For small $n$, we can simulate the circuit directly. For the growth rate curves 
 	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit.}
 	\label{fig:compareRates}
 \end{figure}
-The asymmetry is evident for all $n>1$, and the asymmetry continues to increase as $n$ increases.
+The asymmetry is evident for all $n>1$, and the asymmetry continues to increase as $n$ increases. However, simulating larger circuits becomes computationally unwieldy.
 	
 It is also possible to approximate these growth rates by assuming the up and down steps are uncorrelated. Then the probability that a randomly placed gate will result in growth is $(1-s^2)/2$. Any asymmetry comes from the fact that for longer staircases, a gate acting on site $x$ is more likely to have been preceded by a gate on site $x-1$ so the step from $x-1$ to $x$ is more likely to be a down step.
 
 Under this assumption the growth rate is
 \begin{align}
 \Gamma_n(s) = \frac{\gamma}{n}\frac{1+s}{1-s}\bigg(
-	(1+s)&\left[\left(\frac{1+s}{2}^2\right)^n-1\right]\nonumber \\
+	(1+s)&\left[\left(\frac{1+s}{2}\right)^n-1\right]\nonumber \\
 	&+n(1-s)\bigg). \label{eqn:growthrate}
 \end{align}
+Then $v_{B,l}=\gamma$, while $v_{B,r}=\half\gamma(n+1)$.
 This produces successively more asymmetric growth rates as $n$ increases. However, the correlation in the true steady state, and therefore the error of this approximation, also increases. It is possible to correct for the correlation term-by-term in correlation length, but this quickly becomes tedious. For 2-stairs, including the nearest-neighbor correlation removes most of the error in $\Gamma(s)$.
 
-Luckily, as $n$ becomes very large or approaches the size of the system, the correlations again become unimportant. To see this we can consider the growth rate at $s = -1, 0,$ and 1 for $n=L$ stairs. Near $s=-1$, the entropy profile consists mostly of down steps, with isolated up steps. Then the circuit generates entanglement every time a staircase falls. This rate is $\gamma/L$, which approaches 0 as $L$ becomes large.
+Luckily, as $n$ becomes very large or approaches the size of the system, the correlations again become unimportant. To see this we can consider the growth rate at $s = -1, 0,$ and 1 for $n=L$ stairs. The approximate growth rate is $\Gamma_\infty(s)=\gamma(s+1)$, so we want to show the true growth rate approaches the approximation. Near $s=-1$, the entropy profile consists mostly of down steps, with isolated up steps. Then the circuit generates entanglement every time a staircase falls. This rate is $\gamma/L$, which approaches 0 as $L$ becomes large.
 
-In the $m = 0$ case, after a gate falls between sites $i$ and $i + 1$, $s_{i+1}$ will be a down slope regardless of whether the gate generated entanglement. Then the next gate falls across sites $i + 1$ and $i+2$. At site $i+2$ $s_{i+2} = u$ with probability $\half$, so on average $\half$ of the gates produce 2 units of entanglement and $\Gamma_\infty(0)=\gamma$. At near-maximal slope nearly all slopes are up, except at the site to the right of the most recent gate. Then the next gate falls at a local minimum with probability 1, and all gates produce 2 units of entanglement, so $\Gamma_\infty(1)=2\gamma$. The growth rate function approaches $\Gamma_\infty(s)=\gamma(s+1)$, so $v_{B,l}=1$ and $v_{B,r}=\infty$.
+In the $m = 0$ case, after a gate falls between sites $i$ and $i + 1$, $s_{i+1}$ will be a down slope regardless of whether the gate generated entanglement. Then the next gate falls across sites $i + 1$ and $i+2$. At site $i+2$ $s_{i+2} = u$ with probability $\half$, so on average $\half$ of the gates produce 2 units of entanglement and $\Gamma_\infty(0)=\gamma$. At near-maximal slope nearly all slopes are up, except at the site to the right of the most recent gate. Then the next gate falls at a local minimum with probability 1, and all gates produce 2 units of entanglement, so $\Gamma_\infty(1)=2\gamma$. These growth rates are all consistent with $\Gamma_\infty(s)=\gamma(s+1)$. Using that function, we obtain $v_{B,l}=\gamma$ and $v_{B,r}=\infty$.
 
 \section{Conclusion}
 
