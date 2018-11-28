@@ -22,6 +22,7 @@
 \newcommand{\lamv}{\lambda(v)}
 \newcommand{\otoc}{{C}({\bf x},t)}
 \newcommand{\half}{\frac{1}{2}}
+\renewcommand{\ket}[1]{\left|#1\right\rangle}
 
 \begin{document}
 \title{Asymmetric butterfly velocities in local\\ time-independent Hamiltonians
@@ -53,7 +54,7 @@ Throughout this paper we will use different methods to measure $v_B$. For the Ha
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{colorplot}
-	\caption{Illustration of the initially local operator. The bars indicate the time at which the OTOC passes 0.4, to emphasize the asymmetry.}
+	\caption{Evolution of the initially local operator. Data is obtained at $L=15, h=0.35$ with the initial operator at the central site, averaged over 5 disorder realizations. The bars indicate the time at which the OTOC passes 0.4, to emphasize the asymmetry.}
 	\label{fig:colorplot}
 \end{figure}
 
@@ -61,13 +62,36 @@ Throughout this paper we will use different methods to measure $v_B$. For the Ha
 
 \section{Local Hamiltonians}
 
-In order to define a local Hamiltonian with asymmetric spreading, we have to move away from 2-site interactions because they will have to be symmetric. The space of 3-site Hamiltonians is large ($q^{6} = 64$) so we restrict to SU(2)-symmetric terms. This space is still large \charlie{Does it matter how large?}, but we know we want Hamiltonians that are different in opposite directions. If we restrict further to Hamiltonians antisymmetric under inversion of the spin chain, we are left with only one option, the triple product of spins.
+%In order to define a local Hamiltonian with asymmetric spreading, we have to move away from 2-site interactions because they will have to be symmetric. The space of 3-site Hamiltonians is large ($q^{6} = 64$) so we restrict to SU(2)-symmetric terms. This space is still large \charlie{Does it matter how large?}, but we know we want Hamiltonians that are different in opposite directions. If we restrict further to Hamiltonians antisymmetric under inversion of the spin chain, we are left with only one option, the triple product of spins.
 
- The Hamiltonian on the full chain is then
+We want a multi-site Hamiltonian in which sites interact only through local interactions. We can accomplish this by defining an $n$-site Hamiltonian for small $n$, and then putting this Hamiltonian on each set of $n$ sites,
 \begin{align}
-H = k\sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2}),\nonumber
+H_{\text{tot}} = \sum_{i=1}^{L-n+1}H_n^{(i)},
+\label{eqn:chain}
 \end{align}
-and we will set $k=1$.
+where $H_n^{(i)}$ is a $n$-site Hamiltonian acting on sites $i$ through $i+n-1$.
+$n=2$ will not suffice, because 2-site Hamiltonians are always symmetric with respect to their operator dynamics. To see this, consider the amount of information flowing from site to site. Unitarity preserves the total amount of information so if the 2-site Hamiltonian moves some weight from site $i$ to $i+1$ it must also move an equal amount from site $i+1$ to $i$. 3-site Hamiltonian do not have this constraint, though, and can have asymmetric dynamics.
+
+Instead of looking directly for an asymmetric Hamiltonian, we can find a unitary operator $U(t)$ with the dynamics we want. From that operator we can construct a Hamiltonian that gives $U(t)=e^{-iHt}$. One asymmetric unitary operator is the 3-site cyclic swap $S_{123}$. $S_{123}$ is a unitary operator such that
+\begin{align}
+S_{123}\ket{\alpha\beta\gamma} =\ket{\gamma\alpha\beta}, \label{eqn:condition}
+\end{align}
+where $\ket{\alpha\beta\gamma}$ is a product state with state $\ket{\alpha}$ on site 1, etc. The idea of using this operator is that it can transport a state from site 3 to site 1 in 1 step, but takes two applications to move a state from site 1 to site 3.
+
+One way to build the three site swap gate is out of 2-site swap gates $S_{123} = S_{12}S_{23}$. Each 2-site swap interchanges two states, so the action is 
+\begin{align}
+S_{12}S_{23}\ket{\alpha\beta\gamma} &= S_{12}\ket{\alpha\gamma\beta} = 
+\ket{\gamma\alpha\beta}\nonumber\\
+&= S_{123}\ket{\alpha\beta\gamma}.
+\end{align}
+Note that this construction can be extended to $n$ sites to create an $n$-site swap gate. The gate would be a series of overlapping 2-site swap gates. We will come back to this construction to build our asymmetric circuits. The 2-site gates will not be swaps, but the geometry will be the same. \charlie{The problem is that here we apply $S_{12}$ after $S_{23}$ while the staircases seem to be the other way around. I think it might have to do with evolving the state vs the operator.}
+
+It is also possible to build $S_{123}$ out of a time-independent Hamiltonian, so that $U(t)|_{t=1} = e^{-iH_3} = S_{123}$. $H_3$ is the 3-site term we are looking for. There are many ways to construct this Hamiltonian, from directly taking the matrix logarithm to analyzing eigenstates. But the simplest way is to note that exchanging site indices gives $S_{123}^{-1}$ while overall SU(2) rotations leave the gate unchanged. This means $H_3$ should be antisymmetric with respect to site indices and symmetric with respect to SU(2). Therefore $H_3$ is the triple product of the spin at each site.
+
+The Hamiltonian on the full chain is then
+\begin{align}
+H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2}),\nonumber
+\end{align}
 The use of 3-site terms has some further consequences. For example, first order perturbation theory will connect site 1 to sites 2 and 3, while second order perturbations connect site 1 to sites 4 and 5. At early time sites 2 will behave the same as site 3, etc., leading to jaggedness in the spreading.
 We will correct for this by only looking at odd (or even) sites for each analysis.
 
@@ -94,7 +118,7 @@ H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2}) +
 \end{align}
 where each $h_i$ has a uniform probability distribution on $[-h,h]$. This field breaks the SU(2) symmetry but leaves the U(1) subgroup intact.
 
-As we continue to increase $h$ the model moves through the thermalizing phase and becomes localized. In the large-$L$ limit the transition from ergodic to localized is a phase transition, described in~\cite{1010.1992v1}. The transition for the present model can be seen in Fig.~\ref{fig:levelrepultrans}, showing the ratio of adjacent energy gaps. Note that at smaller $L$ the model also drifts away from GUE statistics at very small $h$, when the field is no longer large enough to sufficiently lift the $E=0$ degeneracy.
+As we continue to increase $h$ the model moves through the thermalizing phase and becomes localized. In the large-$L$ limit the transition from ergodic to localized is a phase transition, described in~\cite{1010.1992v1}. The transition for the present model can be seen in Fig.~\ref{fig:levelrepultrans}, showing the ratio of adjacent energy gaps. Note that at smaller $L$ the model also drifts away from GUE statistics at very small $h$, when the field is no longer large enough to sufficiently lift the $E=0$ degeneracy. In order to avoid both of these regimes, we will perform all calculations with $h=0.35$.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{levelrepultrans}
@@ -117,7 +141,7 @@ In the thermalizing phase, the right weights peak as the information front passe
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{Rweightpeakshape}
-	\caption{Right weight at even sites for $L=13$. The peak travels ballistically. Later peaks are smaller \charlie{Is this due to broadening?}}
+	\caption{Right weight at even sites for $L=13$, $h=0.35$, averaged over 5 disorder realizations. For $\rho_r(i,t)$, the initial operator is $Z_1$ while for $\rho_l(i,t)$ the initial operator is $Z_{L-1}$. The peak travels ballistically. Later peaks are smaller \charlie{Is this due to broadening?}}
 	\label{fig:Rweightpeakshape}
 \end{figure}
 
@@ -125,7 +149,7 @@ Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling on odd sites. The peak
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{Rweightpeaktimes}
-	\caption{Time of peak vs. site. Since this is plot of time as a function of distance, the larger slope in the left weight means that $v_B$ is larger for propagation to the right. For the left-weight we plot against $L+1-\text{site}$ in order to compare left and right.}
+	\caption{Time of peak vs. site. The parameters are the same as in Fig.~\ref{fig:Rweightpeakshape}. Since this is plot of time as a function of distance, the larger slope in the left weight means that $v_B$ is larger for propagation to the right. For the left-weight we plot against $(L+1-\text{site})$ in order to compare left and right.}
 	\label{fig:Rweightpeaktimes}
 \end{figure}
 
@@ -136,7 +160,7 @@ It is also possible to extract butterfly velocities from the the velocity-depend
 C(i,t) & = \half \langle|[Z_j(t),Z_i(0)]|^2\rangle_{\beta=0}\nonumber\\
 &= 1 - \frac{1}{2^{L}}\Re\;\Tr\;[Z_j(t)Z_i(0)Z_j(t)Z_i(0)]
 \end{align}
-where $j$ is the site of the initial operator and the expectation value in the top row is with respect to a thermal ensemble at infinite temperature. As in the right-weight case, we set $j=1$ to measure $v_{B,r}$ and $j=L$ to measure $v_{B,l}$. The OTOC should be order-1 inside the lightcone and exponentially small outside the lightcone defined by $v_B$.
+where $j$ is the site of the initial operator and the expectation value in the top row is with respect to a thermal ensemble at infinite temperature. As in the right-weight case, we set $j=1$ to measure $v_{B,r}$ and $j=L-1$ to measure $v_{B,l}$. The OTOC should be order-1 inside the lightcone and exponentially small outside the lightcone defined by $v_B$.
 
 \charlie{Move this paragraph to an appendix?}
 From conservation of $\Sz$, the Hamiltonian and all relevant operators are block-diagonal, with the size of the $i^\text{th}$ block being $\binom{L}{i}$. For smaller blocks we can compute the trace directly, but for larger blocks this becomes computationally difficult. We then rely on quantum typicality to approximate the trace in the large blocks. For each disorder realization we replace the trace with an average over expectation values in pure states~\cite{Luitz2017}. The pure states are chosen Haar-randomly, and we find that using 5 vectors gives relative errors around 0.05 for blocks larger than $500\times 500$. For smaller blocks we use exact diagonalization.
@@ -145,7 +169,7 @@ The VDLEs quantify how fast signals decay along constant-velocity trajectories o
 \begin{align}
 	C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
 \end{align}
-Ref.~\cite{Khemani2018lambda} gives a thorough exposition and explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system.
+Ref.~\cite{Khemani2018lambda} gives a thorough exposition and explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system. Fig.~\ref{fig:colorplot} shows the OTOC for an operator initially local at the center of the chain.
 
 In the current system, the OTOCs are influenced by the previously-mentioned odd-even effects. We can once again look only at even sites for sufficiently large $L$ to calculate $\lambda(v)$. Then $v_B$ is the point at which $\lambda(v)$ smoothly goes to 0.
 
@@ -154,7 +178,7 @@ These are not very close to the velocities estimated from the right weight. Sinc
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{vdle}
-	\caption{Velocity-dependent Lyapunov exponents extracted from the OTOC on odd sites. Since $\lambda_r(v)>\lambda_l(v)$, we know $v_{B,r}>v_{B,l}$.}
+	\caption{Velocity-dependent Lyapunov exponents extracted from the OTOC on odd sites. The parameters are $L=15, h=0.35$, while the OTOC is as defined in the text with initial operators at sites 1 and $L-1$ respectively. Statistics are obtained from 5 disorder realizations. Since $\lambda_r(v)>\lambda_l(v)$, we know $v_{B,r}>v_{B,l}$.}
 	\label{fig:vdle}
 \end{figure}
 
@@ -200,7 +224,7 @@ The gate rate $\gamma$ is defined as the number of gates per unit time, not stai
 For small $n$, we can simulate the circuit directly. For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}. 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{compareRates.pdf}
-	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit.}
+	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit. All growth rates were calculated using a 100-site spin chain with offset periodic boundary conditions. Rates were calculated from the application of 2,000 gates total, or 20 per site, averaged over the last 80\% of the gates in order to build up correlations, then averaged over 100 trials.}
 	\label{fig:compareRates}
 \end{figure}
 The asymmetry is evident for all $n>1$, and the asymmetry continues to increase as $n$ increases. However, simulating larger circuits becomes computationally unwieldy.
