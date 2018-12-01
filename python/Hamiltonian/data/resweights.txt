@@ -1,1 +1,1 @@
-slurmstepd: error: task/cgroup: unable to add task[pid=26762] to memory cg '(null)'
+slurmstepd: error: *** JOB 801838 ON node116 CANCELLED AT 2018-11-29T05:09:57 DUE TO TIME LIMIT ***
