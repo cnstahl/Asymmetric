@@ -1,1 +1,4 @@
-slurmstepd: error: task/cgroup: unable to add task[pid=18806] to memory cg '(null)'
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded step memory limit at some point.
