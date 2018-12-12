@@ -25,24 +25,43 @@
 \renewcommand{\ket}[1]{\left|#1\right\rangle}
 
 \begin{document}
-\title{Asymmetric butterfly velocities in local\\ time-independent Hamiltonians
-} 
+\title{Asymmetric butterfly velocities in Hamiltonian and circuit models}
 %
-%\author{Charles Stahl}
-%\affiliation{\mbox{Department of Physics, Princeton University, Princeton, NJ 08544, USA}}
-%\affiliation{\mbox{DAMTP}}
-%\author{Vedika Khemani}
-%\affiliation{\mbox{Department of Physics, Harvard University, Cambridge, MA 02138, USA}}
-%\author{David A. Huse}
-%\affiliation{\mbox{Department of Physics, Princeton University, Princeton, NJ 08544, USA}}
+\author{Charles Stahl}
+\affiliation{\mbox{Department of Physics, Princeton University, Princeton, NJ 08544, USA}}
+\affiliation{\mbox{DAMTP}}
+\author{Vedika Khemani}
+\affiliation{\mbox{Department of Physics, Harvard University, Cambridge, MA 02138, USA}}
+\author{David A. Huse}
+\affiliation{\mbox{Department of Physics, Princeton University, Princeton, NJ 08544, USA}}
 
 \begin{abstract}
-The butterfly velocity $v_B$ is the velocity at which operators spread, the effective speed limit in thermalizing systems. In many 1-D systems it is independent of the direction of spreading, but this need not be the case. In fact, with arbitrarily nonlocal Hamiltonians, or arbitrarily deep circuit models, the ratio of left- and right-going butterfly velocities may be made arbitrarily large. We present two models with asymmetric $v_B$. The first is a local Hamiltonian which is tunable and includes 3-site interactions. The butterfly velocity can be measured from either the nonlocal right- and left-weights or from the OTOC. In both methods, we show the asymmetry is large enough to be significant. The other model is a class of circuits, which we call $n$-staircases, where $n$ can be interpreted as the depth of the circuit (\charlie{Can it?}). $n=1$ is a random architecture with symmetric spreading while $n=\infty$ is completely chiral, so this class of circuits allows us to interpolate between the two extremes.
+	The butterfly velocity $v_B$ has been proposed as a characteristic velocity for information propagation in local systems. It can be measured by the ballistic spreading of local operators in time (or, equivalently, by out-of-time-ordered commutators). In general, this velocity can depend on the direction of spreading and, indeed, the asymmetry between different directions can be made arbitrarily large using arbitrarily deep quantum circuits. Nevertheless, in all examples of local time-independent Hamiltonians that have been examined thus far, this velocity is independent of the direction of information propagation. In this work, we present two models with asymmetric $v_B$. The first is a time-independent Hamiltonian in one dimension with local, 3-site interactions. The second is a class of local quantum circuits, which we call $n$-staircases, where $n$ serves as a tunable parameter interpolating from $n=1$ with symmetric spreading to $n=\infty$ with completely chiral information progagation.  
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
+Understanding the dynamics of isolated quantum systems is a topic of fundamental interest. One central question is how isolated systems undergoing unitary time evolution are able to bring themselves to local thermal equilibrium under their own dynamics. Indeed, while all quantum information is always preserved under unitary evolution, it can get ``scrambled" in highly non-local, experimentally inaccessible degrees of freedom - leading to an effective decoherence that can bring local subsystems to thermal equilibrum. 
+
+A useful window into the scrambling process comes from studying the spreading of initially local perturbations under time evolution. Under Heisenberg evolution, a local operator $O_0$ evolves into $O_0(t) = U^\dagger(t) O_0 U(t)$ with support on a spatial region that grows with time. This spreading of quantum information can be diagnosed by the out-of-time ordered commutator (OTOC), $C(x,t) = \frac{1}{2} \langle [W_x, O_0(t)]^\dagger [W_x, O_0]\rangle$ where $W_x$, $O_0$ are local norm-one operators near positions $x$ and $0$ and the expectation value is taken in an appropriate equilibrium ensemble. If $x$ is away from the origin, then $W_x$ initially commutes with $O_0$ and the OTOC is zero. As the operator spreads, the OTOC grows to become order one inside a ``light-cone" bounded in all directions by a propagating front. We focus here on chaotic systems with ballistic information spreading. 
+
+
+
+
+Recently, a general coarse-grained phenomenology
+for such “operator spreading” was proposed
+for many-body systems with chaotic dynamics; this description
+was motivated by the ansatz that chaotic systems
+have essentially random time-evolution, constrained
+only by locality and a few local conservation laws [1–10].
+In one dimension, the coarse-grained description suggests
+that operators spread ballistically, with a “front”
+that broadens diffusively [6, 7]. 
+
+
+
+
 
 Thermalization and operator spreading have recently been important subjects of study. In systems with time-independent Hamiltonians this spreading is often assumed to be symmetric, but there exists no such general constraint. Asymmetric transport is already seen in ``staircase" and ``glider" circuits. The existence of these circuits suggests that some asymmetric Hamiltonians exists, but they might not be general. One goal of this paper is then to describe \charlie{tunable} local asymmetric Hamiltonians.
 
@@ -50,11 +69,10 @@ The case of asymmetric circuits remains interesting. On the edge of a 2-D system
 
 In this paper we will start by discussing a local Hamiltonian with asymmetric spreading. We show that it is a general Hamiltonian, and provide multiple methods for measuring $v_B$ for left and right spreading. A representative plot can be seen in Fig~\ref{fig:colorplot}. We then discuss staircase circuits in the small- and large-staircase limit and show that in the latter limit the circuit is completely chiral.
 
-Throughout this paper we will use different methods to measure $v_B$. For the Hamiltonian system, we use two methods, both directly related to the spreading of operators. The first is non-local, measuring the velocity of the peak in the right- and left-weights. The other defines velocity-dependent Lyapunov exponents from the early-time OTOCs. For the circuit we extract $v_B$ from the growth rate of the entanglement entropy.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{colorplot}
-	\caption{Evolution of the initially local operator. Data is obtained at $L=15, h=0.35$ with the initial operator at the central site, averaged over 5 disorder realizations. The bars indicate the time at which the OTOC passes 0.4, to emphasize the asymmetry.}
+	\caption{Evolution of the OTOC for an initially local operator. Data is obtained over 100 disorder samples at $L=15, h=0.35$ with the initial operator at the central site, averaged over 5 disorder realizations. The bars indicate the time at which the OTOC passes 0.4, to emphasize the asymmetry.}
 	\label{fig:colorplot}
 \end{figure}
 
@@ -93,7 +111,7 @@ The Hamiltonian on the full chain is then
 H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2}),\nonumber
 \end{align}
 The use of 3-site terms has some further consequences. For example, first order perturbation theory will connect site 1 to sites 2 and 3, while second order perturbations connect site 1 to sites 4 and 5. At early time sites 2 will behave the same as site 3, etc., leading to jaggedness in the spreading.
-We will correct for this by only looking at odd (or even) sites for each analysis.
+We will correct for this by only looking at odd sites for each analysis. 
 
 \subsection{Degeneracy and Generality}
 
@@ -114,7 +132,7 @@ From the design of the model, one such $R_i$ is the inversion operator, $I$. Thi
 We can fully break this degeneracy within each U(1) block by introducing a random field in the $Z$ direction, so the total Hamiltonians is
 \begin{align}
 H = \sum_{i=1}^{L-2}{\bf S}_i\cdot({\bf S}_{i+1}\times {\bf S}_{i+2}) + 
-	\sum_{i=1}^{L}h_iS_i^z,
+\sum_{i=1}^{L}h_iS_i^z,
 \end{align}
 where each $h_i$ has a uniform probability distribution on $[-h,h]$. This field breaks the SU(2) symmetry but leaves the U(1) subgroup intact.
 
@@ -137,20 +155,24 @@ We use the definition of the right weight from~\cite{KeyserlingkHydro2017}. An a
 \end{align}
 where the delta function ensures that we only count Pauli strings that have their right-most non-identity operator on site $i$. The left weight $\rho_l(i,t)$ is defined analogously.  If $\cal O$ is initially local on site $j$ then $\rho_r(i,0) = \rho_l(i,0) = \delta_{ij}$. As the operator spreads, the support of $\rho_r$ moves right at $v_{B,r}$ and $\rho_L$ moves left at $v_{B,l}$. Operator broadening manifests itself in the support of both weights increasing in size. At late times both weights should vanish near $j$.
 
-In the thermalizing phase, the right weights peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect where site 3 peaks before 2, etc. It is possible to account for these by averaging judiciously, or by only looking at even (or odd) sites. Once this has been done the peaks do travel balistically. At $L=13$, there are enough even sites that the asymmetry can be seen. We define $L=2N+1$ and number our sites from $-N$ to $N$. This makes comparing left- and right-weights easier. Since the peaks broaden at late times, we use the time that $\rho_r(i,t)$ reaches half-maximum to measure its velocity.
+In the thermalizing phase, the right weights peak as the information front passes. Because of the three-site nature of each term in the Hamiltonian, the right weight and OTOC exhibit an ``odd-even" effect where site 3 peaks before 2, etc. It is possible to account for these by averaging judiciously, or by  looking at only odd sites.  Once this has been done the peaks do travel balistically. At $L=13$, there are enough odd sites that the asymmetry can be seen. 
+
+In order to compare left- and right-weights, we look at  $\rho_r(x_r+1,t)$ and $\rho_l(L-x_l,t)$. This way $x_{r}$ and $x_l$ are distances from the initial operator. Note that $i$ runs from 1 to $L-1$ because it is a label while $x$ runs from 0 to $L$ because it is a distance. This means that $x$ will be even for the sites we are calling odd sites.
+Since the peaks broaden at late times, we use the time that $\rho_r(i,t)$ reaches half-maximum to define the location of the peak.
 For a picture of the rights weights with their successive peaks, see Fig.~\ref{fig:Rweightpeakshape}.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{Rweightpeakshape}
-	\caption{Right weight at even sites for $L=13$, $h=0.35$, averaged over 100 disorder realizations. For $\rho_r(i,t)$, the initial operator is $Z_1$ while for $\rho_l(i,t)$ the initial operator is $Z_{L-1}$. The peak travels ballistically. Later peaks are smaller \charlie{Is this due to broadening?}}
+	\caption{Right weight at odd sites for $L=13$, $h=0.35$, averaged over 100 disorder realizations. For $\rho_r(i,t)$, the initial operator is $Z_1$ while for $\rho_l(i,t)$ the initial operator is $Z_{L}$. The peak travels ballistically. Plots for $x=0$ and $x=L-1=12$ are excluded for clarity. The right-weight is represented by solid lines with a $\times$ where it reaches half peak height, while the left-weight uses dashed lines and a + sign. The right weight peaks earlier at later times, signifying a faster butterfly velocity.
+		Later peaks are smaller \charlie{Is this due to broadening?}}
 	\label{fig:Rweightpeakshape}
 \end{figure}
 
-Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling on even sites. The peaks reach equivalent sites at later times for the left-moving wave, implying $v_{B,l}<v_{B,r}$. We can extract $v_{B,l}$ and $v_{B,r}$ from these curves by fitting linear functions to the peak timings. We find $v_{B,l}=1.011 \pm 0.072$ and $v_{B,r}=0.791 \pm 0.062$. If we instead look at odd sites we find $v_{B,l}=1.106 \pm 0.085$ and $v_{B,r}=0.958 \pm 0.078$. In both cases the difference is larger than the error, although the difference is less exaggerated for odd sites.
+Fig.~\ref{fig:Rweightpeaktimes} shows the peaks traveling on odd sites. The peaks reach equivalent sites at later times for the left-moving wave, implying $v_{B,l}<v_{B,r}$. We can extract $v_{B,l}$ and $v_{B,r}$ from these curves by fitting linear functions to the peak timings. We find $v_{B,l}=1.011 \pm 0.072$ and $v_{B,r}=0.791 \pm 0.062$. If we instead look at odd sites we find $v_{B,l}=1.106 \pm 0.085$ and $v_{B,r}=0.958 \pm 0.078$. In both cases the difference is larger than the error, although the difference is less exaggerated for odd sites.
 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{Rweighthalftimes}
-	\caption{Time of peak vs. site. The parameters are the same as in Fig.~\ref{fig:Rweightpeakshape}. Since this is plot of time as a function of distance, the larger slope in the left weight means that $v_B$ is larger for propagation to the right. For the left-weight we plot against $(-\text{site})$ in order to compare left and right.}
+	\caption{Time of half-peak vs. site. The parameters are the same as in Fig.~\ref{fig:Rweightpeakshape}. Since this is plot of time as a function of distance, the larger slope in the left weight means that $v_B$ is larger for propagation to the right. For the left-weight we plot against $(-\text{site})$ in order to compare left and right.}
 	\label{fig:Rweightpeaktimes}
 \end{figure}
 
@@ -161,35 +183,42 @@ It is also possible to extract butterfly velocities from the the velocity-depend
 C(i,t) & = \half \langle|[Z_j(t),Z_i(0)]|^2\rangle_{\beta=0}\nonumber\\
 &= 1 - \frac{1}{2^{L}}\Re\;\Tr\;[Z_j(t)Z_i(0)Z_j(t)Z_i(0)]
 \end{align}
-where $j$ is the site of the initial operator and the expectation value in the top row is with respect to a thermal ensemble at infinite temperature. As in the right-weight case, we set $j=1$ to measure $v_{B,r}$ and $j=L-1$ to measure $v_{B,l}$. The OTOC should be order-1 inside the lightcone and exponentially small outside the lightcone defined by $v_B$.
+where $j$ is the site of the initial operator and the expectation value in the top row is with respect to a thermal ensemble at infinite temperature. As in the right-weight case, we set $j=1$ to measure $v_{B,r}$ and $j=L-1$ to measure $v_{B,l}$. The OTOC should be order-1 inside the lightcone and exponentially small outside the lightcone defined by $v_B$. Fig.~\ref{fig:colorplot} shows the OTOC for an operator initially local at the center of the chain. The lightcone is approximately where $C(i,t)>.4$, illustrated by the black bars. The lightcone is not monotonic between sites 1 and 2 due to odd-even effects.
 
 \charlie{Move this paragraph to an appendix?}
 From conservation of $\Sz$, the Hamiltonian and all relevant operators are block-diagonal, with the size of the $i^\text{th}$ block being $\binom{L}{i}$. For smaller blocks we can compute the trace directly, but for larger blocks this becomes computationally difficult. We then rely on quantum typicality to approximate the trace in the large blocks. For each disorder realization we replace the trace with an average over expectation values in pure states~\cite{Luitz2017}. The pure states are chosen Haar-randomly, and we find that using 5 vectors gives relative errors around 0.05 for blocks larger than $500\times 500$. For smaller blocks we use exact diagonalization.
 
 The VDLEs quantify how fast signals decay along constant-velocity trajectories outside the lightcone. In particular, if the OTOC is measured along the ray defined by each site $i$ at time $t_i = i/v$ for some $v$, then it should decay exponentially,
 \begin{align}
-	C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
+C(i, t) \sim e^{\lambda(v)t}\quad\text{for}\quad i = vt.
 \end{align}
-Ref.~\cite{Khemani2018lambda} gives a thorough exposition and explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system. Fig.~\ref{fig:colorplot} shows the OTOC for an operator initially local at the center of the chain.
+Ref.~\cite{Khemani2018lambda} gives a thorough exposition and explanation of VDLEs. The name comes from the fact that the Lyapunov exponent defines how fast a signal grows inside a lightcone in a classically chaotic system. 
 
-In the current system, the OTOCs are influenced by the previously-mentioned odd-even effects. We can once again look only at even sites for sufficiently large $L$ to calculate $\lambda(v)$. Then $v_B$ is the point at which $\lambda(v)$ smoothly goes to 0.
+In the current system, the OTOCs are influenced by the previously-mentioned odd-even effects. We can once again look only at odd sites for sufficiently large $L$ to calculate $\lambda(v)$. Then $v_B$ is the velocity at which $\lambda(v)$ smoothly goes to 0. If we again look at Fig.~\ref{fig:colorplot}, $v_B$ will be the ray that passes through the black bars. Hence, we can already see the asymmetry before calculating $v_B$ explicitly. 
 
-Fig.~\ref{fig:vdle}illustrates the process of finding $\lambda(v)$ and shows the VDLEs for the right-going and left-going OTOCs, estimated from the even sites. Note that in the top plot the independent variable is distance, so the slope of the best fit line is $\lambda(v)/v$.
+Fig.~\ref{fig:vdle} illustrates the process of finding $\lambda(v)$ and shows the VDLEs for the right-going and left-going OTOCs, estimated from the odd sites. Note that in the top plot the independent variable is distance, so the slope of the best fit line is $\lambda(v)/v$.
 Finite-size effects slightly perturb $\lambda(v)$ around $v_B$, but we can see that $v_{B,l} \sim 0.5$ and $v_{B,r} \sim 0.9$. Analysis of the odd sites is less clean, but suggests $v_{B,l} \sim 0.5$ and $v_{B,r} \sim 0.7$.
 These are not very close to the velocities estimated from the right weight. Since $v_B$ is \charlie{well defined} only in the thermodynamic limit, we expect these methods to agree as $L\to\infty$.
 
 \begin{figure}
-	\includegraphics[width=\columnwidth]{VDLEfromOTOCs}
-	\includegraphics[width=\columnwidth]{vdle}
-	\caption{Velocity-dependent Lyapunov exponents extracted from the OTOC on odd sites. The parameters are $L=15, h=0.35$, while the OTOC is as defined in the text with initial operators at sites 1 and $L-1$ respectively. Statistics are obtained from 100 disorder realizations. The top figure shows the early-time right-moving OTOCs on a semilog plot. VDLEs are obtained from the best fit line through odd sites. The lower figure shows $\lambda(v)$. Since $\lambda_r(v)>\lambda_l(v)$, we know $v_{B,r}>v_{B,l}$.}
+	\includegraphics[width=\columnwidth]{oddVDLEfromOTOCs}
+	\includegraphics[width=\columnwidth]{oddVDLE}
+	\caption{Velocity-dependent Lyapunov exponents extracted from the OTOC on odd sites. The parameters are $L=15, h=0.35$, while the OTOC is as defined in the text with initial operators at sites 1 and $L-1$ respectively. Statistics are obtained from 100 disorder realizations. The top figure shows the early-time right-moving OTOCs on a semilog plot. VDLEs are obtained from the best fit line through odd sites. The lower figure shows $\lambda(v)$. Since $\lambda_r(v)>\lambda_l(v)$, we know $v_{B,r}>v_{B,l}$. \charlie{The data from even sites looks better. I included those figures if you want to switch to that.}}
 	\label{fig:vdle}
 \end{figure}
 
 \section{Circuit models} \label{sec:circ}
 
-We will now move away from Hamiltonians to quantum circuits, which give us more direct control over the asymmetry. 
-Before discussing asymmetric circuits we will explain how $v_B$ can be extracted from the growth of entanglement. We will then show that this method is particularly tractable in the large-$q$ limit before applying this method to staircase circuits. 
+We will now discuss a different system that also displays asymmetric spreading and can be completely chiral in a certain limit. Instead of a time-independent Hamiltonian, we have a random quantum circuit. Random unitary circuits are discussed in .... The setting for the system is again a spin chain, but we allow the dimensionality of each site to be $q$. Eventually we will take the limit $q\to\infty$. At discrete times, unitary operators called gates act on pairs of consecutive sites. We will refer to the spaces between sites are bonds, so that each pair is specified by a bond index. In contrast to the previous section we will refer to the sites with index $i$ and bonds with index $x$. 
 
+Our random circuit will have two sources of randomness. The first will be in the choice of gates, which will be independently chosen from the Haar distribution, which assigns an equal probability to any gate in the space of unitary two-site operators. The second will be in our architecture. A purely random architecture would have a bond chosen at random at each time step. We consider a generalization of this architecture, which we call the staircase architecture, described by the staircase size $n$. The staircase circuit consists of $n$-stairs at random bonds. 
+Each $n$-stair is defined by always having strings of $n$ gates act on bonds $x$ through $x+n-1$ in succession. For $n=1$ this is just a random architecture, but large $n$ results in more asymmetric circuits. For $n=L$, the circuit would always have a gate at bond $x+1$ after bond $x$.
+
+We will be interested in circuits with infinite $L$. When $n$ is small we can extract the behavior from systems with finite $L>>n$. For large $n$ we can first take $L\to\infty$ and then $n\to\infty$ or set $n=L$ and take them to $\infty$ together. The behavior does not depend on the order of limits, but for the sake of reasoning about the circuits we will chose the second procedure.
+
+\subsection{Entropy in random circuits}
+
+Before discussing asymmetric circuits we will explain how $v_B$ can be extracted from the growth of entanglement. We will then show that this method is particularly tractable in the large-$q$ limit before applying this method to staircase circuits. 
 Consider a spin chain of $L$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, L$ , while the bonds between sites are labeled by $x = 1, \dots, L - 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. 
 
 After course-graining, the entanglement becomes a continuous function $S(x,t)$. Given a circuit architecture, the entanglement growth rate is to first order only a function of the slope, so we can write \cite{Jonay}
@@ -203,14 +232,15 @@ It follows that any $\Gamma(s)$ with asymmetry at the endpoints will have asymme
 
 \subsection{Staircase circuits}
 
-We will consider entropy functions $S(x,t)$ defined on a periodic system of length $L$. The boundary conditions are $S(x+L,t) = S(x,t)+sL$, allowing for an overall entanglement density.
-Subadditivity tells us $|S(x + 1) - S(x)| \le S_1$, where $S_1$ is the entropy at a single site. If we take our logarithms with base $q$, then $S_1 \le 1$.
+We will consider entropy functions $S(x,t)$ defined on a periodic system of length $L$. The boundary conditions are $S(x+L,t) = S(x,t)+sL$, allowing for an overall entanglement density $s$.
+Subadditivity tells us ${|S(x + 1)-S(x)|} \le S_1$, where $S_1$ is the entropy at a single site. If we take our logarithms with base $q$, then $S_1 \le 1$.
 
-If a gate acts on bond $x$, it can increase the bipartite entanglement entropy $S(x)$, up to the constraint $|S(x + 1) - S(x)| \le 1$. In the large-$q$ limit, a Haar-randomly chosen gate will, with probability 1, maximally increase the entanglement across the bond it acts on~\cite{nahum2017quantum}. Given the previous constraint, this means that if a gate acts at bond $x$ at time $t$, then $S(x, t+1) = \min\left\lbrace S(x-1,t)+1, S(x+1,t)+1\right\rbrace$. \charlie{Should we explain why?} Since individual circuits have deterministic behavior, we average over circuit architecture. 
+If a gate acts on bond $x$, it can increase the bipartite entanglement entropy $S(x)$, up to the constraint $|S(x + 1) - S(x)| \le 1$. In the $q\to\infty$ limit, a Haar-randomly chosen gate will, with probability 1, maximally increase the entanglement across the bond it acts on~\cite{nahum2017quantum}. Given the previous constraint, this means that if a gate acts at bond $x$ at time $t$, then $S(x, t+1) = \min\left\lbrace S(x-1,t)+1, S(x+1,t)+1\right\rbrace$. \charlie{Should we explain why?} For the remainder of this paper we will use the $q\to\infty$ limit.
 
-It suffices to consider integer-valued $S(x)$ with $|S(x)-S(x-1)|=1$ for all $x$. A state of this form can be described as a series of up and down steps at each site. If a gate falls on bond $x$, it adds two units of entropy to $S(x)$ iff the step before is down and the step after is up.
+At this point, all quantum effects leave the system, and the dynamics are purely classical. This means it is possible to simulate the circuit without diagonalizing any Hamiltonians or unitary operators. It suffices to consider integer-valued $S(x)$ with $|S(x)-S(x-1)|=1$ for all $x$. A state of this form can be described as a series of up and down steps at each site. If a gate falls on bond $x$, it adds two units of entropy to $S(x)$ iff the step before is down and the step after is up. This classical evolution is deterministic and can be easily simulated.
+Since individual circuits have deterministic behavior, we average over circuit architecture (the random placement of $n$-stairs).
 
-Staircase circuits of length $n$ are defined by always having strings of $n$ gates act on sites $x$ through $x+n-1$ in succession. For $n=1$ this is just a random architecture, but large $n$ results in more asymmetric circuits. Fig.~\ref{fig:stairs} shows an example.
+Figure \ref{fig:stairs} illustrates the evolution of the entropy function for a 4-stair. The stair consists of 4 individual gates. Each gate has height 2 because if it produces entropy, it produces 2 units. The shaded profile is the initial $S(x)$, while the dashed line shows $S(x)$ after the $n$-stair falls. The first, second, and fourth gates were productive while the third was not.
 \begin{figure}
 	\includegraphics[width=\columnwidth]{stairs}
 	\caption{A 4-staircase falling on an example entropy function. Note that each gate raises $S(x)$ by 2 iff $S(x)$ is a local minimum when that gate falls. So the second gates does in fact hit a local minimum because it acts after the first gate.}
@@ -219,29 +249,70 @@ Staircase circuits of length $n$ are defined by always having strings of $n$ gat
 It is already possible to see the origin of the asymmetry. The 4-staircase can only be perfectly effective if it hits the microstate (down, up, up, up, up). Since this microstate has positive slope, it is more likely to be found when the total slope is larger.
 
 The gate rate $\gamma$ is defined as the number of gates per unit time, not staircases.
-
+This means that as if every gate is productive, the entropy growth rate is $\Gamma=2\gamma$.
 
 
 \subsection{Asymmetric $v_B$}
 
-For small $n$, we can simulate the circuit directly. For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}. 
+Despite the deterministic evolution of these circuits, they cannot be solved for finite $n>1$. This is due to correlations that arise in the up and down steps of $S(x)$. If these steps were uncorrelated, then a general state could be described solely by the slope $s$. At any bond the probability of an up-step would be $(1+s)/2$ and the probability of down would be $(1-s)/2$. Correlations make the probability of an up dependent on the surrounding steps. However, there are no correlations in the random architecture ($n=1$), so we can see how the analysis would go.
+
+Since a gate is productive only at a local minimum, the probability that a randomly placed gate is productive is $(1+s)(1-s)/4$. Then the entropy growth rate is the gate rate, times the probability of entropy production, times the entropy produced per gate:
+\begin{align}
+\Gamma_1(s)=\gamma\frac{(1+s)(1-s)}{2}
+\end{align}
+We can blindly continue this analysis, ignoring the effect of correlations. 
+
+
+2-stairs consist of one gate acting at cut $x$ and one at cut $x+1$. The entropy production of these gates is affected by the slope between the two cuts and the slopes on either side. There are 8 possible configurations of those three slopes, but only 4 result in entropy growth, as shown in table~\ref{tab:2stair}. Weighting each configuration by its probability and the entropy generated, and then multiplying by the staircase rate $\frac{\gamma}{2}$, the growth rate is approximately
+\begin{align}
+\Gamma_2(s) 
+% &= \frac{\gamma}{2} 4\frac{1+s^2}{4}\frac{1+s}{2} + \frac{\gamma}{2}
+% 	2\frac{1-ms2}{4}
+% 	\left(\frac{1-s}{2} + \frac{1-s}{2} + \frac{1+s}{2}\right) \nonumber\\
+&= \gamma\frac{1-s^2}{2}\frac{5+s}{4}, \label{eqn:2rate}
+\end{align}
+
+\begin{table}
+	\centering
+	\begin{tabular}{ccc}
+		Initial $\to$ Final 
+		Configuration        & Probability         & Productivity\\
+		$d\,u\,d\to u\,d\,d$ & $\frac{1-s}{2}\frac{1+s}{2}\frac{1-s}{2}$ & 2\\
+		$d\,u\,u\to u\,u\,d$ & $\frac{1-s}{2}\frac{1+s}{2}\frac{1+s}{2}$ & 4\\
+		$d\,d\,u\to d\,u\,d$ & $\frac{1-s}{2}\frac{1-s}{2}\frac{1+s}{2}$ & 2\\
+		$u\,d\,u\to u\,u\,d$ & $\frac{1+s}{2}\frac{1-s}{2}\frac{1+s}{2}$ & 2
+	\end{tabular}
+	\caption{The four configurations that result in entropy growth for 2-stairs, the relative proportions of the initial states assuming an uncorrelated entropy distribution, and the growth in entropy generated by a 2-stair falling on that configuration. The four configurations that do not result in entropy growth are $u\,u\,u, d\,d\,d, u\,d\,d,$ and $u\,u\,d$.}
+	\label{tab:2stair}
+\end{table}
+
+We can determine the growth rate for arbitrary length stairs through a recursive relationship. Consider a staircase made of $n$ gates. Like in the $n=2$ case, its growth rate will be proportional to the stair rate $\frac{\gamma}{n}$ multiplied by the entanglement generated by each staircase, so we can write
+\begin{align}
+\Gamma_n(s) = \frac{\gamma}{n}R_n(s), \label{eqn:growthrate}
+\end{align}
+where $R_n(s)$ is the average entropy production of an $n$-stair. To find an equation for $R_n(s)$, note that the first $n-1$ gates have the same entanglement production as the $(n-1)$-stair. All final states end in a down slope, so the $n$th gate will produce another 2 units of entropy if the last step is up. However, if all $n+1$ initial steps are up no entanglement is generated. 
+
+This behavior is captured by the recursive formula
+\begin{align}
+R_n(s) = R_{n-1}(s)+2\frac{1+s}{2} - 2\left(\frac{1+s}{2}\right)^{n+1}, \label{eqn:raterecur}
+\end{align}
+along with the base case $R_0(s)=0$. The solution is
+\begin{align}
+\Gamma_n(s) = \frac{\gamma}{n}\frac{1+s}{1-s}\bigg(
+(1+s)&\left[\left(\frac{1+s}{2}\right)^n-1\right]\nonumber \\
+&+n(1-s)\bigg). \label{eqn:growthrate}
+\end{align}
+Then $v_{B,l}=\gamma$, while $v_{B,r}=\half\gamma(n+1)$.
+This produces successively more asymmetric growth rates as $n$ increases. 
+
+The problem with this whole analysis is that is ignores the correlation. 
+For small $n$, we can simulate the classical dynamics numerically for finite $L>>n$. This will capture the correct correlation behavior. For the growth rate curves of $n$-stair circuits for $n\le 6$ see Fig.~\ref{fig:compareRates}. 
 \begin{figure}
 	\includegraphics[width=\columnwidth]{compareRates.pdf}
 	\caption{Empirical growth rate as a function of slope for $n$-stair circuits. The right/forward and left/backward butterfly velocities are the slopes of these curves at their endpoint, indicating that as the left $v_B$ stays constant, the right $v_B$ increases. The appendix includes an argument that the right $v_B$ is unbounded in the large-$n$ limit. All growth rates were calculated using a 100-site spin chain with offset periodic boundary conditions. Rates were calculated from the application of 2,000 gates total, or 20 per site, averaged over the last 80\% of the gates in order to build up correlations, then averaged over 100 trials.}
 	\label{fig:compareRates}
 \end{figure}
-The asymmetry is evident for all $n>1$, and the asymmetry continues to increase as $n$ increases. However, simulating larger circuits becomes computationally unwieldy.
-	
-It is also possible to approximate these growth rates by assuming the up and down steps are uncorrelated. Then the probability that a randomly placed gate will result in growth is $(1-s^2)/2$. Any asymmetry comes from the fact that for longer staircases, a gate acting on site $x$ is more likely to have been preceded by a gate on site $x-1$ so the step from $x-1$ to $x$ is more likely to be a down step.
-
-Under this assumption the growth rate is
-\begin{align}
-\Gamma_n(s) = \frac{\gamma}{n}\frac{1+s}{1-s}\bigg(
-	(1+s)&\left[\left(\frac{1+s}{2}\right)^n-1\right]\nonumber \\
-	&+n(1-s)\bigg). \label{eqn:growthrate}
-\end{align}
-Then $v_{B,l}=\gamma$, while $v_{B,r}=\half\gamma(n+1)$.
-This produces successively more asymmetric growth rates as $n$ increases. However, the correlation in the true steady state, and therefore the error of this approximation, also increases. It is possible to correct for the correlation term-by-term in correlation length, but this quickly becomes tedious. For 2-stairs, including the nearest-neighbor correlation removes most of the error in $\Gamma(s)$.
+The asymmetry is evident for all $n>1$, and the asymmetry continues to increase as $n$ increases. However, simulating larger circuits becomes computationally difficult.
 
 Luckily, as $n$ becomes very large or approaches the size of the system, the correlations again become unimportant. To see this we can consider the growth rate at $s = -1, 0,$ and 1 for $n=L$ stairs. The approximate growth rate is $\Gamma_\infty(s)=\gamma(s+1)$, so we want to show the true growth rate approaches the approximation. Near $s=-1$, the entropy profile consists mostly of down steps, with isolated up steps. Then the circuit generates entanglement every time a staircase falls. This rate is $\gamma/L$, which approaches 0 as $L$ becomes large.
 
@@ -265,7 +336,7 @@ We thank many people.
 \charlie{Note somewhere about arXiv:1809.02614v1}
 
 \appendix
-	
+
 \section{Butterfly velocity from $\Gamma(s)$}
 
 To see why $\Gamma'(s_\text{ext})$ gives $v_B$, consider a region in which the entropy profile is piecewise linear, with $S'(x<x^*)=s_1$ and $S'(x>x^*)=s_2$. Also note $\Gamma(s)$ is always convex. This is certainly true for the functions considered above, and is also true in general. Then if $s_1<0<s_2$, the transition between the region stays sharp. If it did not, a curve would form with intermediate slopes $s_1<S'(x)<s_2$. But from convexity all of this region would have a faster entanglement growth than $\min\{s_1,s_2\}$ and the peak would reform. Furthermore, this peak location $x^*$ travels at velocity $\dot{x}*=-\frac{\Gamma(s_2)-\Gamma(s_1)}{s_2-s_1}$, the slope of the chord connecting $\Gamma(s_2)$ and $\Gamma(s_1)$.
@@ -273,12 +344,12 @@ To see why $\Gamma'(s_\text{ext})$ gives $v_B$, consider a region in which the e
 If instead, $s_2<0<s_1$, the kink does not remain sharp. The sharp point $x^*$ becomes a smooth curve, running tangent to the two linear sections at $x^*_L$ and $x^*_R$. By a similar argument to the above, these features travel at $-\Gamma'(s_{1,2})$. Then the convexity shows that the fastest velocities in the system are $-\Gamma'(s_\text{ext})$. It remains to be shown that $v_B$ cannot be slower than this, but this is just an appendix.
 
 %\bibliography{global}
-\bibliography{}
+%\bibliography{}
 
-\begin{appendix}
-	
-\charlie{Should something go here?}
-
-\end{appendix}
+%\begin{appendix}
+%	
+%\charlie{Should something go here?}
+%
+%\end{appendix}
 
 \end{document}
