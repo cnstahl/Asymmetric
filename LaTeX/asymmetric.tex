@@ -209,14 +209,16 @@ These are not very close to the velocities estimated from the right weight. Sinc
 
 \section{Circuit models} \label{sec:circ}
 
-We will now discuss a different system that also displays asymmetric spreading and can be completely chiral in a certain limit. Instead of a time-independent Hamiltonian, we have a random quantum circuit. Random unitary circuits are discussed in .... The setting for the system is again a spin chain, but we allow the dimensionality of each site to be $q$. Eventually we will take the limit $q\to\infty$. At discrete times, unitary operators called gates act on pairs of consecutive sites. We will refer to the spaces between sites are bonds, so that each pair is specified by a bond index. In contrast to the previous section we will refer to the sites with index $i$ and bonds with index $x$. 
+We will now discuss a different system that also displays asymmetric spreading and can be completely chiral in a certain limit. Instead of a time-independent Hamiltonian, this system is a random quantum circuit. Random unitary circuits are discussed in .... The setting for the system is again a spin chain of length $L$, but we allow the dimensionality of each site to be $q$. Eventually we will take the limit $q\to\infty$. At discrete times, unitary operators called gates act on pairs of consecutive sites. We will refer to the spaces between sites as bonds, so that each pair is specified by a bond index. In contrast to the previous section we will refer to the sites with index $i$ and bonds with index $x$. 
 
 Our random circuit will have two sources of randomness. The first will be in the choice of gates, which will be independently chosen from the Haar distribution, which assigns an equal probability to any gate in the space of unitary two-site operators. The second will be in our architecture. A purely random architecture would have a bond chosen at random at each time step. We consider a generalization of this architecture, which we call the staircase architecture, described by the staircase size $n$. The staircase circuit consists of $n$-stairs at random bonds. 
 Each $n$-stair is defined by always having strings of $n$ gates act on bonds $x$ through $x+n-1$ in succession. For $n=1$ this is just a random architecture, but large $n$ results in more asymmetric circuits. For $n=L$, the circuit would always have a gate at bond $x+1$ after bond $x$.
 
 We will be interested in circuits with infinite $L$. When $n$ is small we can extract the behavior from systems with finite $L>>n$. For large $n$ we can first take $L\to\infty$ and then $n\to\infty$ or set $n=L$ and take them to $\infty$ together. The behavior does not depend on the order of limits, but for the sake of reasoning about the circuits we will chose the second procedure.
 
-\subsection{Entropy in random circuits}
+The structure of this section is as follows. In Sec.~\ref{sub:entropy}
+
+\subsection{Entropy in random circuits} \label{sub:entropy}
 
 Before discussing asymmetric circuits we will explain how $v_B$ can be extracted from the growth of entanglement. We will then show that this method is particularly tractable in the large-$q$ limit before applying this method to staircase circuits. 
 Consider a spin chain of $L$ sites, each with dimension $q$. Sites are labeled by $i = 1,\dots, L$ , while the bonds between sites are labeled by $x = 1, \dots, L - 1$. Define the entropy function $S(x)$ as the bipartite entanglement entropy across bond $x$. 
